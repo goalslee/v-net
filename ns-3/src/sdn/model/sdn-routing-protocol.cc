@@ -283,11 +283,11 @@ RoutingProtocol::DoInitialize ()
   Init_NumArea();
   if(canRunSdn)
     {
-      //HelloTimerExpire ();
+      HelloTimerExpire ();
       RmTimerExpire ();
-      APTimerExpire ();
+      //APTimerExpire ();
       FirstTimerExpire();
-      NS_LOG_DEBUG ("SDN on node (Car) " << m_mainAddress << " started");
+      NS_LOG_DEBUG ("SDN on node (Car) " << m_CCHmainAddress << " started");
     }
 }
 
@@ -295,9 +295,14 @@ void
 RoutingProtocol::SetCCHInterface (uint32_t interface)
 {
   //std::cout<<"SetCCHInterface "<<interface<<std::endl;
-  m_mainAddress = m_ipv4->GetAddress (interface, 0).GetLocal ();
+  m_CCHmainAddress = m_ipv4->GetAddress (interface, 0).GetLocal ();
   m_CCHinterface = interface;
-  //std::cout<<"SetCCHInterface "<<m_mainAddress.Get ()%256<<std::endl;
+  Ipv4InterfaceAddress temp_if_add = m_ipv4->GetAddress (m_CCHinterface, 0);
+  AddEntry (temp_if_add.GetLocal (),
+            Ipv4Address (temp_if_add.GetMask ().Get ()),
+            temp_if_add.GetLocal (),
+            m_CCHinterface);
+  //std::cout<<"SetCCHInterface "<<m_CCHmainAddress.Get ()%256<<std::endl;
 }
 
 void 
@@ -305,7 +310,13 @@ RoutingProtocol::SetSCHInterface (uint32_t interface)
 {
   //std::cout<<"SetSCHInterface "<<interface<<std::endl;
   m_SCHinterface = interface;
-  //std::cout<<"SetSCHInterface "<<m_mainAddress.Get ()%256<<std::endl;
+  m_SCHmainAddress = m_ipv4->GetAddress (interface, 0).GetLocal ();
+  Ipv4InterfaceAddress temp_if_add = m_ipv4->GetAddress (m_SCHinterface, 0);
+  AddEntry (temp_if_add.GetLocal (),
+            Ipv4Address (temp_if_add.GetMask ().Get ()),
+            temp_if_add.GetLocal (),
+            m_SCHinterface);
+  //std::cout<<"SetSCHInterface "<<m_SCHmainAddress.Get ()%256<<std::endl;
 }
 
 void
@@ -319,17 +330,17 @@ RoutingProtocol::SetInterfaceExclusions (std::set<uint32_t> exceptions)
 void
 RoutingProtocol::RecvSDN (Ptr<Socket> socket)
 {
-  //if (m_mainAddress.Get () % 256 > 50)
-  //  std::cout<<"RecvSDN"<<m_mainAddress.Get () % 256<<std::endl;
+  //if (m_CCHmainAddress.Get () % 256 > 50)
+ // std::cout<<"RecvSDN"<<m_CCHmainAddress.Get () % 256<<std::endl;
   Ptr<Packet> receivedPacket;
   Address sourceAddress;
-  receivedPacket = socket->RecvFrom (sourceAddress);
+  receivedPacket = socket->RecvFrom (sourceAddress);//CCH address
 
   InetSocketAddress inetSourceAddr = InetSocketAddress::ConvertFrom (sourceAddress);
   Ipv4Address senderIfaceAddr = inetSourceAddr.GetIpv4 ();
   Ipv4Address receiverIfaceAddr = m_socketAddresses[socket].GetLocal ();
   NS_ASSERT (receiverIfaceAddr != Ipv4Address ());
-  NS_LOG_DEBUG ("SDN node " << m_mainAddress
+  NS_LOG_DEBUG ("SDN node " << m_CCHmainAddress
                 << " received a SDN packet from "
                 << senderIfaceAddr << " to " << receiverIfaceAddr);
   std::cout<<"SDN node " << m_mainAddress<<" received a SDN packet from "<<senderIfaceAddr<<" to "<<receiverIfaceAddr<<std::endl;
@@ -370,11 +381,11 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
       // If ttl is less than or equal to zero, or
       // the receiver is the same as the originator,
       // the message must be silently dropped
-      if ((messageHeader.GetTimeToLive () == 0)||(IsMyOwnAddress (sdnPacketHeader.originator)))
+      //if ((messageHeader.GetTimeToLive () == 0)||(IsMyOwnAddress (sdnPacketHeader.originator)))
+      if ((messageHeader.GetTimeToLive () == 0)||(messageHeader.GetOriginatorAddress () == m_CCHmainAddress))
         {
           // ignore it
-          packet->RemoveAtStart (messageHeader.GetSerializedSize ());
-          std::cout<<"IsMyOwnAddress (sdnPacketHeader.originator)"<<std::endl;
+          packet->RemoveAtStart (messageHeader.GetSerializedSize () - messageHeader.GetSerializedSize () );
           continue;
         }
 
@@ -383,7 +394,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
         {
         case sdn::MessageHeader::ROUTING_MESSAGE:
           NS_LOG_DEBUG (Simulator::Now ().GetSeconds ()
-                        << "s SDN node " << m_mainAddress
+                        << "s SDN node " << m_CCHmainAddress
                         << " received Routing message of size " 
                         << messageHeader.GetSerializedSize ());
           //Controller Node should discare Hello_Message
@@ -393,17 +404,19 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
 
         case sdn::MessageHeader::HELLO_MESSAGE:
           NS_LOG_DEBUG (Simulator::Now ().GetSeconds ()
-                        << "s SDN node " << m_mainAddress
+                        << "s SDN node " << m_CCHmainAddress
                         << " received Routing message of size "
                         << messageHeader.GetSerializedSize ());
           //Car Node should discare Hello_Message
           if (GetType() == LOCAL_CONTROLLER)
-            ProcessHM (messageHeader);
+          {
+            ProcessHM (messageHeader,senderIfaceAddr);
+          }
           break;
 
         case sdn::MessageHeader::APPOINTMENT_MESSAGE:
           NS_LOG_DEBUG (Simulator::Now ().GetSeconds ()
-                        << "s SDN node " << m_mainAddress
+                        << "s SDN node " << m_CCHmainAddress
                         << " received Appointment message of size "
                         << messageHeader.GetSerializedSize ());
           if (GetType() == CAR)
@@ -426,6 +439,22 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                 //std::cout<<"case"<<std::endl;
             	ProcessAodvRERm(messageHeader);
            break;
+        case sdn::MessageHeader::CARROUTEREQUEST_MESSAGE:
+          NS_LOG_DEBUG (Simulator::Now ().GetSeconds ()
+                        << "s SDN node " << m_CCHmainAddress
+                        << " received CRREQ message of size "
+                        << messageHeader.GetSerializedSize ());
+          if (GetType() == LOCAL_CONTROLLER)
+            ProcessCRREQ (messageHeader);
+          break;
+        case sdn::MessageHeader::CARROUTERESPONCE_MESSAGE:
+          NS_LOG_DEBUG (Simulator::Now ().GetSeconds ()
+                        << "s SDN node " << m_CCHmainAddress
+                        << " received CRREP message of size "
+                        << messageHeader.GetSerializedSize ());
+          if (GetType() == LOCAL_CONTROLLER)
+            ProcessCRREP (messageHeader);
+          break;
         default:
           NS_LOG_DEBUG ("SDN message type " <<
                         int (messageHeader.GetMessageType ()) <<
