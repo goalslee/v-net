@@ -1,6 +1,6 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
- * Copyright (c) 2016 Haoliang Chen
+ * Copyright (c) 2016 
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * Authors: Haoliang Chen <chl41993@gmail.com>
+ * 
  */
 
 
@@ -258,8 +258,7 @@ RoutingProtocol::DoInitialize ()
   Ipv4Address loopback ("127.0.0.1");
 
   bool canRunSdn = false;
-  //Install RecvSDN
-
+  //Install RecvSDN  Only on CCH channel.
   if(m_interfaceExclusions.find (m_CCHinterface) == m_interfaceExclusions.end ())
     {
       // Create a socket to listen only on this interface
@@ -1185,17 +1184,43 @@ RoutingProtocol::SendAppointment ()
 
 
 void
-RoutingProtocol::SetAodvParm(uint32_t jump,float sta)
+RoutingProtocol::SendCRREQ (Ipv4Address const &destAddress)
 {
-	m_selfParm.jumpnums=jump;
-	m_selfParm.stability=sta;
+  NS_LOG_FUNCTION (this);
+
+ // std::cout<<"SendCRREQ "<<std::endl;
+  sdn::MessageHeader msg;
+  Time now = Simulator::Now ();
+  msg.SetVTime (m_helloInterval);
+  msg.SetTimeToLive (41993);//Just MY Birthday.
+  msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
+  msg.SetMessageType (sdn::MessageHeader::CARROUTEREQUEST_MESSAGE);
+  sdn::MessageHeader::CRREQ &crreq = msg.GetCRREQ ();
+  crreq.sourceAddress=m_CCHmainAddress;
+  crreq.destAddress=destAddress;
+  QueueMessage (msg, JITTER);
 }
+
 void
-RoutingProtocol::GetAodvParm(uint32_t &jump,float &sta)
+RoutingProtocol::SendCRREP( Ipv4Address const &sourceAddress,
+		Ipv4Address const&destAddress, Ipv4Address const &transferAddress)
 {
-	jump=m_selfParm.jumpnums;
-	sta=m_selfParm.stability;
+  NS_LOG_FUNCTION (this);
+
+  //std::cout<<"SendCRREP "<<std::endl;
+  sdn::MessageHeader msg;
+  Time now = Simulator::Now ();
+  msg.SetVTime (m_helloInterval);
+  msg.SetTimeToLive (41993);//Just MY Birthday.
+  msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
+  msg.SetMessageType (sdn::MessageHeader::CARROUTERESPONCE_MESSAGE);
+  sdn::MessageHeader::CRREP &crrep = msg.GetCRREP ();
+  crrep.sourceAddress=sourceAddress;
+  crrep.destAddress=destAddress;
+  crrep.transferAddress=transferAddress;
+  QueueMessage (msg, JITTER);
 }
+
 
 void
 RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
@@ -1369,28 +1394,181 @@ RoutingProtocol::GetType () const
   return m_nodetype;
 }
 
+typedef struct Edge
+{
+    int u, v;    // 起点，重点
+    int weight;  // 边的权值
+} Edge;
+
 void
 RoutingProtocol::ComputeRoute ()
 {
-  //std::cout<<"RemoveTimeOut"<<std::endl;
-  RemoveTimeOut (); //Remove Stale Tuple
+/*std::cout<<"RemoveTimeOut"<<std::endl;
+    RemoveTimeOut (); //Remove Stale Tuple
 
-  if (!m_linkEstablished)
+    if (!m_linkEstablished)
+      {
+        std::cout<<"Do_Init_Compute"<<std::endl;
+        Do_Init_Compute ();
+      }
+    else
+      {
+        std::cout<<"Do_Update"<<std::endl;
+        Do_Update ();
+
+      }
+
+    std::cout<<"SendAppointment"<<std::endl;
+    SendAppointment ();
+    Reschedule ();
+    std::cout<<"CR DONE"<<std::endl;*/
+    //Remove Timeout Tuples first.
+    //std::cout<<"RemoveTimeOut"<<m_CCHmainAddress.Get()%256<<std::endl;
+    RemoveTimeOut (); //Remove Stale Tuple
+    //input the m_lc_info;
+
+    //turn m_lc_info to dis2Ip(sord by dis) and numBitmapIp(Bitmap the num and the Ip)
+    //Vector3D lcPosition(0,0,0);//the last parameter can be angle
+    Vector3D lcPosition = m_mobility->GetPosition ();
+    std::map<double,Ipv4Address> dis2Ip;
+    std::vector<Ipv4Address> numBitmapIp;
+
+    for (std::map<Ipv4Address,CarInfo>::iterator cit = m_lc_info.begin (); cit != m_lc_info.end (); ++cit)
     {
-      //std::cout<<"Do_Init_Compute"<<std::endl;
-      Do_Init_Compute ();
-    }
-  else
-    {
-      //std::cout<<"Do_Update"<<std::endl;
-      Do_Update ();
+        //cout<<CalculateDistance(cit->second.GetPos(),lcPosition)<<endl;
+        dis2Ip.insert(std::map<double,Ipv4Address>::value_type((cit->second.GetPos().x-lcPosition.x),cit->first));
+       // if(cit->first.Get()%256 == 30)
+        	//std::cout<<" 30x "<<cit->second.GetPos().x<<std::endl;
     }
 
-  //std::cout<<"SendAppointment"<<std::endl;
-  SendAppointment ();
-  //std::cout<<"Reschedule"<<std::endl;
-  Reschedule ();
-  //std::cout<<"CR DONE"<<std::endl;
+    numBitmapIp.clear();
+    for (std::map<double,Ipv4Address>::iterator cit = dis2Ip.begin (); cit != dis2Ip.end (); ++cit)
+    {
+        numBitmapIp.push_back(cit->second);
+        if(cit->first<=900)
+         roadendAddress = cit->second;
+        //cout<<cit->second.m_address<<endl;
+    }
+    if(dis2Ip.size()>=1)//because it will compute once before everything start and size can be 0
+    {
+        transferAddress = dis2Ip.begin()->second;
+        //std::cout<<"ku"<<m_CCHmainAddress.Get()%256<<roadendAddress.Get()%256<<" "<<transferAddress.Get()%256<<std::endl;
+    }
+    //if(numBitmapIp.size()>1)//because it will compute once before everything start and size can be 0
+    //	std::cout<<numBitmapIp.size()<<"?????????"<<std::endl;
+    //build the topology graph.
+    Edge edge[max_car_number*max_car_number];     // 保存边的值
+    //memset(edge,max_car_number,sizeof(edge));
+    for(int t=0;t<max_car_number*max_car_number;t++)
+    {
+        edge[t].weight=MAX;
+    }
+    int k=0;
+    for(std::map<double,Ipv4Address>::iterator citi = dis2Ip.begin(); citi != dis2Ip.end(); ++citi)
+    {
+        for(std::map<double,Ipv4Address>::iterator citj = citi; citj != dis2Ip.end(); ++citj)
+        {
+            if(citi != citj)
+            {
+                if(abs(citj->first - citi->first)<SIGNAL_RANGE)
+                {
+                    edge[k].u=find(numBitmapIp.begin(),numBitmapIp.end(),citi->second)-numBitmapIp.begin();//Ipv4Address need to overwrite ==
+                    edge[k].v=find(numBitmapIp.begin(),numBitmapIp.end(),citj->second)-numBitmapIp.begin();
+                    edge[k].weight=1;
+                    //std::cout<<numBitmapIp[edge[k].u].Get()%256<<" "<<numBitmapIp[edge[k].v].Get()%256<<std::endl;
+                    ++k;
+                    //cout<<find(numBitmapIp.begin(),numBitmapIp.end(),citj->second)-numBitmapIp.begin()<<endl;
+                }
+            }
+        }
+    }
+    //std::cout<<k<<" 123"<<std::endl;
+
+//...........
+    //calculate the shortest distance using bellman-ford algorithm  -- todo
+    int listsize=numBitmapIp.size();
+    for(int i=0; i<listsize; i++)
+    {
+        //Bellman_Ford();
+        //define
+        int dist[max_car_number];
+        int pre[max_car_number];
+        //initialzing;
+        int nodenum=listsize;
+        int edgenum=k;
+
+        //memset(dist,MAX,max_car_number);
+        for(int t=0;t<max_car_number;t++)
+                dist[t]=MAX;
+        dist[i]=0;
+        //memset(pre,max_car_number,sizeof(pre));
+        //pre[max_car_number-1]=max_car_number-1;//xiao xin yi chu!!!!!
+        /*for(int t=0;t<max_car_number;t++)
+        	std::cout<<dist[t]<<"?.?"<<std::endl;*/
+        for(int t=0; t<max_car_number;t++)
+                pre[t]=t;
+
+        //relax:
+        for(int t=0; t<nodenum-1; ++t)
+        {
+            for(int j=0; j<edgenum; ++j)
+            {
+                //std::cout<<dist[edge[j].v]<<" "<<dist[edge[j].u]<<" "<<numBitmapIp[t].Get()%256<<" "<<edge[j].weight<<"!!!!!"<<std::endl;
+                if(dist[edge[j].v] > dist[edge[j].u] + edge[j].weight)
+                {
+                    dist[edge[j].v] = dist[edge[j].u] + edge[j].weight;
+                    pre[edge[j].v]=edge[j].u;
+                    //std::cout<<"8888 "<<edge[j].u<<" "<<edge[j].v<<std::endl;
+                }
+            }
+        }
+        /*for(int t=0;t<listsize;t++)
+        {
+        	std::cout<<pre[t]<<std::endl;
+        }*/
+
+        bool flag = 1;
+        // 判断是否有负环路
+        if(edgenum!=0)
+			for(int t=1; t<=edgenum; ++t)
+			{
+
+				if(dist[edge[t].v] > dist[edge[t].u] + edge[t].weight)
+				{
+					//std::cout<<edge[t].v<<":"<<dist[edge[t].v]<<" "<<edge[t].u<<":"<<dist[edge[t].u]<<" "<<t<<"?????"<<std::endl;
+					flag = 0;
+					break;
+				}
+			}
+
+        if(!flag)
+        {
+            std::cout<<"ERROR: There is a negative weight edge in the VANETs!!"<<std::endl;
+        }
+
+        //record the route
+        //Ipv4Address bcast = Ipv4Address::GetBroadcast();
+        //Ipv4Address allzero = Ipv4Address::GetZero ();
+        Ipv4Address mask("255.255.255.0");
+        //std::cout<<i<<" "<<listsize<<" 77777"<<std::endl;
+        for(int t=1; t<listsize; t++)
+        {
+            int root = t;
+            while(root != pre[root])
+            {
+            	//if(m_CCHmainAddress.Get()%256==244)
+                   //std::cout<<pre[root]<<":"<<numBitmapIp[pre[root]].Get()<<"->"<<t<<":"<<numBitmapIp[t].Get()<<"crossing"<<root<<":"<<numBitmapIp[root].Get()<<std::endl;
+                LCAddEntry (numBitmapIp[pre[root]], numBitmapIp[t], mask, numBitmapIp[root]);//todo
+                root = pre [root];
+            }
+        }
+    }
+    /*for (map<Ipv4Address,CarInfo>::iterator cit = m_lc_info.begin (); cit != m_lc_info.end (); ++cit)
+    {
+        cout<<cit->first.m_address<<" "<<cit->second.Position.x<<" "<<cit->second.Position.y<<" "<<cit->second.Position.z<<endl;
+    }*/
+
+    std::cout << "Hello world!" << std::endl;
 }//RoutingProtocol::ComputeRoute
 
 void
