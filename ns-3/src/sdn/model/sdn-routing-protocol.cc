@@ -992,67 +992,10 @@ RoutingProtocol::RmTimerExpire ()
 void
 RoutingProtocol::APTimerExpire ()
 {
-  if (GetType() == LOCAL_CONTROLLER)
+  /*if (GetType() == LOCAL_CONTROLLER)
     {
       ComputeRoute ();
-    }
-}
-
-
-void
-RoutingProtocol::AodvTimerExpire()
-{
-	isDes=false;
-	std::cout<<"AodvTimerExpire "<<m_mainAddress.Get()%256;
-	std::cout<<", Time:"<<Simulator::Now().GetSeconds ()<<std::endl;
-	Aodv_sendback();
-}
-
-void
-RoutingProtocol::FirstTimerExpire()
-{
-	std::cout<<"FirstTimerExpire "<<m_mainAddress.Get()%256<<std::endl;
-	sendfirstpackage();
-}
-
-void
-RoutingProtocol::sendfirstpackage()
-{
-	NS_LOG_DEBUG ("SDN node " << m_mainAddress << " sending a first packet");
-	std::cout<<"SDN node " << m_mainAddress <<std::endl;
-	 sdn::MessageHeader mesg;
-	 m_sourceId=m_mainAddress;
-      Ipv4Address des;
-      des.Set("192.168.0.13");
-
-      Ipv4Address sour;
-     sour.Set("192.168.0.1");
-
-      Ipv4Address mask_temp;
-      mask_temp.Set("255.255.255.0");
-      if(m_mainAddress==sour){
-		 //m_incomeParm.jumpnums=aodvrm.jump_nums;
-		 //m_incomeParm.stability=aodvrm.stability;
-		 //m_ForwardTable.clear();
-		 //m_ForwardTable=aodvrm.forwarding_table;
-         std::cout<<" sending a first packet"<<std::endl;
-		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
-		  Time now = Simulator::Now ();
-		  mesg.SetVTime (m_helloInterval);
-		  mesg.SetTimeToLive (1234);
-		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
-		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
-		  Aodvrm.ID=m_sourceId;
-		  Aodvrm.DesId=des;
-		  Aodvrm.mask=mask_temp.Get();
-
-		  Aodvrm.jump_nums=1;
-		  Aodvrm.SetStability(m_selfParm.stability);
-		  Aodvrm.forwarding_table =m_ForwardTable;
-		  Aodvrm.forwarding_table.push_back(m_mainAddress);//to-do  m_mainAddress is lc's control channel id?
-		  //size?
-		  QueueMessage (mesg, JITTER);
-      }
+    }*/
 }
 
 
@@ -1061,10 +1004,11 @@ void
 RoutingProtocol::SendPacket (Ptr<Packet> packet,
                              const MessageList &containedMessages)
 {
-  NS_LOG_DEBUG ("SDN node " << m_mainAddress << " sending a SDN packet");
+  NS_LOG_DEBUG ("SDN node " << m_CCHmainAddress << " sending a SDN packet");
+  //std::cout<<"SDN node " << m_CCHmainAddress.Get ()<< " sending a SDN packet"<<std::endl;
   // Add a header
   sdn::PacketHeader header;
-  header.originator = this->m_mainAddress;
+  header.originator = this->m_CCHmainAddress;
   header.SetPacketLength (header.GetSerializedSize () + packet->GetSize ());
   header.SetPacketSequenceNumber (GetPacketSequenceNumber ());
   packet->AddHeader (header);
@@ -1102,8 +1046,8 @@ RoutingProtocol::SendQueuedMessages ()
   Ptr<Packet> packet = Create<Packet> ();
   int numMessages = 0;
 
-  NS_LOG_DEBUG ("SDN node " << m_mainAddress << ": SendQueuedMessages");
-  //std::cout<<"SendQueuedMessages  "<<m_mainAddress.Get ()%256 <<std::endl;
+  NS_LOG_DEBUG ("SDN node " << m_CCHmainAddress << ": SendQueuedMessages");
+  //std::cout<<"SendQueuedMessages  "<<m_CCHmainAddress.Get ()%256 <<std::endl;
   MessageList msglist;
 
   for (std::vector<sdn::MessageHeader>::const_iterator message = m_queuedMessages.begin ();
@@ -1157,9 +1101,10 @@ RoutingProtocol::SendHello ()
   msg.SetTimeToLive (41993);//Just MY Birthday.
   msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
   msg.SetMessageType (sdn::MessageHeader::HELLO_MESSAGE);
-
+  msg.SetOriginatorAddress(m_CCHmainAddress);
+ // std::cout<<"SendHello " <<m_mobility->GetPosition ().x<<std::endl;
   sdn::MessageHeader::Hello &hello = msg.GetHello ();
-  hello.ID = m_mainAddress;
+  hello.ID = m_SCHmainAddress;
   Vector pos = m_mobility->GetPosition ();
   Vector vel = m_mobility->GetVelocity ();
   hello.SetPosition (pos.x, pos.y, pos.z);
@@ -1185,8 +1130,23 @@ RoutingProtocol::SendRoutingMessage ()
       msg.SetTimeToLive (41993);//Just MY Birthday.
       msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
       msg.SetMessageType (sdn::MessageHeader::ROUTING_MESSAGE);
+      msg.SetOriginatorAddress(m_CCHmainAddress);
       sdn::MessageHeader::Rm &rm = msg.GetRm ();
-      rm.ID = cit->first;
+      //rm.ID = cit->first;//0..0
+      //std::cout<<"66666 "<<m_SCHaddr2CCHaddr.size()<<std::endl;
+      /*for (std::map<Ipv4Address, Ipv4Address>::const_iterator ttt = m_SCHaddr2CCHaddr.begin ();
+           ttt != m_SCHaddr2CCHaddr.end (); ++ttt)
+      {
+          std::cout<<"6666 "<<ttt->first.Get()<<" "<<ttt->second.Get()<<std::endl;
+      }*/
+      std::map<Ipv4Address, Ipv4Address>::iterator ttt = m_SCHaddr2CCHaddr.find(cit->first);
+      if (ttt != m_SCHaddr2CCHaddr.end ())
+      {
+          rm.ID = ttt->second;
+          //std::cout<<"666666 "<<rm.ID.Get()<<" "<<cit->first.Get()<<std::endl;
+      }
+      //rm.ID = m_SCHaddr2CCHaddr[cit->first];
+      //std::cout<<"666666 "<<rm.ID.Get()<<" "<<cit->first.Get()<<std::endl;
       sdn::MessageHeader::Rm::Routing_Tuple rt;
       for (std::vector<RoutingTableEntry>::const_iterator cit2 = cit->second.R_Table.begin ();
            cit2 != cit->second.R_Table.end (); ++cit2)
@@ -1218,6 +1178,7 @@ RoutingProtocol::SendAppointment ()
       sdn::MessageHeader::Appointment &appointment = msg.GetAppointment ();
       appointment.ID = cit->first;
       appointment.ATField = cit->second.appointmentResult;
+      appointment.NextForwarder = cit->second.ID_of_minhop;
       QueueMessage (msg, JITTER);
     }
 }
