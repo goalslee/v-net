@@ -108,6 +108,8 @@ public:
 //        0                   1                   2                   3
 //        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+//       |                          originator                           |
+//       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //       |  Message Type |     Vtime     |         Message Size          |
 //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 //       |          Time To Live         |    Message Sequence Number    |
@@ -126,7 +128,9 @@ public:
     ROUTING_MESSAGE,
     AODV_ROUTING_MESSAGE , //for aodv routing
     AODV_REVERSE_MESSAGE,//for aodv reverse routing
-    APPOINTMENT_MESSAGE
+    APPOINTMENT_MESSAGE,
+    CARROUTEREQUEST_MESSAGE,
+    CARROUTERESPONCE_MESSAGE
   };
 
   MessageHeader ();
@@ -177,8 +181,16 @@ public:
    {
      return (m_messageSize);
    }
-
+   void SetOriginatorAddress (Ipv4Address originatorAddress)
+   {
+      m_originatorAddress = originatorAddress;
+   }
+   Ipv4Address GetOriginatorAddress () const
+   {
+      return (m_originatorAddress);
+   }
 private:
+  Ipv4Address m_originatorAddress;  
   MessageType m_messageType;
   uint8_t m_vTime;
   uint16_t m_timeToLive;
@@ -332,6 +344,85 @@ public:
     uint32_t Deserialize (Buffer::Iterator start, uint32_t messageSize);
   };
 
+  //  Appointment Message Format
+  //    One Appointment is for one car only.
+  //    The proposed format of a appointment message is as follows:
+  //
+  //        0                   1                   2                   3
+  //        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //       |                             Car ID                            |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //       |                       Appointment Type                        |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //       |                 IpAddress of Next Forwarder                   |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+
+  struct Appointment
+  {
+    Ipv4Address ID;
+    AppointmentType ATField;
+    Ipv4Address NextForwarder;
+
+    void Print (std::ostream &os) const;
+    uint32_t GetSerializedSize (void) const;
+    void Serialize (Buffer::Iterator start) const;
+    uint32_t Deserialize (Buffer::Iterator start, uint32_t messageSize);
+  };
+
+
+
+ //  CARROUTEREQUEST_MESSAGE Format
+  //    When a car cannot find a route to a destination 
+  //    it will send a routingrequest message to lc as follows:
+  //
+  //        0                   1                   2                   3
+  //        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //       |                      sourceAddress                            |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //       |                          destAddress                          |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //       :                                                               :
+  //       :                               :                               :
+  //   ID is the car's ID 
+  struct CRREQ
+  {
+    
+    Ipv4Address sourceAddress,destAddress;
+    
+    void Print (std::ostream &os) const;
+    uint32_t GetSerializedSize (void) const;
+    void Serialize (Buffer::Iterator start) const;
+    uint32_t Deserialize (Buffer::Iterator start, uint32_t messageSize);
+  };
+  //  CARROUTERESPONCE_MESSAGE Format
+  //    When a car cannot find a route to a destination 
+  //    it will send a routingrequest message to lc 
+  //    lc will respond it as follows:
+  //
+  //        0                   1                   2                   3
+  //        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //       |                      sourceAddress                            |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //       |                      destAddress                              |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //       |                      transferAddress                          |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //       :                                                               :
+  //       :                               :                               :
+  struct CRREP
+  {
+    
+    Ipv4Address sourceAddress,destAddress,transferAddress;
+    
+    void Print (std::ostream &os) const;
+    uint32_t GetSerializedSize (void) const;
+    void Serialize (Buffer::Iterator start) const;
+    uint32_t Deserialize (Buffer::Iterator start, uint32_t messageSize);
+  };
 
  //  Aodv Routing Message Format
   //
@@ -486,6 +577,8 @@ private:
     AodvRm aodvrm;
     Aodv_R_Rm aodv_r_rm;
     Appointment appointment;
+    CRREQ crreq;
+    CRREP crrep;
   } m_message; // union not allowed
 
 public:
@@ -527,6 +620,32 @@ public:
         NS_ASSERT (m_messageType == APPOINTMENT_MESSAGE);
       }
     return (m_message.appointment);
+  }
+
+  CRREQ& GetCRREQ ()
+  {
+    if (m_messageType == 0)
+      {
+        m_messageType = CARROUTEREQUEST_MESSAGE;
+      }
+    else
+      {
+        NS_ASSERT (m_messageType == CARROUTEREQUEST_MESSAGE);
+      }
+    return (m_message.crreq);
+  }
+
+  CRREP& GetCRREP ()
+  {
+    if (m_messageType == 0)
+      {
+        m_messageType = CARROUTERESPONCE_MESSAGE;
+      }
+    else
+      {
+        NS_ASSERT (m_messageType ==CARROUTERESPONCE_MESSAGE);
+      }
+    return (m_message.crrep);
   }
 
   AodvRm& GetAodvRm ()
@@ -584,6 +703,23 @@ public:
     return (m_message.appointment);
   }
 
+ const Appointment& GetAppointment () const
+  {
+    NS_ASSERT (m_messageType == APPOINTMENT_MESSAGE);
+    return (m_message.appointment);
+  }
+
+  const CRREQ& GetCRREQ () const
+  {
+    NS_ASSERT (m_messageType == CARROUTEREQUEST_MESSAGE);
+    return (m_message.crreq);
+  }
+
+  const CRREP& GetCRREP () const
+  {
+    NS_ASSERT (m_messageType == CARROUTERESPONCE_MESSAGE);
+    return (m_message.crrep);
+  }
 };
 
 static inline std::ostream& operator<< (std::ostream& os, const PacketHeader & packet)
