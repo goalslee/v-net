@@ -571,7 +571,8 @@ MessageHeader::Appointment::Deserialize (Buffer::Iterator start, uint32_t messag
     this->ATField = FORWARDER;
   else
     this->ATField = NORMAL;
-
+  ip_temp = i.ReadNtohU32();
+  this->NextForwarder.Set (ip_temp);
   return (messageSize);
 }
 
