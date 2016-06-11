@@ -307,6 +307,7 @@ private:
   std::map<Ipv4Address, Ipv4Address> m_SCHaddr2CCHaddr;
   Ipv4Address transferAddress;//now it is the nearest ip
   Ipv4Address roadendAddress;
+  Ipv4Address temp_desId;
   //std::map<Ipv4Address, Ipv4Address> m_SCHaddr2IfaceAddr;
   // One socket per interface, each bound to that interface's address
   // (reason: for VANET-SDN we need to distinguish CCH and SCH interfaces)

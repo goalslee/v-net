@@ -21,6 +21,7 @@
 #include <cmath>
 
 #include "ns3/assert.h"
+
 #include "ns3/log.h"
 
 #include "sdn-header.h"
@@ -475,7 +476,7 @@ MessageHeader::AodvRm::Deserialize (Buffer::Iterator start,
 uint32_t
 MessageHeader::Aodv_R_Rm::GetSerializedSize (void) const
 {
-  return (SDN_AODVRM_HEADER_SIZE +this->forwarding_table.size()*4);
+  return (SDN_AODVRM_HEADER_SIZE+4 +this->forwarding_table.size()*4);
 }
 
 
@@ -488,6 +489,7 @@ MessageHeader::Aodv_R_Rm::Serialize (Buffer::Iterator start) const
   i.WriteHtonU32 (this->routingMessageSize);
   i.WriteHtonU32 (this->ID.Get());
   i.WriteHtonU32 (this->DesId.Get());
+  i.WriteHtonU32 (this->CarId.Get());
   i.WriteHtonU32 (this->mask);
   i.WriteHtonU32 (this->jump_nums);
   i.WriteHtonU32 (this->stability);
@@ -511,6 +513,7 @@ MessageHeader::Aodv_R_Rm::Deserialize (Buffer::Iterator start,
   uint32_t add_temp = i.ReadNtohU32();
   this->ID.Set(add_temp);
   this->DesId.Set(i.ReadNtohU32());
+  this->CarId.Set(i.ReadNtohU32());
   this->mask=i.ReadNtohU32();
   this->jump_nums=i.ReadNtohU32();
   this->stability=i.ReadNtohU32();
@@ -518,7 +521,7 @@ MessageHeader::Aodv_R_Rm::Deserialize (Buffer::Iterator start,
   //NS_ASSERT ((messageSize - SDN_RM_HEADER_SIZE) %
     //(IPV4_ADDRESS_SIZE * SDN_RM_TUPLE_SIZE) == 0);
 
-  int sizevector = (messageSize - SDN_AODVRM_HEADER_SIZE)/4;
+  int sizevector = (messageSize - SDN_AODVRM_HEADER_SIZE-4)/4;
    // / (IPV4_ADDRESS_SIZE * SDN_RM_TUPLE_SIZE);
   this->forwarding_table.clear();
   for (int n = 0; n < sizevector; ++n)

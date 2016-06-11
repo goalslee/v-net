@@ -156,8 +156,9 @@ RoutingProtocol::SetIpv4 (Ptr<Ipv4> ipv4)
     (&RoutingProtocol::RmTimerExpire, this);
   m_apTimer.SetFunction
     (&RoutingProtocol::APTimerExpire, this);
-  m_firstsendTimer.SetFunction
+  /*m_firstsendTimer.SetFunction
     (&RoutingProtocol::FirstTimerExpire, this);
+    */
 
   m_packetSequenceNumber = SDN_MAX_SEQ_NUM;
   m_messageSequenceNumber = SDN_MAX_SEQ_NUM;
@@ -285,7 +286,7 @@ RoutingProtocol::DoInitialize ()
       HelloTimerExpire ();
       RmTimerExpire ();
       //APTimerExpire ();
-      FirstTimerExpire();
+      //FirstTimerExpire();
       NS_LOG_DEBUG ("SDN on node (Car) " << m_CCHmainAddress << " started");
     }
 }
@@ -426,7 +427,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                           << "s SDN node " << m_mainAddress
                           << " received Aodv Routing message of size "
                           << messageHeader.GetSerializedSize ());
-          //if(GetType()==LOCAL_CONTROLLER)
+          if(GetType()==LOCAL_CONTROLLER)
         	  ProcessAodvRm(messageHeader);
         	  break;
         case sdn::MessageHeader::AODV_REVERSE_MESSAGE:  //add this for aodv
@@ -434,7 +435,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                           << "s SDN node " << m_mainAddress
                           << " received Aodv Routing message of size "
                           << messageHeader.GetSerializedSize ());
-            //if(GetType()==LOCAL_CONTROLLER)
+            if(GetType()==LOCAL_CONTROLLER)
                 //std::cout<<"case"<<std::endl;
             	ProcessAodvRERm(messageHeader);
            break;
@@ -573,27 +574,68 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
   Ipv4Address source = crreq.sourceAddress;//the car's ip address
   if(m_CCHmainAddress.Get()%256 == 81)// need to expand//todo
 	  return;
-  if(m_lc_info.find(dest)==m_lc_info.end() || m_lc_info.size()<=1)
-	  return;
+  /*if(m_lc_info.find(dest)==m_lc_info.end() || m_lc_info.size()<=1)
+	  return;*/
   /*for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
        cit != m_lc_info.end (); ++cit)
     {
 	  std::cout<<"info"<<cit->first.Get()%256<<std::endl;
     }*/
   //std::cout<<"ProcessCRREQ"<<transferAddress.Get()%256<<std::endl;
-  if(transferAddress == dest)
-	  return;
-  SendCRREP(source, dest, transferAddress);
+  /*if(transferAddress == dest)
+	  return;*/
+
+  //add long road lc select
+  if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
+	     sdn::MessageHeader mesg;
+		 std::cout<<"forwarding..."<<std::endl;
+		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
+		  Time now = Simulator::Now ();
+		  mesg.SetVTime (m_helloInterval);
+		  mesg.SetTimeToLive (1234);
+		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
+		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
+		  Aodvrm.ID=m_CCHmainAddress;//LC 'S id
+		  Aodvrm.DesId=dest;//car's id
+		  Aodvrm.mask=0;
+		  Aodvrm.jump_nums=m_incomeParm.jumpnums+m_selfParm.jumpnums;
+		  Aodvrm.SetStability(m_incomeParm.stability>m_selfParm.stability?m_incomeParm.stability:m_selfParm.stability);
+		  Aodvrm.forwarding_table =m_ForwardTable;
+		  Aodvrm.forwarding_table.push_back(m_CCHmainAddress);//to-do  m_mainAddress is lc's control channel id?
+		  //size?
+
+		  auto iterator = Aodvrm.forwarding_table.begin();
+		  auto iter_end = Aodvrm.forwarding_table.end();
+		  for(;iterator!=iter_end;iterator++){
+			  Ipv4Address temp=*iterator;
+		     std::cout<<temp.Get()%256<<"-> ";
+		     }
+		    std::cout<<std::endl;
+		    std::cout<<std::endl;
+		  QueueMessage (mesg, JITTER);
+
+  }
+  else{
+	  SendCRREP(source, dest, transferAddress);
+  }
+
+
+
 }
 
 void
 RoutingProtocol::ProcessCRREP (const sdn::MessageHeader &msg)
 {
   NS_LOG_FUNCTION (msg);
-  const sdn::MessageHeader::CRREP &crrep = msg.GetCRREP ();
+  /*const sdn::MessageHeader::CRREP &crrep = msg.GetCRREP ();
   Ipv4Address dest =  crrep.destAddress;
   Ipv4Address source = crrep.sourceAddress;
-  Ipv4Address transfer = crrep.transferAddress;
+  Ipv4Address transfer = crrep.transferAddress;*/
+  const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
+  Ipv4Address dest = Aodv_r.CarId;
+  Ipv4Address source =transferAddress;
+  Ipv4Address transfer = Aodv_r.ID;
+
  //std::cout<<"ProcessCRREP"<<transfer.Get()%256<<" "<<dest.Get()%256<<std::endl;
   if(m_CCHmainAddress.Get()%256 == 84)
 	  return;
@@ -1221,6 +1263,11 @@ RoutingProtocol::SendCRREP( Ipv4Address const &sourceAddress,
   QueueMessage (msg, JITTER);
 }
 
+void
+RoutingProtocol::AodvTimerExpire()
+{
+	Aodv_sendback();
+}
 
 void
 RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
@@ -1230,9 +1277,9 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 
 	 const sdn::MessageHeader::AodvRm &aodvrm = msg.GetAodvRm();
 	 m_sourceId=aodvrm.ID;
-	 std::cout<<"ip:"<<aodvrm.DesId<<" "<<m_mainAddress<<std::endl;
+	 std::cout<<"ip:"<<aodvrm.DesId<<" "<<m_CCHmainAddress<<std::endl;
 
-	 if(!isDes&&aodvrm.DesId==m_mainAddress){
+	 /*if(!isDes&&aodvrm.DesId==m_mainAddress){
 	     std::cout<<"I am des"<<std::endl;
 		 isDes=true;
 		 //m_aodvTimer.SetDelay(FemtoSeconds (5));// 5s countdown
@@ -1242,7 +1289,20 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		 m_aodvTimer.SetDelay(t);
 		 m_aodvTimer.Schedule ();
 
-	 }
+	 }*/
+	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
+		         temp_desId=aodvrm.DesId;
+			     std::cout<<"I have des"<<std::endl;
+				 isDes=true;
+				 //m_aodvTimer.SetDelay(FemtoSeconds (5));// 5s countdown
+				 m_aodvTimer.SetFunction
+				    (&RoutingProtocol::AodvTimerExpire, this);
+				 Time t = Seconds (2.0);
+				 m_aodvTimer.SetDelay(t);
+				 m_aodvTimer.Schedule ();
+
+			 }
+
 	 //std::cout<<"ii"<<std::endl;
 	 std::cout<<"aodvrm.jump_num  "<<aodvrm.jump_nums<<std::endl;
 	 std::cout<<"m_incomeParm.jumpnums  "<< m_incomeParm.jumpnums<<std::endl;
@@ -1269,7 +1329,7 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		  Aodvrm.jump_nums=m_incomeParm.jumpnums+m_selfParm.jumpnums;
 		  Aodvrm.SetStability(m_incomeParm.stability>m_selfParm.stability?m_incomeParm.stability:m_selfParm.stability);
 		  Aodvrm.forwarding_table =m_ForwardTable;
-		  Aodvrm.forwarding_table.push_back(m_mainAddress);//to-do  m_mainAddress is lc's control channel id?
+		  Aodvrm.forwarding_table.push_back(m_CCHmainAddress);//to-do  m_mainAddress is lc's control channel id?
 		  //size?
 		  
 		  auto iterator = Aodvrm.forwarding_table.begin();
@@ -1295,8 +1355,8 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 
 	//std::map<Ipv4Address,Ipv4Address,> lc_Rtable;
     const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
-	if(Aodv_r.DesId==m_mainAddress){
-		std::cout<<"i am "<<m_mainAddress<<std::endl;
+	if(Aodv_r.DesId==m_CCHmainAddress){
+		std::cout<<"i am "<<m_CCHmainAddress<<std::endl;
 	sdn::MessageHeader mesg;
 	 mesg.SetMessageType(sdn::MessageHeader::AODV_REVERSE_MESSAGE);
 	  Time now = Simulator::Now ();
@@ -1304,20 +1364,21 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	  mesg.SetTimeToLive (1234);
 	  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 	  sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = mesg.GetAodv_R_Rm();
-	  Aodv_r_rm.ID=m_mainAddress;
+	  Aodv_r_rm.ID=transferAddress;
 	  //Aodv_r_rm.DesId=m_sourceId;
+	  Aodv_r_rm.CarId=Aodv_r.CarId;
 	  Aodv_r_rm.mask=0;
 	  Aodv_r_rm.jump_nums=0;
 	  Aodv_r_rm.SetStability(0);
 	  Aodv_r_rm.forwarding_table=Aodv_r.forwarding_table;
 
-
+      //SendCRREQ(,Aodv_r.CarId,transferAddress);
 	  lc_Rtable[*--Aodv_r_rm.forwarding_table.end()]=Aodv_r.ID;
 
 	  auto iterator = Aodv_r.forwarding_table.begin();
 	  auto iter_end = Aodv_r.forwarding_table.end();
 
-	   auto itor = find(iterator,iter_end,m_mainAddress);
+	   auto itor = find(iterator,iter_end,m_CCHmainAddress);
 	   if(itor!=iterator){
 
 		   Aodv_r_rm.DesId=*--itor;
@@ -1327,6 +1388,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	   else{
 		   std::cout<<"finish"<<std::endl;
 	   }
+	   ProcessCRREP(msg);
 
 	}
 	else{
@@ -1346,19 +1408,21 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	  msg.SetTimeToLive (1234);
 	  msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 	  sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = msg.GetAodv_R_Rm();
-	  Aodv_r_rm.ID=m_mainAddress;
+	  Aodv_r_rm.ID=transferAddress; //first car's id
 	  //Aodv_r_rm.DesId=m_sourceId;
+	  Aodv_r_rm.CarId=temp_desId;
+	  temp_desId=0;//clear
 	  Aodv_r_rm.mask=0;
 	  Aodv_r_rm.jump_nums=0;
 	  Aodv_r_rm.SetStability(0);
 	  //size?
 	  Aodv_r_rm.forwarding_table =m_ForwardTable;
-	  Aodv_r_rm.forwarding_table.push_back(m_mainAddress);//  m_mainAddress is lc's control channel id
+	  Aodv_r_rm.forwarding_table.push_back(m_CCHmainAddress);//  m_mainAddress is lc's control channel id
 
 	  auto iterator = Aodv_r_rm.forwarding_table.begin();
 	  auto iter_end = Aodv_r_rm.forwarding_table.end();
 
-	   auto itor = find(iterator,iter_end,m_mainAddress);
+	   auto itor = find(iterator,iter_end,m_CCHmainAddress);
 	   Aodv_r_rm.DesId=*--itor;
 
 	  for(;iterator!=iter_end;iterator++){
@@ -1892,7 +1956,17 @@ RoutingProtocol::GetShortHop(const Ipv4Address& IDa, const Ipv4Address& IDb)
   double const pxa = m_lc_info[IDa].GetPos ().x,
                pxb = m_lc_info[IDb].GetPos ().x;
   // time to b left
-  double const t2bl = (m_road_length - pxb) / vxb;
+  double temp;
+  if (vxb > 0)
+    {
+      temp = (m_road_length - pxb) / vxb;
+    }
+  else
+    {
+      //b is fixed.
+      temp = (m_road_length - pxa) / vxa;
+    }
+  double const t2bl = temp;
   if ((pxb - pxa < m_signal_range) && (abs((pxb + vxb*t2bl)-(pxa + vxa*t2bl)) < m_signal_range))
     {
       ShortHop sh;
@@ -1946,7 +2020,57 @@ RoutingProtocol::GetShortHop(const Ipv4Address& IDa, const Ipv4Address& IDb)
       return sh;
     }//else
 }
+void
+RoutingProtocol::LCAddEntry (const Ipv4Address& ID,
+                           const Ipv4Address &dest,
+                           const Ipv4Address &mask,
+                           const Ipv4Address &next,
+                           uint32_t interface)
+{
+  NS_LOG_FUNCTION(this  << ID << dest << next << interface << mask << m_CCHmainAddress);
+  //std::cout<<"dest:"<<m_next_forwarder.Get () % 256<<std::endl;
+  CarInfo& Entry = m_lc_info[ID];std::cout<<"Interfaces:"<<std::endl;
+  RoutingTableEntry RTE;
+  RTE.destAddr = dest;
+  RTE.mask = mask;
+  RTE.nextHop = next;
+  RTE.interface = interface;
+  //remove repeat
+  for(std::vector<RoutingTableEntry>::iterator it=Entry.R_Table.begin();it!=Entry.R_Table.end();++it)
+  {
+      if(it->destAddr == dest)
+      {
+              it =  Entry.R_Table.erase(it);//it point to next element;
+              --it;
+      }
+  }  
+  Entry.R_Table.push_back (RTE);
+}
 
+void
+RoutingProtocol::LCAddEntry (const Ipv4Address& ID,
+                           const Ipv4Address &dest,
+                           const Ipv4Address &mask,
+                           const Ipv4Address &next,
+                           const Ipv4Address &interfaceAddress)
+{
+  NS_LOG_FUNCTION(this << ID << dest << next << interfaceAddress << mask << m_CCHmainAddress);
+
+  NS_ASSERT (m_ipv4);
+  std::cout<<"GetNInterfaces:"<<m_ipv4->GetNInterfaces()<<std::endl;
+  for (uint32_t i = 0; i < m_ipv4->GetNInterfaces(); ++i)
+   for (uint32_t j = 0; j< m_ipv4->GetNAddresses(i); ++j)
+     {
+       if (m_ipv4->GetAddress(i,j).GetLocal() == interfaceAddress)
+         {
+           std::cout<<"GetNInterfaces:"<<i<<std::endl;
+           LCAddEntry(ID, dest, mask, next, i);
+           return;
+         }
+     }
+  //ERROR NO MATCHING INTERFACES
+  NS_ASSERT(false);
+}
 void
 RoutingProtocol::LCAddEntry(const Ipv4Address& ID,
                             const Ipv4Address& dest,
@@ -1958,6 +2082,16 @@ RoutingProtocol::LCAddEntry(const Ipv4Address& ID,
   RTE.destAddr = dest;
   RTE.mask = mask;
   RTE.nextHop = next;
+  RTE.interface = 0;
+  //remove repeat
+  for(std::vector<RoutingTableEntry>::iterator it=Entry.R_Table.begin();it!=Entry.R_Table.end();++it)
+  {
+      if(it->destAddr == dest)
+      {
+              it =  Entry.R_Table.erase(it);//it point to next element;
+              --it;
+      }
+  }  
   Entry.R_Table.push_back (RTE);
 }
 
@@ -1966,7 +2100,15 @@ RoutingProtocol::ClearAllTables ()
 {
   for (std::map<Ipv4Address, CarInfo>::iterator it = m_lc_info.begin (); it!=m_lc_info.end(); ++it)
     {
-      it->second.R_Table.clear ();
+      for(std::vector<RoutingTableEntry>::iterator iit = it->second.R_Table.begin (); iit!=it->second.R_Table.end(); ++iit)
+    {
+        if(iit->destAddr != it->first)
+        {
+                iit = it->second.R_Table.erase(iit);//iit will point to next element;
+                --iit;
+        }
+    }
+      //it->second.R_Table.clear ();
     }
 }
 
@@ -1984,104 +2126,29 @@ RoutingProtocol::GetArea (Vector3D position) const
   else
     {
       road_length -= 0.5*m_signal_range;
-      px -= 0.5*m_signal_range;
+      //px -= 0.5*m_signal_range;
       int numOfTrivialArea = road_length / m_signal_range;
-      int numOfTrivialArea_car = px / m_signal_range;
-      double last_length = road_length - (m_signal_range * numOfTrivialArea);
+      double remain = road_length - (numOfTrivialArea * m_signal_range);
+      if (!(remain>0))
+        numOfTrivialArea--;
 
-      if (numOfTrivialArea_car < numOfTrivialArea)
+      px -= 0.5*m_signal_range;
+      if (px < numOfTrivialArea * m_signal_range)
         {
-          //std::cout<<"RET2"<<std::endl;
-          return numOfTrivialArea_car + 1;//Plus First Area;
+          return (px / m_signal_range) + 1;
         }
-      else//numOfTrivialArea_car == numOfTrivialArea
+      else
         {
-          if (numOfTrivialArea == 0)
+          if (road_length - px < 0.5*m_signal_range)
             {
-              /*
-               * 0.5r ~ <0.5r
-               *         ^here;
-               */
-              if (road_length < m_signal_range)
-                {
-                  //std::cout<<"RET3"<<std::endl;
-                  return 1;
-                }
+              if (isPaddingExist())
+                return numOfTrivialArea + 2;
               else
-                /*
-                 * 0.5r ~ padding ~ 0.5r
-                 *                  ^here
-                 */
-                if (road_length - px < 0.5 * m_signal_range)
-                  {
-                    //std::cout<<"RET4"<<std::endl;
-                    return 2;
-                  }
-                /*
-                 * 0.5r ~ padding ~ 0.5r
-                 *            ^here
-                 */
-                else
-                  {
-                    //std::cout<<"RET5"<<std::endl;
-                    return 1;
-                  }
-
-            }//==0
+                return numOfTrivialArea + 1;
+            }
           else
             {
-              if (last_length < 1e-10) //last_length == 0
-                {
-                  if (road_length - px > 0.5 * m_signal_range)
-                    {
-                      /*
-                       * ~ r ~ 0.5r ~ 0.5r
-                       *        ^here
-                       */
-                      //std::cout<<"RET6"<<std::endl;
-                      return numOfTrivialArea;
-                    }
-                  else
-                    {
-                      /*
-                       * ~ r ~ 0.5r ~ 0.5r
-                       *               ^here
-                       */
-                      //std::cout<<"RET7"<<std::endl;
-                      return numOfTrivialArea + 1;//start from zero
-                    }
-                }
-              else
-                if (last_length > 0.5 * m_signal_range)
-                  {
-                    if (road_length - px > 0.5 * m_signal_range)
-                      {
-                        /*
-                         * ~ r ~ padding ~ 0.5r
-                         *        ^here
-                         */
-                        //std::cout<<"RET8"<<std::endl;
-                        return numOfTrivialArea + 1;
-                      }
-                    else
-                      {
-                        /*
-                         * ~ r ~ padding ~ 0.5r
-                         *                  ^here
-                         */
-                        //std::cout<<"RET9"<<std::endl;
-                        return numOfTrivialArea + 2;
-                      }
-                  }
-                else
-                  {
-                    /*
-                     * ~ r ~ last
-                     *        ^here;
-                     */
-                    //std::cout<<"RET10"<<std::endl;
-                    return numOfTrivialArea + 1;
-                  }
+              return numOfTrivialArea + 1;
             }
         }
     }
