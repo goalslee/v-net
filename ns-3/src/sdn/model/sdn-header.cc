@@ -172,9 +172,9 @@ MessageHeader::GetSerializedSize (void) const
     case ROUTING_MESSAGE:
       size += m_message.rm.GetSerializedSize ();
       break;
-    case APPOINTMENT_MESSAGE:
+    /*case APPOINTMENT_MESSAGE:
       size += m_message.appointment.GetSerializedSize ();
-      break;
+      break;*/
     case AODV_ROUTING_MESSAGE:
       size +=m_message.aodvrm.GetSerializedSize();
       break;
@@ -218,9 +218,9 @@ MessageHeader::Serialize (Buffer::Iterator start) const
     case ROUTING_MESSAGE:
       m_message.rm.Serialize (i);
       break;
-    case APPOINTMENT_MESSAGE:
+    /*case APPOINTMENT_MESSAGE:
       m_message.appointment.Serialize (i);
-      break;
+      break;*/
     case AODV_ROUTING_MESSAGE:
       m_message.aodvrm.Serialize(i);
     break;
@@ -264,10 +264,10 @@ MessageHeader::Deserialize (Buffer::Iterator start)
       size += 
         m_message.rm.Deserialize (i, m_messageSize - SDN_MSG_HEADER_SIZE);
       break;
-    case APPOINTMENT_MESSAGE:
+    /*case APPOINTMENT_MESSAGE:
       size +=
         m_message.appointment.Deserialize (i, m_messageSize - SDN_MSG_HEADER_SIZE);
-      break;
+      break;*/
     case AODV_ROUTING_MESSAGE:
       size +=
         m_message.aodvrm.Deserialize (i, m_messageSize - SDN_MSG_HEADER_SIZE);
@@ -537,7 +537,7 @@ MessageHeader::Aodv_R_Rm::Deserialize (Buffer::Iterator start,
 
 // ---------------- SDN Appointment Message -------------------------------
 
-void
+/*void
 MessageHeader::Appointment::Print (std::ostream &os) const
 {
   //TODO
@@ -577,7 +577,7 @@ MessageHeader::Appointment::Deserialize (Buffer::Iterator start, uint32_t messag
   ip_temp = i.ReadNtohU32();
   this->NextForwarder.Set (ip_temp);
   return (messageSize);
-}
+}*/
 
 // ---------------- SDN CARROUTEREQUEST Message -------------------------------
 

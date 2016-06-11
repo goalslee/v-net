@@ -359,18 +359,6 @@ public:
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
-  struct Appointment
-  {
-    Ipv4Address ID;
-    AppointmentType ATField;
-    Ipv4Address NextForwarder;
-
-    void Print (std::ostream &os) const;
-    uint32_t GetSerializedSize (void) const;
-    void Serialize (Buffer::Iterator start) const;
-    uint32_t Deserialize (Buffer::Iterator start, uint32_t messageSize);
-  };
-
 
 
  //  CARROUTEREQUEST_MESSAGE Format
@@ -697,6 +685,7 @@ public:
 
  const Aodv_R_Rm& GetAodv_R_Rm() const
   {
+	 //std::cout<<"m_messagetype"<<m_messageType<<std::endl;
     NS_ASSERT (m_messageType == AODV_REVERSE_MESSAGE);
     return (m_message.aodv_r_rm);
   }
@@ -706,11 +695,6 @@ public:
     return (m_message.appointment);
   }
 
- const Appointment& GetAppointment () const
-  {
-    NS_ASSERT (m_messageType == APPOINTMENT_MESSAGE);
-    return (m_message.appointment);
-  }
 
   const CRREQ& GetCRREQ () const
   {

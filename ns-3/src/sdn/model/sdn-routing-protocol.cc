@@ -343,7 +343,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
   NS_LOG_DEBUG ("SDN node " << m_CCHmainAddress
                 << " received a SDN packet from "
                 << senderIfaceAddr << " to " << receiverIfaceAddr);
-  std::cout<<"SDN node " << m_mainAddress<<" received a SDN packet from "<<senderIfaceAddr<<" to "<<receiverIfaceAddr<<std::endl;
+  //std::cout<<"SDN node " << m_CCHmainAddress<<" received a SDN packet from "<<senderIfaceAddr<<" to "<<receiverIfaceAddr<<std::endl;
   // All routing messages are sent from and to port RT_PORT,
   // so we check it.
   NS_ASSERT (inetSourceAddr.GetPort () == SDN_PORT_NUMBER);
@@ -414,17 +414,17 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
           }
           break;
 
-        case sdn::MessageHeader::APPOINTMENT_MESSAGE:
+        /*case sdn::MessageHeader::APPOINTMENT_MESSAGE:
           NS_LOG_DEBUG (Simulator::Now ().GetSeconds ()
                         << "s SDN node " << m_CCHmainAddress
                         << " received Appointment message of size "
                         << messageHeader.GetSerializedSize ());
           if (GetType() == CAR)
             ProcessAppointment (messageHeader);
-          break;
+          break;*/
         case sdn::MessageHeader::AODV_ROUTING_MESSAGE:  //add this for aodv
             NS_LOG_DEBUG (Simulator::Now ().GetSeconds ()
-                          << "s SDN node " << m_mainAddress
+                          << "s SDN node " << m_CCHmainAddress
                           << " received Aodv Routing message of size "
                           << messageHeader.GetSerializedSize ());
           if(GetType()==LOCAL_CONTROLLER)
@@ -432,7 +432,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
         	  break;
         case sdn::MessageHeader::AODV_REVERSE_MESSAGE:  //add this for aodv
             NS_LOG_DEBUG (Simulator::Now ().GetSeconds ()
-                          << "s SDN node " << m_mainAddress
+                          << "s SDN node " << m_CCHmainAddress
                           << " received Aodv Routing message of size "
                           << messageHeader.GetSerializedSize ());
             if(GetType()==LOCAL_CONTROLLER)
@@ -540,7 +540,7 @@ RoutingProtocol::ProcessRm (const sdn::MessageHeader &msg)
     }
 }
 
-void
+/*void
 RoutingProtocol::ProcessAppointment (const sdn::MessageHeader &msg)
 {
   NS_LOG_FUNCTION (msg);
@@ -564,7 +564,7 @@ RoutingProtocol::ProcessAppointment (const sdn::MessageHeader &msg)
       m_appointmentResult = appointment.ATField;
     }
 }
-
+*/
 void
 RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
 {
@@ -587,8 +587,10 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
 
   //add long road lc select
   if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
+         if(m_CCHmainAddress.Get()%256 == 129) return;//the last lc not have des,so just return;
+
 	     sdn::MessageHeader mesg;
-		 std::cout<<"forwarding..."<<std::endl;
+		 //std::cout<<"forwarding..."<<std::endl;
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
 		  Time now = Simulator::Now ();
 		  mesg.SetVTime (m_helloInterval);
@@ -604,19 +606,20 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
 		  Aodvrm.forwarding_table.push_back(m_CCHmainAddress);//to-do  m_mainAddress is lc's control channel id?
 		  //size?
 
-		  auto iterator = Aodvrm.forwarding_table.begin();
+		  /*auto iterator = Aodvrm.forwarding_table.begin();
 		  auto iter_end = Aodvrm.forwarding_table.end();
-		  for(;iterator!=iter_end;iterator++){
+	      for(;iterator!=iter_end;iterator++){
 			  Ipv4Address temp=*iterator;
 		     std::cout<<temp.Get()%256<<"-> ";
 		     }
 		    std::cout<<std::endl;
 		    std::cout<<std::endl;
+		    */
 		  QueueMessage (mesg, JITTER);
 
   }
-  else{
-	  SendCRREP(source, dest, transferAddress);
+  else{//the first lc itself has des car
+	  //SendCRREP(source, dest, transferAddress);
   }
 
 
@@ -1202,7 +1205,7 @@ RoutingProtocol::SendRoutingMessage ()
     }
 }
 
-void
+/*void
 RoutingProtocol::SendAppointment ()
 {
   NS_LOG_FUNCTION (this);
@@ -1222,7 +1225,7 @@ RoutingProtocol::SendAppointment ()
       appointment.NextForwarder = cit->second.ID_of_minhop;
       QueueMessage (msg, JITTER);
     }
-}
+}*/
 
 
 void
@@ -1267,6 +1270,7 @@ void
 RoutingProtocol::AodvTimerExpire()
 {
 	Aodv_sendback();
+	isDes=false;
 }
 
 void
@@ -1277,7 +1281,7 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 
 	 const sdn::MessageHeader::AodvRm &aodvrm = msg.GetAodvRm();
 	 m_sourceId=aodvrm.ID;
-	 std::cout<<"ip:"<<aodvrm.DesId<<" "<<m_CCHmainAddress<<std::endl;
+	 //std::cout<<"ip:"<<aodvrm.DesId<<" "<<m_CCHmainAddress<<std::endl;
 
 	 /*if(!isDes&&aodvrm.DesId==m_mainAddress){
 	     std::cout<<"I am des"<<std::endl;
@@ -1304,17 +1308,20 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 			 }
 
 	 //std::cout<<"ii"<<std::endl;
-	 std::cout<<"aodvrm.jump_num  "<<aodvrm.jump_nums<<std::endl;
+	 /*std::cout<<"aodvrm.jump_num  "<<aodvrm.jump_nums<<std::endl;
 	 std::cout<<"m_incomeParm.jumpnums  "<< m_incomeParm.jumpnums<<std::endl;
 	 std::cout<<"aodvrm.GetStability()  "<< aodvrm.GetStability()<<std::endl;
 	 std::cout<<"m_incomeParm.stability  " <<m_incomeParm.stability<<std::endl;
 	 std::cout<<std::endl;
+	 */
 	 
 	 if(m_incomeParm.jumpnums==0||aodvrm.jump_nums<m_incomeParm.jumpnums||(aodvrm.jump_nums==m_incomeParm.jumpnums&& aodvrm.GetStability() < m_incomeParm.stability)){//forward this packet
+
 		 m_incomeParm.jumpnums=aodvrm.jump_nums;
 		 m_incomeParm.stability=aodvrm.stability;
 		 m_ForwardTable.clear();
 		 m_ForwardTable=aodvrm.forwarding_table;
+		 if(m_CCHmainAddress.Get()%256 == 129) return;//the last lc not have des,so just return;
 		 if(!isDes){
 		 std::cout<<"forwarding..."<<std::endl;
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
@@ -1404,18 +1411,21 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	sdn::MessageHeader msg;
 	 msg.SetMessageType(sdn::MessageHeader::AODV_REVERSE_MESSAGE);
 	  Time now = Simulator::Now ();
+	  //std::cout<<"send back1"<<std::endl;
 	  msg.SetVTime (m_helloInterval);
 	  msg.SetTimeToLive (1234);
+	  //std::cout<<"send back2"<<std::endl;
 	  msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 	  sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = msg.GetAodv_R_Rm();
 	  Aodv_r_rm.ID=transferAddress; //first car's id
 	  //Aodv_r_rm.DesId=m_sourceId;
 	  Aodv_r_rm.CarId=temp_desId;
-	  temp_desId=0;//clear
+	  //temp_desId=0;//clear
 	  Aodv_r_rm.mask=0;
 	  Aodv_r_rm.jump_nums=0;
 	  Aodv_r_rm.SetStability(0);
 	  //size?
+
 	  Aodv_r_rm.forwarding_table =m_ForwardTable;
 	  Aodv_r_rm.forwarding_table.push_back(m_CCHmainAddress);//  m_mainAddress is lc's control channel id
 
