@@ -21,6 +21,9 @@
 #include "ns3/wifi-80211p-helper.h"
 #include "ns3/wave-mac-helper.h"
 #include "ns3/olsr-helper.h"
+#include "ns3/aodv-helper.h"
+#include "ns3/dsdv-module.h"
+#include "ns3/dsr-module.h"
 
 //FINALLY!
 #include "ns3/sdn-helper.h"
@@ -73,7 +76,7 @@ private:
 	int pmod;//0=Range(Default) 1=Other
 	uint32_t nodeNum;
 	double duration;
-	NodeContainer m_nodes;//Cars + Controller + Source + Sink
+	NodeContainer m_nodes;//Cars + 2Controller + Source + Sink
 	NetDeviceContainer m_SCHDevices, m_CCHDevices;
 	Ipv4InterfaceContainer m_SCHInterfaces, m_CCHInterfaces;
 	//////////TongJi////////////
@@ -86,6 +89,10 @@ private:
 	Ptr<ns3::vanetmobility::VANETmobility> VMo;
 	void ReceiveDataPacket (Ptr<Socket> socket);
 	void SendDataPacket ();
+	void TXTrace (Ptr<const Packet> newpacket);
+
+	std::string m_todo;
+  	std::string m_ds;//DataSet
 };
 
 
