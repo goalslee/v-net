@@ -1,0 +1,6 @@
+Mode:  OLSRDataSet:  
+Starting simulation for 1 s ...
+Now:  0Tx_Data_Pkts:   0Rx_Data_Pkts:   0
+Result:
+Tx_Data_Pkts:   122
+Rx_Data_Pkts3:   0

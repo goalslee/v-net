@@ -1,0 +1,15 @@
+Mode:  SDNDataSet:  
+Starting simulation for 10 s ...
+Now:  0Tx_Data_Pkts:   0Rx_Data_Pkts:   0
+Now:  1Tx_Data_Pkts:   122Rx_Data_Pkts:   0
+Now:  2Tx_Data_Pkts:   244Rx_Data_Pkts:   0
+Now:  3Tx_Data_Pkts:   366Rx_Data_Pkts:   64
+Now:  4Tx_Data_Pkts:   488Rx_Data_Pkts:   186
+Now:  5Tx_Data_Pkts:   610Rx_Data_Pkts:   242
+Now:  6Tx_Data_Pkts:   732Rx_Data_Pkts:   364
+Now:  7Tx_Data_Pkts:   854Rx_Data_Pkts:   396
+Now:  8Tx_Data_Pkts:   976Rx_Data_Pkts:   518
+Now:  9Tx_Data_Pkts:   1098Rx_Data_Pkts:   538
+Result:
+Tx_Data_Pkts:   1220
+Rx_Data_Pkts3:   660
