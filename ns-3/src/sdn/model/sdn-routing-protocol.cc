@@ -572,8 +572,8 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
   const sdn::MessageHeader::CRREQ &crreq = msg.GetCRREQ ();
   Ipv4Address dest =  crreq.destAddress;
   Ipv4Address source = crreq.sourceAddress;//the car's ip address
-  if(m_CCHmainAddress.Get()%256 == 81)// need to expand//todo
-	  return;
+  //if(m_CCHmainAddress.Get()%256 == 81)// need to expand//todo
+	  //return;
   /*if(m_lc_info.find(dest)==m_lc_info.end() || m_lc_info.size()<=1)
 	  return;*/
   /*for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
@@ -587,7 +587,7 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
 
   //add long road lc select
   if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
-         if(m_CCHmainAddress.Get()%256 == 129) return;//the last lc not have des,so just return;
+         if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;
 
 	     sdn::MessageHeader mesg;
 		 //std::cout<<"forwarding..."<<std::endl;
@@ -636,7 +636,7 @@ RoutingProtocol::ProcessCRREP (const sdn::MessageHeader &msg)
   Ipv4Address transfer = crrep.transferAddress;*/
   const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
   Ipv4Address dest = Aodv_r.CarId;
-  Ipv4Address source =transferAddress;
+  //Ipv4Address source =transferAddress;
   Ipv4Address transfer = Aodv_r.ID;
 
  //std::cout<<"ProcessCRREP"<<transfer.Get()%256<<" "<<dest.Get()%256<<std::endl;
@@ -1321,7 +1321,7 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		 m_incomeParm.stability=aodvrm.stability;
 		 m_ForwardTable.clear();
 		 m_ForwardTable=aodvrm.forwarding_table;
-		 if(m_CCHmainAddress.Get()%256 == 129) return;//the last lc not have des,so just return;
+		 if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;
 		 if(!isDes){
 		 std::cout<<"forwarding..."<<std::endl;
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
@@ -1631,7 +1631,7 @@ RoutingProtocol::ComputeRoute ()
             while(root != pre[root])
             {
             	//if(m_CCHmainAddress.Get()%256==244)
-                   //std::cout<<pre[root]<<":"<<numBitmapIp[pre[root]].Get()<<"->"<<t<<":"<<numBitmapIp[t].Get()<<"crossing"<<root<<":"<<numBitmapIp[root].Get()<<std::endl;
+                   std::cout<<pre[root]<<":"<<"["<<numBitmapIp[pre[root]].Get()%256<<"]"<<"->"<<t<<":"<<"["<<numBitmapIp[t].Get()%256<<"]"<<"  crossing"<<root<<":"<<"["<<numBitmapIp[root].Get()%256<<"]"<<std::endl;
                 LCAddEntry (numBitmapIp[pre[root]], numBitmapIp[t], mask, numBitmapIp[root]);//todo
                 root = pre [root];
             }
