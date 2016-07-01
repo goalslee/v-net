@@ -135,10 +135,11 @@ void VanetSim::LoadTraffic()
 	if((dir = opendir(temp.data()))==NULL)
 		NS_FATAL_ERROR("Cannot open input path "<<temp.data()<<", Aborted.");
 
-	std::string sumo_net = temp + "/input.net.xml";
+	std::string sumo_net = temp + "/input.3net.xml";
 
-	std::string sumo_fcd = temp + "/fcd.xml";
-	std::string sumo_route = temp + "/rou.xml";
+	std::string sumo_fcd = temp + "/3fcd.xml";
+	//std::string sumo_route = temp + "/rou.xml";
+	std::string sumo_route = temp + "/input.3rou.xml";
 
 	std::string output = temp + "/" + m_todo + "_" + m_ds + "_result_new.txt";
 
@@ -155,7 +156,8 @@ void VanetSim::LoadTraffic()
 
 void VanetSim::ConfigNode()
 {
-	m_nodes.Create(nodeNum+4);//Cars + 2Controller + Source + Sink
+	//m_nodes.Create(nodeNum+4);//Cars + 2Controller + Source + Sink
+	m_nodes.Create(nodeNum+5);//Cars + 2Controller + Source + Sink
 	//std::cout<<nodeNum<<std::endl;
 	/*Only Apps Are Different Between Different kind of Nodes*/
 	// Name nodes
@@ -165,10 +167,11 @@ void VanetSim::ConfigNode()
 		os << "vehicle-" << i;
 		Names::Add(os.str(), m_nodes.Get(i));
 	}
-	Names::Add("Controller_1",m_nodes.Get(nodeNum));
-	Names::Add("Source",m_nodes.Get(nodeNum+1));
-	Names::Add("Sink",m_nodes.Get(nodeNum+2));
-	Names::Add("Controller_2",m_nodes.Get(nodeNum+3));
+	Names::Add("Controller_1",m_nodes.Get(nodeNum));//81
+	Names::Add("Source",m_nodes.Get(nodeNum+1));//82
+	Names::Add("Sink",m_nodes.Get(nodeNum+2));//83
+	Names::Add("Controller_2",m_nodes.Get(nodeNum+3));//84
+	Names::Add("Controller_3",m_nodes.Get(nodeNum+4));//85
 }
 
 void VanetSim::ConfigChannels()
@@ -267,9 +270,12 @@ void VanetSim::ConfigMobility()
 	Temp = m_nodes.Get(nodeNum+1)->GetObject<MobilityModel>();//source
 	Temp->SetPosition(Vector(5.1, 0.0, 0.0));
 	Temp = m_nodes.Get(nodeNum+2)->GetObject<MobilityModel>();//Sink
-	Temp->SetPosition(Vector(2000.0, 0.0, 0.0));
+	//Temp->SetPosition(Vector(2000.0, 0.0, 0.0));
+	Temp->SetPosition(Vector(3000.0, 0.0, 0.0));
         Temp = m_nodes.Get(nodeNum+3)->GetObject<MobilityModel>();//Controller2
 	Temp->SetPosition(Vector(1000.0, 0.0, 0.0));
+    Temp = m_nodes.Get(nodeNum+4)->GetObject<MobilityModel>();//Controller3
+        Temp->SetPosition(Vector(2000.0, 0.0, 0.0));
 }
 
 void VanetSim::ConfigApp()
@@ -317,6 +323,7 @@ void VanetSim::ConfigApp()
 	    }
 	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum), sdn::LOCAL_CONTROLLER);
           sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+3), sdn::LOCAL_CONTROLLER);
+          sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+4), sdn::LOCAL_CONTROLLER);
 	  sdn.ExcludeInterface (m_nodes.Get (nodeNum), 0);
 	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+1), sdn::CAR);//Treat Source and Sink as CAR
 	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+2), sdn::CAR);
@@ -364,6 +371,8 @@ void VanetSim::ConfigApp()
 	Address remote (InetSocketAddress(m_SCHInterfaces.GetAddress(nodeNum+2), m_port));
 	OnOffHelper Source("ns3::UdpSocketFactory",remote);//SendToSink
 	Source.SetAttribute("OffTime",StringValue ("ns3::ConstantRandomVariable[Constant=0.0]"));
+	DataRate x("4096bps");//512*8
+	Source.SetConstantRate(x,512);//
 
 
 	m_source = Source.Install(m_nodes.Get(nodeNum+1));//Install on Source
