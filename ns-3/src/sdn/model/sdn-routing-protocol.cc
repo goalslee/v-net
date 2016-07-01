@@ -480,7 +480,7 @@ RoutingProtocol::ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &sen
 	 // std::cout<<"244ProcessHM " << msg.GetHello ().GetPosition ().x<<std::endl;
   if(m_CCHmainAddress.Get()%256==81 && msg.GetHello ().GetPosition ().x>1000.0)//todo
 	  return;
-  if(m_CCHmainAddress.Get()%256==84 && msg.GetHello ().GetPosition ().x<=1000.0)
+  if(m_CCHmainAddress.Get()%256==85 && msg.GetHello ().GetPosition ().x<=1000.0)
  	  return;
   std::map<Ipv4Address, CarInfo>::iterator it = m_lc_info.find (ID);
 
@@ -587,7 +587,7 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
 
   //add long road lc select
   if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
-         if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;
+         if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;not for 84 to receive
 
 	     sdn::MessageHeader mesg;
 		 //std::cout<<"forwarding..."<<std::endl;
@@ -640,7 +640,7 @@ RoutingProtocol::ProcessCRREP (const sdn::MessageHeader &msg)
   Ipv4Address transfer = Aodv_r.ID;
 
  //std::cout<<"ProcessCRREP"<<transfer.Get()%256<<" "<<dest.Get()%256<<std::endl;
-  if(m_CCHmainAddress.Get()%256 == 84)
+  if(m_CCHmainAddress.Get()%256 == 85)
 	  return;
   Ipv4Address mask("255.255.255.0");
   //ComputeRoute();
@@ -1294,14 +1294,15 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		 m_aodvTimer.Schedule ();
 
 	 }*/
+	 if(m_CCHmainAddress.Get()%256 ==81) return;
 	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
 		         temp_desId=aodvrm.DesId;
-			     std::cout<<"I have des"<<std::endl;
+			     std::cout<<"I am"<<m_CCHmainAddress.Get()%256<<"I have des"<<std::endl;
 				 isDes=true;
 				 //m_aodvTimer.SetDelay(FemtoSeconds (5));// 5s countdown
 				 m_aodvTimer.SetFunction
 				    (&RoutingProtocol::AodvTimerExpire, this);
-				 Time t = Seconds (2.0);
+				 Time t = Seconds (1.0);
 				 m_aodvTimer.SetDelay(t);
 				 m_aodvTimer.Schedule ();
 
@@ -1321,7 +1322,7 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		 m_incomeParm.stability=aodvrm.stability;
 		 m_ForwardTable.clear();
 		 m_ForwardTable=aodvrm.forwarding_table;
-		 if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;
+		 if(m_CCHmainAddress.Get()%256 == 85) return;//the last lc not have des,so just return;
 		 if(!isDes){
 		 std::cout<<"forwarding..."<<std::endl;
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
@@ -1625,6 +1626,7 @@ RoutingProtocol::ComputeRoute ()
         //Ipv4Address allzero = Ipv4Address::GetZero ();
         Ipv4Address mask("255.255.255.0");
         //std::cout<<i<<" "<<listsize<<" 77777"<<std::endl;
+        std::cout<<"rout: "<<m_CCHmainAddress.Get()%256<<std::endl;
         for(int t=1; t<listsize; t++)
         {
             int root = t;
