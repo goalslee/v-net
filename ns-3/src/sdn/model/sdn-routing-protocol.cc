@@ -114,7 +114,7 @@ RoutingProtocol::RoutingProtocol ()
     m_packetSequenceNumber (SDN_MAX_SEQ_NUM),
     m_messageSequenceNumber (SDN_MAX_SEQ_NUM),
     m_helloInterval (Seconds(1)),
-    m_rmInterval (Seconds (2)),
+    m_rmInterval (Seconds (3)),
     m_minAPInterval (Seconds (1)),
     m_ipv4 (0),
     m_helloTimer (Timer::CANCEL_ON_DESTROY),
@@ -478,10 +478,22 @@ RoutingProtocol::ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &sen
   //std::cout<<"ProcessHM " << msg.GetOriginatorAddress().Get ()<<std::endl;
   //if(m_CCHmainAddress.Get()%256==244 )
 	 // std::cout<<"244ProcessHM " << msg.GetHello ().GetPosition ().x<<std::endl;
-  if(m_CCHmainAddress.Get()%256==81 && msg.GetHello ().GetPosition ().x>1000.0)//todo
-	  return;
-  if(m_CCHmainAddress.Get()%256==85 && msg.GetHello ().GetPosition ().x<=1000.0)
+  //if(m_CCHmainAddress.Get()%256==81 && msg.GetHello ().GetPosition ().x>1000.0)//todo
+	  if(m_CCHmainAddress.Get()%256==81 && msg.GetHello ().GetPosition ().x>700.0)//todo
+  {	  std::cout<<"81 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
+	  return;}
+
+  //if(m_CCHmainAddress.Get()%256==84 && (msg.GetHello ().GetPosition ().x>2000.0 || msg.GetHello ().GetPosition ().x<1000.0)){
+	if(m_CCHmainAddress.Get()%256==84 && (msg.GetHello ().GetPosition ().x>1400.0 || msg.GetHello ().GetPosition ().x<700.0)){
+	  std::cout<<"84 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
+ 	  return;}
+  //if(m_CCHmainAddress.Get()%256==85 && msg.GetHello ().GetPosition ().x<=2000.0){
+  if(m_CCHmainAddress.Get()%256==85 && msg.GetHello ().GetPosition ().x<=1400.0){
+	  std::cout<<"85 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
  	  return;
+  }
+
+std::cout<<m_CCHmainAddress.Get()%256<<"get hello,positon is"<<msg.GetHello ().GetPosition ().x<<std::endl;
   std::map<Ipv4Address, CarInfo>::iterator it = m_lc_info.find (ID);
 
   if (it != m_lc_info.end ())
@@ -1498,7 +1510,7 @@ RoutingProtocol::ComputeRoute ()
     Reschedule ();
     std::cout<<"CR DONE"<<std::endl;*/
     //Remove Timeout Tuples first.
-    //std::cout<<"RemoveTimeOut"<<m_CCHmainAddress.Get()%256<<std::endl;
+    std::cout<<"computeroute "<<m_CCHmainAddress.Get()%256<<std::endl;
     RemoveTimeOut (); //Remove Stale Tuple
     //input the m_lc_info;
 
@@ -1644,7 +1656,7 @@ RoutingProtocol::ComputeRoute ()
         cout<<cit->first.m_address<<" "<<cit->second.Position.x<<" "<<cit->second.Position.y<<" "<<cit->second.Position.z<<endl;
     }*/
 
-    std::cout << "Hello world!" << std::endl;
+    std::cout << "computerouting" << std::endl;
 }//RoutingProtocol::ComputeRoute
 
 void
