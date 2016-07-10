@@ -30,7 +30,8 @@ VanetSim::VanetSim()
 	txp1 = 20;  // dBm SCH
 	txp2 = 20;  // CCH
 	range1 = 400.0;//SCH
-	range2 = 1000.0;//CCH
+	//range2 = 1000.0;//CCH
+	range2 = 700.0;//CCH
 	packetSize = 1000; // bytes
 	numPackets = 1;
 	interval = 0.1; // seconds
@@ -135,11 +136,13 @@ void VanetSim::LoadTraffic()
 	if((dir = opendir(temp.data()))==NULL)
 		NS_FATAL_ERROR("Cannot open input path "<<temp.data()<<", Aborted.");
 
-	std::string sumo_net = temp + "/input.3net.xml";
+	//std::string sumo_net = temp + "/input.3net.xml";
+	std::string sumo_net = temp + "/input.net.xml";
 
-	std::string sumo_fcd = temp + "/3fcd.xml";
-	//std::string sumo_route = temp + "/rou.xml";
-	std::string sumo_route = temp + "/input.3rou.xml";
+	//std::string sumo_fcd = temp + "/3fcd.xml";
+	std::string sumo_fcd = temp + "/fcd.xml";
+	std::string sumo_route = temp + "/rou.xml";
+	//std::string sumo_route = temp + "/input.3rou.xml";
 
 	std::string output = temp + "/" + m_todo + "_" + m_ds + "_result_new.txt";
 
@@ -262,7 +265,7 @@ void VanetSim::ConfigMobility()
 	{
 		duration = rt;
 	}
-	duration = 10;
+	duration = 360;
 	Time temp_now = Simulator::Now();
 	std::cout<<"Now?"<<temp_now.GetSeconds ()<<std::endl;
 	Ptr<MobilityModel> Temp = m_nodes.Get(nodeNum)->GetObject<MobilityModel>();//Controller1
@@ -270,12 +273,14 @@ void VanetSim::ConfigMobility()
 	Temp = m_nodes.Get(nodeNum+1)->GetObject<MobilityModel>();//source
 	Temp->SetPosition(Vector(5.1, 0.0, 0.0));
 	Temp = m_nodes.Get(nodeNum+2)->GetObject<MobilityModel>();//Sink
-	//Temp->SetPosition(Vector(2000.0, 0.0, 0.0));
-	Temp->SetPosition(Vector(3000.0, 0.0, 0.0));
-        Temp = m_nodes.Get(nodeNum+3)->GetObject<MobilityModel>();//Controller2
-	Temp->SetPosition(Vector(1000.0, 0.0, 0.0));
+	Temp->SetPosition(Vector(2000.0, 0.0, 0.0));
+	//Temp->SetPosition(Vector(3000.0, 0.0, 0.0));
+    Temp = m_nodes.Get(nodeNum+3)->GetObject<MobilityModel>();//Controller2
+	//Temp->SetPosition(Vector(1000.0, 0.0, 0.0));
+	Temp->SetPosition(Vector(700.0, 0.0, 0.0));
     Temp = m_nodes.Get(nodeNum+4)->GetObject<MobilityModel>();//Controller3
-        Temp->SetPosition(Vector(2000.0, 0.0, 0.0));
+    //Temp->SetPosition(Vector(2000.0, 0.0, 0.0));
+    Temp->SetPosition(Vector(1400.0, 0.0, 0.0));
 }
 
 void VanetSim::ConfigApp()
@@ -372,7 +377,8 @@ void VanetSim::ConfigApp()
 	OnOffHelper Source("ns3::UdpSocketFactory",remote);//SendToSink
 	Source.SetAttribute("OffTime",StringValue ("ns3::ConstantRandomVariable[Constant=0.0]"));
 	DataRate x("4096bps");//512*8
-	Source.SetConstantRate(x,512);//
+	//Source.SetConstantRate(x,512);//
+	Source.SetConstantRate(x,128);
 
 
 	m_source = Source.Install(m_nodes.Get(nodeNum+1));//Install on Source
@@ -382,11 +388,7 @@ void VanetSim::ConfigApp()
 	Config::ConnectWithoutContext (
 	    temp,
 	    MakeCallback(&VanetSim::TXTrace, this));
-	/*
-	TypeId tid = TypeId::LookupByName ("ns3::UdpSocketFactory");
-	source = Socket::CreateSocket (m_nodes.Get(nodeNum+1), tid);
-	Simulator::Schedule(Seconds(0.0), &VanetSim::SendDataPacket, this);
-	*/
+
 
 	//sink
 	TypeId tid = TypeId::LookupByName ("ns3::UdpSocketFactory");
