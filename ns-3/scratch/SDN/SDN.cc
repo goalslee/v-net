@@ -160,7 +160,7 @@ void VanetSim::LoadTraffic()
 void VanetSim::ConfigNode()
 {
 	//m_nodes.Create(nodeNum+4);//Cars + 2Controller + Source + Sink
-	m_nodes.Create(nodeNum+5);//Cars + 2Controller + Source + Sink
+	m_nodes.Create(nodeNum+5);//Cars + 2Controller + Source + Sink 创建nodemum+5辆车
 	//std::cout<<nodeNum<<std::endl;
 	/*Only Apps Are Different Between Different kind of Nodes*/
 	// Name nodes
@@ -168,7 +168,7 @@ void VanetSim::ConfigNode()
 	{
 		std::ostringstream os;
 		os << "vehicle-" << i;
-		Names::Add(os.str(), m_nodes.Get(i));
+		Names::Add(os.str(), m_nodes.Get(i));//为每辆车编号
 	}
 	Names::Add("Controller_1",m_nodes.Get(nodeNum));//81
 	Names::Add("Source",m_nodes.Get(nodeNum+1));//82
@@ -179,7 +179,7 @@ void VanetSim::ConfigNode()
 
 void VanetSim::ConfigChannels()
 {
-	//===channel设置无线信道
+	//===channel设置无线信道,通信距离等
 	std::cout<<"ConfigChannels"<<std::endl;
 	YansWifiChannelHelper SCHChannel;
 	SCHChannel.SetPropagationDelay ("ns3::ConstantSpeedPropagationDelayModel");
@@ -333,7 +333,7 @@ void VanetSim::ConfigApp()
 	  sdn.ExcludeInterface (m_nodes.Get (nodeNum), 0);
 	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+1), sdn::CAR);//Treat Source and Sink as CAR
 	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+2), sdn::CAR);
-	  sdn.SetRLnSR (range1, range2);
+	  sdn.SetRLnSR (range1, range2);//double signal_range, double road_length 如何起作用?设置wifi时已经设置范围
 	  internet.SetRoutingHelper(sdn);
 		std::cout<<"SetRoutingHelper Done"<<std::endl;
 	  internet.Install (m_nodes);
@@ -357,7 +357,7 @@ void VanetSim::ConfigApp()
 		m_CCHInterfaces = ipv4C.Assign(m_CCHDevices);
 		std::cout<<"IPV4C Assigned"<<std::endl;
 		for (uint32_t i = 0;i<m_nodes.GetN ();++i)
-		  {
+		  {//对每个节点的路由协议设置网卡的整形值
 		    //std::cout<<"m_nodes.GetN () "<<i<<std::endl;
 		    Ptr<sdn::RoutingProtocol> routing =
 		        m_nodes.Get (i)->GetObject<sdn::RoutingProtocol> ();

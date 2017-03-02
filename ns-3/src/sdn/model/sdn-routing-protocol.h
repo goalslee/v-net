@@ -58,7 +58,7 @@ struct RoutingTableEntry
   Ipv4Address destAddr; ///< Address of the destination subnet.
   Ipv4Address nextHop; ///< Address of the next hop.
   Ipv4Address mask; ///< mask of the destination subnet.
-  uint32_t interface; ///< Interface index.
+  uint32_t interface; ///< Interface index. ָʲô�
 };
 
 // A struct for LC to hold Information that got from cars
@@ -93,7 +93,7 @@ public:
   AppointmentType appointmentResult;
 };
 
-struct ShortHop
+struct ShortHop//???
 {
   ShortHop ()
   {
