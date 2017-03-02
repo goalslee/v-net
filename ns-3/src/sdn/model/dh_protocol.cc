@@ -28,6 +28,7 @@
 /// implemented here.
 ///
 
+#if 0
 #define NS_LOG_APPEND_CONTEXT                                   \
   if (GetObject<Node> ()) { std::clog << "[node " << GetObject<Node> ()->GetId () << "] "; }
 
@@ -2026,5 +2027,6 @@ RoutingProtocol::SetSignalRangeNRoadLength (double signal_range, double road_len
 
 } // namespace sdn
 } // namespace ns3
+
 
 
