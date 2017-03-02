@@ -126,7 +126,7 @@ class RoutingProtocol;
 ///
 class RoutingProtocol : public Ipv4RoutingProtocol
 {
-public:
+   public:
   static TypeId GetTypeId (void);//implemented
 
   RoutingProtocol ();//implemented
@@ -139,7 +139,16 @@ public:
   ///
   void SetSCHInterface (uint32_t interface);//implemented
   void SetCCHInterface (uint32_t interface);//implemented
-
+  
+  void SetType (NodeType nt); //implemented
+  NodeType GetType () const; //implemented
+  void SetSignalRangeNRoadLength (double signal_range, double road_length);
+  void SetMobility (Ptr<MobilityModel> mobility);//implemented
+    std::set<uint32_t> GetInterfaceExclusions () const
+  {
+    return (m_interfaceExclusions);
+  }
+  void SetInterfaceExclusions (std::set<uint32_t> exceptions);//implemented
   ///
   /// Dump the routing table
   /// to logging output (NS_LOG_DEBUG log level).  If logging is disabled,
@@ -162,19 +171,35 @@ public:
   */
   int64_t AssignStreams (int64_t stream);//implemented
 
-private:
-  std::set<uint32_t> m_interfaceExclusions;
-
-public:
-  std::set<uint32_t> GetInterfaceExclusions () const
-  {
-    return (m_interfaceExclusions);
-  }
-  void SetInterfaceExclusions (std::set<uint32_t> exceptions);//implemented
-
 protected:
   virtual void DoInitialize (void);//implemented
 private:
+  Ipv4Address m_SCHmainAddress;
+  Ipv4Address m_CCHmainAddress;
+  uint32_t m_SCHinterface;
+  uint32_t m_CCHinterface;
+  bool isDes=false;
+  std::map<Ipv4Address, Ipv4Address> m_SCHaddr2CCHaddr;
+  Ipv4Address transferAddress;//now it is the nearest ip
+  Ipv4Address roadendAddress;
+  Ipv4Address temp_desId;
+  //std::map<Ipv4Address, Ipv4Address> m_SCHaddr2IfaceAddr;
+  // One socket per interface, each bound to that interface's address
+  // (reason: for VANET-SDN we need to distinguish CCH and SCH interfaces)
+  std::map< Ptr<Socket>, Ipv4InterfaceAddress > m_socketAddresses;
+
+  TracedCallback <const PacketHeader &,
+                  const MessageList &> m_rxPacketTrace;
+  TracedCallback <const PacketHeader &,
+                  const MessageList &> m_txPacketTrace;
+  TracedCallback <uint32_t> m_routingTableChanged;
+
+  /// Provides uniform random variables.
+  Ptr<UniformRandomVariable> m_uniformRandomVariable;  
+
+  // Mobility module for Vanet
+  Ptr<MobilityModel> m_mobility;
+  std::set<uint32_t> m_interfaceExclusions;
   std::map<Ipv4Address, RoutingTableEntry> m_table; ///< Data structure for the routing table. (Use By Mainly by CAR Node, but LC needs it too)
 
   std::map<Ipv4Address, CarInfo> m_lc_info;///for LC
@@ -197,6 +222,15 @@ private:
   /// Messages sequence number counter.
   uint16_t m_messageSequenceNumber;
 
+  double m_road_length;
+  double m_signal_range;
+  std::list<Ipv4Address> m_list4sort;
+  std::map<Ipv4Address, std::list<ShortHop> > m_lc_shorthop;
+  
+  int m_numArea;
+  bool m_isPadding;
+  bool m_numAreaVaild;
+
   /// HELLO messages' emission interval.
   Time m_helloInterval;
   /// Routing messages' emission interval.
@@ -205,7 +239,18 @@ private:
   Time m_minAPInterval;
 
   Ptr<Ipv4> m_ipv4;
-
+  NodeType m_nodetype;
+  //Only node type CAR use this(below)
+  AppointmentType m_appointmentResult;
+  Ipv4Address m_next_forwarder;
+  bool m_linkEstablished;
+  std::vector< std::set<Ipv4Address> > m_Sections;
+  
+  Ipv4Address m_theFirstCar;//Use by Reschedule (), SelectNewNodeInAreaZero(); Assign by SelectNode ();
+  //Duplicate_Detection m_duplicate_detection;
+  
+  
+  
   void Clear ();//implemented
   uint32_t GetSize () const { return (m_table.size ()); }
   void RemoveEntry (const Ipv4Address &dest);//implemented
@@ -292,55 +337,11 @@ private:
   void ProcessAodvRERm(const sdn::MessageHeader &msg);
   void SetAodvParm(uint32_t jump,float sta);
   void GetAodvParm(uint32_t &jump,float &sta);
-
   void ComputeRoute ();//
 
   /// Check that address is one of my interfaces
   bool IsMyOwnAddress (const Ipv4Address & a) const;//implemented
 
-private:
-  Ipv4Address m_SCHmainAddress;
-  Ipv4Address m_CCHmainAddress;
-  uint32_t m_SCHinterface;
-  uint32_t m_CCHinterface;
-  bool isDes=false;
-  std::map<Ipv4Address, Ipv4Address> m_SCHaddr2CCHaddr;
-  Ipv4Address transferAddress;//now it is the nearest ip
-  Ipv4Address roadendAddress;
-  Ipv4Address temp_desId;
-  //std::map<Ipv4Address, Ipv4Address> m_SCHaddr2IfaceAddr;
-  // One socket per interface, each bound to that interface's address
-  // (reason: for VANET-SDN we need to distinguish CCH and SCH interfaces)
-  std::map< Ptr<Socket>, Ipv4InterfaceAddress > m_socketAddresses;
-
-  TracedCallback <const PacketHeader &,
-                  const MessageList &> m_rxPacketTrace;
-  TracedCallback <const PacketHeader &,
-                  const MessageList &> m_txPacketTrace;
-  TracedCallback <uint32_t> m_routingTableChanged;
-
-  /// Provides uniform random variables.
-  Ptr<UniformRandomVariable> m_uniformRandomVariable;  
-
-  // Mobility module for Vanet
-  Ptr<MobilityModel> m_mobility;
-
-public:
-  void SetMobility (Ptr<MobilityModel> mobility);//implemented
-
-private:
-  NodeType m_nodetype;
-  //Only node type CAR use this(below)
-  AppointmentType m_appointmentResult;
-  Ipv4Address m_next_forwarder;
-
-public:
-  void SetType (NodeType nt); //implemented
-  NodeType GetType () const; //implemented
-
-private:
-  bool m_linkEstablished;
-  std::vector< std::set<Ipv4Address> > m_Sections;
   ShortHop GetShortHop (const Ipv4Address& IDa, const Ipv4Address& IDb);
   void LCAddEntry( const Ipv4Address& ID,
                    const Ipv4Address& dest,
@@ -361,20 +362,13 @@ private:
   int GetArea (Vector3D position) const;
   int GetNumArea () const;
   void Init_NumArea();
-  int m_numArea;
-  bool m_isPadding;
-  bool m_numAreaVaild;
+
 
   bool isPaddingExist () const;
 
   void RemoveTimeOut ();
 
-  double m_road_length;
-  double m_signal_range;
-public:
-  void SetSignalRangeNRoadLength (double signal_range, double road_length);
 
-private:
   void Do_Init_Compute ();
   void Do_Update ();
   void Reschedule ();
@@ -390,16 +384,13 @@ private:
   void UpdateMinHop (const Ipv4Address &ID);
   //ResetAppointmentResult In m_lc_info;
   void ResetAppointmentResult ();
-  std::list<Ipv4Address> m_list4sort;
-  std::map<Ipv4Address, std::list<ShortHop> > m_lc_shorthop;
+
 
   void ShiftArea ();
   void AddNewToZero ();
   void CalcSetZero ();
   void SelectNewNodeInAreaZero ();
 
-  Ipv4Address m_theFirstCar;//Use by Reschedule (), SelectNewNodeInAreaZero(); Assign by SelectNode ();
-  //Duplicate_Detection m_duplicate_detection;
 };
 
 
