@@ -179,7 +179,7 @@ void VanetSim::ConfigNode()
 
 void VanetSim::ConfigChannels()
 {
-	//===channel
+	//===channel设置无线信道
 	std::cout<<"ConfigChannels"<<std::endl;
 	YansWifiChannelHelper SCHChannel;
 	SCHChannel.SetPropagationDelay ("ns3::ConstantSpeedPropagationDelayModel");
@@ -259,6 +259,7 @@ void VanetSim::ConfigMobility()
 	Temp->SetPosition(Vector(5.1, 0.0, 0.0));
 	Temp = m_nodes.Get(nodeNum+2);//Sink
 */
+//设置控制器，源和目的 的位置
 	VMo->Install();
 	double rt = VMo->GetReadTotalTime();
 	if (duration<0)
@@ -285,7 +286,7 @@ void VanetSim::ConfigMobility()
 
 void VanetSim::ConfigApp()
 {
-	//===Routing
+	//===设置路由算法Routing
 	InternetStackHelper internet;
 	if (mod == 0)
 	{
@@ -340,7 +341,7 @@ void VanetSim::ConfigApp()
 
 
 	std::cout<<"internet.Install Done"<<std::endl;
-	//===IP ADDRESS
+	//===分配IP ADDRESS
 
 	Ipv4AddressHelper ipv4S;
 	NS_LOG_INFO ("Assign IP Addresses.");
@@ -369,7 +370,7 @@ void VanetSim::ConfigApp()
 	//===Traffic
 	//source
 
-	//onoff
+	//onoff 发送udp包
 	/*std::pair<Ptr<Ipv4>, uint32_t> RetValue = m_SCHInterfaces.Get (nodeNum+1);
 	Ipv4InterfaceAddress theinterface = RetValue.first->GetAddress (RetValue.second, 0);
   Ipv4Address bcast = theinterface.GetLocal ().GetSubnetDirectedBroadcast (theinterface.GetMask ());*/

@@ -144,7 +144,7 @@ Ipv4AddressHelper::Assign (const NetDeviceContainer &c)
                      " with a node without IPv4 stack installed -> fail "
                      "(maybe need to use InternetStackHelper?)");
 
-      int32_t interface = ipv4->GetInterfaceForDevice (device);
+      int32_t interface = ipv4->GetInterfaceForDevice (device);//¶àÓÚÒ»¸öinterfaceÄØå
       if (interface == -1)
         {
           interface = ipv4->AddInterface (device);
