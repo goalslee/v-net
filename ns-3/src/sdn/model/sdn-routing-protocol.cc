@@ -113,9 +113,9 @@ RoutingProtocol::RoutingProtocol ()
   :
     m_packetSequenceNumber (SDN_MAX_SEQ_NUM),
     m_messageSequenceNumber (SDN_MAX_SEQ_NUM),
-    m_helloInterval (Seconds(1)),//hellomessage ����
-    m_rmInterval (Seconds (3)),//ÿ��lcѡ��������
-    m_minAPInterval (Seconds (1)),//û�õ�
+    m_helloInterval (Seconds(1)),//hellomessage ÖÜÆÚ
+    m_rmInterval (Seconds (3)),//Ã¿¸ölcÑ¡³µµÄÖÜÆÚ
+    m_minAPInterval (Seconds (1)),//Ã»ÓÃµ½
     m_ipv4 (0),
     m_helloTimer (Timer::CANCEL_ON_DESTROY),
     m_rmTimer (Timer::CANCEL_ON_DESTROY),
@@ -170,7 +170,7 @@ RoutingProtocol::SetIpv4 (Ptr<Ipv4> ipv4)
 void RoutingProtocol::DoDispose ()
 {
   m_ipv4 = 0;
-
+//m_socketAddresses 明天看看
   for (std::map< Ptr<Socket>, Ipv4InterfaceAddress >::iterator iter = 
        m_socketAddresses.begin ();
        iter != m_socketAddresses.end (); ++iter)
@@ -210,7 +210,7 @@ RoutingProtocol::PrintRoutingTable (Ptr<OutputStreamWrapper> stream) const
       *os << "\n";
     }
 }
-
+	//重点看看，这是生成对象后会调用的？
 void 
 RoutingProtocol::DoInitialize ()
 {
@@ -742,7 +742,7 @@ RoutingProtocol::AddEntry (const Ipv4Address &dest,
   NS_ASSERT(false);
   //AddEntry(dest, mask, next, 0);
 }
-
+//什么时候调用
 bool
 RoutingProtocol::Lookup(Ipv4Address const &dest,
                         RoutingTableEntry &outEntry) const
@@ -791,7 +791,7 @@ RoutingProtocol::RemoveEntry (Ipv4Address const &dest)
   m_table.erase (dest);
 }
 
-
+//什么时候调用
 bool
 RoutingProtocol::RouteInput(Ptr<const Packet> p,
                             const Ipv4Header &header,
@@ -1483,8 +1483,8 @@ RoutingProtocol::GetType () const
 
 typedef struct Edge
 {
-    int u, v;    // 起点，重点
-    int weight;  // 边的权值
+    int u, v;    // èµ·ç¹ï¼éç¹
+    int weight;  // è¾¹çæå¼
 } Edge;
 
 void
@@ -1544,7 +1544,7 @@ RoutingProtocol::ComputeRoute ()
     //if(numBitmapIp.size()>1)//because it will compute once before everything start and size can be 0
     //	std::cout<<numBitmapIp.size()<<"?????????"<<std::endl;
     //build the topology graph.
-    Edge edge[max_car_number*max_car_number];     // 保存边的值
+    Edge edge[max_car_number*max_car_number];     // ä¿å­è¾¹çå¼
     //memset(edge,max_car_number,sizeof(edge));
     for(int t=0;t<max_car_number*max_car_number;t++)
     {
@@ -1615,7 +1615,7 @@ RoutingProtocol::ComputeRoute ()
         }*/
 
         bool flag = 1;
-        // 判断是否有负环路
+        // å¤æ­æ¯å¦æè´ç¯è·¯
         if(edgenum!=0)
 			for(int t=1; t<=edgenum; ++t)
 			{
