@@ -172,11 +172,12 @@ void VanetSim::ConfigNode()
 		Names::Add(os.str(), m_nodes.Get(i));//为每辆车编号
 	}
 	std::string str;
-         //char string[10];
+         char string[10];
 	for(uint32_t i = 0; i < 24; ++i)//24 个LC
 	{
-	   sprintf(str.c_str(),"%d",i);
-	    Names::Add("Controller_"+string,m_nodes.Get(nodeNum+i));
+	   sprintf(string,"%d",i);
+	   str=string;
+	    Names::Add("Controller_"+str,m_nodes.Get(nodeNum+i));
 	}
 
 	Names::Add("Source",m_nodes.Get(nodeNum+24));//523
