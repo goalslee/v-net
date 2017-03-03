@@ -7,6 +7,7 @@
 /*
   ./waf --run "SDN"
 */
+#include<stdio.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -30,8 +31,8 @@ VanetSim::VanetSim()
 	txp1 = 20;  // dBm SCH
 	txp2 = 20;  // CCH
 	range1 = 400.0;//SCH
-	//range2 = 1000.0;//CCH
-	range2 = 700.0;//CCH
+	range2 = 1000.0;//CCH
+	//range2 = 700.0;//CCH
 	packetSize = 1000; // bytes
 	numPackets = 1;
 	interval = 0.1; // seconds
@@ -160,7 +161,7 @@ void VanetSim::LoadTraffic()
 void VanetSim::ConfigNode()
 {
 	//m_nodes.Create(nodeNum+4);//Cars + 2Controller + Source + Sink
-	m_nodes.Create(nodeNum+5);//Cars + 2Controller + Source + Sink 创建nodemum+5辆车
+	m_nodes.Create(nodeNum+26);//Cars + 2Controller + Source + Sink 创建nodemum+5辆车
 	//std::cout<<nodeNum<<std::endl;
 	/*Only Apps Are Different Between Different kind of Nodes*/
 	// Name nodes
@@ -170,11 +171,16 @@ void VanetSim::ConfigNode()
 		os << "vehicle-" << i;
 		Names::Add(os.str(), m_nodes.Get(i));//为每辆车编号
 	}
-	Names::Add("Controller_1",m_nodes.Get(nodeNum));//81
-	Names::Add("Source",m_nodes.Get(nodeNum+1));//82
-	Names::Add("Sink",m_nodes.Get(nodeNum+2));//83
-	Names::Add("Controller_2",m_nodes.Get(nodeNum+3));//84
-	Names::Add("Controller_3",m_nodes.Get(nodeNum+4));//85
+         char string[10];
+	for(uint32_t i = 0; i < 24; ++)//24 个LC
+	{
+	   sprintf(string,"%d",i);
+	    Names::Add("Controller_"+string,m_nodes.Get(nodeNum+i));
+	}
+
+	Names::Add("Source",m_nodes.Get(nodeNum+24));//523
+	Names::Add("Sink",m_nodes.Get(nodeNum+25));//524
+
 }
 
 void VanetSim::ConfigChannels()
