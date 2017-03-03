@@ -495,6 +495,7 @@ VanetSim::TXTrace (Ptr<const Packet> newpacket)
 // Example to use ns2 traces file in ns3
 int main (int argc, char *argv[])
 {
+         std::cout<<"begin";
 	VanetSim SDN_test;
 	SDN_test.Simulate(argc, argv);
 	return 0;
