@@ -915,6 +915,7 @@ RoutingProtocol::RouteOutput (Ptr<Packet> p,
              Ptr<NetDevice> oif,
              Socket::SocketErrno &sockerr)
 {
+ std::cout<<"RouteOutput "<<std::endl;
   NS_LOG_FUNCTION (this << " " << m_ipv4->GetObject<Node> ()->GetId () << " " << header.GetDestination () << " " << oif);
   Ptr<Ipv4Route> rtentry;
   RoutingTableEntry entry;
