@@ -796,9 +796,9 @@ bool
 RoutingProtocol::RouteInput(Ptr<const Packet> p,
                             const Ipv4Header &header,
                             Ptr<const NetDevice> idev,
-                            UnicastForwardCallback ucb,
+                            UnicastForwardCallback ucb,//正常传递消息需要
                             MulticastForwardCallback mcb,
-                            LocalDeliverCallback lcb,
+                            LocalDeliverCallback lcb,//找路和找lc时发的广播包，所以会往上传递
                             ErrorCallback ecb)
 {
   NS_LOG_FUNCTION (this << " " << m_ipv4->GetObject<Node> ()->GetId () << " " << header.GetDestination ());
@@ -825,6 +825,7 @@ RoutingProtocol::RouteInput(Ptr<const Packet> p,
       if (!lcb.IsNull ())
         {
           NS_LOG_LOGIC ("Broadcast local delivery to " << dest);
+          std::cout<<"local delivery"<<std::endl:
           lcb (p, header, iif);
           return true;
         }
