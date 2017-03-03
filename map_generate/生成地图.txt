@@ -7,7 +7,7 @@
 --no-internal-links true 解决段错误？
 -j traffic_light 无用？
 -S 车速
--L 车道 >1自动变成双向车道
+-L 车道 双向车道
 
 
 /sumo-win32-0.24.0/sumo-0.24.0/bin/netgenerate --grid-net --grid-x-number=10 --grid-y-number=10 --grid-y-length=500 --grid-x-length=500 -L 4 -S 12 --output-file=input_net.net.xml  长宽不同

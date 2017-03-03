@@ -825,7 +825,7 @@ RoutingProtocol::RouteInput(Ptr<const Packet> p,
       if (!lcb.IsNull ())
         {
           NS_LOG_LOGIC ("Broadcast local delivery to " << dest);
-          std::cout<<"local delivery"<<std::endl;
+          //std::cout<<"local delivery"<<std::endl;
           lcb (p, header, iif);
           return true;
         }
