@@ -742,7 +742,7 @@ RoutingProtocol::AddEntry (const Ipv4Address &dest,
   NS_ASSERT(false);
   //AddEntry(dest, mask, next, 0);
 }
-//ä»€ä¹ˆæ—¶å€™è°ƒç”¨
+
 bool
 RoutingProtocol::Lookup(Ipv4Address const &dest,
                         RoutingTableEntry &outEntry) const
@@ -791,7 +791,7 @@ RoutingProtocol::RemoveEntry (Ipv4Address const &dest)
   m_table.erase (dest);
 }
 
-//ä»€ä¹ˆæ—¶å€™è°ƒç”¨
+
 bool
 RoutingProtocol::RouteInput(Ptr<const Packet> p,
                             const Ipv4Header &header,
@@ -825,7 +825,7 @@ RoutingProtocol::RouteInput(Ptr<const Packet> p,
       if (!lcb.IsNull ())
         {
           NS_LOG_LOGIC ("Broadcast local delivery to " << dest);
-          std::cout<<"local delivery"<<std::endl;
+          //std::cout<<"local delivery"<<std::endl;
           lcb (p, header, iif);
           return true;
         }
@@ -922,7 +922,7 @@ RoutingProtocol::RouteOutput (Ptr<Packet> p,
   RoutingTableEntry entry;
   //std::cout<<"RouteOutput "<<m_SCHmainAddress.Get () << ",Dest:"<<header.GetDestination ().Get ()<<std::endl;
   //std::cout<<"M_TABLE SIZE "<<m_table.size ()<<std::endl;
-  if (Lookup (header.GetDestination (), entry))
+  if (Lookup (header.GetDestination (), entry))//Èç¹ûÊÇ¹ã²¥£¬Ôòm_tableÐëÓÐ¹ã²¥µØÖ·ÌõÄ¿
     {
       uint32_t interfaceIdx = entry.interface;
       if (oif && m_ipv4->GetInterfaceForDevice (oif) != static_cast<int> (interfaceIdx))
@@ -1247,7 +1247,7 @@ RoutingProtocol::SendCRREQ (Ipv4Address const &destAddress)
 {
   NS_LOG_FUNCTION (this);
 
- // std::cout<<"SendCRREQ "<<std::endl;
+  std::cout<<"SendCRREQ "<<std::endl;
   sdn::MessageHeader msg;
   Time now = Simulator::Now ();
   msg.SetVTime (m_helloInterval);
