@@ -374,6 +374,7 @@ void VanetSim::ConfigApp()
 	/*std::pair<Ptr<Ipv4>, uint32_t> RetValue = m_SCHInterfaces.Get (nodeNum+1);
 	Ipv4InterfaceAddress theinterface = RetValue.first->GetAddress (RetValue.second, 0);
   Ipv4Address bcast = theinterface.GetLocal ().GetSubnetDirectedBroadcast (theinterface.GetMask ());*/
+  /*
 	Address remote (InetSocketAddress(m_SCHInterfaces.GetAddress(nodeNum+2), m_port));
 	OnOffHelper Source("ns3::UdpSocketFactory",remote);//SendToSink
 	Source.SetAttribute("OffTime",StringValue ("ns3::ConstantRandomVariable[Constant=0.0]"));
@@ -399,6 +400,7 @@ void VanetSim::ConfigApp()
 	InetSocketAddress local = InetSocketAddress(Ipv4Address::GetZero (),m_port);
 	sink->Bind(local);
 	sink->SetRecvCallback(MakeCallback(&VanetSim::ReceiveDataPacket, this));
+	*/
 }
 
 void VanetSim::ReceiveDataPacket(Ptr<Socket> socket)
