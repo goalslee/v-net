@@ -31,7 +31,7 @@ VanetSim::VanetSim()
 	txp1 = 20;  // dBm SCH
 	txp2 = 20;  // CCH
 	range1 = 400.0;//SCH
-	range2 = 1000.0;//CCH
+	range2 = 1100.0;//CCH
 	//range2 = 700.0;//CCH
 	packetSize = 1000; // bytes
 	numPackets = 1;
@@ -175,14 +175,14 @@ void VanetSim::ConfigNode()
          char string[10];
 	for(uint32_t i = 0; i < 24; ++i)//24 个LC
 	{
-	   sprintf(string,"%d",i);
+	   sprintf(string,"%d",i+1);
 	   str=string;
 	    Names::Add("Controller_"+str,m_nodes.Get(nodeNum+i));
-	    std::cout<<"Controller_"+str<<std::endl;
+	    //std::cout<<"Controller_"+str<<std::endl;
 	}
 
-	Names::Add("Source",m_nodes.Get(nodeNum+24));//523
-	Names::Add("Sink",m_nodes.Get(nodeNum+25));//524
+	Names::Add("Source",m_nodes.Get(nodeNum+24));//524
+	Names::Add("Sink",m_nodes.Get(nodeNum+25));//525
 
 }
 
@@ -278,6 +278,7 @@ void VanetSim::ConfigMobility()
 	duration = 360;
 	Time temp_now = Simulator::Now();
 	std::cout<<"Now?"<<temp_now.GetSeconds ()<<std::endl;
+	/*
 	Ptr<MobilityModel> Temp = m_nodes.Get(nodeNum)->GetObject<MobilityModel>();//Controller1
 	Temp->SetPosition(Vector(0.0, 0.0, 0.0));
 	Temp = m_nodes.Get(nodeNum+1)->GetObject<MobilityModel>();//source
@@ -291,6 +292,86 @@ void VanetSim::ConfigMobility()
     Temp = m_nodes.Get(nodeNum+4)->GetObject<MobilityModel>();//Controller3
     //Temp->SetPosition(Vector(2000.0, 0.0, 0.0));
     Temp->SetPosition(Vector(1400.0, 0.0, 0.0));
+    */
+    //24个lc和2个固定车节点
+    Ptr<MobilityModel> Temp;
+    Temp=m_nodes.Get(nodeNum)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(500.0, -10.0, 0.0));//1
+
+     Temp=m_nodes.Get(nodeNum+1)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(1500.0, -10.0, 0.0));//2
+
+     Temp=m_nodes.Get(nodeNum+2)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(2500.0, -10.0, 0.0));//3
+
+        Temp=m_nodes.Get(nodeNum+3)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(500.0, -10.0+1000.0, 0.0));//4
+
+         Temp=m_nodes.Get(nodeNum+4)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(1500.0, -10.0+1000.0, 0.0));//5
+    
+         Temp=m_nodes.Get(nodeNum+5)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(2500.0, -10.0+1000.0, 0.0));//6
+
+         Temp=m_nodes.Get(nodeNum+6)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(500.0, -10.0+1000.0*2, 0.0));//7
+
+         Temp=m_nodes.Get(nodeNum+7)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(1500.0, -10.0+1000.0*2, 0.0));//8
+
+         Temp=m_nodes.Get(nodeNum+8)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(2500.0, -10.0+1000.0*2, 0.0));//9
+
+         Temp=m_nodes.Get(nodeNum+9)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(500.0, -10.0+1000.0*3, 0.0));//10
+
+         Temp=m_nodes.Get(nodeNum+10)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(1500.0, -10.0+1000.0*3, 0.0));//11
+
+         Temp=m_nodes.Get(nodeNum+11)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(2500.0, -10.0+1000.0*3, 0.0));//12
+
+         Temp=m_nodes.Get(nodeNum+12)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector( -10.0, 500.0,0.0));//13
+
+         Temp=m_nodes.Get(nodeNum+16)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(-10.0, 1500.0,0.0));//17
+
+         Temp=m_nodes.Get(nodeNum+20)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(-10.0, 2500.0,0.0));//21
+
+         Temp=m_nodes.Get(nodeNum+13)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(-10.0+1000.0, 500.0,0.0));//14
+
+         Temp=m_nodes.Get(nodeNum+17)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(-10.0+1000.0, 1500.0,0.0));//18
+
+         Temp=m_nodes.Get(nodeNum+21)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(-10.0+1000.0, 2500.0,0.0));//22
+
+         Temp=m_nodes.Get(nodeNum+14)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(-10.0+1000.0*2, 500.0,0.0));//15
+
+         Temp=m_nodes.Get(nodeNum+18)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(-10.0+1000.0*2, 1500.0,0.0));//19
+
+         Temp=m_nodes.Get(nodeNum+22)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(-10.0+1000.0*2, 2500.0,0.0));//23
+
+         Temp=m_nodes.Get(nodeNum+15)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(-10.0+1000.0*3, 500.0,0.0));//16
+
+         Temp=m_nodes.Get(nodeNum+19)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(-10.0+1000.0*3, 1500.0,0.0));//20
+
+         Temp=m_nodes.Get(nodeNum+23)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(-10.0+1000.0*3, 2500.0,0.0));//24
+
+         Temp=m_nodes.Get(nodeNum+24)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(50.0, -10.0, 0.0));//source
+
+         Temp=m_nodes.Get(nodeNum+25)->GetObject<MobilityModel>();
+    Temp->SetPosition(Vector(3010.0, 2950.0, 0.0));//sink
 }
 
 void VanetSim::ConfigApp()
@@ -336,12 +417,17 @@ void VanetSim::ConfigApp()
 	    {
 	      sdn.SetNodeTypeMap (m_nodes.Get (i), sdn::CAR);
 	    }
-	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum), sdn::LOCAL_CONTROLLER);
-          sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+3), sdn::LOCAL_CONTROLLER);
-          sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+4), sdn::LOCAL_CONTROLLER);
-	  sdn.ExcludeInterface (m_nodes.Get (nodeNum), 0);
-	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+1), sdn::CAR);//Treat Source and Sink as CAR
-	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+2), sdn::CAR);
+
+	    for(uint32_t i=0;i<24;++i)
+	    {
+	         sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+i), sdn::LOCAL_CONTROLLER);
+	    }
+	  //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum), sdn::LOCAL_CONTROLLER);
+          //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+3), sdn::LOCAL_CONTROLLER);
+          //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+4), sdn::LOCAL_CONTROLLER);
+	  sdn.ExcludeInterface (m_nodes.Get (nodeNum), 0);//??
+	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+24), sdn::CAR);//Treat Source and Sink as CAR
+	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+25), sdn::CAR);
 	  sdn.SetRLnSR (range1, range2);//double signal_range, double road_length 如何起作用?设置wifi时已经设置范围
 	  internet.SetRoutingHelper(sdn);
 		std::cout<<"SetRoutingHelper Done"<<std::endl;
@@ -383,8 +469,8 @@ void VanetSim::ConfigApp()
 	/*std::pair<Ptr<Ipv4>, uint32_t> RetValue = m_SCHInterfaces.Get (nodeNum+1);
 	Ipv4InterfaceAddress theinterface = RetValue.first->GetAddress (RetValue.second, 0);
   Ipv4Address bcast = theinterface.GetLocal ().GetSubnetDirectedBroadcast (theinterface.GetMask ());*/
-  /*
-	Address remote (InetSocketAddress(m_SCHInterfaces.GetAddress(nodeNum+2), m_port));
+  
+	Address remote (InetSocketAddress(m_SCHInterfaces.GetAddress(nodeNum+25), m_port));
 	OnOffHelper Source("ns3::UdpSocketFactory",remote);//SendToSink
 	Source.SetAttribute("OffTime",StringValue ("ns3::ConstantRandomVariable[Constant=0.0]"));
 	DataRate x("4096bps");//512*8
@@ -392,9 +478,9 @@ void VanetSim::ConfigApp()
 	Source.SetConstantRate(x,128);
 
 
-	m_source = Source.Install(m_nodes.Get(nodeNum+1));//Install on Source
+	m_source = Source.Install(m_nodes.Get(nodeNum+24));//Install on Source
 	m_source.Stop(Seconds(duration));//Default Start time is 0.
-	std::string temp = "/NodeList/"+std::to_string (nodeNum+1)+"/ApplicationList/0/$ns3::OnOffApplication/Tx";
+	std::string temp = "/NodeList/"+std::to_string (nodeNum+24)+"/ApplicationList/0/$ns3::OnOffApplication/Tx";
 
 	Config::ConnectWithoutContext (
 	    temp,
@@ -403,13 +489,13 @@ void VanetSim::ConfigApp()
 
 	//sink
 	TypeId tid = TypeId::LookupByName ("ns3::UdpSocketFactory");
-	Ptr<Socket> sink = Socket::CreateSocket (m_nodes.Get(nodeNum+2), tid);//The Sink
+	Ptr<Socket> sink = Socket::CreateSocket (m_nodes.Get(nodeNum+25), tid);//The Sink
   //HearALL;
 	//InetSocketAddress local = InetSocketAddress(m_CCHInterfaces.GetAddress(nodeNum+2),m_port);
 	InetSocketAddress local = InetSocketAddress(Ipv4Address::GetZero (),m_port);
 	sink->Bind(local);
 	sink->SetRecvCallback(MakeCallback(&VanetSim::ReceiveDataPacket, this));
-	*/
+	
 }
 
 void VanetSim::ReceiveDataPacket(Ptr<Socket> socket)
