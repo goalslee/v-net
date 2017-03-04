@@ -178,6 +178,7 @@ void VanetSim::ConfigNode()
 	   sprintf(string,"%d",i);
 	   str=string;
 	    Names::Add("Controller_"+str,m_nodes.Get(nodeNum+i));
+	    std::cout<<"Controller_"+str<<std::endl;
 	}
 
 	Names::Add("Source",m_nodes.Get(nodeNum+24));//523
