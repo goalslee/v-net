@@ -58,7 +58,7 @@ struct RoutingTableEntry
   Ipv4Address destAddr; ///< Address of the destination subnet.
   Ipv4Address nextHop; ///< Address of the next hop.
   Ipv4Address mask; ///< mask of the destination subnet.
-  uint32_t interface; ///< Interface index. Ö¸Ê²Ã´å
+  uint32_t interface; ///< Interface index. Ö¸´ÓÄÄ¸öÍø¿¨·¢³öÈ¥
 };
 
 // A struct for LC to hold Information that got from cars
@@ -75,7 +75,7 @@ public:
   };
 
   //Get position by this time
-  Vector3D GetPos () const
+  Vector3D GetPos () const  //ÒÔÊ±¼äºÍËÙ¶È¼ÆËã³öÀ´£¬¼´ÒªÇóÔÈËÙ  ---²»ÊÊÓÃ£¿
   {
     double t = Simulator::Now ().GetSeconds () - LastActive.GetSeconds ();
     double x = this->Position.x + this->Velocity.x * t,
@@ -83,11 +83,11 @@ public:
            z = this->Position.z + this->Velocity.z * t;
     return Vector3D(x, y, z);
   }
-  Vector3D Position;
-  Vector3D Velocity;
+  Vector3D Position;//Î»ÖÃ
+  Vector3D Velocity;//ËÙ¶È
   Time LastActive;//Timeout indicator
   bool Active;
-  std::vector<RoutingTableEntry> R_Table;
+  std::vector<RoutingTableEntry> R_Table; //Â·ÓÉ±í
   uint32_t minhop;
   Ipv4Address ID_of_minhop;
   AppointmentType appointmentResult;
@@ -115,9 +115,9 @@ struct ShortHop//???
 
 struct AodvParm //for LC itself
 {
-	uint32_t jumpnums;
-	float stability;
-	std::vector<uint32_t> forwarding_table;
+	uint32_t jumpnums;//ÌøÊı
+	float stability;//ÎÈ¶¨ĞÔ
+	std::vector<uint32_t> forwarding_table;//aodvÑ¡lc ±í
 };
 
 class RoutingProtocol;
@@ -137,29 +137,29 @@ class RoutingProtocol : public Ipv4RoutingProtocol
   ///        interface
   /// \param interface IPv4 interface index
   ///
-  void SetSCHInterface (uint32_t interface);//implemented
-  void SetCCHInterface (uint32_t interface);//implemented
+  void SetSCHInterface (uint32_t interface);//implemented ÉèÖÃSCHInterfaceµÄÕûĞÎÖµm_SCHinterface£¬ SCHµÄip  m_SCHmainAddress  £¬Í¬Ê±ÔÚm_tableÖĞ²åÈëÒ»ÌõÄ¿µÄµØÖ·Îª×ÔÉíµÄÂ·ÓÉĞÅÏ¢
+  void SetCCHInterface (uint32_t interface);//implemented Í¬ÉÏ
   
-  void SetType (NodeType nt); //implemented
-  NodeType GetType () const; //implemented
-  void SetSignalRangeNRoadLength (double signal_range, double road_length);
-  void SetMobility (Ptr<MobilityModel> mobility);//implemented
-    std::set<uint32_t> GetInterfaceExclusions () const
+  void SetType (NodeType nt); //implemented //SdnHelper::Create ÖĞµ÷ÓÃ
+  NodeType GetType () const; //implemented  //»ñÈ¡½ÚµãÀàĞÍ CAR »òÕß CONTROLLER
+  void SetSignalRangeNRoadLength (double signal_range, double road_length);// »òÕßÓĞÓÃ£¬SdnHelper::Create (Ptr<Node> node)Ê±µ÷ÓÃ
+  void SetMobility (Ptr<MobilityModel> mobility);//implemented //m_mobility ³õÊ¼»¯£¬ÔÚInternetStackHelper::Install (NodeContainer c)-¡·SdnHelper::Create (Ptr<Node> node)Ê±µ÷ÓÃ £¬Í¨¹ıËü»ñÈ¡ËÙ¶È£¬Î»ÖÃµÈĞÅÏ¢GetPosition() GetVelocity ()
+    std::set<uint32_t> GetInterfaceExclusions () const //ÎŞÓÃ
   {
     return (m_interfaceExclusions);
   }
-  void SetInterfaceExclusions (std::set<uint32_t> exceptions);//implemented
+  void SetInterfaceExclusions (std::set<uint32_t> exceptions);//implemented //ÎŞÓÃ
   ///
   /// Dump the routing table
   /// to logging output (NS_LOG_DEBUG log level).  If logging is disabled,
   /// this function does nothing.
   ///
-  void Dump (void);//implemented
+  void Dump (void);//implemented //ÎŞÓÃ
 
   /**
    * Return the list of routing table entries discovered by SDN
    **/
-  std::vector<RoutingTableEntry> GetRoutingTableEntries () const;//implemented
+  std::vector<RoutingTableEntry> GetRoutingTableEntries () const;//implemented //½«m_table µÄsecondÈ«²¿È¡³ö£¬·Åµ½vectorÖĞ
 
  /**
   * Assign a fixed random variable stream number to the random variables
@@ -169,7 +169,7 @@ class RoutingProtocol : public Ipv4RoutingProtocol
   * \param stream first stream index to use
   * \return the number of stream indices assigned by this model
   */
-  int64_t AssignStreams (int64_t stream);//implemented
+  int64_t AssignStreams (int64_t stream);//implemented //ÎŞÓÃ
 
 protected:
   virtual void DoInitialize (void);//implemented

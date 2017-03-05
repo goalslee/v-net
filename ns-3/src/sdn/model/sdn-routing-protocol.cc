@@ -210,12 +210,13 @@ RoutingProtocol::PrintRoutingTable (Ptr<OutputStreamWrapper> stream) const
       *os << "\n";
     }
 }
-	//重点看看，这是生成对象后会调用的？
+	
 void 
 RoutingProtocol::DoInitialize ()
 {
   if (m_CCHmainAddress == Ipv4Address ())
     {
+     std::cout<<"test"<<std::endl;
       Ipv4Address loopback ("127.0.0.1");
       uint32_t count = 0;
       uint32_t count1 = 0;
@@ -480,20 +481,20 @@ RoutingProtocol::ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &sen
 	 // std::cout<<"244ProcessHM " << msg.GetHello ().GetPosition ().x<<std::endl;
   //if(m_CCHmainAddress.Get()%256==81 && msg.GetHello ().GetPosition ().x>1000.0)//todo
 	  if(m_CCHmainAddress.Get()%256==81 && msg.GetHello ().GetPosition ().x>700.0)//todo
-  {	  std::cout<<"81 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
+  {	  //std::cout<<"81 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
 	  return;}
 
   //if(m_CCHmainAddress.Get()%256==84 && (msg.GetHello ().GetPosition ().x>2000.0 || msg.GetHello ().GetPosition ().x<1000.0)){
 	if(m_CCHmainAddress.Get()%256==84 && (msg.GetHello ().GetPosition ().x>1400.0 || msg.GetHello ().GetPosition ().x<700.0)){
-	  std::cout<<"84 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
+	 // std::cout<<"84 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
  	  return;}
   //if(m_CCHmainAddress.Get()%256==85 && msg.GetHello ().GetPosition ().x<=2000.0){
   if(m_CCHmainAddress.Get()%256==85 && msg.GetHello ().GetPosition ().x<=1400.0){
-	  std::cout<<"85 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
+	 // std::cout<<"85 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
  	  return;
   }
 
-std::cout<<m_CCHmainAddress.Get()%256<<"get hello,positon is"<<msg.GetHello ().GetPosition ().x<<std::endl;
+//std::cout<<m_CCHmainAddress.Get()%256<<"get hello,positon is"<<msg.GetHello ().GetPosition ().x<<std::endl;
   std::map<Ipv4Address, CarInfo>::iterator it = m_lc_info.find (ID);
 
   if (it != m_lc_info.end ())
