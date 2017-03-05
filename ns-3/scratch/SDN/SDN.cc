@@ -443,7 +443,7 @@ void VanetSim::ConfigApp()
 
 	Ipv4AddressHelper ipv4S;
 	NS_LOG_INFO ("Assign IP Addresses.");
-	ipv4S.SetBase ("10.1.1.0", "255.255.255.0");//SCH
+	ipv4S.SetBase ("10.1.1.0", "255.255.0.0");//SCH
 	m_SCHInterfaces = ipv4S.Assign (m_SCHDevices);
 	std::cout<<"IPV4S Assigned"<<std::endl;
 
@@ -451,7 +451,7 @@ void VanetSim::ConfigApp()
 	if (mod ==1)
 	{
 		NS_LOG_INFO ("Assign IP-C Addresses.");
-		ipv4C.SetBase("192.168.0.0","255.255.255.0");//CCH
+		ipv4C.SetBase("192.168.0.0","255.255.0.0");//CCH
 		m_CCHInterfaces = ipv4C.Assign(m_CCHDevices);
 		std::cout<<"IPV4C Assigned"<<std::endl;
 		for (uint32_t i = 0;i<m_nodes.GetN ();++i)
