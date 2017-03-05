@@ -138,12 +138,15 @@ void VanetSim::LoadTraffic()
 		NS_FATAL_ERROR("Cannot open input path "<<temp.data()<<", Aborted.");
 
 	//std::string sumo_net = temp + "/input.3net.xml";
-	std::string sumo_net = temp + "/input.net.xml";
+	//std::string sumo_net = temp + "/input.net.xml";
+	std::string sumo_net = temp + "/input_net.net.xml";
 
 	//std::string sumo_fcd = temp + "/3fcd.xml";
-	std::string sumo_fcd = temp + "/fcd.xml";
-	std::string sumo_route = temp + "/rou.xml";
+	//std::string sumo_fcd = temp + "/fcd.xml";
+	std::string sumo_fcd = temp + "/fcdoutput.xml";
+	//std::string sumo_route = temp + "/rou.xml";
 	//std::string sumo_route = temp + "/input.3rou.xml";
+	std::string sumo_route = temp + "/routes.rou.xml";
 
 	std::string output = temp + "/" + m_todo + "_" + m_ds + "_result_new.txt";
 
