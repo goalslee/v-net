@@ -91,6 +91,15 @@ SdnHelper::Create (Ptr<Node> node) const
     }
   agent->SetSignalRangeNRoadLength (m_sr, m_rl);
 
+std::map<>::iterator it4=m_typemap.find(node);
+  if (it4 != m_typemap.end ())
+    {
+      agent->SetRoadType (it4->second);
+    }
+  else
+    {
+      agent->SetRoadType (sdn::NEITHER);
+    }
 
   node->AggregateObject (agent);
   return agent;
@@ -153,6 +162,18 @@ SdnHelper::SetNodeTypeMap (Ptr<Node> node, sdn::NodeType nt)
       std::cout<<"Duplicate NodeType on Node: "<< node->GetId()<<std::endl;
     }
   m_ntmap[node] = nt;
+}
+
+void
+SdnHelper::SetRoadTypeMap (Ptr<Node> node, sdn::RoadType nt)
+{
+     std::map< Ptr<Node> , sdn::NodeType >::iterator it = m_typemap.find(node);
+
+  if (it != m_typemap.end() )
+    {
+      std::cout<<"Duplicate Road Type on Node: "<< node->GetId()<<std::endl;
+    }
+  m_typemap[node] = nt; 
 }
 
 void

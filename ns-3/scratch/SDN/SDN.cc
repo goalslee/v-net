@@ -425,6 +425,19 @@ void VanetSim::ConfigApp()
 	    {
 	         sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+i), sdn::LOCAL_CONTROLLER);
 	    }
+
+//set the road type
+	   for (uint32_t i = 0; i<12; ++i)
+	    {
+	      sdn.SetRoadTypeMap (m_nodes.Get (nodeNum+i), sdn::ROW);
+	    }  
+
+	   for (uint32_t i = 12; i<24; ++i)
+	    {
+	      sdn.SetRoadTypeMap (m_nodes.Get (nodeNum+i), sdn::COLUMN);
+	    }  
+	    
+
 	  //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum), sdn::LOCAL_CONTROLLER);
           //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+3), sdn::LOCAL_CONTROLLER);
           //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+4), sdn::LOCAL_CONTROLLER);

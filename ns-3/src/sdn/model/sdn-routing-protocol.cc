@@ -474,13 +474,13 @@ RoutingProtocol::ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &sen
       <<msg.GetHello ().ID.Get ()%256<<" m_lc_info size:"
       <<m_lc_info.size ()<<std::endl;
   */
-  Ipv4Address ID = msg.GetHello ().ID;//should be SCH address
-  m_SCHaddr2CCHaddr[ID] = msg.GetOriginatorAddress();
+
   //m_SCHaddr2IfaceAddr[ID] = senderIface;
   //std::cout<<"ProcessHM " << msg.GetOriginatorAddress().Get ()<<std::endl;
   //if(m_CCHmainAddress.Get()%256==244 )
 	 // std::cout<<"244ProcessHM " << msg.GetHello ().GetPosition ().x<<std::endl;
   //if(m_CCHmainAddress.Get()%256==81 && msg.GetHello ().GetPosition ().x>1000.0)//todo
+  /*
 	  if(m_CCHmainAddress.Get()%256==81 && msg.GetHello ().GetPosition ().x>700.0)//todo
   {	  //std::cout<<"81 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
 	  return;}
@@ -493,7 +493,16 @@ RoutingProtocol::ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &sen
   if(m_CCHmainAddress.Get()%256==85 && msg.GetHello ().GetPosition ().x<=1400.0){
 	 // std::cout<<"85 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
  	  return;
-  }
+  }*/
+
+  //todo 不在lc所属路的hello 包不收
+
+
+
+
+ 
+    Ipv4Address ID = msg.GetHello ().ID;//should be SCH address
+  m_SCHaddr2CCHaddr[ID] = msg.GetOriginatorAddress();
 
 //std::cout<<m_CCHmainAddress.Get()%256<<"get hello,positon is"<<msg.GetHello ().GetPosition ().x<<std::endl;
   std::map<Ipv4Address, CarInfo>::iterator it = m_lc_info.find (ID);
@@ -1480,6 +1489,12 @@ void
 RoutingProtocol::SetType (NodeType nt)
 {
   m_nodetype = nt;
+}
+
+void
+RoutingProtocol::SetRoadType (RoadType nt)
+{
+  m_roadtype = nt;
 }
 
 NodeType

@@ -45,6 +45,7 @@ namespace sdn {
 
 
 enum NodeType {CAR, LOCAL_CONTROLLER, OTHERS};
+enum RoadType{ROW,COLUMN,NEITHER};
 
 /// An SDN's routing table entry.
 struct RoutingTableEntry
@@ -142,6 +143,7 @@ class RoutingProtocol : public Ipv4RoutingProtocol
   void SetCCHInterface (uint32_t interface);//implemented 同上
   
   void SetType (NodeType nt); //implemented //SdnHelper::Create 中调用
+  void SetRoadType (RoadType nt);
   NodeType GetType () const; //implemented  //获取节点类型 CAR 或者 CONTROLLER
   void SetSignalRangeNRoadLength (double signal_range, double road_length);// 或者有用，SdnHelper::Create (Ptr<Node> node)时调用
   void SetMobility (Ptr<MobilityModel> mobility);//implemented //m_mobility 初始化，在InternetStackHelper::Install (NodeContainer c)-》SdnHelper::Create (Ptr<Node> node)时调用 ，通过它获取速度，位置等信息GetPosition() GetVelocity ()
@@ -241,6 +243,7 @@ private:
 
   Ptr<Ipv4> m_ipv4;
   NodeType m_nodetype;
+  RoadType m_roadtype;
   //Only node type CAR use this(below)
   AppointmentType m_appointmentResult;
   Ipv4Address m_next_forwarder;
@@ -325,7 +328,7 @@ private:
   void QueueMessage (const sdn::MessageHeader &message, Time delay);//implemented
   void SendQueuedMessages ();//implemented
   void SendHello ();//implemented
-  void SendRoutingMessage (); //Fullfilled
+  void SendRoutingMessage (); //Fullfilled 给车下发路由表
   void SendAppointment();
   void SendCRREQ(const Ipv4Address &destAddress);
   void SendCRREP(const Ipv4Address &sourceAddress,const Ipv4Address &destAddress,const Ipv4Address &transferAddress);

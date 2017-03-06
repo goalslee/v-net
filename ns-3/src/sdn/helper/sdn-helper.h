@@ -109,7 +109,7 @@ public:
    * Set Node type to nodes
    */
   void SetNodeTypeMap (Ptr<Node> node, sdn::NodeType nt);
-
+  void SetRoadTypeMap (Ptr<Node> node, sdn::RoadType nt);
   /*
    * Set Road length and signal range
    */
@@ -124,6 +124,7 @@ private:
   SdnHelper &operator = (const SdnHelper &o);
   ObjectFactory m_agentFactory;
   std::map< Ptr<Node>, sdn::NodeType > m_ntmap;
+  std::map<Ptr<Node>,sdn::RoadType> m_typemap;
   std::map< Ptr<Node>, std::set<uint32_t> > m_interfaceExclusions;
   double m_rl;
   double m_sr;
