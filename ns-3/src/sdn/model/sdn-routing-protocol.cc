@@ -1468,7 +1468,7 @@ RoutingProtocol::ComputeRoute ()
     Reschedule ();
     std::cout<<"CR DONE"<<std::endl;*/
     //Remove Timeout Tuples first.
-    std::cout<<"computeroute "<<m_CCHmainAddress.Get()%256<<std::endl;
+    //std::cout<<"computeroute "<<m_CCHmainAddress.Get()%256<<std::endl;
     RemoveTimeOut (); //Remove Stale Tuple
     //input the m_lc_info;
 
@@ -1594,16 +1594,16 @@ RoutingProtocol::ComputeRoute ()
         //record the route
         //Ipv4Address bcast = Ipv4Address::GetBroadcast();
         //Ipv4Address allzero = Ipv4Address::GetZero ();
-        Ipv4Address mask("255.255.255.0");
+        Ipv4Address mask("255.255.0.0");
         //std::cout<<i<<" "<<listsize<<" 77777"<<std::endl;
-        std::cout<<"rout: "<<m_CCHmainAddress.Get()%256<<std::endl;
+        std::cout<<"rout: "<<m_CCHmainAddress.Get()<<std::endl;
         for(int t=1; t<listsize; t++)
         {
             int root = t;
             while(root != pre[root])
             {
             	//if(m_CCHmainAddress.Get()%256==244)
-                   std::cout<<pre[root]<<":"<<"["<<numBitmapIp[pre[root]].Get()%256<<"]"<<"->"<<t<<":"<<"["<<numBitmapIp[t].Get()%256<<"]"<<"  crossing"<<root<<":"<<"["<<numBitmapIp[root].Get()%256<<"]"<<std::endl;
+                   std::cout<<pre[root]<<":"<<"["<<numBitmapIp[pre[root]].Get()<<"]"<<"->"<<t<<":"<<"["<<numBitmapIp[t].Get()<<"]"<<"  crossing"<<root<<":"<<"["<<numBitmapIp[root].Get()<<"]"<<std::endl;
                 LCAddEntry (numBitmapIp[pre[root]], numBitmapIp[t], mask, numBitmapIp[root]);//todo
                 root = pre [root];
             }
@@ -1614,7 +1614,7 @@ RoutingProtocol::ComputeRoute ()
         cout<<cit->first.m_address<<" "<<cit->second.Position.x<<" "<<cit->second.Position.y<<" "<<cit->second.Position.z<<endl;
     }*/
 
-    std::cout << "computerouting" << std::endl;
+    //std::cout << "computerouting" << std::endl;
 }//RoutingProtocol::ComputeRoute
 
 void
