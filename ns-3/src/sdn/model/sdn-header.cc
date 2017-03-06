@@ -35,7 +35,7 @@
 #define SDN_APPOINTMENT_HEADER_SIZE 12
 #define SDN_CRREQ_HEADER_SIZE 8
 #define SDN_CRREP_HEADER_SIZE 12
-#define SDN_AODVRM_HEADER_SIZE 24
+#define SDN_AODVRM_HEADER_SIZE 28
 
 NS_LOG_COMPONENT_DEFINE ("SdnHeader");
 
@@ -430,6 +430,7 @@ MessageHeader::AodvRm::Serialize (Buffer::Iterator start) const
   i.WriteHtonU32 (this->mask.Get());
   i.WriteHtonU32 (this->jump_nums);
   i.WriteHtonU32 (this->stability);
+  i.WriteHtonU32 (this->Originator.Get());
 
 /*for(auto iter=forwarding_table.begin();iter!=forwarding_table.end();iter++){
 	  Ipv4Address temp=*iter;
@@ -454,6 +455,7 @@ MessageHeader::AodvRm::Deserialize (Buffer::Iterator start,
   this->mask.Set(i.ReadNtohU32());
   this->jump_nums=i.ReadNtohU32();
   this->stability=i.ReadNtohU32();
+  this->Originator.Set(i.ReadNtohU32());
 
   //NS_ASSERT ((messageSize - SDN_RM_HEADER_SIZE) %
     //(IPV4_ADDRESS_SIZE * SDN_RM_TUPLE_SIZE) == 0);
@@ -477,7 +479,7 @@ MessageHeader::AodvRm::Deserialize (Buffer::Iterator start,
 uint32_t
 MessageHeader::Aodv_R_Rm::GetSerializedSize (void) const
 {
-  return (SDN_AODVRM_HEADER_SIZE+4 );
+  return (SDN_AODVRM_HEADER_SIZE );
 }
 
 
@@ -490,15 +492,10 @@ MessageHeader::Aodv_R_Rm::Serialize (Buffer::Iterator start) const
   i.WriteHtonU32 (this->routingMessageSize);
   i.WriteHtonU32 (this->ID.Get());
   i.WriteHtonU32 (this->DesId.Get());
-  i.WriteHtonU32 (this->CarId.Get());
-  i.WriteHtonU32 (this->mask);
-  i.WriteHtonU32 (this->jump_nums);
-  i.WriteHtonU32 (this->stability);
-
-/*for(auto iter=forwarding_table.begin();iter!=forwarding_table.end();iter++){
-	  Ipv4Address temp=*iter;
-      i.WriteHtonU32 (temp.Get());
-	}*/
+  i.WriteHtonU32 (this->mask.Get());
+  i.WriteHtonU32 (this->FirstCarId.Get());
+  i.WriteHtonU32 (this->originator.Get());
+  i.WriteHtonU32 (this->next.Get());
 }
 
 uint32_t
@@ -507,30 +504,16 @@ MessageHeader::Aodv_R_Rm::Deserialize (Buffer::Iterator start,
 {
   Buffer::Iterator i = start;
 
-  //this->routingTables.clear ();
   NS_ASSERT (messageSize >= SDN_AODVRM_HEADER_SIZE);
 
   this->routingMessageSize = i.ReadNtohU32 ();
   uint32_t add_temp = i.ReadNtohU32();
   this->ID.Set(add_temp);
   this->DesId.Set(i.ReadNtohU32());
-  this->CarId.Set(i.ReadNtohU32());
   this->mask=i.ReadNtohU32();
-  this->jump_nums=i.ReadNtohU32();
-  this->stability=i.ReadNtohU32();
-
-  //NS_ASSERT ((messageSize - SDN_RM_HEADER_SIZE) %
-    //(IPV4_ADDRESS_SIZE * SDN_RM_TUPLE_SIZE) == 0);
-
-  int sizevector = (messageSize - SDN_AODVRM_HEADER_SIZE-4)/4;
-   // / (IPV4_ADDRESS_SIZE * SDN_RM_TUPLE_SIZE);
-  /*this->forwarding_table.clear();
-  for (int n = 0; n < sizevector; ++n)
-  {
-
-	  Ipv4Address temp(i.ReadNtohU32());
-    this->forwarding_table.push_back (temp);
-   }*/
+  this->FirstCarId.Set(i.ReadNtohU32());
+  this->originator.Set(i.ReadNtohU32());
+  this->next.Set(i.ReadNtohU32());
 
   return (messageSize);
 }

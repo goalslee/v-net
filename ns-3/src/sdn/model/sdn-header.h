@@ -431,6 +431,8 @@ public:
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   //       |                          stablity                             |
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    //       |                        origintor                       |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
 
@@ -439,7 +441,7 @@ public:
 
 
 	    uint32_t routingMessageSize;
-	    void SetRoutingMessageSize(uint32_t rms) //24
+	    void SetRoutingMessageSize(uint32_t rms) //28
 	    {
 	      this->routingMessageSize = rms;
 	    }
@@ -453,6 +455,7 @@ public:
 	    Ipv4Mask mask;
 	    uint32_t jump_nums;
 	    uint32_t stability;
+	    Ipv4Address Originator;
 	    //std::vector<uint32_t> forwarding_table;//first transfer ipv4 to unsigned int
 	    //std::vector<Ipv4Address> forwarding_table;
 	    //std::vector<uint32_t> temp_forwarding_table;//for save received forwarding table;
@@ -485,16 +488,15 @@ public:
     //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     //       |                          destAddress                          |
     //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-   //       |                             dest car'id                            |
+   //       |                            first car'id                            |
    //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     //       |                             Mask                              |
     //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    //       |                            jump numbers                       |
+     //       |                             originator                             |
     //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    //       |                          stablity                             |
+    //       |                             next                           |
     //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    //       |                         vector<ipv4> forwarding table         |
-    //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   
 
 
     struct Aodv_R_Rm
@@ -513,20 +515,11 @@ public:
 
   	    Ipv4Address ID;//sourceAddress
   	    Ipv4Address DesId;
-  	    Ipv4Address CarId;
-  	    uint32_t mask;
-  	    uint32_t jump_nums;
-  	    uint32_t stability;
-  	    //std::vector<Ipv4Address> forwarding_table;//first transfer ipv4 to unsigned int
-  	    //std::vector<uint32_t> temp_forwarding_table;//for save received forwarding table;
-  	    void SetStability(float stab)
-  	    {
-  	      stability = IEEE754(stab);
-  	    }
-  	    float GetStability(void) const
-  	    {
-  	      return rIEEE754(stability);
-  	    }
+  	    Ipv4Address FirstCarId;
+  	    Ipv4Mask mask;
+  	     Ipv4Address originator;
+  	       Ipv4Address next;
+  
   	    //void Print (std::ostream &os) const;
   	    uint32_t GetSerializedSize (void) const;
   	    void Serialize (Buffer::Iterator start) const;

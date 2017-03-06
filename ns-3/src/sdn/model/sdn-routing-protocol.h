@@ -116,10 +116,13 @@ struct ShortHop//???
 
 struct AodvParm //
 {
+
 	uint32_t jumpnums;//跳数
 	float stability;//稳定性
 	Ipv4Address lastIP;//上一跳
 	Ipv4Address nextIP;//下一跳，收到返回包时确定
+	Ipv4Address m_sourceId;
+          Ipv4Address m_desId;
 };
 
 class RoutingProtocol;
@@ -213,7 +216,7 @@ private:
   std::map<Ipv4Address,Ipv4Address> lc_Rtable;
 
   //std::map<Ipv4Address,AodvParm> m_AodvParm;//keep other lc's parm
-  Ipv4Address m_sourceId;
+
   AodvParm m_selfParm{1,1};//lc'self parameter
   AodvParm m_incomeParm{0,1000};// received parameter
   //std::vector<Ipv4Address> m_ForwardTable;

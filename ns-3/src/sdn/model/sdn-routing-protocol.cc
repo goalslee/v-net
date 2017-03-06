@@ -1249,27 +1249,7 @@ RoutingProtocol::SendRoutingMessage ()
     }
 }
 
-/*void
-RoutingProtocol::SendAppointment ()
-{
-  NS_LOG_FUNCTION (this);
 
-  for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
-       cit != m_lc_info.end (); ++cit)
-    {
-      sdn::MessageHeader msg;
-      Time now = Simulator::Now ();
-      msg.SetVTime (m_helloInterval);
-      msg.SetTimeToLive (41993);//Just MY Birthday.
-      msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
-      msg.SetMessageType (sdn::MessageHeader::APPOINTMENT_MESSAGE);
-      sdn::MessageHeader::Appointment &appointment = msg.GetAppointment ();
-      appointment.ID = cit->first;
-      appointment.ATField = cit->second.appointmentResult;
-      appointment.NextForwarder = cit->second.ID_of_minhop;
-      QueueMessage (msg, JITTER);
-    }
-}*/
 
 
 void
@@ -1324,24 +1304,10 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 	 sdn::MessageHeader mesg;
 
 	 const sdn::MessageHeader::AodvRm &aodvrm = msg.GetAodvRm();
-	 m_sourceId=aodvrm.ID;
-	 //std::cout<<"ip:"<<aodvrm.DesId<<" "<<m_CCHmainAddress<<std::endl;
 
-	 /*if(!isDes&&aodvrm.DesId==m_mainAddress){
-	     std::cout<<"I am des"<<std::endl;
-		 isDes=true;
-		 //m_aodvTimer.SetDelay(FemtoSeconds (5));// 5s countdown
-		 m_aodvTimer.SetFunction
-		    (&RoutingProtocol::AodvTimerExpire, this);
-		 Time t = Seconds (2.0);
-		 m_aodvTimer.SetDelay(t);
-		 m_aodvTimer.Schedule ();
-
-	 }*/
-	 if(m_CCHmainAddress.Get()%256 ==81) return;
 	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
 		         temp_desId=aodvrm.DesId;
-			     std::cout<<"I am"<<m_CCHmainAddress.Get()%256<<"I have des"<<std::endl;
+			     std::cout<<"I am"<<m_CCHmainAddress.Get()<<"I have des"<<std::endl;
 				 isDes=true;
 				 //m_aodvTimer.SetDelay(FemtoSeconds (5));// 5s countdown
 				 m_aodvTimer.SetFunction
@@ -1349,24 +1315,20 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 				 Time t = Seconds (1.0);
 				 m_aodvTimer.SetDelay(t);
 				 m_aodvTimer.Schedule ();
-
 			 }
 
-	 //std::cout<<"ii"<<std::endl;
-	 /*std::cout<<"aodvrm.jump_num  "<<aodvrm.jump_nums<<std::endl;
-	 std::cout<<"m_incomeParm.jumpnums  "<< m_incomeParm.jumpnums<<std::endl;
-	 std::cout<<"aodvrm.GetStability()  "<< aodvrm.GetStability()<<std::endl;
-	 std::cout<<"m_incomeParm.stability  " <<m_incomeParm.stability<<std::endl;
-	 std::cout<<std::endl;
-	 */
 	 
 	 if(m_incomeParm.jumpnums==0||aodvrm.jump_nums<m_incomeParm.jumpnums||(aodvrm.jump_nums==m_incomeParm.jumpnums&& aodvrm.GetStability() < m_incomeParm.stability)){//forward this packet
 
 		 m_incomeParm.jumpnums=aodvrm.jump_nums;
 		 m_incomeParm.stability=aodvrm.stability;
-		// m_ForwardTable.clear();
-		 //m_ForwardTable=aodvrm.forwarding_table;
-		 if(m_CCHmainAddress.Get()%256 == 85) return;//the last lc not have des,so just return;
+		 m_incomeParm.m_sourceId=aodvrm.ID;
+		 m_incomeParm.m_desId=aodvrm.DesId;
+
+
+		 //记录上一跳地址
+		m_incomeParm.lastIP=aodvrm.Originator;
+
 		 if(!isDes){
 		 std::cout<<"forwarding..."<<std::endl;
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
@@ -1375,24 +1337,12 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		  mesg.SetTimeToLive (1234);
 		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
-		  Aodvrm.ID=m_sourceId;
+		  Aodvrm.ID=aodvrm.ID;
 		  Aodvrm.DesId=aodvrm.DesId;
 		  Aodvrm.mask=aodvrm.mask;
 		  Aodvrm.jump_nums=m_incomeParm.jumpnums+m_selfParm.jumpnums;
 		  Aodvrm.SetStability(m_incomeParm.stability>m_selfParm.stability?m_incomeParm.stability:m_selfParm.stability);
-		 // Aodvrm.forwarding_table =m_ForwardTable;
-		  //Aodvrm.forwarding_table.push_back(m_CCHmainAddress);//to-do  m_mainAddress is lc's control channel id?
-		  //size?
-		  
-		  /*auto iterator = Aodvrm.forwarding_table.begin();
-		  auto iter_end = Aodvrm.forwarding_table.end();
-		  for(;iterator!=iter_end;iterator++){
-			  Ipv4Address temp=*iterator;
-		     std::cout<<temp.Get()%256<<"-> ";
-		     }
-		     */
-		    std::cout<<std::endl;
-		    std::cout<<std::endl;
+		  Aodvrm.Originator=m_CCHmainAddress;
 		  QueueMessage (mesg, JITTER);
 		 }
 		 else{
@@ -1420,7 +1370,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	  Aodv_r_rm.ID=transferAddress;
 	  //Aodv_r_rm.DesId=m_sourceId;
 	  Aodv_r_rm.CarId=Aodv_r.CarId;
-	  Aodv_r_rm.mask=0;
+	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 	  Aodv_r_rm.jump_nums=0;
 	  Aodv_r_rm.SetStability(0);
 	  //Aodv_r_rm.forwarding_table=Aodv_r.forwarding_table;
@@ -1454,40 +1404,21 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 
 void RoutingProtocol::Aodv_sendback()  //for des lc send back
 {
-    std::cout<<"send back"<<std::endl;
+         std::cout<<"send back"<<std::endl;
 	sdn::MessageHeader msg;
 	 msg.SetMessageType(sdn::MessageHeader::AODV_REVERSE_MESSAGE);
 	  Time now = Simulator::Now ();
-	  //std::cout<<"send back1"<<std::endl;
 	  msg.SetVTime (m_helloInterval);
 	  msg.SetTimeToLive (1234);
-	  //std::cout<<"send back2"<<std::endl;
 	  msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 	  sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = msg.GetAodv_R_Rm();
-	  Aodv_r_rm.ID=transferAddress; //first car's id
-	  //Aodv_r_rm.DesId=m_sourceId;
-	  Aodv_r_rm.CarId=temp_desId;
-	  //temp_desId=0;//clear
-	  Aodv_r_rm.mask=0;
-	  Aodv_r_rm.jump_nums=0;
-	  Aodv_r_rm.SetStability(0);
-	  //size?
-/*
-	  Aodv_r_rm.forwarding_table =m_ForwardTable;
-	  Aodv_r_rm.forwarding_table.push_back(m_CCHmainAddress);//  m_mainAddress is lc's control channel id
-
-	  auto iterator = Aodv_r_rm.forwarding_table.begin();
-	  auto iter_end = Aodv_r_rm.forwarding_table.end();
-
-	   auto itor = find(iterator,iter_end,m_CCHmainAddress);
-	   Aodv_r_rm.DesId=*--itor;
-
-	  for(;iterator!=iter_end;iterator++){
-		  Ipv4Address temp=*iterator;
-	     std::cout<<temp.Get()%256<<"-> ";
-	     }
-	  std::cout<<std::endl;
-	  */
+	  Aodv_r_rm.ID=m_incomeParm.m_sourceId; 
+	  Aodv_r_rm.DesId=m_incomeParm.m_desId;
+	  Aodv_r_rm.FirstCarId=transferAddress;
+	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
+	  Aodv_r_rm.routingMessageSize=24;
+	  Aodv_r_rm.originator=m_CCHmainAddress;
+	  Aodv_r_rm.next=m_incomeParm.lastIP;
 
 	  QueueMessage (msg, JITTER);
 }
