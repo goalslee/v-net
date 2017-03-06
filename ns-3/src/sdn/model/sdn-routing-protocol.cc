@@ -606,7 +606,7 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
   NS_LOG_FUNCTION (msg);
   const sdn::MessageHeader::CRREQ &crreq = msg.GetCRREQ ();
   Ipv4Address dest =  crreq.destAddress;
-  Ipv4Address source = crreq.sourceAddress;//the car's ip address
+  Ipv4Address source = crreq.sourceAddress;//the car's cch ip address
   //if(m_CCHmainAddress.Get()%256 == 81)// need to expand//todo
 	  //return;
   /*if(m_lc_info.find(dest)==m_lc_info.end() || m_lc_info.size()<=1)
@@ -620,9 +620,12 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
   /*if(transferAddress == dest)
 	  return;*/
 
+if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
+
+
   //add long road lc select
   if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
-         if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;not for 84 to receive
+         //if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;not for 84 to receive
 
 	     sdn::MessageHeader mesg;
 		 //std::cout<<"forwarding..."<<std::endl;
@@ -632,9 +635,12 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
 		  mesg.SetTimeToLive (1234);
 		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
-		  Aodvrm.ID=m_CCHmainAddress;//LC 'S id
-		  Aodvrm.DesId=dest;//car's id
-		  Aodvrm.mask=0;
+		  Aodvrm.routingMessageSize=24;
+		  Aodvrm.ID=source;//
+		  Aodvrm.DesId=dest;//
+		  Aodvrm.mask=m_ipv4.GetAddress(0, 0).GetMask();
+
+		  //todo 
 		  Aodvrm.jump_nums=m_incomeParm.jumpnums+m_selfParm.jumpnums;
 		  Aodvrm.SetStability(m_incomeParm.stability>m_selfParm.stability?m_incomeParm.stability:m_selfParm.stability);
 		  //Aodvrm.forwarding_table =m_ForwardTable;
@@ -994,7 +1000,7 @@ RoutingProtocol::RouteOutput (Ptr<Packet> p,
                                  << " No route to host");
       sockerr = Socket::ERROR_NOROUTETOHOST;
       SendCRREQ(header.GetDestination());
-      std::cout<<"dest "<<header.GetDestination()<<std::endl;
+      //std::cout<<"dest "<<header.GetDestination()<<std::endl;
       //std::cout<<"No route to host"<<std::endl;
     }
   return rtentry;
@@ -1279,7 +1285,7 @@ RoutingProtocol::SendCRREQ (Ipv4Address const &destAddress)
   msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
   msg.SetMessageType (sdn::MessageHeader::CARROUTEREQUEST_MESSAGE);
   sdn::MessageHeader::CRREQ &crreq = msg.GetCRREQ ();
-  crreq.sourceAddress=m_CCHmainAddress;
+  crreq.sourceAddress=m_SCHmainAddress;
   crreq.destAddress=destAddress;
   QueueMessage (msg, JITTER);
 }

@@ -450,7 +450,7 @@ public:
 
 	    Ipv4Address ID;//sourceAddress
 	    Ipv4Address DesId;
-	    uint32_t mask;
+	    Ipv4Mask mask;
 	    uint32_t jump_nums;
 	    uint32_t stability;
 	    //std::vector<uint32_t> forwarding_table;//first transfer ipv4 to unsigned int
