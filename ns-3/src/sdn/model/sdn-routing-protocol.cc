@@ -707,7 +707,7 @@ RoutingProtocol::ProcessCRREP (const sdn::MessageHeader &msg)
 	    	  std::cout<<"entry"<<cit->first.Get()%256<<" "<<dest.Get()%256<<" "<<it->nextHop.Get()%256<<std::endl;
 	    	  RTE.interface = it->interface;
 	    	  Entry.R_Table.push_back(RTE);*/
-	    	  LCAddEntry(cit->first,dest,it->mask,it->nextHop);
+	    	  //LCAddEntry(cit->first,dest,it->mask,it->nextHop);
 	    	  break;
 	      }
 	  }
