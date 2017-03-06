@@ -427,7 +427,7 @@ MessageHeader::AodvRm::Serialize (Buffer::Iterator start) const
   i.WriteHtonU32 (this->routingMessageSize);
   i.WriteHtonU32 (this->ID.Get());
   i.WriteHtonU32 (this->DesId.Get());
-  i.WriteHtonU32 (this->mask);
+  i.WriteHtonU32 (this->mask.Get());
   i.WriteHtonU32 (this->jump_nums);
   i.WriteHtonU32 (this->stability);
 
@@ -451,7 +451,7 @@ MessageHeader::AodvRm::Deserialize (Buffer::Iterator start,
   this->ID.Set(add_temp);*/
   this->ID.Set( i.ReadNtohU32 ());
   this->DesId.Set(i.ReadNtohU32());
-  this->mask=i.ReadNtohU32();
+  this->mask.Set(i.ReadNtohU32());
   this->jump_nums=i.ReadNtohU32();
   this->stability=i.ReadNtohU32();
 
