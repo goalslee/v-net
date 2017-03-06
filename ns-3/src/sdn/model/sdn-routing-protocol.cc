@@ -685,7 +685,7 @@ RoutingProtocol::ProcessCRREP (const sdn::MessageHeader &msg)
 	  return;
   Ipv4Address mask("255.255.255.0");
   //ComputeRoute();
-  LCAddEntry(roadendAddress,dest,mask,transfer);
+  //LCAddEntry(roadendAddress,dest,mask,transfer);
   //std::cout<<"roadendAddress"<<roadendAddress.Get()%256<<std::endl;
  // std::cout<<"infosize"<<m_lc_info.size()<<std::endl;
   //std::cout<<"roadendAddress"<<roadendAddress.Get()%256<<std::endl;
