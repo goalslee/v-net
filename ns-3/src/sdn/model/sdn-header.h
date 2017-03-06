@@ -431,8 +431,7 @@ public:
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   //       |                          stablity                             |
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //       |                         vector<ipv4> forwarding table         |
-  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
 
 
   struct AodvRm
@@ -440,7 +439,7 @@ public:
 
 
 	    uint32_t routingMessageSize;
-	    void SetRoutingMessageSize(uint32_t rms)
+	    void SetRoutingMessageSize(uint32_t rms) //24
 	    {
 	      this->routingMessageSize = rms;
 	    }
@@ -455,7 +454,7 @@ public:
 	    uint32_t jump_nums;
 	    uint32_t stability;
 	    //std::vector<uint32_t> forwarding_table;//first transfer ipv4 to unsigned int
-	    std::vector<Ipv4Address> forwarding_table;
+	    //std::vector<Ipv4Address> forwarding_table;
 	    //std::vector<uint32_t> temp_forwarding_table;//for save received forwarding table;
 	    void SetStability(float stab)
 	    {

@@ -113,11 +113,12 @@ struct ShortHop//???
   double t; //in secends
 };
 
-struct AodvParm //for LC itself
+struct AodvParm //
 {
 	uint32_t jumpnums;//跳数
 	float stability;//稳定性
-	std::vector<uint32_t> forwarding_table;//aodv选lc 表
+	Ipv4Address lastIP;//上一跳
+	Ipv4Address nextIP;//下一跳，收到返回包时确定
 };
 
 class RoutingProtocol;
@@ -180,7 +181,7 @@ private:
   uint32_t m_CCHinterface;
   bool isDes=false;
   std::map<Ipv4Address, Ipv4Address> m_SCHaddr2CCHaddr;
-  Ipv4Address transferAddress;//now it is the nearest ip
+  Ipv4Address transferAddress;//now it is the nearest ip 每条路第一辆车
   Ipv4Address roadendAddress;
   Ipv4Address temp_desId;
   //std::map<Ipv4Address, Ipv4Address> m_SCHaddr2IfaceAddr;
@@ -189,18 +190,18 @@ private:
   std::map< Ptr<Socket>, Ipv4InterfaceAddress > m_socketAddresses;
 
   TracedCallback <const PacketHeader &,
-                  const MessageList &> m_rxPacketTrace;
+                  const MessageList &> m_rxPacketTrace;   //无用
   TracedCallback <const PacketHeader &,
-                  const MessageList &> m_txPacketTrace;
-  TracedCallback <uint32_t> m_routingTableChanged;
+                  const MessageList &> m_txPacketTrace;  //无用
+  TracedCallback <uint32_t> m_routingTableChanged;  //无用
 
   /// Provides uniform random variables.
   Ptr<UniformRandomVariable> m_uniformRandomVariable;  
 
   // Mobility module for Vanet
-  Ptr<MobilityModel> m_mobility;
-  std::set<uint32_t> m_interfaceExclusions;
-  std::map<Ipv4Address, RoutingTableEntry> m_table; ///< Data structure for the routing table. (Use By Mainly by CAR Node, but LC needs it too)
+  Ptr<MobilityModel> m_mobility;//节点的移动信息
+  std::set<uint32_t> m_interfaceExclusions;//无用
+  std::map<Ipv4Address, RoutingTableEntry> m_table; ///< Data structure for the routing table. (Use By Mainly by CAR Node, but LC needs it too) //m_table <目的地址，路由条目>
 
   std::map<Ipv4Address, CarInfo> m_lc_info;///for LC
 
@@ -213,7 +214,7 @@ private:
   Ipv4Address m_sourceId;
   AodvParm m_selfParm{1,1};//lc'self parameter
   AodvParm m_incomeParm{0,1000};// received parameter
-  std::vector<Ipv4Address> m_ForwardTable;
+  //std::vector<Ipv4Address> m_ForwardTable;
 
   EventGarbageCollector m_events;
 	
@@ -251,7 +252,7 @@ private:
   
   
   
-  void Clear ();//implemented
+  void Clear ();//implemented 清除m_table
   uint32_t GetSize () const { return (m_table.size ()); }
   void RemoveEntry (const Ipv4Address &dest);//implemented
   void AddEntry (const Ipv4Address &dest,
@@ -281,12 +282,12 @@ private:
   virtual void NotifyInterfaceDown (uint32_t interface);//implemented
   virtual void NotifyAddAddress (uint32_t interface, Ipv4InterfaceAddress address);//implemented
   virtual void NotifyRemoveAddress (uint32_t interface, Ipv4InterfaceAddress address);//implemented
-  virtual void SetIpv4 (Ptr<Ipv4> ipv4);//implemented
+  virtual void SetIpv4 (Ptr<Ipv4> ipv4);//implemented 在InternetStackHelper::Install时候调用
   virtual void PrintRoutingTable (Ptr<OutputStreamWrapper> stream) const;//implemented
 
-  void DoDispose ();//implemented
+  void DoDispose ();//implemented关闭socket，清除m_table，m_ipv4等的全面清理
 
-  void SendPacket (Ptr<Packet> packet, const MessageList &containedMessages);//implemented
+  void SendPacket (Ptr<Packet> packet, const MessageList &containedMessages);//implemented 将填好message信息的包从socket发出去
 
   /// Increments packet sequence number and returns the new value.
   inline uint16_t GetPacketSequenceNumber ();//implemented

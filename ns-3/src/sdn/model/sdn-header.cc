@@ -414,7 +414,7 @@ MessageHeader::Rm::Deserialize (Buffer::Iterator start,
 uint32_t
 MessageHeader::AodvRm::GetSerializedSize (void) const
 {
-  return (SDN_AODVRM_HEADER_SIZE +this->forwarding_table.size()*4);
+  return (SDN_AODVRM_HEADER_SIZE );
 }
 
 
@@ -431,10 +431,10 @@ MessageHeader::AodvRm::Serialize (Buffer::Iterator start) const
   i.WriteHtonU32 (this->jump_nums);
   i.WriteHtonU32 (this->stability);
 
-for(auto iter=forwarding_table.begin();iter!=forwarding_table.end();iter++){
+/*for(auto iter=forwarding_table.begin();iter!=forwarding_table.end();iter++){
 	  Ipv4Address temp=*iter;
       i.WriteHtonU32 (temp.Get());
-	}
+	}*/
 }
 
 uint32_t
@@ -447,8 +447,9 @@ MessageHeader::AodvRm::Deserialize (Buffer::Iterator start,
   NS_ASSERT (messageSize >= SDN_AODVRM_HEADER_SIZE);
 
   this->routingMessageSize = i.ReadNtohU32 ();
-  uint32_t add_temp = i.ReadNtohU32();
-  this->ID.Set(add_temp);
+  /*uint32_t add_temp = i.ReadNtohU32();
+  this->ID.Set(add_temp);*/
+  this->ID.Set( i.ReadNtohU32 ());
   this->DesId.Set(i.ReadNtohU32());
   this->mask=i.ReadNtohU32();
   this->jump_nums=i.ReadNtohU32();
@@ -457,14 +458,14 @@ MessageHeader::AodvRm::Deserialize (Buffer::Iterator start,
   //NS_ASSERT ((messageSize - SDN_RM_HEADER_SIZE) %
     //(IPV4_ADDRESS_SIZE * SDN_RM_TUPLE_SIZE) == 0);
 
-  int sizevector = (messageSize - SDN_AODVRM_HEADER_SIZE)/4;
+  /*int sizevector = (messageSize - SDN_AODVRM_HEADER_SIZE)/4;
    // / (IPV4_ADDRESS_SIZE * SDN_RM_TUPLE_SIZE);
   this->forwarding_table.clear();
   for (int n = 0; n < sizevector; ++n)
   {
 	  Ipv4Address temp(i.ReadNtohU32());
     this->forwarding_table.push_back (temp);
-   }
+   }*/
 
   return (messageSize);
 }
