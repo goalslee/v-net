@@ -1360,7 +1360,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
     const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
 	if(Aodv_r.next==m_CCHmainAddress){
 		std::cout<<"i am "<<m_CCHmainAddress<<std::endl;
-		m_incomeParm.next=Aodv_r.originator;
+		m_incomeParm.nextIP=Aodv_r.originator;
 	sdn::MessageHeader mesg;
 	 mesg.SetMessageType(sdn::MessageHeader::AODV_REVERSE_MESSAGE);
 	  Time now = Simulator::Now ();
