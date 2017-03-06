@@ -676,7 +676,7 @@ RoutingProtocol::ProcessCRREP (const sdn::MessageHeader &msg)
   Ipv4Address source = crrep.sourceAddress;
   Ipv4Address transfer = crrep.transferAddress;*/
   const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
-  Ipv4Address dest = Aodv_r.CarId;
+  //Ipv4Address dest = Aodv_r.CarId;
   //Ipv4Address source =transferAddress;
   Ipv4Address transfer = Aodv_r.ID;
 
@@ -1369,7 +1369,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	  sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = mesg.GetAodv_R_Rm();
 	  Aodv_r_rm.ID=transferAddress;
 	  //Aodv_r_rm.DesId=m_sourceId;
-	  Aodv_r_rm.CarId=Aodv_r.CarId;
+	  //Aodv_r_rm.FirstCarId=Aodv_r.CarId;
 	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 
 	  //Aodv_r_rm.forwarding_table=Aodv_r.forwarding_table;
