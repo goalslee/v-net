@@ -172,7 +172,7 @@ class RoutingProtocol : public Ipv4RoutingProtocol
   int64_t AssignStreams (int64_t stream);//implemented //无用
 
 protected:
-  virtual void DoInitialize (void);//implemented
+  virtual void DoInitialize (void);//implemented  首先被调用  创建socket绑定信道，设置几个定时器
 private:
   Ipv4Address m_SCHmainAddress;
   Ipv4Address m_CCHmainAddress;

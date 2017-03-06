@@ -214,7 +214,7 @@ RoutingProtocol::PrintRoutingTable (Ptr<OutputStreamWrapper> stream) const
 void 
 RoutingProtocol::DoInitialize ()
 {
-  if (m_CCHmainAddress == Ipv4Address ())
+  if (m_CCHmainAddress == Ipv4Address ()) //not run 因为m_CCHmainAddress在sdn.cc已经初始化
     {
      std::cout<<"test"<<std::endl;
       Ipv4Address loopback ("127.0.0.1");
@@ -253,7 +253,7 @@ RoutingProtocol::DoInitialize ()
         }
 
       NS_ASSERT (m_CCHmainAddress != Ipv4Address ());
-    }
+    } // if (m_CCHmainAddress == Ipv4Address ())
 
   NS_LOG_DEBUG ("Starting SDN on node " << m_CCHmainAddress);
 
@@ -261,7 +261,7 @@ RoutingProtocol::DoInitialize ()
 
   bool canRunSdn = false;
   //Install RecvSDN  Only on CCH channel.
-  if(m_interfaceExclusions.find (m_CCHinterface) == m_interfaceExclusions.end ())
+  if(m_interfaceExclusions.find (m_CCHinterface) == m_interfaceExclusions.end ())//无用的判断
     {
       // Create a socket to listen only on this interface
       Ptr<Socket> socket = Socket::CreateSocket (GetObject<Node> (),
@@ -275,7 +275,8 @@ RoutingProtocol::DoInitialize ()
         {
           NS_FATAL_ERROR ("Failed to bind() SDN socket");
         }
-      socket->BindToNetDevice (m_ipv4->GetNetDevice (m_CCHinterface));
+      socket->BindToNetDevice (m_ipv4->GetNetDevice (m_CCHinterface)); //绑定之后所有包只通过该网卡发，从该网卡收到的包才会处理。
+      //因为收到的是广播包，会从两张网卡进入socket
       m_socketAddresses[socket] = m_ipv4->GetAddress (m_CCHinterface, 0);
 
       canRunSdn = true;

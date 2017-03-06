@@ -164,7 +164,7 @@ void VanetSim::LoadTraffic()
 void VanetSim::ConfigNode()
 {
 	//m_nodes.Create(nodeNum+4);//Cars + 2Controller + Source + Sink
-	m_nodes.Create(nodeNum+26);//Cars + 2Controller + Source + Sink 创建nodemum+5辆车
+	m_nodes.Create(nodeNum+26);//Cars + 24Controller + Source + Sink 
 	//std::cout<<nodeNum<<std::endl;
 	/*Only Apps Are Different Between Different kind of Nodes*/
 	// Name nodes
@@ -428,10 +428,10 @@ void VanetSim::ConfigApp()
 	  //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum), sdn::LOCAL_CONTROLLER);
           //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+3), sdn::LOCAL_CONTROLLER);
           //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+4), sdn::LOCAL_CONTROLLER);
-	  sdn.ExcludeInterface (m_nodes.Get (nodeNum), 0);//??
+	 // sdn.ExcludeInterface (m_nodes.Get (nodeNum), 0);//??
 	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+24), sdn::CAR);//Treat Source and Sink as CAR
 	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+25), sdn::CAR);
-	  sdn.SetRLnSR (range1, range2);//double signal_range, double road_length 如何起作用?设置wifi时已经设置范围
+	  sdn.SetRLnSR (range1, range2);//double signal_range, double road_length ，后面计算用到
 	  internet.SetRoutingHelper(sdn);
 		std::cout<<"SetRoutingHelper Done"<<std::endl;
 	  internet.Install (m_nodes);
@@ -497,6 +497,7 @@ void VanetSim::ConfigApp()
 	//InetSocketAddress local = InetSocketAddress(m_CCHInterfaces.GetAddress(nodeNum+2),m_port);
 	InetSocketAddress local = InetSocketAddress(Ipv4Address::GetZero (),m_port);
 	sink->Bind(local);
+	sink->BindToNetDevice(m_SCHDevices.Get(nodeNum+25));//仅sch收
 	sink->SetRecvCallback(MakeCallback(&VanetSim::ReceiveDataPacket, this));
 	
 }
