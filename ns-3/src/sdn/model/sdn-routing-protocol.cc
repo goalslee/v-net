@@ -1371,8 +1371,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	  //Aodv_r_rm.DesId=m_sourceId;
 	  Aodv_r_rm.CarId=Aodv_r.CarId;
 	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
-	  Aodv_r_rm.jump_nums=0;
-	  Aodv_r_rm.SetStability(0);
+
 	  //Aodv_r_rm.forwarding_table=Aodv_r.forwarding_table;
 
       //SendCRREQ(,Aodv_r.CarId,transferAddress);
