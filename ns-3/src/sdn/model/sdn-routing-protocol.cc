@@ -499,14 +499,14 @@ RoutingProtocol::ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &sen
   bool rev=false;
 if(m_roadtype==sdn::ROW)
 {
- if(msg.GetHello ().GetPosition ().x>=(m_mobility.GetPosition().x-500.0)&&msg.GetHello ().GetPosition ().x<=(m_mobility.GetPosition().x+500.0)
-    &&msg.GetHello ().GetPosition ().y>=m_mobility.GetPosition().y&&msg.GetHello ().GetPosition ().y<=(m_mobility.GetPosition().y+20.0) )
+ if(msg.GetHello ().GetPosition ().x>=(m_mobility->GetPosition().x-500.0)&&msg.GetHello ().GetPosition ().x<=(m_mobility->GetPosition().x+500.0)
+    &&msg.GetHello ().GetPosition ().y>=m_mobility->GetPosition().y&&msg.GetHello ().GetPosition ().y<=(m_mobility->GetPosition().y+20.0) )
     rev=true;
  }
  else if(m_roadtype==sdn::COLUMN)
  {
-  if(msg.GetHello ().GetPosition ().y>=(m_mobility.GetPosition().y-500.0)&&msg.GetHello ().GetPosition ().y<=(m_mobility.GetPosition().y+500.0)
-    &&msg.GetHello ().GetPosition ().x>=m_mobility.GetPosition().x&&msg.GetHello ().GetPosition ().x<=(m_mobility.GetPosition().x+20.0) )
+  if(msg.GetHello ().GetPosition ().y>=(m_mobility->GetPosition().y-500.0)&&msg.GetHello ().GetPosition ().y<=(m_mobility->GetPosition().y+500.0)
+    &&msg.GetHello ().GetPosition ().x>=m_mobility->GetPosition().x&&msg.GetHello ().GetPosition ().x<=(m_mobility->GetPosition().x+20.0) )
     rev=true;
  }
 
