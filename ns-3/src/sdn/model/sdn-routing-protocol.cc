@@ -1336,8 +1336,8 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 
 		 m_incomeParm.jumpnums=aodvrm.jump_nums;
 		 m_incomeParm.stability=aodvrm.stability;
-		 m_ForwardTable.clear();
-		 m_ForwardTable=aodvrm.forwarding_table;
+		// m_ForwardTable.clear();
+		 //m_ForwardTable=aodvrm.forwarding_table;
 		 if(m_CCHmainAddress.Get()%256 == 85) return;//the last lc not have des,so just return;
 		 if(!isDes){
 		 std::cout<<"forwarding..."<<std::endl;
@@ -1352,8 +1352,8 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		  Aodvrm.mask=aodvrm.mask;
 		  Aodvrm.jump_nums=m_incomeParm.jumpnums+m_selfParm.jumpnums;
 		  Aodvrm.SetStability(m_incomeParm.stability>m_selfParm.stability?m_incomeParm.stability:m_selfParm.stability);
-		  Aodvrm.forwarding_table =m_ForwardTable;
-		  Aodvrm.forwarding_table.push_back(m_CCHmainAddress);//to-do  m_mainAddress is lc's control channel id?
+		 // Aodvrm.forwarding_table =m_ForwardTable;
+		  //Aodvrm.forwarding_table.push_back(m_CCHmainAddress);//to-do  m_mainAddress is lc's control channel id?
 		  //size?
 		  
 		  /*auto iterator = Aodvrm.forwarding_table.begin();
@@ -1395,7 +1395,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	  Aodv_r_rm.mask=0;
 	  Aodv_r_rm.jump_nums=0;
 	  Aodv_r_rm.SetStability(0);
-	  Aodv_r_rm.forwarding_table=Aodv_r.forwarding_table;
+	  //Aodv_r_rm.forwarding_table=Aodv_r.forwarding_table;
 
       //SendCRREQ(,Aodv_r.CarId,transferAddress);
 	 /* lc_Rtable[*--Aodv_r_rm.forwarding_table.end()]=Aodv_r.ID;
