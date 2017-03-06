@@ -517,7 +517,7 @@ public:
   	    uint32_t mask;
   	    uint32_t jump_nums;
   	    uint32_t stability;
-  	    std::vector<Ipv4Address> forwarding_table;//first transfer ipv4 to unsigned int
+  	    //std::vector<Ipv4Address> forwarding_table;//first transfer ipv4 to unsigned int
   	    //std::vector<uint32_t> temp_forwarding_table;//for save received forwarding table;
   	    void SetStability(float stab)
   	    {

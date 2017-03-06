@@ -616,8 +616,8 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
 		  Aodvrm.mask=0;
 		  Aodvrm.jump_nums=m_incomeParm.jumpnums+m_selfParm.jumpnums;
 		  Aodvrm.SetStability(m_incomeParm.stability>m_selfParm.stability?m_incomeParm.stability:m_selfParm.stability);
-		  Aodvrm.forwarding_table =m_ForwardTable;
-		  Aodvrm.forwarding_table.push_back(m_CCHmainAddress);//to-do  m_mainAddress is lc's control channel id?
+		  //Aodvrm.forwarding_table =m_ForwardTable;
+		 // Aodvrm.forwarding_table.push_back(m_CCHmainAddress);//to-do  m_mainAddress is lc's control channel id?
 		  //size?
 
 		  /*auto iterator = Aodvrm.forwarding_table.begin();
@@ -1356,12 +1356,13 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		  Aodvrm.forwarding_table.push_back(m_CCHmainAddress);//to-do  m_mainAddress is lc's control channel id?
 		  //size?
 		  
-		  auto iterator = Aodvrm.forwarding_table.begin();
+		  /*auto iterator = Aodvrm.forwarding_table.begin();
 		  auto iter_end = Aodvrm.forwarding_table.end();
 		  for(;iterator!=iter_end;iterator++){
 			  Ipv4Address temp=*iterator;
 		     std::cout<<temp.Get()%256<<"-> ";
 		     }
+		     */
 		    std::cout<<std::endl;
 		    std::cout<<std::endl;
 		  QueueMessage (mesg, JITTER);
@@ -1397,7 +1398,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	  Aodv_r_rm.forwarding_table=Aodv_r.forwarding_table;
 
       //SendCRREQ(,Aodv_r.CarId,transferAddress);
-	  lc_Rtable[*--Aodv_r_rm.forwarding_table.end()]=Aodv_r.ID;
+	 /* lc_Rtable[*--Aodv_r_rm.forwarding_table.end()]=Aodv_r.ID;
 
 	  auto iterator = Aodv_r.forwarding_table.begin();
 	  auto iter_end = Aodv_r.forwarding_table.end();
@@ -1412,6 +1413,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	   else{
 		   std::cout<<"finish"<<std::endl;
 	   }
+	   */
 	   ProcessCRREP(msg);
 
 	}
@@ -1442,7 +1444,7 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	  Aodv_r_rm.jump_nums=0;
 	  Aodv_r_rm.SetStability(0);
 	  //size?
-
+/*
 	  Aodv_r_rm.forwarding_table =m_ForwardTable;
 	  Aodv_r_rm.forwarding_table.push_back(m_CCHmainAddress);//  m_mainAddress is lc's control channel id
 
@@ -1457,6 +1459,7 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	     std::cout<<temp.Get()%256<<"-> ";
 	     }
 	  std::cout<<std::endl;
+	  */
 
 	  QueueMessage (msg, JITTER);
 }
