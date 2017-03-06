@@ -1300,7 +1300,7 @@ RoutingProtocol::AodvTimerExpire()
 void
 RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 {
-
+         std::cout<<"ProcessAodvRm..."<<std::endl;
 	 sdn::MessageHeader mesg;
 
 	 const sdn::MessageHeader::AodvRm &aodvrm = msg.GetAodvRm();
