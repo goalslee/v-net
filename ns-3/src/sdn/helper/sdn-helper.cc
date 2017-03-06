@@ -167,7 +167,7 @@ SdnHelper::SetNodeTypeMap (Ptr<Node> node, sdn::NodeType nt)
 void
 SdnHelper::SetRoadTypeMap (Ptr<Node> node, sdn::RoadType nt)
 {
-     std::map< Ptr<Node> , sdn::NodeType >::iterator it = m_typemap.find(node);
+     std::map< Ptr<Node> , sdn::RoadType >::iterator it = m_typemap.find(node);
 
   if (it != m_typemap.end() )
     {
