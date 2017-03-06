@@ -994,6 +994,7 @@ RoutingProtocol::RouteOutput (Ptr<Packet> p,
                                  << " No route to host");
       sockerr = Socket::ERROR_NOROUTETOHOST;
       SendCRREQ(header.GetDestination());
+      std::cout<<"dest "<<header.GetDestination()<<std::endl;
       //std::cout<<"No route to host"<<std::endl;
     }
   return rtentry;
