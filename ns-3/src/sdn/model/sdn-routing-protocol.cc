@@ -638,7 +638,7 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 		  Aodvrm.routingMessageSize=24;
 		  Aodvrm.ID=source;//
 		  Aodvrm.DesId=dest;//
-		  Aodvrm.mask=m_ipv4.GetAddress(0, 0).GetMask();
+		  Aodvrm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 
 		  //todo 
 		  Aodvrm.jump_nums=m_incomeParm.jumpnums+m_selfParm.jumpnums;
