@@ -663,8 +663,8 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
   {
     std::map<Ipv4Address,std::set<Ipv4Address>>::iterator  it=neighbor.find(m_CCHmainAddress);
     if(it==neighbor.end()) return false;
-    std::set<Ipv4Address>::iterator it2=it->second;
-    if(it2.find(sourceAddress)==it2.end()) return false;
+    std::set<Ipv4Address> ipset=it->second;
+    if(ipset.find(sourceAddress)==ipset.end()) return false;
     return true;
   }
 
