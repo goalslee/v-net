@@ -91,6 +91,10 @@ SdnHelper::Create (Ptr<Node> node) const
     }
   agent->SetSignalRangeNRoadLength (m_sr, m_rl);
 
+    std::map<Ptr<Node>,sdn::RoadType>::const_iterator it5=m_typemap.begin();
+  for(;it!=m_typemap.end();++it)
+    std::cout<<"m_typemap  "<<Names::FindName(it5->first)<<std::endl;
+
 std::map<Ptr<Node>,sdn::RoadType>::const_iterator it4=m_typemap.find(node);
   if (it4 != m_typemap.end ())
     {
@@ -100,7 +104,7 @@ std::map<Ptr<Node>,sdn::RoadType>::const_iterator it4=m_typemap.find(node);
   else
     {
      std::cout<<"fail..  name: "<<Names::FindName(node)	<<std::endl;
-     // agent->SetRoadType (sdn::NEITHER);
+     agent->SetRoadType (sdn::NEITHER);
     }
 
   node->AggregateObject (agent);
