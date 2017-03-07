@@ -43,7 +43,7 @@ SdnHelper::SdnHelper (const SdnHelper &o)
 }
 
 SdnHelper*
-SdnHelper::Copy () const //很重要，解决了
+SdnHelper::Copy () const //很重要，解决了m_typemap不起作用的bug
 {
   return new SdnHelper (*this);
 }
@@ -98,12 +98,12 @@ SdnHelper::Create (Ptr<Node> node) const
 std::map<Ptr<Node>,sdn::RoadType>::const_iterator it4=m_typemap.find(node);
   if (it4 != m_typemap.end ())
     {
-    std::cout<<"find"<<std::endl;
+    //std::cout<<"find"<<std::endl;
       agent->SetRoadType (it4->second);
     }
   else
     {
-     std::cout<<"fail..  name: "<<Names::FindName(node)	<<std::endl;
+     //std::cout<<"fail..  name: "<<Names::FindName(node)	<<std::endl;
      agent->SetRoadType (sdn::NEITHER);
     }
 

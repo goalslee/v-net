@@ -510,14 +510,14 @@ RoutingProtocol::ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &sen
   bool rev=false;
 if(m_roadtype==sdn::ROW)
 {
-std::cout<<"row"<<std::endl;
+//std::cout<<"row"<<std::endl;
  if(msg.GetHello ().GetPosition ().x>=(m_mobility->GetPosition().x-500.0)&&msg.GetHello ().GetPosition ().x<=(m_mobility->GetPosition().x+500.0)
     &&msg.GetHello ().GetPosition ().y>=m_mobility->GetPosition().y&&msg.GetHello ().GetPosition ().y<=(m_mobility->GetPosition().y+20.0) )
     rev=true;
  }
  else if(m_roadtype==sdn::COLUMN)
  {
- std::cout<<"column"<<std::endl;
+ //std::cout<<"column"<<std::endl;
   if(msg.GetHello ().GetPosition ().y>=(m_mobility->GetPosition().y-500.0)&&msg.GetHello ().GetPosition ().y<=(m_mobility->GetPosition().y+500.0)
     &&msg.GetHello ().GetPosition ().x>=m_mobility->GetPosition().x&&msg.GetHello ().GetPosition ().x<=(m_mobility->GetPosition().x+20.0) )
     rev=true;
@@ -525,7 +525,7 @@ std::cout<<"row"<<std::endl;
 
 if(rev==false) return;
 
- std::cout<<"handle hellomessage"<<std::endl;
+// std::cout<<"handle hellomessage"<<std::endl;
     Ipv4Address ID = msg.GetHello ().ID;//should be SCH address
   m_SCHaddr2CCHaddr[ID] = msg.GetOriginatorAddress();
 
