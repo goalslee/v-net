@@ -1345,7 +1345,7 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		m_incomeParm.lastIP=aodvrm.Originator;
 
 		 if(!isDes){
-		 std::cout<<"forwarding..."<<std::endl;
+		 //std::cout<<"forwarding..."<<std::endl;
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
 		  Time now = Simulator::Now ();
 		  mesg.SetVTime (m_helloInterval);
