@@ -1571,7 +1571,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	//std::map<Ipv4Address,Ipv4Address,> lc_Rtable;
     const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
 	if(Aodv_r.next==m_CCHmainAddress){
-		std::cout<<"ProcessAodvRERm  i am "<<m_CCHmainAddress<<std::endl;
+		std::cout<<"ProcessAodvRERm  i am "<<m_CCHmainAddress;
 		m_incomeParm.nextIP=Aodv_r.originator;
 	sdn::MessageHeader mesg;
 	 mesg.SetMessageType(sdn::MessageHeader::AODV_REVERSE_MESSAGE);
@@ -1590,7 +1590,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	        Aodv_r_rm.routingMessageSize=28;
 	       Aodv_r_rm.originator=m_CCHmainAddress;
 	       Aodv_r_rm.next=m_incomeParm.lastIP;
-
+              std::cout<<" send to "<<Aodv_r_rm.next<<std::endl;
 	      QueueMessage (mesg, JITTER);
          }
          else std::cout<<"finish"<<std::endl;
