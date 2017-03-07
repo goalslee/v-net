@@ -527,7 +527,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                 << senderIfaceAddr << " to " << receiverIfaceAddr);
 
                 
-  std::cout<<"self: "<<m_CCHmainAddress<<"  income: "<<senderIfaceAddr<<" "<<isNeighbor(senderIfaceAddr)<<std::endl;
+  //std::cout<<"self: "<<m_CCHmainAddress<<"  income: "<<senderIfaceAddr<<" "<<isNeighbor(senderIfaceAddr)<<std::endl;
   
    bool isneighbor=isNeighbor(senderIfaceAddr);    
    if(isneighbor) {std::cout<<"self: "<<m_CCHmainAddress<<"  income: "<<senderIfaceAddr<<" "<<isNeighbor(senderIfaceAddr)<<std::endl;}
