@@ -1555,7 +1555,7 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 
 void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each lc received Reverse message
 {
-   std::cout<<"i am "<<m_CCHmainAddress;
+   std::cout<<"i am "<<m_CCHmainAddress<<std::endl;
 	//std::map<Ipv4Address,Ipv4Address,> lc_Rtable;
     const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
 	if(Aodv_r.next==m_CCHmainAddress){
