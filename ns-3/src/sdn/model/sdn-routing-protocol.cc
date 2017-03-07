@@ -856,19 +856,7 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 		  Aodvrm.jump_nums=m_incomeParm.jumpnums+m_selfParm.jumpnums;
 		  Aodvrm.SetStability(m_incomeParm.stability>m_selfParm.stability?m_incomeParm.stability:m_selfParm.stability);
 		  Aodvrm.Originator=m_CCHmainAddress;
-		  //Aodvrm.forwarding_table =m_ForwardTable;
-		 // Aodvrm.forwarding_table.push_back(m_CCHmainAddress);//to-do  m_mainAddress is lc's control channel id?
-		  //size?
 
-		  /*auto iterator = Aodvrm.forwarding_table.begin();
-		  auto iter_end = Aodvrm.forwarding_table.end();
-	      for(;iterator!=iter_end;iterator++){
-			  Ipv4Address temp=*iterator;
-		     std::cout<<temp.Get()%256<<"-> ";
-		     }
-		    std::cout<<std::endl;
-		    std::cout<<std::endl;
-		    */
 		  QueueMessage (mesg, JITTER);
 
   }
@@ -894,9 +882,8 @@ RoutingProtocol::ProcessCRREP (const sdn::MessageHeader &msg)
   Ipv4Address transfer = Aodv_r.ID;
 
  //std::cout<<"ProcessCRREP"<<transfer.Get()%256<<" "<<dest.Get()%256<<std::endl;
-  if(m_CCHmainAddress.Get()%256 == 85)
-	  return;
-  Ipv4Address mask("255.255.255.0");
+
+  Ipv4Address mask("255.255.0.0");
   //ComputeRoute();
   //LCAddEntry(roadendAddress,dest,mask,transfer);
   //std::cout<<"roadendAddress"<<roadendAddress.Get()%256<<std::endl;
@@ -1568,7 +1555,7 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 
 void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each lc received Reverse message
 {
-
+   std::cout<<"i am "<<m_CCHmainAddress;
 	//std::map<Ipv4Address,Ipv4Address,> lc_Rtable;
     const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
 	if(Aodv_r.next==m_CCHmainAddress){
