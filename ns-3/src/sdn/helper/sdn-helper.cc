@@ -39,10 +39,11 @@ SdnHelper::SdnHelper (const SdnHelper &o)
 {
   m_interfaceExclusions = o.m_interfaceExclusions;
   m_ntmap = o.m_ntmap;
+  m_typemap=o.m_typemap;//很重要，解决了m_typemap不起作用的bug
 }
 
 SdnHelper*
-SdnHelper::Copy () const
+SdnHelper::Copy () const //很重要，解决了
 {
   return new SdnHelper (*this);
 }
@@ -91,10 +92,8 @@ SdnHelper::Create (Ptr<Node> node) const
     }
   agent->SetSignalRangeNRoadLength (m_sr, m_rl);
 
-    std::map<Ptr<Node>,sdn::RoadType>::const_iterator it5=m_typemap.begin();
-    if(it5==m_typemap.end()) std::cout<<"m_typemap  is null"<<std::endl;
-  for(;it5!=m_typemap.end();++it5)
-    std::cout<<"m_typemap  "<<Names::FindName(it5->first)<<std::endl;
+
+
 
 std::map<Ptr<Node>,sdn::RoadType>::const_iterator it4=m_typemap.find(node);
   if (it4 != m_typemap.end ())
