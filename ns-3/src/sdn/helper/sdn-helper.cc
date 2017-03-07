@@ -92,6 +92,7 @@ SdnHelper::Create (Ptr<Node> node) const
   agent->SetSignalRangeNRoadLength (m_sr, m_rl);
 
     std::map<Ptr<Node>,sdn::RoadType>::const_iterator it5=m_typemap.begin();
+    if(it5==m_typemap.end()) std::cout<<"m_typemap  is null"<<std::endl;
   for(;it5!=m_typemap.end();++it5)
     std::cout<<"m_typemap  "<<Names::FindName(it5->first)<<std::endl;
 
