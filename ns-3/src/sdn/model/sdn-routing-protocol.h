@@ -204,6 +204,8 @@ private:
   /// Provides uniform random variables.
   Ptr<UniformRandomVariable> m_uniformRandomVariable;  
 
+  std::map<Ipv4Address,std::set<Ipv4Address>> neighbor;//每个lc的邻居lc
+
   // Mobility module for Vanet
   Ptr<MobilityModel> m_mobility;//节点的移动信息
   std::set<uint32_t> m_interfaceExclusions;//无用

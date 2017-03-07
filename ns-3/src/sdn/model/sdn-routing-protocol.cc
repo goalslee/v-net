@@ -258,6 +258,25 @@ RoutingProtocol::DoInitialize ()
 
   NS_LOG_DEBUG ("Starting SDN on node " << m_CCHmainAddress);
 
+  //设置每个lc的邻居  --硬编码
+   //std::map<Ipv4Address,std::set<Ipv4Address>> neighbor
+   std::set<Ipv4Address> temp;
+   temp.insert(Ipv4Address ("192.168.2.2"));
+   temp.insert(Ipv4Address ("192.168.2.3"));
+   neighbor[Ipv4Address ("192.168.1.246")]=temp;
+
+   temp.clear();
+   temp.insert(Ipv4Address ("192.168.1.246"));
+    temp.insert(Ipv4Address ("192.168.1.249"));
+     temp.insert(Ipv4Address ("192.168.2.6"));
+   neighbor[Ipv4Address ("192.168.2.2")]=temp;
+
+
+
+   
+   
+  
+
   Ipv4Address loopback ("127.0.0.1");
 
   bool canRunSdn = false;
