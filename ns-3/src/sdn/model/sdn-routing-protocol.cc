@@ -456,7 +456,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
              //std::cout<<"rreq"<<std::endl;           
           if (GetType() == LOCAL_CONTROLLER)
           {
-             std::cout<<"ProcessCRREQ "<<std::endl;
+             //std::cout<<"ProcessCRREQ "<<std::endl;
             ProcessCRREQ (messageHeader);
             }
           break;
@@ -505,7 +505,7 @@ RoutingProtocol::ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &sen
 	 // std::cout<<"85 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
  	  return;
   }*/
- std::cout<<"ProcessHM roadtype: "<<m_roadtype<<std::endl;
+ //std::cout<<"ProcessHM roadtype: "<<m_roadtype<<std::endl;
   // 不在lc所属路的hello 包不收
   bool rev=false;
 if(m_roadtype==sdn::ROW)
@@ -1270,7 +1270,7 @@ RoutingProtocol::SendCRREQ (Ipv4Address const &destAddress)
 {
   NS_LOG_FUNCTION (this);
 
-  std::cout<<"SendCRREQ "<<std::endl;
+ // std::cout<<"SendCRREQ "<<std::endl;
   sdn::MessageHeader msg;
   Time now = Simulator::Now ();
   msg.SetVTime (m_helloInterval);
