@@ -448,6 +448,7 @@ void VanetSim::ConfigApp()
 	  internet.SetRoutingHelper(sdn);
 		std::cout<<"SetRoutingHelper Done"<<std::endl;
 	  internet.Install (m_nodes);
+	  sdn.PrintRoadTypeName();
 	}
 
 

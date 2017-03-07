@@ -104,6 +104,8 @@ public:
   /*void SetMobility (Ptr<Node> node, Ptr<MobilityModel> mo);
 */
 
+void
+PrintRoadTypeName();
 
   /**
    * Set Node type to nodes

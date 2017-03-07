@@ -99,12 +99,20 @@ std::map<Ptr<Node>,sdn::RoadType>::const_iterator it4=m_typemap.find(node);
     }
   else
     {
-     std::cout<<"not find"<<std::endl;
-      agent->SetRoadType (sdn::NEITHER);
+     std::cout<<"fail..  name: "<<Names::FindName(node)	<<std::endl;
+     // agent->SetRoadType (sdn::NEITHER);
     }
 
   node->AggregateObject (agent);
   return agent;
+}
+
+void
+SdnHelper::PrintRoadTypeName()
+{
+  std::map<Ptr<Node>,sdn::RoadType>::const_iterator it=m_typemap.begin();
+  for(;it!=m_typemap.end();++it)
+    std::cout<<"m_typemap  "<<Names::FindName(it->first)<<std::endl;
 }
 
 void
