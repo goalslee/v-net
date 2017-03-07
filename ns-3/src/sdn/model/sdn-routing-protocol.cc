@@ -523,7 +523,7 @@ if(m_roadtype==sdn::ROW)
 
 if(rev==false) return;
 
- 
+ std::cout<<"handle hello message"<<std::endl;
     Ipv4Address ID = msg.GetHello ().ID;//should be SCH address
   m_SCHaddr2CCHaddr[ID] = msg.GetOriginatorAddress();
 
