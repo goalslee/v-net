@@ -634,7 +634,7 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
 	  return;*/
 
 if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
-std::cout<<"the wrong lc get the packet."<<std::endl;
+//std::cout<<"the wrong lc get the packet."<<std::endl;
 
   //add long road lc select
   if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
@@ -1313,7 +1313,7 @@ RoutingProtocol::AodvTimerExpire()
 void
 RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 {
-         std::cout<<"ProcessAodvRm..."<<std::endl;
+         //std::cout<<"ProcessAodvRm..."<<std::endl;
 	 sdn::MessageHeader mesg;
 
 	 const sdn::MessageHeader::AodvRm &aodvrm = msg.GetAodvRm();
@@ -1372,7 +1372,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	//std::map<Ipv4Address,Ipv4Address,> lc_Rtable;
     const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
 	if(Aodv_r.next==m_CCHmainAddress){
-		std::cout<<"i am "<<m_CCHmainAddress<<std::endl;
+		std::cout<<"ProcessAodvRERm  i am "<<m_CCHmainAddress<<std::endl;
 		m_incomeParm.nextIP=Aodv_r.originator;
 	sdn::MessageHeader mesg;
 	 mesg.SetMessageType(sdn::MessageHeader::AODV_REVERSE_MESSAGE);
