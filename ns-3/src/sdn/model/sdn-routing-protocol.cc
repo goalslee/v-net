@@ -345,9 +345,9 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
   NS_LOG_DEBUG ("SDN node " << m_CCHmainAddress
                 << " received a SDN packet from "
                 << senderIfaceAddr << " to " << receiverIfaceAddr);
-                  std::cout<<"SDN node " << m_CCHmainAddress
-                << " received a SDN packet from "
-                << senderIfaceAddr << " to " << receiverIfaceAddr<<std::endl;
+  //std::cout<<"SDN node " << m_CCHmainAddress
+               // << " received a SDN packet from "
+                //<< senderIfaceAddr << " to " << receiverIfaceAddr<<std::endl;
   //std::cout<<"SDN node " << m_CCHmainAddress<<" received a SDN packet from "<<senderIfaceAddr<<" to "<<receiverIfaceAddr<<std::endl;
   // All routing messages are sent from and to port RT_PORT,
   // so we check it.
@@ -374,6 +374,10 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                     << std::dec << int (messageHeader.GetMessageType ())
                     << " TTL=" << int (messageHeader.GetTimeToLive ())
                     << " SeqNum=" << messageHeader.GetMessageSequenceNumber ());
+      std::cout<<"SDN Msg received with type "
+                    << std::dec << int (messageHeader.GetMessageType ())
+                    << " TTL=" << int (messageHeader.GetTimeToLive ())
+                    << " SeqNum=" << messageHeader.GetMessageSequenceNumber ();
       messages.push_back (messageHeader);
     }
 
@@ -450,7 +454,10 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                         << " received CRREQ message of size "
                         << messageHeader.GetSerializedSize ());
           if (GetType() == LOCAL_CONTROLLER)
+          {
+             std::cout<<"ProcessCRREQ"<<std::endl;
             ProcessCRREQ (messageHeader);
+            }
           break;
         case sdn::MessageHeader::CARROUTERESPONCE_MESSAGE:
           NS_LOG_DEBUG (Simulator::Now ().GetSeconds ()
