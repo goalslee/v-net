@@ -456,7 +456,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
              //std::cout<<"rreq"<<std::endl;           
           if (GetType() == LOCAL_CONTROLLER)
           {
-             std::cout<<"ProcessCRREQ"<<std::endl;
+             std::cout<<"ProcessCRREQ "<<std::endl;
             ProcessCRREQ (messageHeader);
             }
           break;
