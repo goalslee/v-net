@@ -453,7 +453,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                         << "s SDN node " << m_CCHmainAddress
                         << " received CRREQ message of size "
                         << messageHeader.GetSerializedSize ());
-             std::cout<<"rreq"<<std::endl;           
+             //std::cout<<"rreq"<<std::endl;           
           if (GetType() == LOCAL_CONTROLLER)
           {
              std::cout<<"ProcessCRREQ"<<std::endl;
@@ -632,7 +632,7 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
 	  return;*/
 
 if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
-
+std::cout<<"the wrong lc get the packet."<<std::endl;
 
   //add long road lc select
   if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
