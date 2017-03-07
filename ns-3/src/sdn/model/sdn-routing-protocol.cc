@@ -1594,7 +1594,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	      QueueMessage (mesg, JITTER);
          }
          else std::cout<<"finish"<<std::endl;
-	   ProcessCRREP(msg);//todo
+	   //ProcessCRREP(msg);//todo
 
 	}
 }
