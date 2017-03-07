@@ -185,6 +185,7 @@ private:
   uint32_t m_SCHinterface;
   uint32_t m_CCHinterface;
   bool isDes=false;
+  int m_firstRequest;
   std::map<Ipv4Address, Ipv4Address> m_SCHaddr2CCHaddr;
   Ipv4Address transferAddress;//now it is the nearest ip 每条路第一辆车
   Ipv4Address roadendAddress;

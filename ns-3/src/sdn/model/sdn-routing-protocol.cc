@@ -133,6 +133,7 @@ RoutingProtocol::RoutingProtocol ()
     m_numAreaVaild (false),
     m_road_length (814),//MagicNumber
     m_signal_range (419)
+    m_firstRequest(1)
 {
   m_uniformRandomVariable = CreateObject<UniformRandomVariable> ();
 }
@@ -639,9 +640,10 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
   //add long road lc select
   if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
          //if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;not for 84 to receive
-
+               if(m_firstRequest++>1) return;
+               std::cout<<"handle request ,IP is "<<m_CCHmainAddress<<std::endl;
 	     sdn::MessageHeader mesg;
-		 std::cout<<"forwarding..."<<std::endl;
+		 //std::cout<<"forwarding..."<<std::endl;
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
 		  Time now = Simulator::Now ();
 		  mesg.SetVTime (m_helloInterval);
@@ -1320,7 +1322,7 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 
 	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
 		         temp_desId=aodvrm.DesId;
-			     std::cout<<"I am"<<m_CCHmainAddress.Get()<<"I have des"<<std::endl;
+			     std::cout<<"I am  "<<m_CCHmainAddress<<" ,I have des"<<std::endl;
 				 isDes=true;
 				 //m_aodvTimer.SetDelay(FemtoSeconds (5));// 5s countdown
 				 m_aodvTimer.SetFunction
