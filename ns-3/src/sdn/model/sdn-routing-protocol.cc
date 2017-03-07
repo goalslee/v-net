@@ -1285,7 +1285,7 @@ RoutingProtocol::RmTimerExpire ()
       ClearAllTables();//std::cout<<"1:"<<std::endl;
       ComputeRoute ();//std::cout<<"2:"<<std::endl;
       SendRoutingMessage ();//std::cout<<"3:"<<std::endl;
-      m_rmTimer.Schedule (m_rmInterval);//std::cout<<"4:"<<std::endl;
+      //m_rmTimer.Schedule (m_rmInterval);//std::cout<<"4:"<<std::endl;
   }
 }
 
