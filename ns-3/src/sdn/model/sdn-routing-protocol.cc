@@ -263,6 +263,7 @@ RoutingProtocol::DoInitialize ()
    std::set<Ipv4Address> temp;
    temp.insert(Ipv4Address ("192.168.2.2"));
    temp.insert(Ipv4Address ("192.168.2.3"));
+   temp.insert(Ipv4Address ("192.168.1.247"));
    neighbor[Ipv4Address ("192.168.1.246")]=temp;
 
    temp.clear();
@@ -297,7 +298,7 @@ RoutingProtocol::DoInitialize ()
     neighbor[Ipv4Address ("192.168.1.250")]=temp;   
 
     temp.clear();
-    temp.insert(Ipv4Address ("192.168.2.2"));
+    temp.insert(Ipv4Address ("192.168.2.4"));
     temp.insert(Ipv4Address ("192.168.2.3"));
     temp.insert(Ipv4Address ("192.168.1.246"));
     temp.insert(Ipv4Address ("192.168.1.248"));    
