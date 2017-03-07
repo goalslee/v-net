@@ -345,6 +345,9 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
   NS_LOG_DEBUG ("SDN node " << m_CCHmainAddress
                 << " received a SDN packet from "
                 << senderIfaceAddr << " to " << receiverIfaceAddr);
+                  std::cout<<"SDN node " << m_CCHmainAddress
+                << " received a SDN packet from "
+                << senderIfaceAddr << " to " << receiverIfaceAddr<<std::endl;
   //std::cout<<"SDN node " << m_CCHmainAddress<<" received a SDN packet from "<<senderIfaceAddr<<" to "<<receiverIfaceAddr<<std::endl;
   // All routing messages are sent from and to port RT_PORT,
   // so we check it.
@@ -945,7 +948,7 @@ RoutingProtocol::RouteOutput (Ptr<Packet> p,
              Ptr<NetDevice> oif,
              Socket::SocketErrno &sockerr)
 {
- std::cout<<"RouteOutput "<<std::endl;
+ //std::cout<<"RouteOutput "<<std::endl;
   NS_LOG_FUNCTION (this << " " << m_ipv4->GetObject<Node> ()->GetId () << " " << header.GetDestination () << " " << oif);
   Ptr<Ipv4Route> rtentry;
   RoutingTableEntry entry;
