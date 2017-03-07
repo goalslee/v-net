@@ -436,7 +436,7 @@ void VanetSim::ConfigApp()
 	    {
 	      sdn.SetRoadTypeMap (m_nodes.Get (nodeNum+i), sdn::COLUMN);
 	    }  
-	    
+	      sdn.PrintRoadTypeName();
 
 	  //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum), sdn::LOCAL_CONTROLLER);
           //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+3), sdn::LOCAL_CONTROLLER);
@@ -448,7 +448,7 @@ void VanetSim::ConfigApp()
 	  internet.SetRoutingHelper(sdn);
 		std::cout<<"SetRoutingHelper Done"<<std::endl;
 	  internet.Install (m_nodes);
-	  sdn.PrintRoadTypeName();
+	
 	}
 
 
