@@ -374,10 +374,10 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                     << std::dec << int (messageHeader.GetMessageType ())
                     << " TTL=" << int (messageHeader.GetTimeToLive ())
                     << " SeqNum=" << messageHeader.GetMessageSequenceNumber ());
-      std::cout<<"SDN Msg received with type "
+      /*std::cout<<"SDN Msg received with type "
                     << std::dec << int (messageHeader.GetMessageType ())
                     << " TTL=" << int (messageHeader.GetTimeToLive ())
-                    << " SeqNum=" << messageHeader.GetMessageSequenceNumber ();
+                    << " SeqNum=" << messageHeader.GetMessageSequenceNumber ();*/
       messages.push_back (messageHeader);
     }
 
@@ -453,6 +453,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                         << "s SDN node " << m_CCHmainAddress
                         << " received CRREQ message of size "
                         << messageHeader.GetSerializedSize ());
+             std::cout<<"rreq"<<std::endl;           
           if (GetType() == LOCAL_CONTROLLER)
           {
              std::cout<<"ProcessCRREQ"<<std::endl;
