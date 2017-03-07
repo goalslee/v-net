@@ -132,7 +132,7 @@ RoutingProtocol::RoutingProtocol ()
     m_isPadding (false),
     m_numAreaVaild (false),
     m_road_length (814),//MagicNumber
-    m_signal_range (419)
+    m_signal_range (419),
     m_firstRequest(1)
 {
   m_uniformRandomVariable = CreateObject<UniformRandomVariable> ();
