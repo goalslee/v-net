@@ -639,7 +639,7 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
          //if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;not for 84 to receive
 
 	     sdn::MessageHeader mesg;
-		 //std::cout<<"forwarding..."<<std::endl;
+		 std::cout<<"forwarding..."<<std::endl;
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
 		  Time now = Simulator::Now ();
 		  mesg.SetVTime (m_helloInterval);
