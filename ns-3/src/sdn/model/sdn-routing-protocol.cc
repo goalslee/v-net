@@ -658,7 +658,8 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
     
 }// End of RecvSDN
 
-  bool isNeighbor(const Ipv4Address &sourceAddress)
+  bool
+  RoutingProtocol::isNeighbor(const Ipv4Address &sourceAddress)
   {
     std::map<Ipv4Address,std::set<Ipv4Address>>::iterator  it=neighbor.find(m_CCHmainAddress);
     if(it==neighbor.end()) return false;
