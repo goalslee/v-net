@@ -526,6 +526,9 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                 << " received a SDN packet from "
                 << senderIfaceAddr << " to " << receiverIfaceAddr);
 
+                
+  std::cout<<"self: "<<m_CCHmainAddress<<"  income: "<<senderIfaceAddr<<" "<<isNeighbor(senderIfaceAddr)<<endl;
+  
    bool isneighbor=isNeighbor(senderIfaceAddr);             
   //std::cout<<"SDN node " << m_CCHmainAddress
                // << " received a SDN packet from "
@@ -663,6 +666,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
   bool
   RoutingProtocol::isNeighbor(const Ipv4Address &sourceAddress)
   {
+    
     std::map<Ipv4Address,std::set<Ipv4Address>>::iterator  it=neighbor.find(m_CCHmainAddress);
     if(it==neighbor.end()) return false;
     std::set<Ipv4Address> ipset=it->second;
