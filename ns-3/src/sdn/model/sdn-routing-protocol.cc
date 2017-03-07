@@ -505,7 +505,7 @@ RoutingProtocol::ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &sen
 	 // std::cout<<"85 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
  	  return;
   }*/
-
+ std::cout<<"ProcessHM"<<std::endl;
   // 不在lc所属路的hello 包不收
   bool rev=false;
 if(m_roadtype==sdn::ROW)
