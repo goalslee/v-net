@@ -204,7 +204,7 @@ private:
   /// Provides uniform random variables.
   Ptr<UniformRandomVariable> m_uniformRandomVariable;  
 
-  std::map<Ipv4Address,std::set<Ipv4Address>> neighbor;//每个lc的邻居lc
+  std::map<Ipv4Address,std::set<Ipv4Address> >  neighbor;//每个lc的邻居lc
 
   // Mobility module for Vanet
   Ptr<MobilityModel> m_mobility;//节点的移动信息
@@ -348,6 +348,7 @@ private:
   void SetAodvParm(uint32_t jump,float sta);
   void GetAodvParm(uint32_t &jump,float &sta);
   void ComputeRoute ();//
+  bool isNeighbor(const Ipv4Address &sourceAddress);
 
   /// Check that address is one of my interfaces
   bool IsMyOwnAddress (const Ipv4Address & a) const;//implemented

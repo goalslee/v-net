@@ -267,15 +267,175 @@ RoutingProtocol::DoInitialize ()
 
    temp.clear();
    temp.insert(Ipv4Address ("192.168.1.246"));
-    temp.insert(Ipv4Address ("192.168.1.249"));
-     temp.insert(Ipv4Address ("192.168.2.6"));
+   temp.insert(Ipv4Address ("192.168.1.249"));
+   temp.insert(Ipv4Address ("192.168.2.6"));
    neighbor[Ipv4Address ("192.168.2.2")]=temp;
 
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.1.246"));
+    temp.insert(Ipv4Address ("192.168.1.249"));
+    temp.insert(Ipv4Address ("192.168.2.7"));
+    temp.insert(Ipv4Address ("192.168.1.250"));
+    temp.insert(Ipv4Address ("192.168.1.247"));
+    neighbor[Ipv4Address ("192.168.2.3")]=temp;
+    
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.2"));
+    temp.insert(Ipv4Address ("192.168.2.3"));
+    temp.insert(Ipv4Address ("192.168.2.7"));
+    temp.insert(Ipv4Address ("192.168.2.6"));
+    temp.insert(Ipv4Address ("192.168.1.250"));
+    neighbor[Ipv4Address ("192.168.1.249")]=temp;
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.4"));
+    temp.insert(Ipv4Address ("192.168.2.3"));
+    temp.insert(Ipv4Address ("192.168.2.7"));
+    temp.insert(Ipv4Address ("192.168.2.8"));
+    temp.insert(Ipv4Address ("192.168.1.249"));
+    temp.insert(Ipv4Address ("192.168.1.251"));    
+    neighbor[Ipv4Address ("192.168.1.250")]=temp;   
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.2"));
+    temp.insert(Ipv4Address ("192.168.2.3"));
+    temp.insert(Ipv4Address ("192.168.1.246"));
+    temp.insert(Ipv4Address ("192.168.1.248"));    
+    neighbor[Ipv4Address ("192.168.1.247")]=temp; 
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.1.247"));
+    temp.insert(Ipv4Address ("192.168.1.248"));
+    temp.insert(Ipv4Address ("192.168.2.8"));
+    temp.insert(Ipv4Address ("192.168.1.250"));
+    temp.insert(Ipv4Address ("192.168.1.251"));
+    neighbor[Ipv4Address ("192.168.2.4")]=temp;
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.1.250"));
+    temp.insert(Ipv4Address ("192.168.2.9"));
+    temp.insert(Ipv4Address ("192.168.2.8"));
+    temp.insert(Ipv4Address ("192.168.2.4"));
+    temp.insert(Ipv4Address ("192.168.2.5"));
+    neighbor[Ipv4Address ("192.168.1.251")]=temp;    
+    
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.1.251"));
+    temp.insert(Ipv4Address ("192.168.1.248"));
+    temp.insert(Ipv4Address ("192.168.2.9"));
+    neighbor[Ipv4Address ("192.168.2.5")]=temp;
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.4"));
+    temp.insert(Ipv4Address ("192.168.2.5"));
+    temp.insert(Ipv4Address ("192.168.1.247"));
+    neighbor[Ipv4Address ("192.168.1.248")]=temp; 
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.2"));
+    temp.insert(Ipv4Address ("192.168.2.10"));
+    temp.insert(Ipv4Address ("192.168.1.249"));
+    temp.insert(Ipv4Address ("192.168.1.252"));    
+    neighbor[Ipv4Address ("192.168.2.6")]=temp; 
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.11"));
+    temp.insert(Ipv4Address ("192.168.2.3"));
+    temp.insert(Ipv4Address ("192.168.1.249"));
+    temp.insert(Ipv4Address ("192.168.1.250")); 
+    temp.insert(Ipv4Address ("192.168.1.252")); 
+    temp.insert(Ipv4Address ("192.168.1.253")); 
+    neighbor[Ipv4Address ("192.168.2.7")]=temp;     
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.12"));
+    temp.insert(Ipv4Address ("192.168.2.4"));
+    temp.insert(Ipv4Address ("192.168.1.251"));
+    temp.insert(Ipv4Address ("192.168.1.250")); 
+    temp.insert(Ipv4Address ("192.168.1.254")); 
+    temp.insert(Ipv4Address ("192.168.1.253")); 
+    neighbor[Ipv4Address ("192.168.2.8")]=temp; 
 
 
-   
-   
-  
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.13"));
+    temp.insert(Ipv4Address ("192.168.2.5"));
+    temp.insert(Ipv4Address ("192.168.1.251")); 
+    temp.insert(Ipv4Address ("192.168.1.254")); 
+    neighbor[Ipv4Address ("192.168.2.9")]=temp; 
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.13"));
+    temp.insert(Ipv4Address ("192.168.2.9"));
+    temp.insert(Ipv4Address ("192.168.2.8"));
+    temp.insert(Ipv4Address ("192.168.2.12")); 
+    temp.insert(Ipv4Address ("192.168.1.253")); 
+    neighbor[Ipv4Address ("192.168.1.254")]=temp;
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.11"));
+    temp.insert(Ipv4Address ("192.168.2.8"));
+    temp.insert(Ipv4Address ("192.168.2.7"));
+    temp.insert(Ipv4Address ("192.168.2.12")); 
+    temp.insert(Ipv4Address ("192.168.1.252")); 
+    temp.insert(Ipv4Address ("192.168.1.254")); 
+    neighbor[Ipv4Address ("192.168.1.253")]=temp; 
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.11"));
+    temp.insert(Ipv4Address ("192.168.2.8"));
+    temp.insert(Ipv4Address ("192.168.2.7"));
+    temp.insert(Ipv4Address ("192.168.2.12")); 
+    temp.insert(Ipv4Address ("192.168.1.252")); 
+    temp.insert(Ipv4Address ("192.168.1.254")); 
+    neighbor[Ipv4Address ("192.168.1.252")]=temp;
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.6"));
+    temp.insert(Ipv4Address ("192.168.1.252")); 
+    temp.insert(Ipv4Address ("192.168.1.255")); 
+    neighbor[Ipv4Address ("192.168.2.10")]=temp;  
+    
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.7"));
+    temp.insert(Ipv4Address ("192.168.2.0"));    
+    temp.insert(Ipv4Address ("192.168.1.252")); 
+    temp.insert(Ipv4Address ("192.168.1.253"));    
+    temp.insert(Ipv4Address ("192.168.1.255")); 
+    neighbor[Ipv4Address ("192.168.2.11")]=temp;    
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.1"));
+    temp.insert(Ipv4Address ("192.168.2.0"));   
+    temp.insert(Ipv4Address ("192.168.2.8"));     
+    temp.insert(Ipv4Address ("192.168.1.253"));    
+    temp.insert(Ipv4Address ("192.168.1.254")); 
+    neighbor[Ipv4Address ("192.168.2.12")]=temp;    
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.1"));
+    temp.insert(Ipv4Address ("192.168.2.9"));           
+    temp.insert(Ipv4Address ("192.168.1.254")); 
+    neighbor[Ipv4Address ("192.168.2.13")]=temp;
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.10"));
+    temp.insert(Ipv4Address ("192.168.2.0"));   
+    temp.insert(Ipv4Address ("192.168.2.11"));     
+    neighbor[Ipv4Address ("192.168.1.255")]=temp; 
+
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.1"));
+    temp.insert(Ipv4Address ("192.168.2.11"));   
+    temp.insert(Ipv4Address ("192.168.2.12"));     
+    temp.insert(Ipv4Address ("192.168.1.255"));    
+    neighbor[Ipv4Address ("192.168.2.0")]=temp;   
+    
+    temp.clear();
+    temp.insert(Ipv4Address ("192.168.2.0"));
+    temp.insert(Ipv4Address ("192.168.2.13"));   
+    temp.insert(Ipv4Address ("192.168.2.12"));        
+    neighbor[Ipv4Address ("192.168.2.1")]=temp; 
 
   Ipv4Address loopback ("127.0.0.1");
 
@@ -497,6 +657,16 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
     }
     
 }// End of RecvSDN
+
+  bool isNeighbor(const Ipv4Address &sourceAddress)
+  {
+    std::map<Ipv4Address,std::set<Ipv4Address>>::iterator  it=neighbor.find(m_CCHmainAddress);
+    if(it==neighbor.end()) return false;
+    std::set<Ipv4Address>::iterator it2=it->second;
+    if(it2.find(sourceAddress)==it2.end()) return false;
+    return true;
+  }
+
 
 void
 RoutingProtocol::ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &senderIface)
