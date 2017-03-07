@@ -525,6 +525,8 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
   NS_LOG_DEBUG ("SDN node " << m_CCHmainAddress
                 << " received a SDN packet from "
                 << senderIfaceAddr << " to " << receiverIfaceAddr);
+
+   bool isneighbor=isNeighbor(senderIfaceAddr);             
   //std::cout<<"SDN node " << m_CCHmainAddress
                // << " received a SDN packet from "
                 //<< senderIfaceAddr << " to " << receiverIfaceAddr<<std::endl;
@@ -616,7 +618,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                           << "s SDN node " << m_CCHmainAddress
                           << " received Aodv Routing message of size "
                           << messageHeader.GetSerializedSize ());
-          if(GetType()==LOCAL_CONTROLLER)
+          if(GetType()==LOCAL_CONTROLLER||isneighbor)
         	  ProcessAodvRm(messageHeader);
         	  break;
         case sdn::MessageHeader::AODV_REVERSE_MESSAGE:  //add this for aodv
@@ -624,7 +626,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                           << "s SDN node " << m_CCHmainAddress
                           << " received Aodv Routing message of size "
                           << messageHeader.GetSerializedSize ());
-            if(GetType()==LOCAL_CONTROLLER)
+            if(GetType()==LOCAL_CONTROLLER||isneighbor)
                 //std::cout<<"case"<<std::endl;
             	ProcessAodvRERm(messageHeader);
            break;
