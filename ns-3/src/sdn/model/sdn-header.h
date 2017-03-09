@@ -468,16 +468,10 @@ public:
 	    uint32_t stability;
 	    Ipv4Address Originator;
 	    Position position;
-	    sdn::direction dir;
+	    sdn::enum direction dir;
 	    //std::vector<uint32_t> forwarding_table;//first transfer ipv4 to unsigned int
 	    //std::vector<Ipv4Address> forwarding_table;
 	    //std::vector<uint32_t> temp_forwarding_table;//for save received forwarding table;
-
-
-
-    
-    
-    Position position;
     void SetPosition(double x, double y, double z)
     {
       this->position.X = IEEE754(x);
@@ -561,7 +555,7 @@ public:
   	    Ipv4Mask mask;
   	     Ipv4Address originator;
   	     Ipv4Address next;
-  	     sdn::direction next_dir;
+  	     sdn::enum direction next_dir;
   
   	    //void Print (std::ostream &os) const;
   	    uint32_t GetSerializedSize (void) const;
