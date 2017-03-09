@@ -2582,7 +2582,7 @@ RoutingProtocol::RemoveTimeOut()//删除3个hello时间内没再次收到hello包的车
       if (now.GetSeconds() - it->second.LastActive.GetSeconds () > 3 * m_helloInterval.GetSeconds())
         {
           //pendding.push_back (it->first);
-          it=m_lc_info.erase((it->first));
+          m_lc_info.erase((it++));
         }
       else ++it;
     }
