@@ -1657,7 +1657,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	        Aodv_r_rm.routingMessageSize=28;
 	       Aodv_r_rm.originator=m_CCHmainAddress;
 	       Aodv_r_rm.next=m_incomeParm_possitive.lastIP;
-	       Aodv_r_rm.next_dir=m_incomeParm_possitive.dir;
+	       Aodv_r_rm.next_dir=m_incomeParm_possitive.lastdir;
               std::cout<<" send to "<<Aodv_r_rm.next<<std::endl;
 	      QueueMessage (mesg, JITTER);
          }
@@ -1676,7 +1676,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	        Aodv_r_rm.routingMessageSize=28;
 	       Aodv_r_rm.originator=m_CCHmainAddress;
 	       Aodv_r_rm.next=m_incomeParm_negative.lastIP;
-	       Aodv_r_rm.next_dir=m_incomeParm_negative.dir;
+	       Aodv_r_rm.next_dir=m_incomeParm_negative.lastdir;
               std::cout<<" send to "<<Aodv_r_rm.next<<std::endl;
 	      QueueMessage (mesg, JITTER);
          }
@@ -1717,7 +1717,7 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	        else    Aodv_r_rm.FirstCarId=roadendAddress_negative;
 	   }
 	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
-	  Aodv_r_rm.routingMessageSize=SDN_AODVRRM_HEADER_SIZE;
+	  Aodv_r_rm.routingMessageSize=32;//SDN_AODVRRM_HEADER_SIZE;
 	  Aodv_r_rm.originator=m_CCHmainAddress;
 	  Aodv_r_rm.next=m_incomeDesParm.lastIP;
 	  Aodv_r_rm.next_dir=m_incomeDesParm.lastdir;
@@ -1906,13 +1906,13 @@ void  RoutingProtocol::compute_possive()
     for(std::map<Ipv4Address,CarInfo>::iterator it=m_lc_positive_info.begin();it!=m_lc_positive_info.end();++it)
     {
        if(m_roadtype==sdn::ROW)
-           dis[it->second.Position.x-(m_mobility->GetPosition().x-m_road_length/2)]=it.first;
-       else dis[it->second.Position.y-(m_mobility->GetPosition().y-m_road_length/2)]=it.first;
+           dis[it->second.Position.x-(m_mobility->GetPosition().x-m_road_length/2)]=it->first;
+       else dis[it->second.Position.y-(m_mobility->GetPosition().y-m_road_length/2)]=it->first;
     }
     transferAddress_possitive=dis.begin()->second;
-    chose.push_back(dis.begin());
-    std::pair<double,Ipv4Address>::iterator temp=chose.rbegin();
-    while(temp->first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility.GetPosition().x:m_mobility.GetPosition().y)+m_road_length/2)
+    chose.push_back(*dis.begin());
+    std::pair<double,Ipv4Address> temp=*chose.rbegin();
+    while(temp->first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility->GetPosition().x:m_mobility->GetPosition().y)+m_road_length/2)
     {
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
         while(++iter!=dis.end())
@@ -1934,14 +1934,14 @@ void  RoutingProtocol::compute_possive()
             }
 
         }
-        if(temp==chose.rbegin())
+        if(temp==*chose.rbegin())
         {
             std::cout<<"no valid connect"<<std::endl;
             possive_valid=false;
             return;
             //break;
         }
-        temp=chose.rbegin();
+        temp=*chose.rbegin();
     }
     roadendAddress_possitive=chose.rbegin()->second;
     Ipv4Address mask("255.255.0.0");
@@ -1963,8 +1963,8 @@ void RoutingProtocol::compute_negative()
        else dis[m_mobility->GetPosition().y+m_road_length/2-it->second.Position.y]=it.first;
     }
     transferAddress_negative=dis.begin()->second;
-    chose.push_back(dis.begin());
-    std::pair<double,Ipv4Address> temp=chose.rbegin();
+    chose.push_back(*dis.begin());
+    std::pair<double,Ipv4Address> temp=*chose.rbegin();
     while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility.GetPosition().x:m_mobility.GetPosition().y)+m_road_length/2)
     {
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
@@ -1987,14 +1987,14 @@ void RoutingProtocol::compute_negative()
             }
 
         }
-        if(temp==chose.rbegin())
+        if(temp==*chose.rbegin())
         {
             std::cout<<"no valid connect"<<std::endl;
             negative_valid=false;
             return;
             //break;
         }
-        temp=chose.rbegin();
+        temp=*chose.rbegin();
     }
     roadendAddress_negative=chose.rbegin()->second;
         Ipv4Address mask("255.255.0.0");
