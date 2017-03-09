@@ -1610,7 +1610,7 @@ else{
             m_incomeDesParm.desdir=m_lc_info[aodvrm.DesId].dir;
 
         }
-        if(aodvrm.jump_nums<m_incomeDesParm.jumpnums||aodvrm.jump_nums==m_incomeDesParm.jumpnums&&aodvrm.stability<m_incomeDesParm.stability)
+        if(aodvrm.jump_nums<m_incomeDesParm.jumpnums||(aodvrm.jump_nums==m_incomeDesParm.jumpnums&&aodvrm.stability<m_incomeDesParm.stability))
         {
             if(m_incomeDesParm.desdir==out) m_incomeDesParm.dir=true;
             else m_incomeDesParm.dir=false;
@@ -1618,12 +1618,11 @@ else{
             m_incomeDesParm.stability=aodvrm.stability;
             m_incomeDesParm.m_sourceId=aodvrm.ID;
 	   m_incomeDesParm.m_desId=aodvrm.DesId;
-            m_incomeDesParm.lastdir=aodvrm.dir;//记录上一跳的方向
-         
+            m_incomeDesParm.lastdir=aodvrm.dir;//记录上一跳的方向         
         }
         
       }
-	}
+	
 }
 
 
