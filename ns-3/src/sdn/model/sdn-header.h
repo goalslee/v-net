@@ -464,7 +464,7 @@ public:
 	    uint32_t jump_nums;
 	    uint32_t stability;
 	    Ipv4Address Originator;
-	    std::vector<> position;
+	    Position position;
 	    sdn::direction dir;
 	    //std::vector<uint32_t> forwarding_table;//first transfer ipv4 to unsigned int
 	    //std::vector<Ipv4Address> forwarding_table;
