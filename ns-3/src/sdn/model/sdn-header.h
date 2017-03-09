@@ -457,6 +457,9 @@ public:
 	    {
 	      return (this->routingMessageSize);
 	    }
+	    struct Position{
+                        uint32_t X, Y, Z;
+            };
 
 	    Ipv4Address ID;//sourceAddress
 	    Ipv4Address DesId;
@@ -471,9 +474,7 @@ public:
 	    //std::vector<uint32_t> temp_forwarding_table;//for save received forwarding table;
 
 
-struct Position{
-      uint32_t X, Y, Z;
-    };
+
     
     
     Position position;
