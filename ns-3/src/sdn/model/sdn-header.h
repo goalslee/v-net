@@ -32,6 +32,7 @@ namespace ns3 {
 namespace sdn {
 
 enum AppointmentType {NORMAL, FORWARDER};
+enum direction{POSITIVE,NEGATIVE,OTHER};
 float     rIEEE754 (uint32_t emf);
 uint32_t  IEEE754 (float dec);
 
@@ -468,7 +469,7 @@ public:
 	    uint32_t stability;
 	    Ipv4Address Originator;
 	    Position position;
-	    sdn::enum direction dir;
+	    enum direction dir;
 	    //std::vector<uint32_t> forwarding_table;//first transfer ipv4 to unsigned int
 	    //std::vector<Ipv4Address> forwarding_table;
 	    //std::vector<uint32_t> temp_forwarding_table;//for save received forwarding table;
@@ -555,7 +556,7 @@ public:
   	    Ipv4Mask mask;
   	     Ipv4Address originator;
   	     Ipv4Address next;
-  	     sdn::enum direction next_dir;
+  	     direction next_dir;
   
   	    //void Print (std::ostream &os) const;
   	    uint32_t GetSerializedSize (void) const;
