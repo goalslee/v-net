@@ -2005,7 +2005,7 @@ void RoutingProtocol::compute_negative()
     }
 }
 
-
+/*
 void
 RoutingProtocol::Do_Init_Compute ()
 {
@@ -2044,8 +2044,7 @@ RoutingProtocol::Partition ()
       m_Sections.push_back (std::set<Ipv4Address> ());
     }
   //std::cout<<"CheckPonint1"<<std::endl;
-  for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
-       cit != m_lc_info.end(); ++cit)
+  for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();cit != m_lc_info.end(); ++cit)
     {
       //std::cout<<"cit->first"<<cit->first.Get ()%256<<std::endl;
       //std::cout<<GetArea (cit->second.Position)<<","<<numArea<<std::endl;
@@ -2284,7 +2283,7 @@ RoutingProtocol::SelectNewNodeInAreaZero ()
           The_Car = m_lc_info[The_Car].ID_of_minhop;
         }
     }
-}
+}*/
 
 void
 RoutingProtocol::Reschedule ()

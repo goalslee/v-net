@@ -381,6 +381,8 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   void SetAodvParm(uint32_t jump,float sta);
   void GetAodvParm(uint32_t &jump,float &sta);
   void ComputeRoute ();//
+  void compute_possive();
+  void compute_negative();
   bool isNeighbor(const Ipv4Address &sourceAddress);
 
   /// Check that address is one of my interfaces
