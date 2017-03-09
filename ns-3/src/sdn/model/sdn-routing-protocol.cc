@@ -1959,8 +1959,8 @@ void RoutingProtocol::compute_negative()
     for(std::map<Ipv4Address,CarInfo>::iterator it=m_lc_negative_info.begin();it!=m_lc_negative_info.end();++it)
     {
        if(m_roadtype==sdn::COLUMN)
-           dis[m_mobility->GetPosition().x+m_road_length/2-it->second.Position.x]=it.first;
-       else dis[m_mobility->GetPosition().y+m_road_length/2-it->second.Position.y]=it.first;
+           dis[m_mobility->GetPosition().x+m_road_length/2-it->second.Position.x]=it->first;
+       else dis[m_mobility->GetPosition().y+m_road_length/2-it->second.Position.y]=it->first;
     }
     transferAddress_negative=dis.begin()->second;
     chose.push_back(*dis.begin());
