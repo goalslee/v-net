@@ -518,7 +518,7 @@ MessageHeader::Aodv_R_Rm::Deserialize (Buffer::Iterator start,
   this->FirstCarId.Set(i.ReadNtohU32());
   this->originator.Set(i.ReadNtohU32());
   this->next.Set(i.ReadNtohU32());
-  this->next_dir=i.ReadNtohU32();
+  this->next_dir=(enum direction)i.ReadNtohU32();
 
   return (messageSize);
 }

@@ -865,11 +865,11 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 		  Aodvrm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 
 		  //todo 
-		  Aodvrm.jump_nums=m_incomeParm.jumpnums+m_selfParm.jumpnums;
-		  Aodvrm.SetStability(m_incomeParm.stability>m_selfParm.stability?m_incomeParm.stability:m_selfParm.stability);
+		  Aodvrm.jump_nums=m_selfParm_possitive.jumpnums;
+		  Aodvrm.SetStability(m_selfParm_possitive.stability);
 		  Aodvrm.Originator=m_CCHmainAddress;
-		  Aodvrm.rtype=sdn::POSITIVE;
-		  Aodvrm.SetPosition(m_mobility.GetPosition().x, m_mobility.GetPosition(). y, m_mobility.GetPosition().z);
+		  Aodvrm.dir=sdn::POSITIVE;
+		  Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition(). y, m_mobility->GetPosition().z);
 
 		  QueueMessage (mesg, JITTER);
 
@@ -899,7 +899,7 @@ RoutingProtocol::ProcessCRREP (const sdn::MessageHeader &msg)
 
   Ipv4Address mask("255.255.0.0");
   //ComputeRoute();
-  LCAddEntry(roadendAddress,dest,mask,transfer);
+  //LCAddEntry(roadendAddress,dest,mask,transfer);
   //std::cout<<"roadendAddress"<<roadendAddress.Get()%256<<std::endl;
  // std::cout<<"infosize"<<m_lc_info.size()<<std::endl;
   //std::cout<<"roadendAddress"<<roadendAddress.Get()%256<<std::endl;
@@ -1497,7 +1497,7 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 
 //判断车流方向是否指向本路
 sdn::direction in =aodvrm.rtype;
-sdn::RoadType out;
+sdn::direction out;
 double x,y,z;
 double x_0;
 double y_0;
@@ -1505,13 +1505,13 @@ double y_0;
 
 if(in==sdn::ROW) {
     aodvrm.GetPosition(x,y,z);
-    x_0=m_mobility.GetPosition().x;
-    y_0=m_mobility.GetPosition().y;
+    x_0=m_mobility->GetPosition().x;
+    y_0=m_mobility->GetPosition().y;
 }
 else{
    aodvrm.GetPosition(y,x,z);
-   x_0=m_mobility.GetPosition().y;
-   y_0=m_mobility.GetPosition().x;
+   x_0=m_mobility->GetPosition().y;
+   y_0=m_mobility->GetPosition().x;
 }
 
    if(x<x_0&&y>y_0&&in==sdn::NEGATIVE) out=sdn::POSITIVE;
@@ -1562,7 +1562,7 @@ if(out==sdn::POSITIVE)
 		  Aodvrm.jump_nums=m_incomeParm_possitive.jumpnums+m_selfParm_possitive.jumpnums;
 		  Aodvrm.SetStability(m_incomeParm_possitive.stability>m_selfParm_possitive.stability?m_incomeParm_possitive.stability:m_selfParm_possitive.stability);
 		  Aodvrm.Originator=m_CCHmainAddress;
-		  Aodvrm.SetPosition(m_mobility.GetPosition().x, m_mobility.GetPosition().y,m_mobility.GetPosition().z);
+		  Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 		   Aodvrm.dir=out;
 		  QueueMessage (mesg, JITTER);
 		 }
@@ -1594,7 +1594,7 @@ else{
 		  Aodvrm.jump_nums=m_incomeParm_negative.jumpnums+m_selfParm_negative.jumpnums;
 		  Aodvrm.SetStability(m_incomeParm_negative.stability>m_selfParm_negative.stability?m_incomeParm_negative.stability:m_selfParm_negative.stability);
 		  Aodvrm.Originator=m_CCHmainAddress;
-		  Aodvrm.SetPosition(m_mobility.GetPosition().x, m_mobility.GetPosition().y,m_mobility.GetPosition().z);
+		  Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 		   Aodvrm.dir=out;
 		  QueueMessage (mesg, JITTER);
 		 }
@@ -1610,7 +1610,7 @@ else{
             m_incomeDesParm.desdir=m_lc_info[aodvrm.DesId].dir;
 
         }
-        if(aodvrm.jump_nums<m_incomeDesParm.jumpnums||aodvrm.jump_nums==m_incomeDesParm.jump_nums&&aodvrm.stability<m_incomeDesParm.stability)
+        if(aodvrm.jump_nums<m_incomeDesParm.jumpnums||aodvrm.jump_nums==m_incomeDesParm.jumpnums&&aodvrm.stability<m_incomeDesParm.stability)
         {
             if(m_incomeDesParm.desdir==out) m_incomeDesParm.dir=true;
             else m_incomeDesParm.dir=false;
