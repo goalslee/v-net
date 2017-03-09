@@ -159,10 +159,10 @@ private:
   std::map<Ipv4Address, Ipv4Address> m_SCHaddr2CCHaddr;
   Ipv4Address transferAddress;//now it is the nearest ip 每条路第一辆车
   Ipv4Address roadendAddress;
-  Ipv4Address transferAddress_possive;
+  Ipv4Address transferAddress_possitive;
   Ipv4Address transferAddress_negative;
 
-  Ipv4Address roadendAddress_possive;
+  Ipv4Address roadendAddress_possitive;
   Ipv4Address roadendAddress_negative;
 
   

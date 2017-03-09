@@ -1496,14 +1496,14 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 	 const sdn::MessageHeader::AodvRm &aodvrm = msg.GetAodvRm();
 
 //判断车流方向是否指向本路
-sdn::direction in =aodvrm.rtype;
+sdn::direction in =aodvrm.dir;
 sdn::direction out;
 double x,y,z;
 double x_0;
 double y_0;
 
 
-if(in==sdn::ROW) {
+if(m_roadtype==sdn::ROW) {
     aodvrm.GetPosition(x,y,z);
     x_0=m_mobility->GetPosition().x;
     y_0=m_mobility->GetPosition().y;
@@ -1909,7 +1909,7 @@ void  RoutingProtocol::compute_possive()
            dis[it->second.Position.x-(m_mobility->GetPosition().x-m_road_length/2)]=it.first;
        else dis[it->second.Position.y-(m_mobility->GetPosition().y-m_road_length/2)]=it.first;
     }
-    transferAddress_possive=dis.begin()->second;
+    transferAddress_possitive=dis.begin()->second;
     chose.push_back(dis.begin());
     std::pair<double,Ipv4Address>::iterator temp=chose.rbegin();
     while(temp->first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility.GetPosition().x:m_mobility.GetPosition().y)+m_road_length/2)
@@ -1943,7 +1943,7 @@ void  RoutingProtocol::compute_possive()
         }
         temp=chose.rbegin();
     }
-    roadendAddress_possive=chose.rbegin()->second;
+    roadendAddress_possitive=chose.rbegin()->second;
     Ipv4Address mask("255.255.0.0");
     for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
     {
