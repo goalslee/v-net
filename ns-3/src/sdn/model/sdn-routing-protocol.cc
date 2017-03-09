@@ -1545,11 +1545,8 @@ if(out==sdn::POSITIVE)
 		 m_incomeParm_possitive.stability=aodvrm.stability;
 		 m_incomeParm_possitive.m_sourceId=aodvrm.ID;
 		 m_incomeParm_possitive.m_desId=aodvrm.DesId;
-                   m_incomeParm_possitive.dir=aodvrm.dir;//记录上一跳的方向
-
-
-		 //记录上一跳地址
-		m_incomeParm_possitive.lastIP=aodvrm.Originator;
+                   m_incomeParm_possitive.dir=aodvrm.dir;//记录上一跳的方向	
+		m_incomeParm_possitive.lastIP=aodvrm.Originator;//记录上一跳地址
 
 		 if(!isDes){
 		 //std::cout<<"forwarding..."<<std::endl;
@@ -1604,6 +1601,24 @@ else{
 	 }
 	 
 	 }
+
+	if(isDes){//用另外的数据结构存
+   
+
+        if(m_incomeDesParm.desdir==sdn::OTHER)
+        {
+            m_incomeDesParm.desdir=m_lc_info[aodvrm.DesId].dir;
+
+        }
+        if(aodvrm.jump_nums<m_incomeDesParm.jump_nums||aodvrm.jump_nums==m_incomeDesParm.jump_nums&&aodvrm.stability<m_incomeDesParm.stability)
+        {
+            if(m_incomeDesParm.desdir==out) m_incomeDesParm.dir=true;
+            else m_incomeDesParm.dir=false;
+
+        }
+        
+      }
+	}
 }
 
 
