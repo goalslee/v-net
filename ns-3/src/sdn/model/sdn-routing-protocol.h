@@ -148,54 +148,7 @@ class RoutingProtocol;
 ///
 class RoutingProtocol : public Ipv4RoutingProtocol
 {
-   public:
-  static TypeId GetTypeId (void);//implemented
 
-  RoutingProtocol ();//implemented
-  virtual ~RoutingProtocol ();//implemented
-
-  ///
-  /// \brief Set the SDN main address to the first address on the indicated
-  ///        interface
-  /// \param interface IPv4 interface index
-  ///
-  void SetSCHInterface (uint32_t interface);//implemented 设置SCHInterface的整形值m_SCHinterface， SCH的ip  m_SCHmainAddress  ，同时在m_table中插入一条目的地址为自身的路由信息
-  void SetCCHInterface (uint32_t interface);//implemented 同上
-  
-  void SetType (NodeType nt); //implemented //SdnHelper::Create 中调用
-  void SetRoadType (RoadType nt);
-  NodeType GetType () const; //implemented  //获取节点类型 CAR 或者 CONTROLLER
-  void SetSignalRangeNRoadLength (double signal_range, double road_length);// 或者有用，SdnHelper::Create (Ptr<Node> node)时调用
-  void SetMobility (Ptr<MobilityModel> mobility);//implemented //m_mobility 初始化，在InternetStackHelper::Install (NodeContainer c)-》SdnHelper::Create (Ptr<Node> node)时调用 ，通过它获取速度，位置等信息GetPosition() GetVelocity ()
-    std::set<uint32_t> GetInterfaceExclusions () const //无用
-  {
-    return (m_interfaceExclusions);
-  }
-  void SetInterfaceExclusions (std::set<uint32_t> exceptions);//implemented //无用
-  ///
-  /// Dump the routing table
-  /// to logging output (NS_LOG_DEBUG log level).  If logging is disabled,
-  /// this function does nothing.
-  ///
-  void Dump (void);//implemented //无用
-
-  /**
-   * Return the list of routing table entries discovered by SDN
-   **/
-  std::vector<RoutingTableEntry> GetRoutingTableEntries () const;//implemented //将m_table 的second全部取出，放到vector中
-
- /**
-  * Assign a fixed random variable stream number to the random variables
-  * used by this model.  Return the number of streams (possibly zero) that
-  * have been assigned.
-  *
-  * \param stream first stream index to use
-  * \return the number of stream indices assigned by this model
-  */
-  int64_t AssignStreams (int64_t stream);//implemented //无用
-
-protected:
-  virtual void DoInitialize (void);//implemented  首先被调用  创建socket绑定信道，设置几个定时器
 private:
   Ipv4Address m_SCHmainAddress;
   Ipv4Address m_CCHmainAddress;
@@ -291,8 +244,57 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   
   Ipv4Address m_theFirstCar;//Use by Reschedule (), SelectNewNodeInAreaZero(); Assign by SelectNode ();
   //Duplicate_Detection m_duplicate_detection;
+
+   public:
+  static TypeId GetTypeId (void);//implemented
+
+  RoutingProtocol ();//implemented
+  virtual ~RoutingProtocol ();//implemented
+
+  ///
+  /// \brief Set the SDN main address to the first address on the indicated
+  ///        interface
+  /// \param interface IPv4 interface index
+  ///
+  void SetSCHInterface (uint32_t interface);//implemented 设置SCHInterface的整形值m_SCHinterface， SCH的ip  m_SCHmainAddress  ，同时在m_table中插入一条目的地址为自身的路由信息
+  void SetCCHInterface (uint32_t interface);//implemented 同上
   
+  void SetType (NodeType nt); //implemented //SdnHelper::Create 中调用
+  void SetRoadType (RoadType nt);
+  NodeType GetType () const; //implemented  //获取节点类型 CAR 或者 CONTROLLER
+  void SetSignalRangeNRoadLength (double signal_range, double road_length);// 或者有用，SdnHelper::Create (Ptr<Node> node)时调用
+  void SetMobility (Ptr<MobilityModel> mobility);//implemented //m_mobility 初始化，在InternetStackHelper::Install (NodeContainer c)-》SdnHelper::Create (Ptr<Node> node)时调用 ，通过它获取速度，位置等信息GetPosition() GetVelocity ()
+    std::set<uint32_t> GetInterfaceExclusions () const //无用
+  {
+    return (m_interfaceExclusions);
+  }
+  void SetInterfaceExclusions (std::set<uint32_t> exceptions);//implemented //无用
+  ///
+  /// Dump the routing table
+  /// to logging output (NS_LOG_DEBUG log level).  If logging is disabled,
+  /// this function does nothing.
+  ///
+  void Dump (void);//implemented //无用
+
+  /**
+   * Return the list of routing table entries discovered by SDN
+   **/
+  std::vector<RoutingTableEntry> GetRoutingTableEntries () const;//implemented //将m_table 的second全部取出，放到vector中
+
+ /**
+  * Assign a fixed random variable stream number to the random variables
+  * used by this model.  Return the number of streams (possibly zero) that
+  * have been assigned.
+  *
+  * \param stream first stream index to use
+  * \return the number of stream indices assigned by this model
+  */
+  int64_t AssignStreams (int64_t stream);//implemented //无用
+
+
+
   
+  private:
   
   void Clear ();//implemented 清除m_table
   uint32_t GetSize () const { return (m_table.size ()); }
@@ -436,7 +438,8 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   void AddNewToZero ();
   void CalcSetZero ();
   void SelectNewNodeInAreaZero ();
-
+protected:
+  virtual void DoInitialize (void);//implemented  首先被调用  创建socket绑定信道，设置几个定时器
 };
 
 
