@@ -125,6 +125,7 @@ struct AodvParm //
 	Ipv4Address nextIP;//下一跳，收到返回包时确定
 	Ipv4Address m_sourceId;
           Ipv4Address m_desId;
+          sdn::direction lastdir;//上一跳的方向，上一跳收到之后知道用哪个方向的链路
 };
 
 struct AodvDesParm //
@@ -138,7 +139,7 @@ struct AodvDesParm //
 	Ipv4Address nextIP;//下一跳，收到返回包时确定
 	Ipv4Address m_sourceId;
           Ipv4Address m_desId;
-
+        sdn::direction lastdir;//上一跳的方向，上一跳收到之后知道用哪个方向的链路
 };
 
 class RoutingProtocol;
@@ -250,7 +251,7 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   AodvParm m_selfParm_negative{1000,1000};
   AodvParm m_incomeParm_possitive{1000,1000};// received parameter
   AodvParm m_incomeParm_negative{1000,1000};
-  AodvDesParm m_incomeParm{1000,1000,sdn::OTHER,true};
+  AodvDesParm m_incomeDesParm{1000,1000,sdn::OTHER,true};
   //std::vector<Ipv4Address> m_ForwardTable;
 
   EventGarbageCollector m_events;

@@ -1545,7 +1545,7 @@ if(out==sdn::POSITIVE)
 		 m_incomeParm_possitive.stability=aodvrm.stability;
 		 m_incomeParm_possitive.m_sourceId=aodvrm.ID;
 		 m_incomeParm_possitive.m_desId=aodvrm.DesId;
-                   m_incomeParm_possitive.dir=aodvrm.dir;//记录上一跳的方向	
+                   m_incomeParm_possitive.lastdir=aodvrm.dir;//记录上一跳的方向	
 		m_incomeParm_possitive.lastIP=aodvrm.Originator;//记录上一跳地址
 
 		 if(!isDes){
@@ -1575,7 +1575,7 @@ else{
 		 m_incomeParm_negative.stability=aodvrm.stability;
 		 m_incomeParm_negative.m_sourceId=aodvrm.ID;
 		 m_incomeParm_negative.m_desId=aodvrm.DesId;
-                   m_incomeParm_negative.dir=aodvrm.dir;//记录上一跳的方向
+                   m_incomeParm_negative.lastdir=aodvrm.dir;//记录上一跳的方向
 
 		 //记录上一跳地址
 		m_incomeParm_negative.lastIP=aodvrm.Originator;
@@ -1610,11 +1610,16 @@ else{
             m_incomeDesParm.desdir=m_lc_info[aodvrm.DesId].dir;
 
         }
-        if(aodvrm.jump_nums<m_incomeDesParm.jump_nums||aodvrm.jump_nums==m_incomeDesParm.jump_nums&&aodvrm.stability<m_incomeDesParm.stability)
+        if(aodvrm.jump_nums<m_incomeDesParm.jumpnums||aodvrm.jump_nums==m_incomeDesParm.jump_nums&&aodvrm.stability<m_incomeDesParm.stability)
         {
             if(m_incomeDesParm.desdir==out) m_incomeDesParm.dir=true;
             else m_incomeDesParm.dir=false;
-
+            m_incomeDesParm.jumpnums=aodvrm.jump_nums;
+            m_incomeDesParm.stability=aodvrm.stability;
+            m_incomeDesParm.m_sourceId=aodvrm.ID;
+	   m_incomeDesParm.m_desId=aodvrm.DesId;
+            m_incomeDesParm.lastdir=aodvrm.dir;//记录上一跳的方向
+         
         }
         
       }
@@ -1696,36 +1701,31 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	  msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 	  sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = msg.GetAodv_R_Rm();
 
-//判断哪个方向的跳数最小,就选哪个方向
-           if(m_incomeParm_possitive.jumpnums>m_incomeParm_negative.jumpnums||(m_incomeParm_possitive.jumpnums==m_incomeParm_negative.jumpnums
-           &&m_incomeParm_possitive.stability>=m_incomeParm_negative.stability))
-           {
+
+
 	  
-	  Aodv_r_rm.ID=m_incomeParm_negative.m_sourceId; 
-	  Aodv_r_rm.DesId=m_incomeParm_negative.m_desId;
-	  Aodv_r_rm.FirstCarId=transferAddress_negative;
+	  Aodv_r_rm.ID=m_incomeDesParm.m_sourceId; 
+	  Aodv_r_rm.DesId=m_incomeDesParm.m_desId;
+	  if(m_incomeDesParm.dir){ //POSITIVE,NEGATIVE
+	        if(m_incomeDesParm.desdir==sdn::POSITIVE)
+	            Aodv_r_rm.FirstCarId=transferAddress_possitive;
+	        else    Aodv_r_rm.FirstCarId=transferAddress_negative;
+	            }
+	   else
+	   {
+	    	 if(m_incomeDesParm.desdir==sdn::POSITIVE)
+	            Aodv_r_rm.FirstCarId=roadendAddress_possitive;
+	        else    Aodv_r_rm.FirstCarId=roadendAddress_negative;
+	   }
 	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 	  Aodv_r_rm.routingMessageSize=SDN_AODVRRM_HEADER_SIZE;
 	  Aodv_r_rm.originator=m_CCHmainAddress;
-	  Aodv_r_rm.next=m_incomeParm_negative.lastIP;
-	  Aodv_r_rm.next_dir=m_incomeParm_negative.dir;
+	  Aodv_r_rm.next=m_incomeDesParm.lastIP;
+	  Aodv_r_rm.next_dir=m_incomeDesParm.lastdir;
 
 	  QueueMessage (msg, JITTER);
-	  }
-	  else if(m_incomeParm_possitive.jumpnums<m_incomeParm_negative.jumpnums||(m_incomeParm_possitive.jumpnums==m_incomeParm_negative.jumpnums
-           &&m_incomeParm_possitive.stability<m_incomeParm_negative.stability))
-	  {
-	   Aodv_r_rm.ID=m_incomeParm_possitive.m_sourceId; 
-	  Aodv_r_rm.DesId=m_incomeParm_possitive.m_desId;
-	  Aodv_r_rm.FirstCarId=transferAddress_negative;
-	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
-	  Aodv_r_rm.routingMessageSize=SDN_AODVRRM_HEADER_SIZE;
-	  Aodv_r_rm.originator=m_CCHmainAddress;
-	  Aodv_r_rm.next=m_incomeParm_possitive.lastIP;
-	  Aodv_r_rm.next_dir=m_incomeParm_possitive.dir;
 
-	  QueueMessage (msg, JITTER);
-	  }
+
 	
 }
 
