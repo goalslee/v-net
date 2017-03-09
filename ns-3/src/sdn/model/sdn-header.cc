@@ -437,10 +437,7 @@ MessageHeader::AodvRm::Serialize (Buffer::Iterator start) const
   i.WriteHtonU32 (this->position.Z);
   i.WriteHtonU32 (this->dir);
 
-/*for(auto iter=forwarding_table.begin();iter!=forwarding_table.end();iter++){
-	  Ipv4Address temp=*iter;
-      i.WriteHtonU32 (temp.Get());
-	}*/
+
 }
 
 uint32_t
@@ -462,7 +459,7 @@ MessageHeader::AodvRm::Deserialize (Buffer::Iterator start,
   this->position.X=i.ReadNtohU32 ();
   this->position.Y=i.ReadNtohU32 ();
   this->position.Z=i.ReadNtohU32 ();
-  this->dir=i.ReadNtohU32 ();
+  this->dir=(enum direction)i.ReadNtohU32 ();
   //NS_ASSERT ((messageSize - SDN_RM_HEADER_SIZE) %
     //(IPV4_ADDRESS_SIZE * SDN_RM_TUPLE_SIZE) == 0);
 
@@ -502,6 +499,7 @@ MessageHeader::Aodv_R_Rm::Serialize (Buffer::Iterator start) const
   i.WriteHtonU32 (this->FirstCarId.Get());
   i.WriteHtonU32 (this->originator.Get());
   i.WriteHtonU32 (this->next.Get());
+  i.WriteHtonU32 (this->next_dir);
 }
 
 uint32_t
@@ -516,10 +514,11 @@ MessageHeader::Aodv_R_Rm::Deserialize (Buffer::Iterator start,
   uint32_t add_temp = i.ReadNtohU32();
   this->ID.Set(add_temp);
   this->DesId.Set(i.ReadNtohU32());
-  this->mask=i.ReadNtohU32();
+  this->mask.Set(i.ReadNtohU32());
   this->FirstCarId.Set(i.ReadNtohU32());
   this->originator.Set(i.ReadNtohU32());
   this->next.Set(i.ReadNtohU32());
+  this->next_dir=i.ReadNtohU32();
 
   return (messageSize);
 }

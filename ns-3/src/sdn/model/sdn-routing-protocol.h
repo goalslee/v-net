@@ -46,7 +46,7 @@ namespace sdn {
 
 enum NodeType {CAR, LOCAL_CONTROLLER, OTHERS};
 enum RoadType{ROW,COLUMN,NEITHER};
-enum direction{POSITIVE,NEGATIVE,OTHER};
+//enum direction{POSITIVE,NEGATIVE,OTHER};
 /// An SDN's routing table entry.
 struct RoutingTableEntry
 {
