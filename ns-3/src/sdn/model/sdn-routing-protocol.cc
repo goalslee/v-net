@@ -1912,20 +1912,20 @@ void  RoutingProtocol::compute_possive()
     transferAddress_possitive=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
-    while(temp->first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility->GetPosition().x:m_mobility->GetPosition().y)+m_road_length/2)
+    while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility->GetPosition().x:m_mobility->GetPosition().y)+m_road_length/2)
     {
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
         while(++iter!=dis.end())
         {
             std::pair<double,Ipv4Address> target=*iter;
-            if(temp->first+m_signal_range>iter->first)
+            if(temp.first+m_signal_range>iter->first)
             {
                 if((++iter)==dis.end())
                 {
                     chose.push_back(target);
                     break;
                 }
-                else if(temp->first+m_signal_range<iter->first)
+                else if(temp.first+m_signal_range<iter->first)
                 {
                     chose.push_back(target);
                     break;
@@ -1965,20 +1965,20 @@ void RoutingProtocol::compute_negative()
     transferAddress_negative=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
-    while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility.GetPosition().x:m_mobility.GetPosition().y)+m_road_length/2)
+    while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility->GetPosition().x:m_mobility->GetPosition().y)+m_road_length/2)
     {
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
         while(++iter!=dis.end())
         {
             std::pair<double,Ipv4Address> target=*iter;
-            if(temp->first+m_signal_range>iter->first)
+            if(temp.first+m_signal_range>iter->first)
             {
                 if((++iter)==dis.end())
                 {
                     chose.push_back(target);
                     break;
                 }
-                else if(temp->first+m_signal_range<iter->first)
+                else if(temp.first+m_signal_range<iter->first)
                 {
                     chose.push_back(target);
                     break;
