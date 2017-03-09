@@ -46,7 +46,7 @@ namespace sdn {
 
 enum NodeType {CAR, LOCAL_CONTROLLER, OTHERS};
 enum RoadType{ROW,COLUMN,NEITHER};
-
+enum direction{POSITIVE,NEGATIVE};
 /// An SDN's routing table entry.
 struct RoutingTableEntry
 {
@@ -89,6 +89,8 @@ public:
   Time LastActive;//Timeout indicator
   bool Active;
   std::vector<RoutingTableEntry> R_Table; //路由表
+  direction dir;
+  
   uint32_t minhop;
   Ipv4Address ID_of_minhop;
   AppointmentType appointmentResult;
@@ -189,6 +191,13 @@ private:
   std::map<Ipv4Address, Ipv4Address> m_SCHaddr2CCHaddr;
   Ipv4Address transferAddress;//now it is the nearest ip 每条路第一辆车
   Ipv4Address roadendAddress;
+  Ipv4Address transferAddress_possive;
+  Ipv4Address transferAddress_negative;
+
+  Ipv4Address roadendAddress_possive;
+  Ipv4Address roadendAddress_negative;
+
+  
   Ipv4Address temp_desId;
   //std::map<Ipv4Address, Ipv4Address> m_SCHaddr2IfaceAddr;
   // One socket per interface, each bound to that interface's address
@@ -212,6 +221,9 @@ private:
   std::map<Ipv4Address, RoutingTableEntry> m_table; ///< Data structure for the routing table. (Use By Mainly by CAR Node, but LC needs it too) //m_table <目的地址，路由条目>
 
   std::map<Ipv4Address, CarInfo> m_lc_info;///for LC
+std::map<Ipv4Address, CarInfo> m_lc_positive_info;///for positive direction
+std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
+
 
   std::vector<RoutingTableEntry> lc_table;
 
@@ -220,8 +232,10 @@ private:
 
   //std::map<Ipv4Address,AodvParm> m_AodvParm;//keep other lc's parm
 
-  AodvParm m_selfParm{1,1};//lc'self parameter
-  AodvParm m_incomeParm{0,1000};// received parameter
+  AodvParm m_selfParm_possitive{1000,1000};//lc'self parameter
+  AodvParm m_selfParm_negative{1000,1000};
+  AodvParm m_incomeParm_possitive{1000,1000};// received parameter
+  AodvParm m_incomeParm_negative{1000,1000};
   //std::vector<Ipv4Address> m_ForwardTable;
 
   EventGarbageCollector m_events;
@@ -239,6 +253,9 @@ private:
   int m_numArea;
   bool m_isPadding;
   bool m_numAreaVaild;
+
+  bool possive_valid;
+  bool negative_valid;
 
   /// HELLO messages' emission interval.
   Time m_helloInterval;

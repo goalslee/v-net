@@ -35,7 +35,8 @@
 #define SDN_APPOINTMENT_HEADER_SIZE 12
 #define SDN_CRREQ_HEADER_SIZE 8
 #define SDN_CRREP_HEADER_SIZE 12
-#define SDN_AODVRM_HEADER_SIZE 28
+#define SDN_AODVRM_HEADER_SIZE 44
+#define SDN_AODVRRM_HEADER_SIZE 32
 
 NS_LOG_COMPONENT_DEFINE ("SdnHeader");
 
@@ -431,6 +432,10 @@ MessageHeader::AodvRm::Serialize (Buffer::Iterator start) const
   i.WriteHtonU32 (this->jump_nums);
   i.WriteHtonU32 (this->stability);
   i.WriteHtonU32 (this->Originator.Get());
+  i.WriteHtonU32 (this->position.X);
+  i.WriteHtonU32 (this->position.Y);
+  i.WriteHtonU32 (this->position.Z);
+  i.WriteHtonU32 (this->dir);
 
 /*for(auto iter=forwarding_table.begin();iter!=forwarding_table.end();iter++){
 	  Ipv4Address temp=*iter;
@@ -448,15 +453,16 @@ MessageHeader::AodvRm::Deserialize (Buffer::Iterator start,
   NS_ASSERT (messageSize >= SDN_AODVRM_HEADER_SIZE);
 
   this->routingMessageSize = i.ReadNtohU32 ();
-  /*uint32_t add_temp = i.ReadNtohU32();
-  this->ID.Set(add_temp);*/
   this->ID.Set( i.ReadNtohU32 ());
   this->DesId.Set(i.ReadNtohU32());
   this->mask.Set(i.ReadNtohU32());
   this->jump_nums=i.ReadNtohU32();
   this->stability=i.ReadNtohU32();
   this->Originator.Set(i.ReadNtohU32());
-
+  this->position.X=i.ReadNtohU32 ();
+  this->position.Y=i.ReadNtohU32 ();
+  this->position.Z=i.ReadNtohU32 ();
+  this->dir=i.ReadNtohU32 ();
   //NS_ASSERT ((messageSize - SDN_RM_HEADER_SIZE) %
     //(IPV4_ADDRESS_SIZE * SDN_RM_TUPLE_SIZE) == 0);
 
@@ -479,7 +485,7 @@ MessageHeader::AodvRm::Deserialize (Buffer::Iterator start,
 uint32_t
 MessageHeader::Aodv_R_Rm::GetSerializedSize (void) const
 {
-  return (SDN_AODVRM_HEADER_SIZE );
+  return (SDN_AODVRRM_HEADER_SIZE );
 }
 
 
@@ -504,7 +510,7 @@ MessageHeader::Aodv_R_Rm::Deserialize (Buffer::Iterator start,
 {
   Buffer::Iterator i = start;
 
-  NS_ASSERT (messageSize >= SDN_AODVRM_HEADER_SIZE);
+  NS_ASSERT (messageSize >= SDN_AODVRRM_HEADER_SIZE);
 
   this->routingMessageSize = i.ReadNtohU32 ();
   uint32_t add_temp = i.ReadNtohU32();

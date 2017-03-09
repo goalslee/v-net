@@ -433,6 +433,14 @@ public:
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     //       |                        origintor                       |
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    //       |                        GPS      x                 |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      //       |                        GPS      y                 |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+      //       |                        GPS      z                 |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+   //       |                        direction                        |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 
 
@@ -456,9 +464,42 @@ public:
 	    uint32_t jump_nums;
 	    uint32_t stability;
 	    Ipv4Address Originator;
+	    std::vector<> position;
+	    sdn::direction dir;
 	    //std::vector<uint32_t> forwarding_table;//first transfer ipv4 to unsigned int
 	    //std::vector<Ipv4Address> forwarding_table;
 	    //std::vector<uint32_t> temp_forwarding_table;//for save received forwarding table;
+
+
+struct Position{
+      uint32_t X, Y, Z;
+    };
+    
+    
+    Position position;
+    void SetPosition(double x, double y, double z)
+    {
+      this->position.X = IEEE754(x);
+      this->position.Y = IEEE754(y);
+      this->position.Z = IEEE754(z);
+    }
+    
+    void GetPosition(double &x, double &y, double &z) const
+    {
+      x = rIEEE754(this->position.X);
+      y = rIEEE754(this->position.Y);
+      z = rIEEE754(this->position.Z);
+    }
+    
+    Vector3D GetPosition() const
+    {
+      return Vector3D(rIEEE754(this->position.X),
+                      rIEEE754(this->position.Y),
+                      rIEEE754(this->position.Z));
+    }
+
+
+	    
 	    void SetStability(float stab)
 	    {
 	      stability = IEEE754(stab);
@@ -518,7 +559,8 @@ public:
   	    Ipv4Address FirstCarId;
   	    Ipv4Mask mask;
   	     Ipv4Address originator;
-  	       Ipv4Address next;
+  	     Ipv4Address next;
+  	     sdn::direction next_dir;
   
   	    //void Print (std::ostream &os) const;
   	    uint32_t GetSerializedSize (void) const;

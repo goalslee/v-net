@@ -680,30 +680,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
 void
 RoutingProtocol::ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &senderIface)
 {
-  /*std::cout<<m_CCHmainAddress.Get ()%256<<" RoutingProtocol::ProcessHM "
-      <<msg.GetHello ().ID.Get ()%256<<" m_lc_info size:"
-      <<m_lc_info.size ()<<std::endl;
-  */
 
-  //m_SCHaddr2IfaceAddr[ID] = senderIface;
-  //std::cout<<"ProcessHM " << msg.GetOriginatorAddress().Get ()<<std::endl;
-  //if(m_CCHmainAddress.Get()%256==244 )
-	 // std::cout<<"244ProcessHM " << msg.GetHello ().GetPosition ().x<<std::endl;
-  //if(m_CCHmainAddress.Get()%256==81 && msg.GetHello ().GetPosition ().x>1000.0)//todo
-  /*
-	  if(m_CCHmainAddress.Get()%256==81 && msg.GetHello ().GetPosition ().x>700.0)//todo
-  {	  //std::cout<<"81 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
-	  return;}
-
-  //if(m_CCHmainAddress.Get()%256==84 && (msg.GetHello ().GetPosition ().x>2000.0 || msg.GetHello ().GetPosition ().x<1000.0)){
-	if(m_CCHmainAddress.Get()%256==84 && (msg.GetHello ().GetPosition ().x>1400.0 || msg.GetHello ().GetPosition ().x<700.0)){
-	 // std::cout<<"84 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
- 	  return;}
-  //if(m_CCHmainAddress.Get()%256==85 && msg.GetHello ().GetPosition ().x<=2000.0){
-  if(m_CCHmainAddress.Get()%256==85 && msg.GetHello ().GetPosition ().x<=1400.0){
-	 // std::cout<<"85 hello not match"<<"pos is"<<msg.GetHello ().GetPosition ().x<<std::endl;
- 	  return;
-  }*/
  //std::cout<<"ProcessHM roadtype: "<<m_roadtype<<std::endl;
   // 不在lc所属路的hello 包不收
   bool rev=false;
@@ -738,6 +715,27 @@ if(rev==false) return;
       it->second.Position = msg.GetHello ().GetPosition ();
       it->second.Velocity = msg.GetHello ().GetVelocity ();
       it->second.minhop = 0;
+      
+
+      std::map<Ipv4Address, CarInfo>::iterator iter = m_lc_positive_info.find (ID);
+      std::map<Ipv4Address, CarInfo>::iterator iter2 = m_lc_negative_info.find (ID);      
+      if(iter != m_lc_positive_info.end ())
+      {
+      iter->second.Active = true;
+      iter->second.LastActive = Simulator::Now ();
+      iter->second.Position = msg.GetHello ().GetPosition ();
+      iter->second.Velocity = msg.GetHello ().GetVelocity ();
+      iter->second.minhop = 0;        
+      }
+      else if(iter2 != m_lc_negative_info.end ())
+      {
+      iter->second.Active = true;
+      iter->second.LastActive = Simulator::Now ();
+      iter->second.Position = msg.GetHello ().GetPosition ();
+      iter->second.Velocity = msg.GetHello ().GetVelocity ();
+      iter->second.minhop = 0;        
+      }
+      
     }
   else
     {
@@ -746,13 +744,26 @@ if(rev==false) return;
       CI_temp.LastActive = Simulator::Now ();
       CI_temp.Position = msg.GetHello ().GetPosition ();
       CI_temp.Velocity = msg.GetHello ().GetVelocity ();
+      if(m_roadtype==sdn::ROW)
+      {
+        if(CI_temp.Velocity.x>0.0) CI_temp.dir=sdn::POSITIVE;
+        else CI_temp.dir=sdn::NEGATIVE;
+      }
+      else if(m_roadtype==sdn::COLUMN)
+      {
+        if(CI_temp.Velocity.y>0.0) CI_temp.dir=sdn::POSITIVE;
+        else CI_temp.dir=sdn::NEGATIVE;        
+      }
       m_lc_info[ID] = CI_temp;
+      
+      if(CI_temp.dir==sdn::POSITIVE) m_lc_positive_info[ID]=CI_temp;
+      else m_lc_negative_info[ID]=CI_temp;
     }
 }
 
 // \brief Build routing table according to Rm
 void
-RoutingProtocol::ProcessRm (const sdn::MessageHeader &msg)
+RoutingProtocol::ProcessRm (const sdn::MessageHeader &msg) //车收到lc发的路由表
 {
   NS_LOG_FUNCTION (msg);
   
@@ -857,6 +868,8 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 		  Aodvrm.jump_nums=m_incomeParm.jumpnums+m_selfParm.jumpnums;
 		  Aodvrm.SetStability(m_incomeParm.stability>m_selfParm.stability?m_incomeParm.stability:m_selfParm.stability);
 		  Aodvrm.Originator=m_CCHmainAddress;
+		  Aodvrm.rtype=sdn::POSITIVE;
+		  Aodvrm.SetPosition(m_mobility.GetPosition().x, m_mobility.GetPosition(). y, m_mobility.GetPosition().z);
 
 		  QueueMessage (mesg, JITTER);
 
@@ -886,7 +899,7 @@ RoutingProtocol::ProcessCRREP (const sdn::MessageHeader &msg)
 
   Ipv4Address mask("255.255.0.0");
   //ComputeRoute();
-  //LCAddEntry(roadendAddress,dest,mask,transfer);
+  LCAddEntry(roadendAddress,dest,mask,transfer);
   //std::cout<<"roadendAddress"<<roadendAddress.Get()%256<<std::endl;
  // std::cout<<"infosize"<<m_lc_info.size()<<std::endl;
   //std::cout<<"roadendAddress"<<roadendAddress.Get()%256<<std::endl;
@@ -986,30 +999,6 @@ RoutingProtocol::Lookup(Ipv4Address const &dest,
     }
   else
     {
-      /*Ipv4Mask MaskTemp;
-      uint16_t max_prefix;
-      bool max_prefix_meaningful = false;
-      for (it = m_table.begin();it!=m_table.end(); ++it)
-        {
-          MaskTemp.Set (it->second.mask.Get ());
-          if (MaskTemp.IsMatch (dest, it->second.destAddr))
-            {
-              if (!max_prefix_meaningful)
-                {
-                  max_prefix_meaningful = true;
-                  max_prefix = MaskTemp.GetPrefixLength ();
-                  outEntry = it->second;
-                }
-              if (max_prefix_meaningful && (max_prefix < MaskTemp.GetPrefixLength ()))
-                {
-                  max_prefix = MaskTemp.GetPrefixLength ();
-                  outEntry = it->second;
-                }
-            }
-        }
-      if (max_prefix_meaningful)
-        return true;
-      else*/
         return false;
     }
 
@@ -1274,7 +1263,7 @@ RoutingProtocol::RmTimerExpire ()
       ClearAllTables();//std::cout<<"1:"<<std::endl;
       ComputeRoute ();//std::cout<<"2:"<<std::endl;
       SendRoutingMessage ();//std::cout<<"3:"<<std::endl;
-      m_rmTimer.Schedule (m_rmInterval);//std::cout<<"4:"<<std::endl;
+      //m_rmTimer.Schedule (m_rmInterval);//std::cout<<"4:"<<std::endl;
   }
 }
 
@@ -1506,6 +1495,35 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 
 	 const sdn::MessageHeader::AodvRm &aodvrm = msg.GetAodvRm();
 
+//判断车流方向是否指向本路
+sdn::direction in =aodvrm.rtype;
+sdn::RoadType out;
+double x,y,z;
+double x_0;
+double y_0;
+
+
+if(in==sdn::ROW) {
+    aodvrm.GetPosition(x,y,z);
+    x_0=m_mobility.GetPosition().x;
+    y_0=m_mobility.GetPosition().y;
+}
+else{
+   aodvrm.GetPosition(y,x,z);
+   x_0=m_mobility.GetPosition().y;
+   y_0=m_mobility.GetPosition().x;
+}
+
+   if(x<x_0&&y>y_0&&in==sdn::NEGATIVE) out=sdn::POSITIVE;
+   else if(x>x_0&&y>y_0&&in==sdn::NEGATIVE) out=sdn::NEGATIVE;
+   else if(x>x_0&&y==y_0&&in==sdn::NEGATIVE) out=sdn::NEGATIVE;
+   else if(x>x_0&&y<y_0&&in==sdn::POSITIVE) out=sdn::NEGATIVE;
+      else if(x<x_0&&y<y_0&&in==sdn::POSITIVE) out=sdn::POSITIVE;
+    else if(x<x_0&&y==y_0&&in==sdn::POSITIVE) out=sdn::POSITIVE;
+      else return;
+
+
+
 	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
 		         temp_desId=aodvrm.DesId;
 			     std::cout<<"I am  "<<m_CCHmainAddress<<" ,I have des"<<std::endl;
@@ -1518,17 +1536,20 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 				 m_aodvTimer.Schedule ();
 			 }
 
+if(out==sdn::POSITIVE)
+{
 	 
-	 if(m_incomeParm.jumpnums==0||aodvrm.jump_nums<m_incomeParm.jumpnums||(aodvrm.jump_nums==m_incomeParm.jumpnums&& aodvrm.GetStability() < m_incomeParm.stability)){//forward this packet
+	 if(m_incomeParm_possitive.jumpnums==0||aodvrm.jump_nums<m_incomeParm_possitive.jumpnums||(aodvrm.jump_nums==m_incomeParm_possitive.jumpnums&& aodvrm.GetStability() < m_incomeParm_possitive.stability)){//forward this packet
 
-		 m_incomeParm.jumpnums=aodvrm.jump_nums;
-		 m_incomeParm.stability=aodvrm.stability;
-		 m_incomeParm.m_sourceId=aodvrm.ID;
-		 m_incomeParm.m_desId=aodvrm.DesId;
+		 m_incomeParm_possitive.jumpnums=aodvrm.jump_nums;
+		 m_incomeParm_possitive.stability=aodvrm.stability;
+		 m_incomeParm_possitive.m_sourceId=aodvrm.ID;
+		 m_incomeParm_possitive.m_desId=aodvrm.DesId;
+                   m_incomeParm_possitive.dir=aodvrm.dir;//记录上一跳的方向
 
 
 		 //记录上一跳地址
-		m_incomeParm.lastIP=aodvrm.Originator;
+		m_incomeParm_possitive.lastIP=aodvrm.Originator;
 
 		 if(!isDes){
 		 //std::cout<<"forwarding..."<<std::endl;
@@ -1541,14 +1562,47 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		  Aodvrm.ID=aodvrm.ID;
 		  Aodvrm.DesId=aodvrm.DesId;
 		  Aodvrm.mask=aodvrm.mask;
-		  Aodvrm.jump_nums=m_incomeParm.jumpnums+m_selfParm.jumpnums;
-		  Aodvrm.SetStability(m_incomeParm.stability>m_selfParm.stability?m_incomeParm.stability:m_selfParm.stability);
+		  Aodvrm.jump_nums=m_incomeParm_possitive.jumpnums+m_selfParm_possitive.jumpnums;
+		  Aodvrm.SetStability(m_incomeParm_possitive.stability>m_selfParm_possitive.stability?m_incomeParm_possitive.stability:m_selfParm_possitive.stability);
 		  Aodvrm.Originator=m_CCHmainAddress;
+		  Aodvrm.SetPosition(m_mobility.GetPosition().x, m_mobility.GetPosition().y,m_mobility.GetPosition().z);
+		   Aodvrm.dir=out;
 		  QueueMessage (mesg, JITTER);
 		 }
-		 else{
+	 }
+}
+else{
+	 if(m_incomeParm_negative.jumpnums==0||aodvrm.jump_nums<m_incomeParm_negative.jumpnums||(aodvrm.jump_nums==m_incomeParm_negative.jumpnums&& aodvrm.GetStability() < m_incomeParm_negative.stability)){//forward this packet
 
+		 m_incomeParm_negative.jumpnums=aodvrm.jump_nums;
+		 m_incomeParm_negative.stability=aodvrm.stability;
+		 m_incomeParm_negative.m_sourceId=aodvrm.ID;
+		 m_incomeParm_negative.m_desId=aodvrm.DesId;
+                   m_incomeParm_negative.dir=aodvrm.dir;//记录上一跳的方向
+
+		 //记录上一跳地址
+		m_incomeParm_negative.lastIP=aodvrm.Originator;
+
+		 if(!isDes){
+		 //std::cout<<"forwarding..."<<std::endl;
+		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
+		  Time now = Simulator::Now ();
+		  mesg.SetVTime (m_helloInterval);
+		  mesg.SetTimeToLive (1234);
+		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
+		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
+		  Aodvrm.ID=aodvrm.ID;
+		  Aodvrm.DesId=aodvrm.DesId;
+		  Aodvrm.mask=aodvrm.mask;
+		  Aodvrm.jump_nums=m_incomeParm_negative.jumpnums+m_selfParm_negative.jumpnums;
+		  Aodvrm.SetStability(m_incomeParm_negative.stability>m_selfParm_negative.stability?m_incomeParm_negative.stability:m_selfParm_negative.stability);
+		  Aodvrm.Originator=m_CCHmainAddress;
+		  Aodvrm.SetPosition(m_mobility.GetPosition().x, m_mobility.GetPosition().y,m_mobility.GetPosition().z);
+		   Aodvrm.dir=out;
+		  QueueMessage (mesg, JITTER);
 		 }
+	 }
+	 
 	 }
 }
 
@@ -1561,7 +1615,10 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
     const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
 	if(Aodv_r.next==m_CCHmainAddress){
 		std::cout<<"ProcessAodvRERm  i am "<<m_CCHmainAddress;
-		m_incomeParm.nextIP=Aodv_r.originator;
+
+
+		
+
 	sdn::MessageHeader mesg;
 	 mesg.SetMessageType(sdn::MessageHeader::AODV_REVERSE_MESSAGE);
 	  Time now = Simulator::Now ();
@@ -1570,15 +1627,18 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 	  sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = mesg.GetAodv_R_Rm();
 
+    if(Aodv_r.next_dir==sdn::POSITIVE){	  
+	m_incomeParm_possitive.nextIP=Aodv_r.originator;
           if(m_lc_info.find(Aodv_r.ID)==m_lc_info.end())
          {
-	        Aodv_r_rm.ID=m_incomeParm.m_sourceId; //多个流时需判断
-	        Aodv_r_rm.DesId=m_incomeParm.m_desId;
-	        Aodv_r_rm.FirstCarId=transferAddress;
+	        Aodv_r_rm.ID=m_incomeParm_possitive.m_sourceId; //多个流时需判断
+	        Aodv_r_rm.DesId=m_incomeParm_possitive.m_desId;
+	        Aodv_r_rm.FirstCarId=transferAddress_possitive;
 	        Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 	        Aodv_r_rm.routingMessageSize=28;
 	       Aodv_r_rm.originator=m_CCHmainAddress;
-	       Aodv_r_rm.next=m_incomeParm.lastIP;
+	       Aodv_r_rm.next=m_incomeParm_possitive.lastIP;
+	       Aodv_r_rm.next_dir=m_incomeParm_possitive.dir;
               std::cout<<" send to "<<Aodv_r_rm.next<<std::endl;
 	      QueueMessage (mesg, JITTER);
          }
@@ -1586,6 +1646,27 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	   ProcessCRREP(msg);//todo
 
 	}
+   else{
+         	m_incomeParm_negative.nextIP=Aodv_r.originator;
+          if(m_lc_info.find(Aodv_r.ID)==m_lc_info.end())
+         {
+	        Aodv_r_rm.ID=m_incomeParm_negative.m_sourceId; //多个流时需判断
+	        Aodv_r_rm.DesId=m_incomeParm_negative.m_desId;
+	        Aodv_r_rm.FirstCarId=transferAddress_negative;
+	        Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
+	        Aodv_r_rm.routingMessageSize=28;
+	       Aodv_r_rm.originator=m_CCHmainAddress;
+	       Aodv_r_rm.next=m_incomeParm_negative.lastIP;
+	       Aodv_r_rm.next_dir=m_incomeParm_negative.dir;
+              std::cout<<" send to "<<Aodv_r_rm.next<<std::endl;
+	      QueueMessage (mesg, JITTER);
+         }
+         else std::cout<<"finish"<<std::endl;
+	   ProcessCRREP(msg);//todo
+    
+            }
+     }
+
 }
 
 
@@ -1599,15 +1680,38 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	  msg.SetTimeToLive (1234);
 	  msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 	  sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = msg.GetAodv_R_Rm();
-	  Aodv_r_rm.ID=m_incomeParm.m_sourceId; 
-	  Aodv_r_rm.DesId=m_incomeParm.m_desId;
-	  Aodv_r_rm.FirstCarId=transferAddress;
+
+//判断哪个方向的跳数最小,就选哪个方向
+           if(m_incomeParm_possitive.jumpnums>m_incomeParm_negative.jumpnums||(m_incomeParm_possitive.jumpnums==m_incomeParm_negative.jumpnums
+           &&m_incomeParm_possitive.stability>=m_incomeParm_negative.stability))
+           {
+	  
+	  Aodv_r_rm.ID=m_incomeParm_negative.m_sourceId; 
+	  Aodv_r_rm.DesId=m_incomeParm_negative.m_desId;
+	  Aodv_r_rm.FirstCarId=transferAddress_negative;
 	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
-	  Aodv_r_rm.routingMessageSize=28;
+	  Aodv_r_rm.routingMessageSize=SDN_AODVRRM_HEADER_SIZE;
 	  Aodv_r_rm.originator=m_CCHmainAddress;
-	  Aodv_r_rm.next=m_incomeParm.lastIP;
+	  Aodv_r_rm.next=m_incomeParm_negative.lastIP;
+	  Aodv_r_rm.next_dir=m_incomeParm_negative.dir;
 
 	  QueueMessage (msg, JITTER);
+	  }
+	  else if(m_incomeParm_possitive.jumpnums<m_incomeParm_negative.jumpnums||(m_incomeParm_possitive.jumpnums==m_incomeParm_negative.jumpnums
+           &&m_incomeParm_possitive.stability<m_incomeParm_negative.stability))
+	  {
+	   Aodv_r_rm.ID=m_incomeParm_possitive.m_sourceId; 
+	  Aodv_r_rm.DesId=m_incomeParm_possitive.m_desId;
+	  Aodv_r_rm.FirstCarId=transferAddress_negative;
+	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
+	  Aodv_r_rm.routingMessageSize=SDN_AODVRRM_HEADER_SIZE;
+	  Aodv_r_rm.originator=m_CCHmainAddress;
+	  Aodv_r_rm.next=m_incomeParm_possitive.lastIP;
+	  Aodv_r_rm.next_dir=m_incomeParm_possitive.dir;
+
+	  QueueMessage (msg, JITTER);
+	  }
+	
 }
 
 
@@ -1649,42 +1753,17 @@ typedef struct Edge
 void
 RoutingProtocol::ComputeRoute ()
 {
-/*std::cout<<"RemoveTimeOut"<<std::endl;
+
     RemoveTimeOut (); //Remove Stale Tuple
 
-    if (!m_linkEstablished)
-      {
-        std::cout<<"Do_Init_Compute"<<std::endl;
-        Do_Init_Compute ();
-      }
-    else
-      {
-        std::cout<<"Do_Update"<<std::endl;
-        Do_Update ();
-
-      }
-
-    std::cout<<"SendAppointment"<<std::endl;
-    SendAppointment ();
-    Reschedule ();
-    std::cout<<"CR DONE"<<std::endl;*/
-    //Remove Timeout Tuples first.
-    //std::cout<<"computeroute "<<m_CCHmainAddress.Get()%256<<std::endl;
-    RemoveTimeOut (); //Remove Stale Tuple
-    //input the m_lc_info;
-
-    //turn m_lc_info to dis2Ip(sord by dis) and numBitmapIp(Bitmap the num and the Ip)
-    //Vector3D lcPosition(0,0,0);//the last parameter can be angle
+    /*
     Vector3D lcPosition = m_mobility->GetPosition ();
     std::map<double,Ipv4Address> dis2Ip;
     std::vector<Ipv4Address> numBitmapIp;
 
     for (std::map<Ipv4Address,CarInfo>::iterator cit = m_lc_info.begin (); cit != m_lc_info.end (); ++cit)
     {
-        //cout<<CalculateDistance(cit->second.GetPos(),lcPosition)<<endl;
         dis2Ip.insert(std::map<double,Ipv4Address>::value_type((cit->second.GetPos().x-lcPosition.x),cit->first));
-       // if(cit->first.Get()%256 == 30)
-        	//std::cout<<" 30x "<<cit->second.GetPos().x<<std::endl;
     }
 
     numBitmapIp.clear();
@@ -1693,16 +1772,13 @@ RoutingProtocol::ComputeRoute ()
         numBitmapIp.push_back(cit->second);
         if(cit->first<=900)
          roadendAddress = cit->second;
-        //cout<<cit->second.m_address<<endl;
     }
     if(dis2Ip.size()>=1)//because it will compute once before everything start and size can be 0
     {
         transferAddress = dis2Ip.begin()->second;
         //std::cout<<"ku"<<m_CCHmainAddress.Get()%256<<roadendAddress.Get()%256<<" "<<transferAddress.Get()%256<<std::endl;
     }
-    //if(numBitmapIp.size()>1)//because it will compute once before everything start and size can be 0
-    //	std::cout<<numBitmapIp.size()<<"?????????"<<std::endl;
-    //build the topology graph.
+
     Edge edge[max_car_number*max_car_number];     // 盲驴聺氓颅聵猫戮鹿莽職聞氓聙录
     //memset(edge,max_car_number,sizeof(edge));
     for(int t=0;t<max_car_number*max_car_number;t++)
@@ -1747,10 +1823,7 @@ RoutingProtocol::ComputeRoute ()
         for(int t=0;t<max_car_number;t++)
                 dist[t]=MAX;
         dist[i]=0;
-        //memset(pre,max_car_number,sizeof(pre));
-        //pre[max_car_number-1]=max_car_number-1;//xiao xin yi chu!!!!!
-        /*for(int t=0;t<max_car_number;t++)
-        	std::cout<<dist[t]<<"?.?"<<std::endl;*/
+
         for(int t=0; t<max_car_number;t++)
                 pre[t]=t;
 
@@ -1768,13 +1841,10 @@ RoutingProtocol::ComputeRoute ()
                 }
             }
         }
-        /*for(int t=0;t<listsize;t++)
-        {
-        	std::cout<<pre[t]<<std::endl;
-        }*/
+
 
         bool flag = 1;
-        // 氓聢陇忙聳颅忙聵炉氓聬娄忙聹聣猫麓聼莽聨炉猫路炉
+
         if(edgenum!=0)
 			for(int t=1; t<=edgenum; ++t)
 			{
@@ -1792,9 +1862,6 @@ RoutingProtocol::ComputeRoute ()
             std::cout<<"ERROR: There is a negative weight edge in the VANETs!!"<<std::endl;
         }
 
-        //record the route
-        //Ipv4Address bcast = Ipv4Address::GetBroadcast();
-        //Ipv4Address allzero = Ipv4Address::GetZero ();
         Ipv4Address mask("255.255.0.0");
         //std::cout<<i<<" "<<listsize<<" 77777"<<std::endl;
         std::cout<<"rout: "<<m_CCHmainAddress.Get()<<std::endl;
@@ -1810,13 +1877,119 @@ RoutingProtocol::ComputeRoute ()
             }
         }
     }
-    /*for (map<Ipv4Address,CarInfo>::iterator cit = m_lc_info.begin (); cit != m_lc_info.end (); ++cit)
-    {
-        cout<<cit->first.m_address<<" "<<cit->second.Position.x<<" "<<cit->second.Position.y<<" "<<cit->second.Position.z<<endl;
-    }*/
-
-    //std::cout << "computerouting" << std::endl;
+    */
+   compute_possive();
+   compute_negative();
+    
 }//RoutingProtocol::ComputeRoute
+
+void  RoutingProtocol::compute_possive()
+{
+    possive_valid=true;
+    std::map<double,Ipv4Address> dis;
+    std::vector<std::pair<double,Ipv4Address>> chose;
+
+    for(std::map<Ipv4Address,CarInfo>::iterator it=m_lc_positive_info.begin();it!=m_lc_positive_info.end();++it)
+    {
+       if(m_roadtype==sdn::ROW)
+           dis[it->second.Position.x-(m_mobility->GetPosition().x-m_road_length/2)]=it.first;
+       else dis[it->second.Position.y-(m_mobility->GetPosition().y-m_road_length/2)]=it.first;
+    }
+    transferAddress_possive=dis.begin()->second;
+    chose.push_back(dis.begin());
+    std::pair<double,Ipv4Address> temp=chose.rbegin();
+    while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility.GetPosition().x:m_mobility.GetPosition().y)+m_road_length/2)
+    {
+        std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
+        while(++iter!=dis.end())
+        {
+            std::pair<double,Ipv4Address> target=*iter;
+            if(temp->first+m_signal_range>iter->first)
+            {
+                if((++iter)==dis.end())
+                {
+                    chose.push_back(target);
+                    break;
+                }
+                else if(temp->first+m_signal_range<iter->first)
+                {
+                    chose.push_back(target);
+                    break;
+                }
+                
+            }
+
+        }
+        if(temp==chose.rbegin())
+        {
+            std::cout<<"no valid connect"<<std::endl;
+            possive_valid=false;
+            return;
+            //break;
+        }
+        temp=chose.rbegin();
+    }
+    roadendAddress_possive=chose.rbegin()->second;
+    Ipv4Address mask("255.255.0.0");
+    for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+    {
+        LCAddEntry (it->second, chose.rbegin()->second, mask, (it+1)->second);
+    }
+}
+
+void RoutingProtocol::compute_negative()
+{
+       negative_valid=true;
+        std::map<double,Ipv4Address> dis;
+ std::vector<std::pair<double,Ipv4Address>> chose;
+    for(std::map<Ipv4Address,CarInfo>::iterator it=m_lc_negative_info.begin();it!=m_lc_negative_info.end();++it)
+    {
+       if(m_roadtype==sdn::COLUMN)
+           dis[m_mobility->GetPosition().x+m_road_length/2-it->second.Position.x]=it.first;
+       else dis[m_mobility->GetPosition().y+m_road_length/2-it->second.Position.y]=it.first;
+    }
+    transferAddress_negative=dis.begin()->second;
+    chose.push_back(dis.begin());
+    std::pair<double,Ipv4Address> temp=chose.rbegin();
+    while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility.GetPosition().x:m_mobility.GetPosition().y)+m_road_length/2)
+    {
+        std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
+        while(++iter!=dis.end())
+        {
+            std::pair<double,Ipv4Address> target=*iter;
+            if(temp->first+m_signal_range>iter->first)
+            {
+                if((++iter)==dis.end())
+                {
+                    chose.push_back(target);
+                    break;
+                }
+                else if(temp->first+m_signal_range<iter->first)
+                {
+                    chose.push_back(target);
+                    break;
+                }
+                
+            }
+
+        }
+        if(temp==chose.rbegin())
+        {
+            std::cout<<"no valid connect"<<std::endl;
+            negative_valid=false;
+            return;
+            //break;
+        }
+        temp=chose.rbegin();
+    }
+    roadendAddress_negative=chose.rbegin()->second;
+        Ipv4Address mask("255.255.0.0");
+    for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+    {
+        LCAddEntry (it->second, chose.rbegin()->second, mask, (it+1)->second);
+    }
+}
+
 
 void
 RoutingProtocol::Do_Init_Compute ()
@@ -2386,24 +2559,43 @@ RoutingProtocol::isPaddingExist () const
 }
 
 void
-RoutingProtocol::RemoveTimeOut()
+RoutingProtocol::RemoveTimeOut()//删除3个hello时间内没再次收到hello包的车
 {
   Time now = Simulator::Now ();
   std::map<Ipv4Address, CarInfo>::iterator it = m_lc_info.begin ();
-  std::vector<Ipv4Address> pendding;
+  //std::vector<Ipv4Address> pendding;
   while (it != m_lc_info.end ())
     {
       if (now.GetSeconds() - it->second.LastActive.GetSeconds () > 3 * m_helloInterval.GetSeconds())
         {
-          pendding.push_back (it->first);
+          //pendding.push_back (it->first);
+          it=m_lc_info.erase((it->first));
         }
-      ++it;
+      else ++it;
     }
-  for (std::vector<Ipv4Address>::iterator it = pendding.begin ();
+  /*for (std::vector<Ipv4Address>::iterator it = pendding.begin ();
       it != pendding.end(); ++it)
     {
       m_lc_info.erase((*it));
+    }*/
+    std::map<Ipv4Address, CarInfo>::iterator it_possitive = m_lc_positive_info.begin ();
+      while (it_possitive != m_lc_positive_info.end ())
+    {
+      if (now.GetSeconds() - it_possitive->second.LastActive.GetSeconds () > 3 * m_helloInterval.GetSeconds())
+        {
+          it_possitive=m_lc_positive_info.erase((it_possitive->first));
+        }
+      else ++it_possitive;
     }
+    std::map<Ipv4Address, CarInfo>::iterator it_negative = m_lc_negative_info.begin ();
+      while (it_negative != m_lc_negative_info.end ())
+    {
+      if (now.GetSeconds() - it_negative->second.LastActive.GetSeconds () > 3 * m_helloInterval.GetSeconds())
+        {
+          it_negative=m_lc_negative_info.erase((it_negative->first));
+        }
+      else ++it_negative;
+    }    
 }
 
 void
