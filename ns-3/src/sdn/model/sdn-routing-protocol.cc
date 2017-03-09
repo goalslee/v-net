@@ -2596,7 +2596,7 @@ RoutingProtocol::RemoveTimeOut()//删除3个hello时间内没再次收到hello包的车
     {
       if (now.GetSeconds() - it_possitive->second.LastActive.GetSeconds () > 3 * m_helloInterval.GetSeconds())
         {
-          it_possitive=m_lc_positive_info.erase((it_possitive->first));
+          m_lc_positive_info.erase((it_possitive++));
         }
       else ++it_possitive;
     }
@@ -2605,7 +2605,7 @@ RoutingProtocol::RemoveTimeOut()//删除3个hello时间内没再次收到hello包的车
     {
       if (now.GetSeconds() - it_negative->second.LastActive.GetSeconds () > 3 * m_helloInterval.GetSeconds())
         {
-          it_negative=m_lc_negative_info.erase((it_negative->first));
+           m_lc_negative_info.erase((it_negative++));
         }
       else ++it_negative;
     }    
