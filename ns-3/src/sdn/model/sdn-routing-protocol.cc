@@ -1989,7 +1989,7 @@ void  RoutingProtocol::compute_possive()
         {
             if(m_roadtype==sdn::ROW)
             {
-                int distance=m_lc_info[m_sourceAddress]->second.Position.x-(m_mobility->GetPosition().x-m_road_length/2);
+                int distance=m_lc_info[m_sourceAddress].Position.x-(m_mobility->GetPosition().x-m_road_length/2);
                 for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
                     if(it->first>distance){
@@ -2001,7 +2001,7 @@ void  RoutingProtocol::compute_possive()
                 
             }
             else{
-                int distance=m_lc_info[m_sourceAddress].second.Position.y-(m_mobility->GetPosition().y-m_road_length/2);
+                int distance=m_lc_info[m_sourceAddress].Position.y-(m_mobility->GetPosition().y-m_road_length/2);
                  for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
                     if(it->first>distance){
@@ -2019,7 +2019,7 @@ void  RoutingProtocol::compute_possive()
         {
             if(m_roadtype==sdn::ROW)
             {
-                int distance=m_lc_info[m_sinkAddress].second.Position.x-(m_mobility->GetPosition().x-m_road_length/2);
+                int distance=m_lc_info[m_sinkAddress].Position.x-(m_mobility->GetPosition().x-m_road_length/2);
                 for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
                     if(it->first>distance){
@@ -2031,7 +2031,7 @@ void  RoutingProtocol::compute_possive()
                 
             }
             else{
-                int distance=m_lc_info[m_sinkAddress].second.Position.y-(m_mobility->GetPosition().y-m_road_length/2);
+                int distance=m_lc_info[m_sinkAddress].Position.y-(m_mobility->GetPosition().y-m_road_length/2);
                  for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
                     if(it->first>distance){
@@ -2119,7 +2119,7 @@ void RoutingProtocol::compute_negative()
         {
             if(m_roadtype==sdn::ROW)
             {
-                int distance=m_mobility->GetPosition().x+m_road_length/2-m_lc_info[m_sourceAddress].second.Position.x;
+                int distance=m_mobility->GetPosition().x+m_road_length/2-m_lc_info[m_sourceAddress].Position.x;
                 for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
                     if(it->first>distance){
@@ -2131,7 +2131,7 @@ void RoutingProtocol::compute_negative()
                 
             }
             else{
-                int distance=m_mobility->GetPosition().y+m_road_length/2-m_lc_info[m_sourceAddress].second.Position.y;
+                int distance=m_mobility->GetPosition().y+m_road_length/2-m_lc_info[m_sourceAddress].Position.y;
                  for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
                     if(it->first>distance){
@@ -2149,7 +2149,7 @@ void RoutingProtocol::compute_negative()
         {
             if(m_roadtype==sdn::ROW)
             {
-                int distance=m_mobility->GetPosition().x+m_road_length/2-m_lc_info[m_sinkAddress].second.Position.x;
+                int distance=m_mobility->GetPosition().x+m_road_length/2-m_lc_info[m_sinkAddress].Position.x;
                 for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
                     if(it->first>distance){
@@ -2161,7 +2161,7 @@ void RoutingProtocol::compute_negative()
                 
             }
             else{
-                int distance=m_mobility->GetPosition().y+m_road_length/2-m_lc_info[m_sinkAddress].second.Position.y;
+                int distance=m_mobility->GetPosition().y+m_road_length/2-m_lc_info[m_sinkAddress].Position.y;
                  for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
                     if(it->first>distance){
