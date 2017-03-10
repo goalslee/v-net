@@ -853,7 +853,7 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
   NS_LOG_FUNCTION (msg);
   const sdn::MessageHeader::CRREQ &crreq = msg.GetCRREQ ();
   Ipv4Address dest =  crreq.destAddress;
-  Ipv4Address source = crreq.sourceAddress;//the car's cch ip address
+  Ipv4Address source = crreq.sourceAddress;//the car's sch ip address
   //if(m_CCHmainAddress.Get()%256 == 81)// need to expand//todo
 	  //return;
   /*if(m_lc_info.find(dest)==m_lc_info.end() || m_lc_info.size()<=1)
@@ -874,6 +874,15 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
   if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
          //if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;not for 84 to receive
                if(m_firstRequest++>1) return;
+               haveSource=true;
+               m_sourceAddress=source;
+               
+                            std::map<Ipv4Address, CarInfo>::iterator it1 = m_lc_positive_info.find (m_sourceAddress);
+                            std::map<Ipv4Address, CarInfo>::iterator it2 = m_lc_negative_info.find (m_sourceAddress);
+                            if(it1!=m_lc_positive_info.end()) m_lc_positive_info.erase(it1);
+                            if(it2!=m_lc_negative_info.end()) m_lc_negative_info.erase(it2);
+             
+               ComputeRoute();
                std::cout<<"handle request ,IP is "<<m_CCHmainAddress<<std::endl;
 	     sdn::MessageHeader mesg;
 		 //std::cout<<"forwarding..."<<std::endl;
@@ -1606,6 +1615,7 @@ if(out==sdn::POSITIVE)
 		  Aodvrm.Originator=m_CCHmainAddress;
 		  Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 		   Aodvrm.dir=out;
+		   std::cout<<"forwarding..."<<std::endl;
 		  QueueMessage (mesg, JITTER);
 		 }
 	 }
@@ -1638,6 +1648,7 @@ else{
 		  Aodvrm.Originator=m_CCHmainAddress;
 		  Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 		   Aodvrm.dir=out;
+		   std::cout<<"forwarding..."<<std::endl;
 		  QueueMessage (mesg, JITTER);
 		 }
 	 }
@@ -1769,7 +1780,7 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 
 	  QueueMessage (msg, JITTER);
 
-
+          SendRoutingMessage();
 	
 }
 
