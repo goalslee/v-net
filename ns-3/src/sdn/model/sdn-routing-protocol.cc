@@ -1981,6 +1981,68 @@ void  RoutingProtocol::compute_possive()
     sd=sd/chose.size();
     sd=sqrt(sd);//求速度的标准差
     m_selfParm_possitive.stability=sd/mean;
+
+
+    if(haveSource)
+    {
+        if(m_lc_info[m_sourceAddress].dir==sdn::POSITIVE)
+        {
+            if(m_roadtype==sdn::ROW)
+            {
+                int distance=m_lc_info[m_sourceAddress].second.Position.x-(m_mobility->GetPosition().x-m_road_length/2);
+                for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+                {
+                    if(it->first>distance){
+                        LCAddEntry (m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
+                        break;
+                    }
+                    
+                }
+                
+            }
+            else{
+                int distance=m_lc_info[m_sourceAddress].second.Position.y-(m_mobility->GetPosition().y-m_road_length/2);
+                 for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+                {
+                    if(it->first>distance){
+                        LCAddEntry (m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
+                        break;
+                    }
+                    
+                }
+            }
+        }
+    }
+    if(haveSink)
+    {
+        if(m_lc_info[m_sinkAddress].dir==sdn::POSITIVE)
+        {
+            if(m_roadtype==sdn::ROW)
+            {
+                int distance=m_lc_info[m_sinkAddress].second.Position.x-(m_mobility->GetPosition().x-m_road_length/2);
+                for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+                {
+                    if(it->first>distance){
+                        LCAddEntry (m_sinkAddress,chose.rbegin()->second, mask, (it)->second);
+                        break;
+                    }
+                    
+                }
+                
+            }
+            else{
+                int distance=m_lc_info[m_sinkAddress].second.Position.y-(m_mobility->GetPosition().y-m_road_length/2);
+                 for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+                {
+                    if(it->first>distance){
+                        LCAddEntry (m_sinkAddress,chose.rbegin()->second, mask, (it)->second);
+                        break;
+                    }
+                    
+                }
+            }            
+        }        
+    }
     
 }
 
@@ -1991,7 +2053,7 @@ void RoutingProtocol::compute_negative()
  std::vector<std::pair<double,Ipv4Address>> chose;
     for(std::map<Ipv4Address,CarInfo>::iterator it=m_lc_negative_info.begin();it!=m_lc_negative_info.end();++it)
     {
-       if(m_roadtype==sdn::COLUMN)
+       if(m_roadtype==sdn::ROW)
            dis[m_mobility->GetPosition().x+m_road_length/2-it->second.Position.x]=it->first;
        else dis[m_mobility->GetPosition().y+m_road_length/2-it->second.Position.y]=it->first;
     }
@@ -2048,6 +2110,71 @@ void RoutingProtocol::compute_negative()
     sd=sd/chose.size();
     sd=sqrt(sd);//求速度的标准差
     m_selfParm_negative.stability=sd/(-1*mean);
+
+
+
+    if(haveSource)
+    {
+        if(m_lc_info[m_sourceAddress].dir==sdn::NEGATIVE)
+        {
+            if(m_roadtype==sdn::ROW)
+            {
+                int distance=m_mobility->GetPosition().x+m_road_length/2-m_lc_info[m_sourceAddress].second.Position.x;
+                for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+                {
+                    if(it->first>distance){
+                        LCAddEntry (m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
+                        break;
+                    }
+                    
+                }
+                
+            }
+            else{
+                int distance=m_mobility->GetPosition().y+m_road_length/2-m_lc_info[m_sourceAddress].second.Position.y;
+                 for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+                {
+                    if(it->first>distance){
+                        LCAddEntry (m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
+                        break;
+                    }
+                    
+                }
+            }
+        }
+    }
+    if(haveSink)
+    {
+        if(m_lc_info[m_sinkAddress].dir==sdn::NEGATIVE)
+        {
+            if(m_roadtype==sdn::ROW)
+            {
+                int distance=m_mobility->GetPosition().x+m_road_length/2-m_lc_info[m_sinkAddress].second.Position.x;
+                for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+                {
+                    if(it->first>distance){
+                        LCAddEntry (m_sinkAddress,chose.rbegin()->second, mask, (it)->second);
+                        break;
+                    }
+                    
+                }
+                
+            }
+            else{
+                int distance=m_mobility->GetPosition().y+m_road_length/2-m_lc_info[m_sinkAddress].second.Position.y;
+                 for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+                {
+                    if(it->first>distance){
+                        LCAddEntry (m_sinkAddress,chose.rbegin()->second, mask, (it)->second);
+                        break;
+                    }
+                    
+                }
+            }            
+        }        
+    }
+
+    
 }
 
 /*
