@@ -1989,7 +1989,7 @@ void  RoutingProtocol::compute_possive()
         {
             if(m_roadtype==sdn::ROW)
             {
-                int distance=m_lc_info[m_sourceAddress].second.Position.x-(m_mobility->GetPosition().x-m_road_length/2);
+                int distance=m_lc_info[m_sourceAddress]->second.Position.x-(m_mobility->GetPosition().x-m_road_length/2);
                 for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
                     if(it->first>distance){
