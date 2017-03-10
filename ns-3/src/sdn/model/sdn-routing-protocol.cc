@@ -46,6 +46,7 @@
 #include "ns3/enum.h"
 #include "ns3/trace-source-accessor.h"
 #include "ns3/ipv4-header.h"
+#include <math.h>
 #include <algorithm>
 
 #include "stdlib.h" //ABS
@@ -750,16 +751,16 @@ if(rev==false) return;
         //std::cout<<"possitive"<<std::endl;
         }
         else {CI_temp.dir=sdn::NEGATIVE;
-        std::cout<<"negitive"<<std::endl;
+
         }
       }
       else if(m_roadtype==sdn::COLUMN)
       {
         if(CI_temp.Velocity.y>=0.0) {CI_temp.dir=sdn::POSITIVE;
-         std::cout<<"possitive"<<std::endl;
+  
         }
         else {CI_temp.dir=sdn::NEGATIVE;    
-         std::cout<<"negitive"<<std::endl;
+         
         }
       }
       m_lc_info[ID] = CI_temp;
@@ -1953,12 +1954,23 @@ void  RoutingProtocol::compute_possive()
     }
     roadendAddress_possitive=chose.rbegin()->second;
     Ipv4Address mask("255.255.0.0");
+    double mean=0;
+    double sd=0;
     for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
     {
         LCAddEntry (it->second, chose.rbegin()->second, mask, (it+1)->second);//更新每个carinfo的R_Table
+        mean+=it->first;
     }
     m_selfParm_possitive.jumpnums=chose.size();
     //stablity to do
+    mean=mean/chose.size();//求速度的平均值
+        for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+    {
+        sd+=(it->first-mean)*(it->first-mean);
+    }
+    sd=sd/chose.size();
+    sd=sqrt(sd);//求速度的标准差
+    m_selfParm_possitive.stability=sd/mean;
     
 }
 
@@ -2009,10 +2021,23 @@ void RoutingProtocol::compute_negative()
     }
     roadendAddress_negative=chose.rbegin()->second;
         Ipv4Address mask("255.255.0.0");
+     double mean=0;
+    double sd=0;
     for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
     {
         LCAddEntry (it->second, chose.rbegin()->second, mask, (it+1)->second);
+                mean+=it->first;
     }
+        m_selfParm_negative.jumpnums=chose.size();
+ 
+    mean=mean/chose.size();//求速度的平均值
+        for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+    {
+        sd+=(it->first-mean)*(it->first-mean);
+    }
+    sd=sd/chose.size();
+    sd=sqrt(sd);//求速度的标准差
+    m_selfParm_negative.stability=sd/(-1*mean);
 }
 
 /*

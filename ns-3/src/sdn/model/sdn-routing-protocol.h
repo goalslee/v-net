@@ -120,7 +120,7 @@ struct AodvParm //
 {
 
 	uint32_t jumpnums;//跳数
-	float stability;//稳定性
+	double stability;//稳定性
 	Ipv4Address lastIP;//上一跳
 	Ipv4Address nextIP;//下一跳，收到返回包时确定
 	Ipv4Address m_sourceId;
@@ -132,7 +132,7 @@ struct AodvDesParm //
 {
 
 	uint32_t jumpnums;//跳数
-	float stability;//稳定性
+	double stability;//稳定性
 	sdn::direction desdir;//目的车的方向
           bool dir;//目的车方向与进来的消息流方向是否一致
 	Ipv4Address lastIP;//上一跳
