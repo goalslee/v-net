@@ -1534,8 +1534,14 @@ else{
 
 
 	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
-		         temp_desId=aodvrm.DesId;
-			     std::cout<<"I am  "<<m_CCHmainAddress<<" ,I have des"<<std::endl;
+	                   if(m_incomeDesParm.desdir==sdn::OTHER)
+                               {
+                                 m_incomeDesParm.desdir=m_lc_info[aodvrm.DesId].dir;
+
+                                }
+                          if(m_incomeDesParm.desdir==out) {//车流方向与目的车一致
+		                  temp_desId=aodvrm.DesId;
+			            std::cout<<"I am  "<<m_CCHmainAddress<<" ,I have des"<<std::endl;
 				 isDes=true;
 				 //m_aodvTimer.SetDelay(FemtoSeconds (5));// 5s countdown
 				 m_aodvTimer.SetFunction
@@ -1543,6 +1549,7 @@ else{
 				 Time t = Seconds (1.0);
 				 m_aodvTimer.SetDelay(t);
 				 m_aodvTimer.Schedule ();
+				 }
 			 }
 
 if(out==sdn::POSITIVE)
@@ -1614,15 +1621,11 @@ else{
 	if(isDes){//用另外的数据结构存
    
 
-        if(m_incomeDesParm.desdir==sdn::OTHER)
-        {
-            m_incomeDesParm.desdir=m_lc_info[aodvrm.DesId].dir;
 
-        }
         if(aodvrm.jump_nums<m_incomeDesParm.jumpnums||(aodvrm.jump_nums==m_incomeDesParm.jumpnums&&aodvrm.stability<m_incomeDesParm.stability))
         {
-            if(m_incomeDesParm.desdir==out) m_incomeDesParm.dir=true;
-            else m_incomeDesParm.dir=false;
+           m_incomeDesParm.dir=true;
+   
             m_incomeDesParm.jumpnums=aodvrm.jump_nums;
             m_incomeDesParm.stability=aodvrm.stability;
             m_incomeDesParm.m_sourceId=aodvrm.ID;
@@ -1714,6 +1717,13 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	  
 	  Aodv_r_rm.ID=m_incomeDesParm.m_sourceId; 
 	  Aodv_r_rm.DesId=m_incomeDesParm.m_desId;
+
+
+	        if(m_incomeDesParm.desdir==sdn::POSITIVE)
+	            Aodv_r_rm.FirstCarId=transferAddress_possitive;
+	        else    Aodv_r_rm.FirstCarId=transferAddress_negative;
+
+	/*  
 	  if(m_incomeDesParm.dir){ //POSITIVE,NEGATIVE
 	        if(m_incomeDesParm.desdir==sdn::POSITIVE)
 	            Aodv_r_rm.FirstCarId=transferAddress_possitive;
@@ -1724,7 +1734,7 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	    	 if(m_incomeDesParm.desdir==sdn::POSITIVE)
 	            Aodv_r_rm.FirstCarId=roadendAddress_possitive;
 	        else    Aodv_r_rm.FirstCarId=roadendAddress_negative;
-	   }
+	   }*/
 	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 	  Aodv_r_rm.routingMessageSize=32;//SDN_AODVRRM_HEADER_SIZE;
 	  Aodv_r_rm.originator=m_CCHmainAddress;

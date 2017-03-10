@@ -207,6 +207,11 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   AodvDesParm m_incomeDesParm{1000,1000,sdn::OTHER,true};
   //std::vector<Ipv4Address> m_ForwardTable;
 
+  bool haveSource=false;
+  bool haveSink=false;
+  Ipv4Address m_sourceAddress;
+  Ipv4Address m_sinkAddress;
+
   EventGarbageCollector m_events;
 	
   /// Packets sequence number counter.
