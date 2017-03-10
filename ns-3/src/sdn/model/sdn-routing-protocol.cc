@@ -1552,8 +1552,8 @@ else{
                          if(!haveSink){
                             haveSink=true;
                             m_sinkAddress=aodvrm.DesId;
-                            std::map<Ipv4Address, CarInfo>::iterator it1 = m_lc_positive_info.find (ID);
-                            std::map<Ipv4Address, CarInfo>::iterator it2 = m_lc_negative_info.find (ID);
+                            std::map<Ipv4Address, CarInfo>::iterator it1 = m_lc_positive_info.find (m_sinkAddress);
+                            std::map<Ipv4Address, CarInfo>::iterator it2 = m_lc_negative_info.find (m_sinkAddress);
                             if(it1!=m_lc_positive_info.end()) m_lc_positive_info.erase(it1);
                             if(it2!=m_lc_negative_info.end()) m_lc_negative_info.erase(it2);
                             ComputeRoute();//将sink加入路由中
