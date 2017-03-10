@@ -467,7 +467,7 @@ RoutingProtocol::DoInitialize ()
   if(canRunSdn)
     {
       HelloTimerExpire ();
-      RmTimerExpire ();
+      //RmTimerExpire ();
       //APTimerExpire ();
       //FirstTimerExpire();
       NS_LOG_DEBUG ("SDN on node (Car) " << m_CCHmainAddress << " started");
@@ -746,14 +746,18 @@ if(rev==false) return;
       CI_temp.Velocity = msg.GetHello ().GetVelocity ();
       if(m_roadtype==sdn::ROW)
       {
-        if(CI_temp.Velocity.x>0.0) CI_temp.dir=sdn::POSITIVE;
+        if(CI_temp.Velocity.x>0.0) {CI_temp.dir=sdn::POSITIVE;
+        std::cout<<"possitive"<<std::endl;
+        }
         else {CI_temp.dir=sdn::NEGATIVE;
         std::cout<<"negitive"<<std::endl;
         }
       }
       else if(m_roadtype==sdn::COLUMN)
       {
-        if(CI_temp.Velocity.y>0.0) CI_temp.dir=sdn::POSITIVE;
+        if(CI_temp.Velocity.y>0.0) {CI_temp.dir=sdn::POSITIVE;
+         std::cout<<"possitive"<<std::endl;
+        }
         else {CI_temp.dir=sdn::NEGATIVE;    
          std::cout<<"negitive"<<std::endl;
         }
