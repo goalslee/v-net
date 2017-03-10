@@ -644,7 +644,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
           if (GetType() == LOCAL_CONTROLLER)
           {
              //std::cout<<"ProcessCRREQ "<<std::endl;
-            ProcessCRREQ (messageHeader);
+            //ProcessCRREQ (messageHeader);
             }
           break;
         case sdn::MessageHeader::CARROUTERESPONCE_MESSAGE:
