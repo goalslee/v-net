@@ -706,11 +706,13 @@ if(rev==false) return;
     Ipv4Address ID = msg.GetHello ().ID;//should be SCH address
   m_SCHaddr2CCHaddr[ID] = msg.GetOriginatorAddress();
 
-//std::cout<<m_CCHmainAddress.Get()%256<<"get hello,positon is"<<msg.GetHello ().GetPosition ().x<<std::endl;
+
   std::map<Ipv4Address, CarInfo>::iterator it = m_lc_info.find (ID);
 
   if (it != m_lc_info.end ())
     {
+
+
       it->second.Active = true;
       it->second.LastActive = Simulator::Now ();
       it->second.Position = msg.GetHello ().GetPosition ();
@@ -756,7 +758,7 @@ if(rev==false) return;
       }
       else if(m_roadtype==sdn::COLUMN)
       {
-        if(CI_temp.Velocity.y>=0.0) {CI_temp.dir=sdn::POSITIVE;
+        if(CI_temp.Velocity.y>=0.0) {CI_temp.dir=sdn::POSITIVE; //source && sink 都possive
   
         }
         else {CI_temp.dir=sdn::NEGATIVE;    
@@ -767,6 +769,19 @@ if(rev==false) return;
       
       if(CI_temp.dir==sdn::POSITIVE) m_lc_positive_info[ID]=CI_temp;
       else m_lc_negative_info[ID]=CI_temp;
+    }
+
+    if(haveSource&&m_sourceAddress==ID)
+    {
+        std::map<Ipv4Address, CarInfo>::iterator it = m_lc_positive_info.find (ID);
+        if(it!=m_lc_positive_info.end()) m_lc_positive_info.erase(it);
+        
+    }
+        if(haveSink&&m_sinkAddress==ID)
+    {
+        std::map<Ipv4Address, CarInfo>::iterator it = m_lc_positive_info.find (ID);
+        if(it!=m_lc_positive_info.end()) m_lc_positive_info.erase(it);
+        
     }
 }
 
@@ -1534,6 +1549,16 @@ else{
 
 
 	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
+                         if(!haveSink){
+                            haveSink=true;
+                            m_sinkAddress=aodvrm.DesId;
+                            std::map<Ipv4Address, CarInfo>::iterator it1 = m_lc_positive_info.find (ID);
+                            std::map<Ipv4Address, CarInfo>::iterator it2 = m_lc_negative_info.find (ID);
+                            if(it1!=m_lc_positive_info.end()) m_lc_positive_info.erase(it1);
+                            if(it2!=m_lc_negative_info.end()) m_lc_negative_info.erase(it2);
+                            ComputeRoute();//将sink加入路由中
+                         }
+	
 	                   if(m_incomeDesParm.desdir==sdn::OTHER)
                                {
                                  m_incomeDesParm.desdir=m_lc_info[aodvrm.DesId].dir;
@@ -1549,6 +1574,7 @@ else{
 				 Time t = Seconds (1.0);
 				 m_aodvTimer.SetDelay(t);
 				 m_aodvTimer.Schedule ();
+				
 				 }
 			 }
 

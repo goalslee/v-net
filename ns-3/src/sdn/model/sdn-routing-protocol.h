@@ -73,6 +73,7 @@ public:
     minhop = INFINITY;
     ID_of_minhop = Ipv4Address::GetZero ();
     appointmentResult = AppointmentType::NORMAL;
+    dir=sdn::OTHER;
   };
 
   //Get position by this time
