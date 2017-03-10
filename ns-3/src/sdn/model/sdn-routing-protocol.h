@@ -159,11 +159,11 @@ private:
   std::map<Ipv4Address, Ipv4Address> m_SCHaddr2CCHaddr;
   Ipv4Address transferAddress;//now it is the nearest ip 每条路第一辆车
   Ipv4Address roadendAddress;
-  Ipv4Address transferAddress_possitive;
-  Ipv4Address transferAddress_negative;
+  Ipv4Address transferAddress_possitive;//正方向的第一辆车
+  Ipv4Address transferAddress_negative;//正方向的最后一辆车
 
-  Ipv4Address roadendAddress_possitive;
-  Ipv4Address roadendAddress_negative;
+  Ipv4Address roadendAddress_possitive;//反方向的第一辆车
+  Ipv4Address roadendAddress_negative;//反方向的最后一辆车
 
   
   Ipv4Address temp_desId;
@@ -184,7 +184,7 @@ private:
   std::map<Ipv4Address,std::set<Ipv4Address> >  neighbor;//每个lc的邻居lc
 
   // Mobility module for Vanet
-  Ptr<MobilityModel> m_mobility;//节点的移动信息
+  Ptr<MobilityModel> m_mobility;//节点的位置和速度信息
   std::set<uint32_t> m_interfaceExclusions;//无用
   std::map<Ipv4Address, RoutingTableEntry> m_table; ///< Data structure for the routing table. (Use By Mainly by CAR Node, but LC needs it too) //m_table <目的地址，路由条目>
 

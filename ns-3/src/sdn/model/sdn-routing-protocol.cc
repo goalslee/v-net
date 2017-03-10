@@ -747,12 +747,16 @@ if(rev==false) return;
       if(m_roadtype==sdn::ROW)
       {
         if(CI_temp.Velocity.x>0.0) CI_temp.dir=sdn::POSITIVE;
-        else CI_temp.dir=sdn::NEGATIVE;
+        else {CI_temp.dir=sdn::NEGATIVE;
+        std::cout<<"negitive"<<std::endl;
+        }
       }
       else if(m_roadtype==sdn::COLUMN)
       {
         if(CI_temp.Velocity.y>0.0) CI_temp.dir=sdn::POSITIVE;
-        else CI_temp.dir=sdn::NEGATIVE;        
+        else {CI_temp.dir=sdn::NEGATIVE;    
+         std::cout<<"negitive"<<std::endl;
+        }
       }
       m_lc_info[ID] = CI_temp;
       
@@ -1947,8 +1951,11 @@ void  RoutingProtocol::compute_possive()
     Ipv4Address mask("255.255.0.0");
     for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
     {
-        LCAddEntry (it->second, chose.rbegin()->second, mask, (it+1)->second);
+        LCAddEntry (it->second, chose.rbegin()->second, mask, (it+1)->second);//更新每个carinfo的R_Table
     }
+    m_selfParm_possitive.jumpnums=chose.size();
+    //stablity to do
+    
 }
 
 void RoutingProtocol::compute_negative()
