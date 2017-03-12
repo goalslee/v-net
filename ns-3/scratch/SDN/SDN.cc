@@ -491,8 +491,8 @@ void VanetSim::ConfigApp()
 	OnOffHelper Source("ns3::UdpSocketFactory",remote);//SendToSink
 	Source.SetAttribute("OffTime",StringValue ("ns3::ConstantRandomVariable[Constant=0.0]"));
 	DataRate x("4096bps");//512*8
-	//Source.SetConstantRate(x,512);//
-	Source.SetConstantRate(x,128);
+	Source.SetConstantRate(x,512);//1pk/s
+	//Source.SetConstantRate(x,128);
 
 
 	m_source = Source.Install(m_nodes.Get(nodeNum+24));//Install on Source
