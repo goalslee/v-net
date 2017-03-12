@@ -1860,7 +1860,7 @@ void  RoutingProtocol::compute_possive()
        else dis[it->second.Position.y-(m_mobility->GetPosition().y-m_road_length/2)]=it->first;
     }
     if(dis.size()==0) {
-                std::cout<<"no valid connect"<<std::endl;
+                std::cout<<"no valid possive connect"<<std::endl;
             possive_valid=false;
             return;
     }
@@ -1902,7 +1902,7 @@ void  RoutingProtocol::compute_possive()
         //std::cout<<"5"<<std::endl;
         if(t==chose.size())
         {
-            std::cout<<"no valid connect"<<std::endl;
+            std::cout<<"no valid possive connect"<<std::endl;
             possive_valid=false;
             return;
             //break;
@@ -2013,6 +2013,11 @@ void RoutingProtocol::compute_negative()
            dis[m_mobility->GetPosition().x+m_road_length/2-it->second.Position.x]=it->first;
        else dis[m_mobility->GetPosition().y+m_road_length/2-it->second.Position.y]=it->first;
     }
+    if(dis.size()==0) {
+            std::cout<<"no valid negative connect"<<std::endl;
+            negative_valid=false;
+            return;
+    }    
     transferAddress_negative=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
@@ -2047,7 +2052,7 @@ void RoutingProtocol::compute_negative()
         //std::cout<<"5"<<std::endl;
         if(t==chose.size())
         {
-            std::cout<<"no valid connect"<<std::endl;
+            std::cout<<"no valid negative connect"<<std::endl;
             possive_valid=false;
             return;
             //break;
