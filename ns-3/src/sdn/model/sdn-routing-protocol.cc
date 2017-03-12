@@ -1847,7 +1847,7 @@ void
 RoutingProtocol::ComputeRoute ()
 {
 
-    //RemoveTimeOut (); //Remove Stale Tuple
+    RemoveTimeOut (); //Remove Stale Tuple
 
     /*
     Vector3D lcPosition = m_mobility->GetPosition ();
@@ -1999,6 +1999,7 @@ void  RoutingProtocol::compute_possive()
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
     while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility->GetPosition().x:m_mobility->GetPosition().y)+m_road_length/2)
     {
+        std::cout<<"signal_range "<<m_signal_range<<"  temp+m_signal_range/2 "<<temp.first+m_signal_range/2<<std::endl;
         int t=chose.size();
        std::cout<<"2"<<std::endl;
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
@@ -2006,7 +2007,7 @@ void  RoutingProtocol::compute_possive()
         
         while(++iter!=dis.end())
         {
-        std::cout<<"4"<<std::endl;
+        //std::cout<<"4"<<std::endl;
             std::pair<double,Ipv4Address> target=*(iter);
             if(temp.first+m_signal_range>iter->first)
             {
@@ -2023,8 +2024,8 @@ void  RoutingProtocol::compute_possive()
                 
             }
 
-        }
-        std::cout<<"5"<<std::endl;
+        }//while(++iter!
+        //std::cout<<"5"<<std::endl;
         if(t==chose.size())
         {
             std::cout<<"no valid connect"<<std::endl;
