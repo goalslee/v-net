@@ -1994,6 +1994,7 @@ void  RoutingProtocol::compute_possive()
             possive_valid=false;
             return;
     }
+    std::cout<<"dis size "<<dis.size()<<std::endl;
     transferAddress_possitive=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
