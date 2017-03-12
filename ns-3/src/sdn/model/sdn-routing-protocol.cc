@@ -1970,6 +1970,7 @@ RoutingProtocol::ComputeRoute ()
         }
     }
     */
+    std::cout<<"in compute route"<<std::endl;
    compute_possive();
    compute_negative();
     
@@ -2021,6 +2022,7 @@ void  RoutingProtocol::compute_possive()
         }
         temp=*chose.rbegin();
     }
+    std::cout<<"1"<<std::endl;
     roadendAddress_possitive=chose.rbegin()->second;
     Ipv4Address mask("255.255.0.0");
     double mean=0;
