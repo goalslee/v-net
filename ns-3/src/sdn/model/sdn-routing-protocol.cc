@@ -1996,6 +1996,7 @@ void  RoutingProtocol::compute_possive()
        std::cout<<"2"<<std::endl;
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
         std::cout<<"3"<<std::endl;
+        /*
         while(++iter!=dis.end())
         {
         std::cout<<"4"<<std::endl;
@@ -2015,7 +2016,7 @@ void  RoutingProtocol::compute_possive()
                 
             }
 
-        }
+        }*/
         std::cout<<"5"<<std::endl;
         if(temp==*chose.rbegin())
         {
