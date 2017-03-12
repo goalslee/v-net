@@ -1682,7 +1682,7 @@ else{
             m_incomeDesParm.m_sourceId=aodvrm.ID;
 	   m_incomeDesParm.m_desId=aodvrm.DesId;
             m_incomeDesParm.lastdir=aodvrm.dir;//记录上一跳的方向
-             m_incomeDesParm.lastIP=aodvrm..Originator;
+             m_incomeDesParm.lastIP=aodvrm.Originator;
         }
         
       }
