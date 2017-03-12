@@ -771,7 +771,7 @@ if(rev==false) return;
       if(CI_temp.dir==sdn::POSITIVE) m_lc_positive_info[ID]=CI_temp;
       else m_lc_negative_info[ID]=CI_temp;
     }
-/*
+
     if(haveSource&&m_sourceAddress==ID)
     {
         std::map<Ipv4Address, CarInfo>::iterator it = m_lc_positive_info.find (ID);
@@ -783,7 +783,7 @@ if(rev==false) return;
         std::map<Ipv4Address, CarInfo>::iterator it = m_lc_positive_info.find (ID);
         if(it!=m_lc_positive_info.end()) m_lc_positive_info.erase(it);
         
-    }*/
+    }
 }
 
 // \brief Build routing table according to Rm
