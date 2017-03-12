@@ -654,7 +654,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                         << " received CRREP message of size "
                         << messageHeader.GetSerializedSize ());
           if (GetType() == LOCAL_CONTROLLER)
-            ProcessCRREP (messageHeader);
+            //ProcessCRREP (messageHeader);
           break;
         default:
           NS_LOG_DEBUG ("SDN message type " <<
@@ -942,7 +942,7 @@ RoutingProtocol::ProcessCRREP (Ipv4Address transfer,enum direction dir)
     {
 
           if(dir==sdn::POSITIVE){
-          if(cit->dir==sdn::POSITIVE){
+          if(cit->second.dir==sdn::POSITIVE){
 	 CarInfo Entry = cit->second;
 
 	  for(std::vector<RoutingTableEntry>::iterator it=Entry.R_Table.begin();it!=Entry.R_Table.end();++it)
@@ -963,7 +963,7 @@ RoutingProtocol::ProcessCRREP (Ipv4Address transfer,enum direction dir)
 	  }
 	  }
 	  else{
-	            if(cit->dir==sdn::NEGATIVE){
+	            if(cit->second.dir==sdn::NEGATIVE){
 	  CarInfo Entry = cit->second;
 	
 	  for(std::vector<RoutingTableEntry>::iterator it=Entry.R_Table.begin();it!=Entry.R_Table.end();++it)
