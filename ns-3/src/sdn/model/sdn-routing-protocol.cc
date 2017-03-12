@@ -1841,9 +1841,9 @@ RoutingProtocol::ComputeRoute ()
 
     RemoveTimeOut (); //Remove Stale Tuple
 
-    std::cout<<"in compute route"<<std::endl;
+    //std::cout<<"in compute route"<<std::endl;
    compute_possive();
-   //compute_negative();
+   compute_negative();
     
 }//RoutingProtocol::ComputeRoute
 
@@ -1864,7 +1864,7 @@ void  RoutingProtocol::compute_possive()
             possive_valid=false;
             return;
     }
-    std::cout<<"dis size "<<dis.size()<<std::endl;
+    //std::cout<<"dis size "<<dis.size()<<std::endl;
     for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
         std::cout<<it->first<<std::endl;
     transferAddress_possitive=dis.begin()->second;
@@ -1872,7 +1872,7 @@ void  RoutingProtocol::compute_possive()
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
     while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility->GetPosition().x:m_mobility->GetPosition().y)+m_road_length/2)
     {
-        //std::cout<<"signal_range "<<m_signal_range<<"  temp+m_signal_range/2 "<<temp.first+m_signal_range/2<<std::endl;
+        
         int t=chose.size();
        //std::cout<<"2"<<std::endl;
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
@@ -1910,11 +1910,11 @@ void  RoutingProtocol::compute_possive()
         temp=*chose.rbegin();
     }//while(temp.first+m...
 
-for(std::vector<std::pair<double,Ipv4Address>>::iterator it=chose.begin();it!=chose.end();it++)
+/*for(std::vector<std::pair<double,Ipv4Address>>::iterator it=chose.begin();it!=chose.end();it++)
         std::cout<<it->first<<"->";
 
 
-        std::cout<<std::endl;
+        std::cout<<std::endl;*/
     
     //std::cout<<"1"<<std::endl;
     roadendAddress_possitive=chose.rbegin()->second;
@@ -2018,18 +2018,24 @@ void RoutingProtocol::compute_negative()
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
     while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility->GetPosition().x:m_mobility->GetPosition().y)+m_road_length/2)
     {
+    int t=chose.size();
+       //std::cout<<"2"<<std::endl;
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
+
+        
         while(++iter!=dis.end())
         {
-            std::pair<double,Ipv4Address> target=*iter;
+        //std::cout<<"4"<<std::endl;
+            std::pair<double,Ipv4Address> target=*(iter);
             if(temp.first+m_signal_range>iter->first)
             {
-                if((++iter)==dis.end())
+                std::map<double,Ipv4Address>::iterator it_temp=iter;
+                if(++it_temp==dis.end())
                 {
                     chose.push_back(target);
                     break;
                 }
-                else if(temp.first+m_signal_range<iter->first)
+                else if(temp.first+m_signal_range<(it_temp)->first)
                 {
                     chose.push_back(target);
                     break;
@@ -2037,11 +2043,12 @@ void RoutingProtocol::compute_negative()
                 
             }
 
-        }
-        if(temp==*chose.rbegin())
+        }//while(++iter!
+        //std::cout<<"5"<<std::endl;
+        if(t==chose.size())
         {
             std::cout<<"no valid connect"<<std::endl;
-            negative_valid=false;
+            possive_valid=false;
             return;
             //break;
         }
