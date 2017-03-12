@@ -1972,7 +1972,7 @@ RoutingProtocol::ComputeRoute ()
     */
     std::cout<<"in compute route"<<std::endl;
    compute_possive();
-   compute_negative();
+   //compute_negative();
     
 }//RoutingProtocol::ComputeRoute
 
@@ -1988,19 +1988,25 @@ void  RoutingProtocol::compute_possive()
            dis[it->second.Position.x-(m_mobility->GetPosition().x-m_road_length/2)]=it->first;
        else dis[it->second.Position.y-(m_mobility->GetPosition().y-m_road_length/2)]=it->first;
     }
+    if(dis.size()==0) {
+                std::cout<<"no valid connect"<<std::endl;
+            possive_valid=false;
+            return;
+    }
     transferAddress_possitive=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
     while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility->GetPosition().x:m_mobility->GetPosition().y)+m_road_length/2)
     {
+        int t=chose.size();
        std::cout<<"2"<<std::endl;
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
-        std::cout<<"3"<<std::endl;
-        /*
+
+        
         while(++iter!=dis.end())
         {
         std::cout<<"4"<<std::endl;
-            std::pair<double,Ipv4Address> target=*iter;
+            std::pair<double,Ipv4Address> target=*(iter);
             if(temp.first+m_signal_range>iter->first)
             {
                 if((++iter)==dis.end())
@@ -2016,9 +2022,9 @@ void  RoutingProtocol::compute_possive()
                 
             }
 
-        }*/
+        }
         std::cout<<"5"<<std::endl;
-        if(temp==*chose.rbegin())
+        if(t==chose.size())
         {
             std::cout<<"no valid connect"<<std::endl;
             possive_valid=false;
