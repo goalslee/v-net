@@ -2014,12 +2014,13 @@ void  RoutingProtocol::compute_possive()
             std::pair<double,Ipv4Address> target=*(iter);
             if(temp.first+m_signal_range>iter->first)
             {
-                if(iter+1)==dis.end())
+                std::map<double,Ipv4Address>::iterator it_temp=iter;
+                if(++it_temp)==dis.end())
                 {
                     chose.push_back(target);
                     break;
                 }
-                else if(temp.first+m_signal_range<(iter+1)->first)
+                else if(temp.first+m_signal_range<(it_temp)->first)
                 {
                     chose.push_back(target);
                     break;
