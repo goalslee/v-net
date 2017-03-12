@@ -916,17 +916,17 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 }
 
 void
-RoutingProtocol::ProcessCRREP (const sdn::MessageHeader &msg)
+RoutingProtocol::ProcessCRREP (Ipv4Address transfer,enum direction dir)
 {
-  NS_LOG_FUNCTION (msg);
+  //NS_LOG_FUNCTION (msg);
   /*const sdn::MessageHeader::CRREP &crrep = msg.GetCRREP ();
   Ipv4Address dest =  crrep.destAddress;
   Ipv4Address source = crrep.sourceAddress;
   Ipv4Address transfer = crrep.transferAddress;*/
-  const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
+  //const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
   //Ipv4Address dest = Aodv_r.CarId;
   //Ipv4Address source =transferAddress;
-  Ipv4Address transfer = Aodv_r.ID;
+  //Ipv4Address transfer = Aodv_r.ID;
 
  //std::cout<<"ProcessCRREP"<<transfer.Get()%256<<" "<<dest.Get()%256<<std::endl;
 
@@ -936,41 +936,57 @@ RoutingProtocol::ProcessCRREP (const sdn::MessageHeader &msg)
   //std::cout<<"roadendAddress"<<roadendAddress.Get()%256<<std::endl;
  // std::cout<<"infosize"<<m_lc_info.size()<<std::endl;
   //std::cout<<"roadendAddress"<<roadendAddress.Get()%256<<std::endl;
-  int t=0;
+
   for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
        cit != m_lc_info.end (); ++cit)
     {
-	  CarInfo Entry = cit->second;//std::cout<<t<<"ProcessCRREP1"<<Entry.R_Table.size()<<std::endl;
-	  t++;
+
+          if(dir==sdn::POSITIVE){
+          if(cit->dir==sdn::POSITIVE){
+	 CarInfo Entry = cit->second;
+
 	  for(std::vector<RoutingTableEntry>::iterator it=Entry.R_Table.begin();it!=Entry.R_Table.end();++it)
 	  {
-		  //std::cout<<"table"<<cit->first.Get()%256<<" "<<it->destAddr.Get()%256<<" "<<it->nextHop.Get()%256<<std::endl;
-	      if(it->destAddr == roadendAddress)
+
+	      if(it->destAddr == roadendAddress_possitive)
 	      {
-	    	  /*RoutingTableEntry RTE;
-	    	  RTE.destAddr = dest;
-	    	  RTE.mask = it->mask;
-	    	  RTE.nextHop = it->nextHop;
-	    	  std::cout<<"entry"<<cit->first.Get()%256<<" "<<dest.Get()%256<<" "<<it->nextHop.Get()%256<<std::endl;
-	    	  RTE.interface = it->interface;
-	    	  Entry.R_Table.push_back(RTE);*/
-	    	  //LCAddEntry(cit->first,dest,it->mask,it->nextHop);
-	    	  break;
+	          if(cit->first!=roadendAddress_possitive){
+
+	    	  LCAddEntry(cit->first,m_incomeParm_possitive.m_desId,it->mask,it->nextHop);
+	
+	    	  }
+	    	  else{
+	    	     LCAddEntry(cit->first,m_incomeParm_possitive.m_desId,it->mask,transfer);
+	    	  }
 	      }
+	  }
+	  }
+	  }
+	  else{
+	            if(cit->dir==sdn::NEGATIVE){
+	  CarInfo Entry = cit->second;
+	
+	  for(std::vector<RoutingTableEntry>::iterator it=Entry.R_Table.begin();it!=Entry.R_Table.end();++it)
+	  {
+
+	      if(it->destAddr == roadendAddress_negative)
+	      {
+	          if(cit->first!=roadendAddress_negative){
+
+	    	  LCAddEntry(cit->first,m_incomeParm_negative.m_desId,it->mask,it->nextHop);
+	
+	    	  }
+	    	  else{
+	    	     LCAddEntry(cit->first,m_incomeParm_negative.m_desId,it->mask,transfer);
+	    	  }
+	      }
+	  }	  
+	  }
 	  }
 
     }
-  /*for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
-       cit != m_lc_info.end (); ++cit)
-  {
-	  CarInfo Entry = cit->second;
-	  for(std::vector<RoutingTableEntry>::iterator it=Entry.R_Table.begin();it!=Entry.R_Table.end();++it)
-	  {
-		  std::cout<<"table"<<cit->first.Get()%256<<" "<<it->destAddr.Get()%256<<" "<<it->nextHop.Get()%256<<std::endl;
-	  }
-  }*/
-  //std::cout<<"ProcessCRREP"<<std::endl;
-  	 SendRoutingMessage();
+
+  	 SendRoutingMessage(dir);
 }
 
 void
@@ -1428,13 +1444,14 @@ RoutingProtocol::SendHello ()
 }
 
 void
-RoutingProtocol::SendRoutingMessage ()
+RoutingProtocol::SendRoutingMessage (enum direction dir)
 {
   NS_LOG_FUNCTION (this);
 
   for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
        cit != m_lc_info.end (); ++cit)
     {
+    if(cit->dir==dir){
       sdn::MessageHeader msg;
       Time now = Simulator::Now ();
       msg.SetVTime (m_helloInterval);
@@ -1469,6 +1486,7 @@ RoutingProtocol::SendRoutingMessage ()
         }
       rm.routingMessageSize = rm.routingTables.size ();
       QueueMessage (msg, JITTER);
+    }
     }
 }
 
@@ -1709,9 +1727,10 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	       Aodv_r_rm.next_dir=m_incomeParm_possitive.lastdir;
               std::cout<<" send to "<<Aodv_r_rm.next<<std::endl;
 	      QueueMessage (mesg, JITTER);
+	      //ProcessCRREP(Aodv_r.FirstCarId,sdn::POSITIVE);
          }
          else std::cout<<"finish"<<std::endl;
-	   ProcessCRREP(msg);//todo
+	   ProcessCRREP(Aodv_r.FirstCarId,sdn::POSITIVE);//todo
 
 	}
    else{
@@ -1728,9 +1747,10 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	       Aodv_r_rm.next_dir=m_incomeParm_negative.lastdir;
               std::cout<<" send to "<<Aodv_r_rm.next<<std::endl;
 	      QueueMessage (mesg, JITTER);
+	      
          }
          else std::cout<<"finish"<<std::endl;
-	   ProcessCRREP(msg);//todo
+	    ProcessCRREP(Aodv_r.FirstCarId,sdn::NEGATIVE);//todo
     
             }
      }

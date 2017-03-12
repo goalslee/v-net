@@ -375,7 +375,7 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   void QueueMessage (const sdn::MessageHeader &message, Time delay);//implemented
   void SendQueuedMessages ();//implemented
   void SendHello ();//implemented
-  void SendRoutingMessage (); //Fullfilled 给车下发路由表
+  void SendRoutingMessage (enum direction dir); //Fullfilled 给车下发路由表
   void SendAppointment();
   void SendCRREQ(const Ipv4Address &destAddress);
   void SendCRREP(const Ipv4Address &sourceAddress,const Ipv4Address &destAddress,const Ipv4Address &transferAddress);
