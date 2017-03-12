@@ -858,18 +858,7 @@ RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
   const sdn::MessageHeader::CRREQ &crreq = msg.GetCRREQ ();
   Ipv4Address dest =  crreq.destAddress;
   Ipv4Address source = crreq.sourceAddress;//the car's sch ip address
-  //if(m_CCHmainAddress.Get()%256 == 81)// need to expand//todo
-	  //return;
-  /*if(m_lc_info.find(dest)==m_lc_info.end() || m_lc_info.size()<=1)
-	  return;*/
-  /*for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
-       cit != m_lc_info.end (); ++cit)
-    {
-	  std::cout<<"info"<<cit->first.Get()%256<<std::endl;
-    }*/
-  //std::cout<<"ProcessCRREQ"<<transferAddress.Get()%256<<std::endl;
-  /*if(transferAddress == dest)
-	  return;*/
+
 
 if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 //std::cout<<"the wrong lc get the packet."<<std::endl;
@@ -889,7 +878,7 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
                
                std::cout<<"handle request ,IP is "<<m_CCHmainAddress<<std::endl;
                ComputeRoute();
-               std::cout<<"computeroute finish"<<std::endl;
+               //std::cout<<"computeroute finish"<<std::endl;
 	     sdn::MessageHeader mesg;
 		 //std::cout<<"forwarding..."<<std::endl;
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
@@ -914,7 +903,7 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 
   }
   else{//the first lc itself has des car
-	  //SendCRREP(source, dest, transferAddress);
+	
   }
 
 
@@ -1852,128 +1841,6 @@ RoutingProtocol::ComputeRoute ()
 
     RemoveTimeOut (); //Remove Stale Tuple
 
-    /*
-    Vector3D lcPosition = m_mobility->GetPosition ();
-    std::map<double,Ipv4Address> dis2Ip;
-    std::vector<Ipv4Address> numBitmapIp;
-
-    for (std::map<Ipv4Address,CarInfo>::iterator cit = m_lc_info.begin (); cit != m_lc_info.end (); ++cit)
-    {
-        dis2Ip.insert(std::map<double,Ipv4Address>::value_type((cit->second.GetPos().x-lcPosition.x),cit->first));
-    }
-
-    numBitmapIp.clear();
-    for (std::map<double,Ipv4Address>::iterator cit = dis2Ip.begin (); cit != dis2Ip.end (); ++cit)
-    {
-        numBitmapIp.push_back(cit->second);
-        if(cit->first<=900)
-         roadendAddress = cit->second;
-    }
-    if(dis2Ip.size()>=1)//because it will compute once before everything start and size can be 0
-    {
-        transferAddress = dis2Ip.begin()->second;
-        //std::cout<<"ku"<<m_CCHmainAddress.Get()%256<<roadendAddress.Get()%256<<" "<<transferAddress.Get()%256<<std::endl;
-    }
-
-    Edge edge[max_car_number*max_car_number];     // ä¿å­è¾¹çå¼
-    //memset(edge,max_car_number,sizeof(edge));
-    for(int t=0;t<max_car_number*max_car_number;t++)
-    {
-        edge[t].weight=MAX;
-    }
-    int k=0;
-    for(std::map<double,Ipv4Address>::iterator citi = dis2Ip.begin(); citi != dis2Ip.end(); ++citi)
-    {
-        for(std::map<double,Ipv4Address>::iterator citj = citi; citj != dis2Ip.end(); ++citj)
-        {
-            if(citi != citj)
-            {
-                if(abs(citj->first - citi->first)<SIGNAL_RANGE)
-                {
-                    edge[k].u=find(numBitmapIp.begin(),numBitmapIp.end(),citi->second)-numBitmapIp.begin();//Ipv4Address need to overwrite ==
-                    edge[k].v=find(numBitmapIp.begin(),numBitmapIp.end(),citj->second)-numBitmapIp.begin();
-                    edge[k].weight=1;
-                    //std::cout<<numBitmapIp[edge[k].u].Get()%256<<" "<<numBitmapIp[edge[k].v].Get()%256<<std::endl;
-                    ++k;
-                    //cout<<find(numBitmapIp.begin(),numBitmapIp.end(),citj->second)-numBitmapIp.begin()<<endl;
-                }
-            }
-        }
-    }
-    //std::cout<<k<<" 123"<<std::endl;
-
-//...........
-    //calculate the shortest distance using bellman-ford algorithm  -- todo
-    int listsize=numBitmapIp.size();
-    for(int i=0; i<listsize; i++)
-    {
-        //Bellman_Ford();
-        //define
-        int dist[max_car_number];
-        int pre[max_car_number];
-        //initialzing;
-        int nodenum=listsize;
-        int edgenum=k;
-
-        //memset(dist,MAX,max_car_number);
-        for(int t=0;t<max_car_number;t++)
-                dist[t]=MAX;
-        dist[i]=0;
-
-        for(int t=0; t<max_car_number;t++)
-                pre[t]=t;
-
-        //relax:
-        for(int t=0; t<nodenum-1; ++t)
-        {
-            for(int j=0; j<edgenum; ++j)
-            {
-                //std::cout<<dist[edge[j].v]<<" "<<dist[edge[j].u]<<" "<<numBitmapIp[t].Get()%256<<" "<<edge[j].weight<<"!!!!!"<<std::endl;
-                if(dist[edge[j].v] > dist[edge[j].u] + edge[j].weight)
-                {
-                    dist[edge[j].v] = dist[edge[j].u] + edge[j].weight;
-                    pre[edge[j].v]=edge[j].u;
-                    //std::cout<<"8888 "<<edge[j].u<<" "<<edge[j].v<<std::endl;
-                }
-            }
-        }
-
-
-        bool flag = 1;
-
-        if(edgenum!=0)
-			for(int t=1; t<=edgenum; ++t)
-			{
-
-				if(dist[edge[t].v] > dist[edge[t].u] + edge[t].weight)
-				{
-					//std::cout<<edge[t].v<<":"<<dist[edge[t].v]<<" "<<edge[t].u<<":"<<dist[edge[t].u]<<" "<<t<<"?????"<<std::endl;
-					flag = 0;
-					break;
-				}
-			}
-
-        if(!flag)
-        {
-            std::cout<<"ERROR: There is a negative weight edge in the VANETs!!"<<std::endl;
-        }
-
-        Ipv4Address mask("255.255.0.0");
-        //std::cout<<i<<" "<<listsize<<" 77777"<<std::endl;
-        std::cout<<"rout: "<<m_CCHmainAddress.Get()<<std::endl;
-        for(int t=1; t<listsize; t++)
-        {
-            int root = t;
-            while(root != pre[root])
-            {
-            	//if(m_CCHmainAddress.Get()%256==244)
-                   std::cout<<pre[root]<<":"<<"["<<numBitmapIp[pre[root]].Get()<<"]"<<"->"<<t<<":"<<"["<<numBitmapIp[t].Get()<<"]"<<"  crossing"<<root<<":"<<"["<<numBitmapIp[root].Get()<<"]"<<std::endl;
-                LCAddEntry (numBitmapIp[pre[root]], numBitmapIp[t], mask, numBitmapIp[root]);//todo
-                root = pre [root];
-            }
-        }
-    }
-    */
     std::cout<<"in compute route"<<std::endl;
    compute_possive();
    //compute_negative();
