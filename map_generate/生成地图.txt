@@ -1,4 +1,4 @@
-1   /sumo-win32-0.24.0/sumo-0.24.0/bin/netgenerate --grid --grid.number=5 --grid.length=1000 -L 5  --output-file=output/input_net.net.xml --no-internal-links true -j traffic_light -S 20
+1   /sumo-win32-0.24.0/sumo-0.24.0/bin/netgenerate --grid --grid.number=4 --grid.length=1000 -L 2  --output-file=input_net.net.xml --no-internal-links true  -S 20
 
 --grid 网格状路
 --grid.number x边和y边分别由多少个点构成
@@ -16,9 +16,9 @@
 /sumo-win32-0.24.0/sumo-0.24.0/bin/netgenerate --rand -o input_net.net.xml --rand.iterations=200
 
 2 生成旅行信息trips.trips.xml
-python F:/sumo-win32-0.24.0/sumo-0.24.0/tools/randomTrips.py -n input_net.net.xml -e 10 -p 0.01 
+python F:/sumo-win32-0.24.0/sumo-0.24.0/tools/randomTrips.py -n input_net.net.xml -e 50 -p 0.1 
 
--e 车出现的所用时间
+-e 车全部出现的所用时间
 -p 发车间隔
 
 3 生成路径信息routes.rou.xml
