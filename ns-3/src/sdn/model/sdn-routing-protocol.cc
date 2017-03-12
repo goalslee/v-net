@@ -2015,7 +2015,7 @@ void  RoutingProtocol::compute_possive()
             if(temp.first+m_signal_range>iter->first)
             {
                 std::map<double,Ipv4Address>::iterator it_temp=iter;
-                if(++it_temp)==dis.end())
+                if(++it_temp==dis.end())
                 {
                     chose.push_back(target);
                     break;
