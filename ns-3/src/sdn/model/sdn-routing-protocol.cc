@@ -769,7 +769,7 @@ if(rev==false) return;
       m_lc_info[ID] = CI_temp;
       
       if(CI_temp.dir==sdn::POSITIVE) m_lc_positive_info[ID]=CI_temp;
-      else m_lc_negative_info[ID]=CI_temp;
+      //else m_lc_negative_info[ID]=CI_temp;
     }
 /*
     if(haveSource&&m_sourceAddress==ID)
