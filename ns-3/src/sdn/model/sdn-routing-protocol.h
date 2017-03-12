@@ -383,7 +383,7 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   void ProcessRm (const sdn::MessageHeader &msg);//implemented
   void ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &senderIface); //implemented
   void ProcessCRREQ (const sdn::MessageHeader &msg);
-  void ProcessCRREP (const sdn::MessageHeader &msg);
+  void ProcessCRREP (Ipv4Address transfer,enum direction dir);
   void ProcessAodvRm(const sdn::MessageHeader &msg);
   void ProcessAodvRERm(const sdn::MessageHeader &msg);
   void SetAodvParm(uint32_t jump,float sta);

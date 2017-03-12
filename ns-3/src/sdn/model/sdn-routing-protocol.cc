@@ -1309,9 +1309,9 @@ RoutingProtocol::RmTimerExpire ()
 
   if (GetType () == LOCAL_CONTROLLER)
   {
-      ClearAllTables();//std::cout<<"1:"<<std::endl;
-      ComputeRoute ();//std::cout<<"2:"<<std::endl;
-      SendRoutingMessage ();//std::cout<<"3:"<<std::endl;
+     // ClearAllTables();//std::cout<<"1:"<<std::endl;
+     // ComputeRoute ();//std::cout<<"2:"<<std::endl;
+      //SendRoutingMessage ();//std::cout<<"3:"<<std::endl;
       //m_rmTimer.Schedule (m_rmInterval);//std::cout<<"4:"<<std::endl;
   }
 }
@@ -1451,7 +1451,7 @@ RoutingProtocol::SendRoutingMessage (enum direction dir)
   for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
        cit != m_lc_info.end (); ++cit)
     {
-    if(cit->dir==dir){
+    if(cit->second.dir==dir){
       sdn::MessageHeader msg;
       Time now = Simulator::Now ();
       msg.SetVTime (m_helloInterval);
@@ -1800,7 +1800,7 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 
 	  QueueMessage (msg, JITTER);
 
-          SendRoutingMessage();
+          SendRoutingMessage(m_incomeDesParm.desdir);
 	
 }
 
