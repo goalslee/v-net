@@ -156,6 +156,7 @@ void VanetSim::LoadTraffic()
 	VMo=mobilityHelper.GetSumoMObility(sumo_net,sumo_route,sumo_fcd);
 
 	nodeNum = VMo->GetNodeSize();
+	std::cout<<"nodeNum"<<std::endl;
 	os<<"Mode:  "<<m_todo<<"DataSet:  "<<m_ds<<std::endl;
 }
 
