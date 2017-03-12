@@ -1571,6 +1571,7 @@ else{
 
 
 	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
+	             std::cout<<"des get pt "<<std::endl;
                          if(!haveSink){
                             haveSink=true;
                             m_sinkAddress=aodvrm.DesId;
@@ -1628,7 +1629,7 @@ if(out==sdn::POSITIVE)
 		  Aodvrm.Originator=m_CCHmainAddress;
 		  Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 		   Aodvrm.dir=out;
-		   std::cout<<"forwarding..."<<std::endl;
+		   std::cout<<"POSITIVE forwarding..."<<std::endl;
 		  QueueMessage (mesg, JITTER);
 		 }
 	 }
@@ -1661,7 +1662,7 @@ else{
 		  Aodvrm.Originator=m_CCHmainAddress;
 		  Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 		   Aodvrm.dir=out;
-		   std::cout<<"forwarding..."<<std::endl;
+		   std::cout<<"NEGATIVE forwarding..."<<std::endl;
 		  QueueMessage (mesg, JITTER);
 		 }
 	 }
@@ -1680,7 +1681,8 @@ else{
             m_incomeDesParm.stability=aodvrm.stability;
             m_incomeDesParm.m_sourceId=aodvrm.ID;
 	   m_incomeDesParm.m_desId=aodvrm.DesId;
-            m_incomeDesParm.lastdir=aodvrm.dir;//记录上一跳的方向         
+            m_incomeDesParm.lastdir=aodvrm.dir;//记录上一跳的方向
+             m_incomeDesParm.lastIP=aodvrm..Originator;
         }
         
       }
@@ -1763,13 +1765,9 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	  msg.SetTimeToLive (1234);
 	  msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 	  sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = msg.GetAodv_R_Rm();
-
-
-
 	  
 	  Aodv_r_rm.ID=m_incomeDesParm.m_sourceId; 
 	  Aodv_r_rm.DesId=m_incomeDesParm.m_desId;
-
 
 	        if(m_incomeDesParm.desdir==sdn::POSITIVE)
 	            Aodv_r_rm.FirstCarId=transferAddress_possitive;
