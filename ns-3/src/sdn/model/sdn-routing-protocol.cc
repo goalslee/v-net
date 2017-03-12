@@ -1995,9 +1995,10 @@ void  RoutingProtocol::compute_possive()
     {
        std::cout<<"2"<<std::endl;
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
+        std::cout<<"3"<<std::endl;
         while(++iter!=dis.end())
         {
-        std::cout<<"3"<<std::endl;
+        std::cout<<"4"<<std::endl;
             std::pair<double,Ipv4Address> target=*iter;
             if(temp.first+m_signal_range>iter->first)
             {
@@ -2023,7 +2024,7 @@ void  RoutingProtocol::compute_possive()
             //break;
         }
         temp=*chose.rbegin();
-    }
+    }//while(temp.first+m...
     std::cout<<"1"<<std::endl;
     roadendAddress_possitive=chose.rbegin()->second;
     Ipv4Address mask("255.255.0.0");
