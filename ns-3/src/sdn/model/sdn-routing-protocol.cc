@@ -882,8 +882,9 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
                             if(it1!=m_lc_positive_info.end()) m_lc_positive_info.erase(it1);
                             if(it2!=m_lc_negative_info.end()) m_lc_negative_info.erase(it2);
              
-               ComputeRoute();
+               
                std::cout<<"handle request ,IP is "<<m_CCHmainAddress<<std::endl;
+               ComputeRoute();
 	     sdn::MessageHeader mesg;
 		 //std::cout<<"forwarding..."<<std::endl;
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
