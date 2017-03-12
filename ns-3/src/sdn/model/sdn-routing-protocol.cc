@@ -749,12 +749,13 @@ if(rev==false) return;
       CI_temp.Velocity = msg.GetHello ().GetVelocity ();
       if(m_roadtype==sdn::ROW)
       {
-        if(CI_temp.Velocity.x>=0.0) {CI_temp.dir=sdn::POSITIVE;
-        //std::cout<<"possitive"<<std::endl;
-        }
-        else {CI_temp.dir=sdn::NEGATIVE;
-
-        }
+            if(CI_temp.Velocity.x>=0.0)
+            {
+                CI_temp.dir=sdn::POSITIVE;
+            }
+            else {
+                CI_temp.dir=sdn::NEGATIVE;
+             }
       }
       else if(m_roadtype==sdn::COLUMN)
       {
