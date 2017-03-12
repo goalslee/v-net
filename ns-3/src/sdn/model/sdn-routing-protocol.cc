@@ -732,11 +732,11 @@ if(rev==false) return;
       }
       else if(iter2 != m_lc_negative_info.end ())
       {
-      iter->second.Active = true;
-      iter->second.LastActive = Simulator::Now ();
-      iter->second.Position = msg.GetHello ().GetPosition ();
-      iter->second.Velocity = msg.GetHello ().GetVelocity ();
-      iter->second.minhop = 0;        
+      iter2->second.Active = true;
+      iter2->second.LastActive = Simulator::Now ();
+      iter2->second.Position = msg.GetHello ().GetPosition ();
+      iter2->second.Velocity = msg.GetHello ().GetVelocity ();
+      iter2->second.minhop = 0;        
       }
       
     }
@@ -769,7 +769,7 @@ if(rev==false) return;
       m_lc_info[ID] = CI_temp;
       
       if(CI_temp.dir==sdn::POSITIVE) m_lc_positive_info[ID]=CI_temp;
-      //else m_lc_negative_info[ID]=CI_temp;
+      else m_lc_negative_info[ID]=CI_temp;
     }
 /*
     if(haveSource&&m_sourceAddress==ID)
