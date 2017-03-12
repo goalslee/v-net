@@ -2016,6 +2016,7 @@ void  RoutingProtocol::compute_possive()
             }
 
         }
+        std::cout<<"5"<<std::endl;
         if(temp==*chose.rbegin())
         {
             std::cout<<"no valid connect"<<std::endl;
