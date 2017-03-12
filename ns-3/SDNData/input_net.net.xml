@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/03/17 22:59:44 by SUMO netgenerate Version 0.26.0
+<!-- generated on 03/12/17 22:09:40 by SUMO netgenerate Version 0.26.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -22,7 +22,6 @@
     <building_defaults>
         <default.lanenumber value="2"/>
         <default.speed value="20"/>
-        <default-junction-type value="traffic_light"/>
     </building_defaults>
 
 </configuration>
@@ -225,136 +224,7 @@
         <lane id="3/3to3/2_1" index="1" speed="20.00" length="1000.00" shape="2998.35,2993.45 2998.35,2008.05"/>
     </edge>
 
-    <tlLogic id="0/0" type="static" programID="0" offset="0">
-        <phase duration="39" state="GGgGGr"/>
-        <phase duration="6" state="yyyyyr"/>
-        <phase duration="39" state="GGrGGg"/>
-        <phase duration="6" state="yyryyy"/>
-    </tlLogic>
-    <tlLogic id="0/1" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGggrrrGGGg"/>
-        <phase duration="6" state="yyggrrryyyg"/>
-        <phase duration="6" state="rrGGrrrrrrG"/>
-        <phase duration="6" state="rryyrrrrrry"/>
-        <phase duration="33" state="rrrrGGgGrrr"/>
-        <phase duration="6" state="rrrryyyyrrr"/>
-    </tlLogic>
-    <tlLogic id="0/2" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGggrrrGGGg"/>
-        <phase duration="6" state="yyggrrryyyg"/>
-        <phase duration="6" state="rrGGrrrrrrG"/>
-        <phase duration="6" state="rryyrrrrrry"/>
-        <phase duration="33" state="rrrrGGgGrrr"/>
-        <phase duration="6" state="rrrryyyyrrr"/>
-    </tlLogic>
-    <tlLogic id="0/3" type="static" programID="0" offset="0">
-        <phase duration="39" state="GGgGGr"/>
-        <phase duration="6" state="yyyyyr"/>
-        <phase duration="39" state="GGrGGg"/>
-        <phase duration="6" state="yyryyy"/>
-    </tlLogic>
-    <tlLogic id="1/0" type="static" programID="0" offset="0">
-        <phase duration="33" state="rrrGGGgGGgg"/>
-        <phase duration="6" state="rrryyygyygg"/>
-        <phase duration="6" state="rrrrrrGrrGG"/>
-        <phase duration="6" state="rrrrrryrryy"/>
-        <phase duration="33" state="GGgGrrrrrrr"/>
-        <phase duration="6" state="yyyyrrrrrrr"/>
-    </tlLogic>
-    <tlLogic id="1/1" type="static" programID="0" offset="0">
-        <phase duration="27" state="GGGggrrrrGGGggrrrr"/>
-        <phase duration="6" state="yyyggrrrryyyggrrrr"/>
-        <phase duration="6" state="rrrGGrrrrrrrGGrrrr"/>
-        <phase duration="6" state="rrryyrrrrrrryyrrrr"/>
-        <phase duration="27" state="rrrrrGGggrrrrrGGgg"/>
-        <phase duration="6" state="rrrrryyggrrrrryygg"/>
-        <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
-        <phase duration="6" state="rrrrrrryyrrrrrrryy"/>
-    </tlLogic>
-    <tlLogic id="1/2" type="static" programID="0" offset="0">
-        <phase duration="27" state="GGGggrrrrGGGggrrrr"/>
-        <phase duration="6" state="yyyggrrrryyyggrrrr"/>
-        <phase duration="6" state="rrrGGrrrrrrrGGrrrr"/>
-        <phase duration="6" state="rrryyrrrrrrryyrrrr"/>
-        <phase duration="27" state="rrrrrGGggrrrrrGGgg"/>
-        <phase duration="6" state="rrrrryyggrrrrryygg"/>
-        <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
-        <phase duration="6" state="rrrrrrryyrrrrrrryy"/>
-    </tlLogic>
-    <tlLogic id="1/3" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGggrrrGGGg"/>
-        <phase duration="6" state="yyggrrryyyg"/>
-        <phase duration="6" state="rrGGrrrrrrG"/>
-        <phase duration="6" state="rryyrrrrrry"/>
-        <phase duration="33" state="rrrrGGgGrrr"/>
-        <phase duration="6" state="rrrryyyyrrr"/>
-    </tlLogic>
-    <tlLogic id="2/0" type="static" programID="0" offset="0">
-        <phase duration="33" state="rrrGGGgGGgg"/>
-        <phase duration="6" state="rrryyygyygg"/>
-        <phase duration="6" state="rrrrrrGrrGG"/>
-        <phase duration="6" state="rrrrrryrryy"/>
-        <phase duration="33" state="GGgGrrrrrrr"/>
-        <phase duration="6" state="yyyyrrrrrrr"/>
-    </tlLogic>
-    <tlLogic id="2/1" type="static" programID="0" offset="0">
-        <phase duration="27" state="GGGggrrrrGGGggrrrr"/>
-        <phase duration="6" state="yyyggrrrryyyggrrrr"/>
-        <phase duration="6" state="rrrGGrrrrrrrGGrrrr"/>
-        <phase duration="6" state="rrryyrrrrrrryyrrrr"/>
-        <phase duration="27" state="rrrrrGGggrrrrrGGgg"/>
-        <phase duration="6" state="rrrrryyggrrrrryygg"/>
-        <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
-        <phase duration="6" state="rrrrrrryyrrrrrrryy"/>
-    </tlLogic>
-    <tlLogic id="2/2" type="static" programID="0" offset="0">
-        <phase duration="27" state="GGGggrrrrGGGggrrrr"/>
-        <phase duration="6" state="yyyggrrrryyyggrrrr"/>
-        <phase duration="6" state="rrrGGrrrrrrrGGrrrr"/>
-        <phase duration="6" state="rrryyrrrrrrryyrrrr"/>
-        <phase duration="27" state="rrrrrGGggrrrrrGGgg"/>
-        <phase duration="6" state="rrrrryyggrrrrryygg"/>
-        <phase duration="6" state="rrrrrrrGGrrrrrrrGG"/>
-        <phase duration="6" state="rrrrrrryyrrrrrrryy"/>
-    </tlLogic>
-    <tlLogic id="2/3" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGggrrrGGGg"/>
-        <phase duration="6" state="yyggrrryyyg"/>
-        <phase duration="6" state="rrGGrrrrrrG"/>
-        <phase duration="6" state="rryyrrrrrry"/>
-        <phase duration="33" state="rrrrGGgGrrr"/>
-        <phase duration="6" state="rrrryyyyrrr"/>
-    </tlLogic>
-    <tlLogic id="3/0" type="static" programID="0" offset="0">
-        <phase duration="39" state="GGgGGr"/>
-        <phase duration="6" state="yyyyyr"/>
-        <phase duration="39" state="GGrGGg"/>
-        <phase duration="6" state="yyryyy"/>
-    </tlLogic>
-    <tlLogic id="3/1" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGGgGGggrrr"/>
-        <phase duration="6" state="yyygyyggrrr"/>
-        <phase duration="6" state="rrrGrrGGrrr"/>
-        <phase duration="6" state="rrryrryyrrr"/>
-        <phase duration="33" state="GrrrrrrrGGg"/>
-        <phase duration="6" state="yrrrrrrryyy"/>
-    </tlLogic>
-    <tlLogic id="3/2" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGGgGGggrrr"/>
-        <phase duration="6" state="yyygyyggrrr"/>
-        <phase duration="6" state="rrrGrrGGrrr"/>
-        <phase duration="6" state="rrryrryyrrr"/>
-        <phase duration="33" state="GrrrrrrrGGg"/>
-        <phase duration="6" state="yrrrrrrryyy"/>
-    </tlLogic>
-    <tlLogic id="3/3" type="static" programID="0" offset="0">
-        <phase duration="39" state="GGgGGr"/>
-        <phase duration="6" state="yyyyyr"/>
-        <phase duration="39" state="GGrGGg"/>
-        <phase duration="6" state="yyryyy"/>
-    </tlLogic>
-
-    <junction id="0/0" type="traffic_light" x="0.00" y="0.00" incLanes="0/1to0/0_0 0/1to0/0_1 1/0to0/0_0 1/0to0/0_1" intLanes="" shape="-6.55,6.55 6.55,6.55 6.55,-6.55">
+    <junction id="0/0" type="priority" x="0.00" y="0.00" incLanes="0/1to0/0_0 0/1to0/0_1 1/0to0/0_0 1/0to0/0_1" intLanes="" shape="-6.55,6.55 6.55,6.55 6.55,-6.55">
         <request index="0" response="000000" foes="100000"/>
         <request index="1" response="000000" foes="100000"/>
         <request index="2" response="011000" foes="011000"/>
@@ -362,7 +232,7 @@
         <request index="4" response="000000" foes="000100"/>
         <request index="5" response="000011" foes="000011"/>
     </junction>
-    <junction id="0/1" type="traffic_light" x="0.00" y="1000.00" incLanes="0/2to0/1_0 0/2to0/1_1 1/1to0/1_0 1/1to0/1_1 0/0to0/1_0 0/0to0/1_1" intLanes="" shape="-6.55,1008.05 6.55,1008.05 8.05,1006.55 8.05,993.45 6.55,991.95 -6.55,991.95">
+    <junction id="0/1" type="priority" x="0.00" y="1000.00" incLanes="0/2to0/1_0 0/2to0/1_1 1/1to0/1_0 1/1to0/1_1 0/0to0/1_0 0/0to0/1_1" intLanes="" shape="-6.55,1008.05 6.55,1008.05 8.05,1006.55 8.05,993.45 6.55,991.95 -6.55,991.95">
         <request index="0" response="00000000000" foes="10000100000"/>
         <request index="1" response="00000000000" foes="10000100000"/>
         <request index="2" response="01110000000" foes="01111100000"/>
@@ -375,7 +245,7 @@
         <request index="9" response="00000000000" foes="00000111100"/>
         <request index="10" response="00000100011" foes="00000100011"/>
     </junction>
-    <junction id="0/2" type="traffic_light" x="0.00" y="2000.00" incLanes="0/3to0/2_0 0/3to0/2_1 1/2to0/2_0 1/2to0/2_1 0/1to0/2_0 0/1to0/2_1" intLanes="" shape="-6.55,2008.05 6.55,2008.05 8.05,2006.55 8.05,1993.45 6.55,1991.95 -6.55,1991.95">
+    <junction id="0/2" type="priority" x="0.00" y="2000.00" incLanes="0/3to0/2_0 0/3to0/2_1 1/2to0/2_0 1/2to0/2_1 0/1to0/2_0 0/1to0/2_1" intLanes="" shape="-6.55,2008.05 6.55,2008.05 8.05,2006.55 8.05,1993.45 6.55,1991.95 -6.55,1991.95">
         <request index="0" response="00000000000" foes="10000100000"/>
         <request index="1" response="00000000000" foes="10000100000"/>
         <request index="2" response="01110000000" foes="01111100000"/>
@@ -388,7 +258,7 @@
         <request index="9" response="00000000000" foes="00000111100"/>
         <request index="10" response="00000100011" foes="00000100011"/>
     </junction>
-    <junction id="0/3" type="traffic_light" x="0.00" y="3000.00" incLanes="1/3to0/3_0 1/3to0/3_1 0/2to0/3_0 0/2to0/3_1" intLanes="" shape="6.55,3006.55 6.55,2993.45 -6.55,2993.45">
+    <junction id="0/3" type="priority" x="0.00" y="3000.00" incLanes="1/3to0/3_0 1/3to0/3_1 0/2to0/3_0 0/2to0/3_1" intLanes="" shape="6.55,3006.55 6.55,2993.45 -6.55,2993.45">
         <request index="0" response="000000" foes="100000"/>
         <request index="1" response="000000" foes="100000"/>
         <request index="2" response="011000" foes="011000"/>
@@ -396,7 +266,7 @@
         <request index="4" response="000000" foes="000100"/>
         <request index="5" response="000011" foes="000011"/>
     </junction>
-    <junction id="1/0" type="traffic_light" x="1000.00" y="0.00" incLanes="1/1to1/0_0 1/1to1/0_1 2/0to1/0_0 2/0to1/0_1 0/0to1/0_0 0/0to1/0_1" intLanes="" shape="993.45,8.05 1006.55,8.05 1008.05,6.55 1008.05,-6.55 991.95,-6.55 991.95,6.55">
+    <junction id="1/0" type="priority" x="1000.00" y="0.00" incLanes="1/1to1/0_0 1/1to1/0_1 2/0to1/0_0 2/0to1/0_1 0/0to1/0_0 0/0to1/0_1" intLanes="" shape="993.45,8.05 1006.55,8.05 1008.05,6.55 1008.05,-6.55 991.95,-6.55 991.95,6.55">
         <request index="0" response="00000110000" foes="10000110000"/>
         <request index="1" response="01110110000" foes="01111110000"/>
         <request index="2" response="01000001000" foes="01000001000"/>
@@ -409,7 +279,7 @@
         <request index="9" response="00000111000" foes="00000111110"/>
         <request index="10" response="00000110001" foes="00000110001"/>
     </junction>
-    <junction id="1/1" type="traffic_light" x="1000.00" y="1000.00" incLanes="1/2to1/1_0 1/2to1/1_1 2/1to1/1_0 2/1to1/1_1 1/0to1/1_0 1/0to1/1_1 0/1to1/1_0 0/1to1/1_1" intLanes="" shape="993.45,1008.05 1006.55,1008.05 1008.05,1006.55 1008.05,993.45 1006.55,991.95 993.45,991.95 991.95,993.45 991.95,1006.55">
+    <junction id="1/1" type="priority" x="1000.00" y="1000.00" incLanes="1/2to1/1_0 1/2to1/1_1 2/1to1/1_0 2/1to1/1_1 1/0to1/1_0 1/0to1/1_1 0/1to1/1_0 0/1to1/1_1" intLanes="" shape="993.45,1008.05 1006.55,1008.05 1008.05,1006.55 1008.05,993.45 1006.55,991.95 993.45,991.95 991.95,993.45 991.95,1006.55">
         <request index="0" response="000000000000000000" foes="100001000001000000"/>
         <request index="1" response="000000000000000000" foes="011111000011000000"/>
         <request index="2" response="000000000000000000" foes="011111000011000000"/>
@@ -429,7 +299,7 @@
         <request index="16" response="000001110001101110" foes="000001110001111110"/>
         <request index="17" response="000001000001000001" foes="000001000001000001"/>
     </junction>
-    <junction id="1/2" type="traffic_light" x="1000.00" y="2000.00" incLanes="1/3to1/2_0 1/3to1/2_1 2/2to1/2_0 2/2to1/2_1 1/1to1/2_0 1/1to1/2_1 0/2to1/2_0 0/2to1/2_1" intLanes="" shape="993.45,2008.05 1006.55,2008.05 1008.05,2006.55 1008.05,1993.45 1006.55,1991.95 993.45,1991.95 991.95,1993.45 991.95,2006.55">
+    <junction id="1/2" type="priority" x="1000.00" y="2000.00" incLanes="1/3to1/2_0 1/3to1/2_1 2/2to1/2_0 2/2to1/2_1 1/1to1/2_0 1/1to1/2_1 0/2to1/2_0 0/2to1/2_1" intLanes="" shape="993.45,2008.05 1006.55,2008.05 1008.05,2006.55 1008.05,1993.45 1006.55,1991.95 993.45,1991.95 991.95,1993.45 991.95,2006.55">
         <request index="0" response="000000000000000000" foes="100001000001000000"/>
         <request index="1" response="000000000000000000" foes="011111000011000000"/>
         <request index="2" response="000000000000000000" foes="011111000011000000"/>
@@ -449,7 +319,7 @@
         <request index="16" response="000001110001101110" foes="000001110001111110"/>
         <request index="17" response="000001000001000001" foes="000001000001000001"/>
     </junction>
-    <junction id="1/3" type="traffic_light" x="1000.00" y="3000.00" incLanes="2/3to1/3_0 2/3to1/3_1 1/2to1/3_0 1/2to1/3_1 0/3to1/3_0 0/3to1/3_1" intLanes="" shape="1008.05,3006.55 1008.05,2993.45 1006.55,2991.95 993.45,2991.95 991.95,2993.45 991.95,3006.55">
+    <junction id="1/3" type="priority" x="1000.00" y="3000.00" incLanes="2/3to1/3_0 2/3to1/3_1 1/2to1/3_0 1/2to1/3_1 0/3to1/3_0 0/3to1/3_1" intLanes="" shape="1008.05,3006.55 1008.05,2993.45 1006.55,2991.95 993.45,2991.95 991.95,2993.45 991.95,3006.55">
         <request index="0" response="00000000000" foes="10000100000"/>
         <request index="1" response="00000000000" foes="10000100000"/>
         <request index="2" response="01110000000" foes="01111100000"/>
@@ -462,7 +332,7 @@
         <request index="9" response="00000000000" foes="00000111100"/>
         <request index="10" response="00000100011" foes="00000100011"/>
     </junction>
-    <junction id="2/0" type="traffic_light" x="2000.00" y="0.00" incLanes="2/1to2/0_0 2/1to2/0_1 3/0to2/0_0 3/0to2/0_1 1/0to2/0_0 1/0to2/0_1" intLanes="" shape="1993.45,8.05 2006.55,8.05 2008.05,6.55 2008.05,-6.55 1991.95,-6.55 1991.95,6.55">
+    <junction id="2/0" type="priority" x="2000.00" y="0.00" incLanes="2/1to2/0_0 2/1to2/0_1 3/0to2/0_0 3/0to2/0_1 1/0to2/0_0 1/0to2/0_1" intLanes="" shape="1993.45,8.05 2006.55,8.05 2008.05,6.55 2008.05,-6.55 1991.95,-6.55 1991.95,6.55">
         <request index="0" response="00000110000" foes="10000110000"/>
         <request index="1" response="01110110000" foes="01111110000"/>
         <request index="2" response="01000001000" foes="01000001000"/>
@@ -475,7 +345,7 @@
         <request index="9" response="00000111000" foes="00000111110"/>
         <request index="10" response="00000110001" foes="00000110001"/>
     </junction>
-    <junction id="2/1" type="traffic_light" x="2000.00" y="1000.00" incLanes="2/2to2/1_0 2/2to2/1_1 3/1to2/1_0 3/1to2/1_1 2/0to2/1_0 2/0to2/1_1 1/1to2/1_0 1/1to2/1_1" intLanes="" shape="1993.45,1008.05 2006.55,1008.05 2008.05,1006.55 2008.05,993.45 2006.55,991.95 1993.45,991.95 1991.95,993.45 1991.95,1006.55">
+    <junction id="2/1" type="priority" x="2000.00" y="1000.00" incLanes="2/2to2/1_0 2/2to2/1_1 3/1to2/1_0 3/1to2/1_1 2/0to2/1_0 2/0to2/1_1 1/1to2/1_0 1/1to2/1_1" intLanes="" shape="1993.45,1008.05 2006.55,1008.05 2008.05,1006.55 2008.05,993.45 2006.55,991.95 1993.45,991.95 1991.95,993.45 1991.95,1006.55">
         <request index="0" response="000000000000000000" foes="100001000001000000"/>
         <request index="1" response="000000000000000000" foes="011111000011000000"/>
         <request index="2" response="000000000000000000" foes="011111000011000000"/>
@@ -495,7 +365,7 @@
         <request index="16" response="000001110001101110" foes="000001110001111110"/>
         <request index="17" response="000001000001000001" foes="000001000001000001"/>
     </junction>
-    <junction id="2/2" type="traffic_light" x="2000.00" y="2000.00" incLanes="2/3to2/2_0 2/3to2/2_1 3/2to2/2_0 3/2to2/2_1 2/1to2/2_0 2/1to2/2_1 1/2to2/2_0 1/2to2/2_1" intLanes="" shape="1993.45,2008.05 2006.55,2008.05 2008.05,2006.55 2008.05,1993.45 2006.55,1991.95 1993.45,1991.95 1991.95,1993.45 1991.95,2006.55">
+    <junction id="2/2" type="priority" x="2000.00" y="2000.00" incLanes="2/3to2/2_0 2/3to2/2_1 3/2to2/2_0 3/2to2/2_1 2/1to2/2_0 2/1to2/2_1 1/2to2/2_0 1/2to2/2_1" intLanes="" shape="1993.45,2008.05 2006.55,2008.05 2008.05,2006.55 2008.05,1993.45 2006.55,1991.95 1993.45,1991.95 1991.95,1993.45 1991.95,2006.55">
         <request index="0" response="000000000000000000" foes="100001000001000000"/>
         <request index="1" response="000000000000000000" foes="011111000011000000"/>
         <request index="2" response="000000000000000000" foes="011111000011000000"/>
@@ -515,7 +385,7 @@
         <request index="16" response="000001110001101110" foes="000001110001111110"/>
         <request index="17" response="000001000001000001" foes="000001000001000001"/>
     </junction>
-    <junction id="2/3" type="traffic_light" x="2000.00" y="3000.00" incLanes="3/3to2/3_0 3/3to2/3_1 2/2to2/3_0 2/2to2/3_1 1/3to2/3_0 1/3to2/3_1" intLanes="" shape="2008.05,3006.55 2008.05,2993.45 2006.55,2991.95 1993.45,2991.95 1991.95,2993.45 1991.95,3006.55">
+    <junction id="2/3" type="priority" x="2000.00" y="3000.00" incLanes="3/3to2/3_0 3/3to2/3_1 2/2to2/3_0 2/2to2/3_1 1/3to2/3_0 1/3to2/3_1" intLanes="" shape="2008.05,3006.55 2008.05,2993.45 2006.55,2991.95 1993.45,2991.95 1991.95,2993.45 1991.95,3006.55">
         <request index="0" response="00000000000" foes="10000100000"/>
         <request index="1" response="00000000000" foes="10000100000"/>
         <request index="2" response="01110000000" foes="01111100000"/>
@@ -528,7 +398,7 @@
         <request index="9" response="00000000000" foes="00000111100"/>
         <request index="10" response="00000100011" foes="00000100011"/>
     </junction>
-    <junction id="3/0" type="traffic_light" x="3000.00" y="0.00" incLanes="3/1to3/0_0 3/1to3/0_1 2/0to3/0_0 2/0to3/0_1" intLanes="" shape="2993.45,6.55 3006.55,6.55 2993.45,-6.55 2993.45,6.55">
+    <junction id="3/0" type="priority" x="3000.00" y="0.00" incLanes="3/1to3/0_0 3/1to3/0_1 2/0to3/0_0 2/0to3/0_1" intLanes="" shape="2993.45,6.55 3006.55,6.55 2993.45,-6.55 2993.45,6.55">
         <request index="0" response="000000" foes="100000"/>
         <request index="1" response="000000" foes="100000"/>
         <request index="2" response="011000" foes="011000"/>
@@ -536,7 +406,7 @@
         <request index="4" response="000000" foes="000100"/>
         <request index="5" response="000011" foes="000011"/>
     </junction>
-    <junction id="3/1" type="traffic_light" x="3000.00" y="1000.00" incLanes="3/2to3/1_0 3/2to3/1_1 3/0to3/1_0 3/0to3/1_1 2/1to3/1_0 2/1to3/1_1" intLanes="" shape="2993.45,1008.05 3006.55,1008.05 3006.55,991.95 2993.45,991.95 2991.95,993.45 2991.95,1006.55">
+    <junction id="3/1" type="priority" x="3000.00" y="1000.00" incLanes="3/2to3/1_0 3/2to3/1_1 3/0to3/1_0 3/0to3/1_1 2/1to3/1_0 2/1to3/1_1" intLanes="" shape="2993.45,1008.05 3006.55,1008.05 3006.55,991.95 2993.45,991.95 2991.95,993.45 2991.95,1006.55">
         <request index="0" response="00000000000" foes="10001000000"/>
         <request index="1" response="00000000000" foes="01111000000"/>
         <request index="2" response="00000000000" foes="01111000000"/>
@@ -549,7 +419,7 @@
         <request index="9" response="00001110110" foes="00001111110"/>
         <request index="10" response="00001000001" foes="00001000001"/>
     </junction>
-    <junction id="3/2" type="traffic_light" x="3000.00" y="2000.00" incLanes="3/3to3/2_0 3/3to3/2_1 3/1to3/2_0 3/1to3/2_1 2/2to3/2_0 2/2to3/2_1" intLanes="" shape="2993.45,2008.05 3006.55,2008.05 3006.55,1991.95 2993.45,1991.95 2991.95,1993.45 2991.95,2006.55">
+    <junction id="3/2" type="priority" x="3000.00" y="2000.00" incLanes="3/3to3/2_0 3/3to3/2_1 3/1to3/2_0 3/1to3/2_1 2/2to3/2_0 2/2to3/2_1" intLanes="" shape="2993.45,2008.05 3006.55,2008.05 3006.55,1991.95 2993.45,1991.95 2991.95,1993.45 2991.95,2006.55">
         <request index="0" response="00000000000" foes="10001000000"/>
         <request index="1" response="00000000000" foes="01111000000"/>
         <request index="2" response="00000000000" foes="01111000000"/>
@@ -562,7 +432,7 @@
         <request index="9" response="00001110110" foes="00001111110"/>
         <request index="10" response="00001000001" foes="00001000001"/>
     </junction>
-    <junction id="3/3" type="traffic_light" x="3000.00" y="3000.00" incLanes="3/2to3/3_0 3/2to3/3_1 2/3to3/3_0 2/3to3/3_1" intLanes="" shape="3006.55,2993.45 2993.45,2993.45 2993.45,3006.55">
+    <junction id="3/3" type="priority" x="3000.00" y="3000.00" incLanes="3/2to3/3_0 3/2to3/3_1 2/3to3/3_0 2/3to3/3_1" intLanes="" shape="3006.55,2993.45 2993.45,2993.45 2993.45,3006.55">
         <request index="0" response="000000" foes="100000"/>
         <request index="1" response="000000" foes="100000"/>
         <request index="2" response="011000" foes="011000"/>
@@ -571,189 +441,189 @@
         <request index="5" response="000011" foes="000011"/>
     </junction>
 
-    <connection from="0/0to0/1" to="0/1to1/1" fromLane="0" toLane="0" tl="0/1" linkIndex="7" dir="r" state="o"/>
-    <connection from="0/0to0/1" to="0/1to0/2" fromLane="0" toLane="0" tl="0/1" linkIndex="8" dir="s" state="o"/>
-    <connection from="0/0to0/1" to="0/1to0/2" fromLane="1" toLane="1" tl="0/1" linkIndex="9" dir="s" state="o"/>
-    <connection from="0/0to0/1" to="0/1to0/0" fromLane="1" toLane="1" tl="0/1" linkIndex="10" dir="t" state="o"/>
-    <connection from="0/0to1/0" to="1/0to2/0" fromLane="0" toLane="0" tl="1/0" linkIndex="7" dir="s" state="o"/>
-    <connection from="0/0to1/0" to="1/0to2/0" fromLane="1" toLane="1" tl="1/0" linkIndex="8" dir="s" state="o"/>
-    <connection from="0/0to1/0" to="1/0to1/1" fromLane="1" toLane="1" tl="1/0" linkIndex="9" dir="l" state="o"/>
-    <connection from="0/0to1/0" to="1/0to0/0" fromLane="1" toLane="1" tl="1/0" linkIndex="10" dir="t" state="o"/>
-    <connection from="0/1to0/0" to="0/0to1/0" fromLane="0" toLane="0" tl="0/0" linkIndex="0" dir="l" state="o"/>
-    <connection from="0/1to0/0" to="0/0to1/0" fromLane="1" toLane="1" tl="0/0" linkIndex="1" dir="l" state="o"/>
-    <connection from="0/1to0/0" to="0/0to0/1" fromLane="1" toLane="1" tl="0/0" linkIndex="2" dir="t" state="o"/>
-    <connection from="0/1to0/2" to="0/2to1/2" fromLane="0" toLane="0" tl="0/2" linkIndex="7" dir="r" state="o"/>
-    <connection from="0/1to0/2" to="0/2to0/3" fromLane="0" toLane="0" tl="0/2" linkIndex="8" dir="s" state="o"/>
-    <connection from="0/1to0/2" to="0/2to0/3" fromLane="1" toLane="1" tl="0/2" linkIndex="9" dir="s" state="o"/>
-    <connection from="0/1to0/2" to="0/2to0/1" fromLane="1" toLane="1" tl="0/2" linkIndex="10" dir="t" state="o"/>
-    <connection from="0/1to1/1" to="1/1to1/0" fromLane="0" toLane="0" tl="1/1" linkIndex="14" dir="r" state="o"/>
-    <connection from="0/1to1/1" to="1/1to2/1" fromLane="1" toLane="1" tl="1/1" linkIndex="15" dir="s" state="o"/>
-    <connection from="0/1to1/1" to="1/1to1/2" fromLane="1" toLane="1" tl="1/1" linkIndex="16" dir="l" state="o"/>
-    <connection from="0/1to1/1" to="1/1to0/1" fromLane="1" toLane="1" tl="1/1" linkIndex="17" dir="t" state="o"/>
-    <connection from="0/2to0/1" to="0/1to0/0" fromLane="0" toLane="0" tl="0/1" linkIndex="0" dir="s" state="o"/>
-    <connection from="0/2to0/1" to="0/1to0/0" fromLane="1" toLane="1" tl="0/1" linkIndex="1" dir="s" state="o"/>
-    <connection from="0/2to0/1" to="0/1to1/1" fromLane="1" toLane="1" tl="0/1" linkIndex="2" dir="l" state="o"/>
-    <connection from="0/2to0/1" to="0/1to0/2" fromLane="1" toLane="1" tl="0/1" linkIndex="3" dir="t" state="o"/>
-    <connection from="0/2to0/3" to="0/3to1/3" fromLane="0" toLane="0" tl="0/3" linkIndex="3" dir="r" state="o"/>
-    <connection from="0/2to0/3" to="0/3to1/3" fromLane="1" toLane="1" tl="0/3" linkIndex="4" dir="r" state="o"/>
-    <connection from="0/2to0/3" to="0/3to0/2" fromLane="1" toLane="1" tl="0/3" linkIndex="5" dir="t" state="o"/>
-    <connection from="0/2to1/2" to="1/2to1/1" fromLane="0" toLane="0" tl="1/2" linkIndex="14" dir="r" state="o"/>
-    <connection from="0/2to1/2" to="1/2to2/2" fromLane="1" toLane="1" tl="1/2" linkIndex="15" dir="s" state="o"/>
-    <connection from="0/2to1/2" to="1/2to1/3" fromLane="1" toLane="1" tl="1/2" linkIndex="16" dir="l" state="o"/>
-    <connection from="0/2to1/2" to="1/2to0/2" fromLane="1" toLane="1" tl="1/2" linkIndex="17" dir="t" state="o"/>
-    <connection from="0/3to0/2" to="0/2to0/1" fromLane="0" toLane="0" tl="0/2" linkIndex="0" dir="s" state="o"/>
-    <connection from="0/3to0/2" to="0/2to0/1" fromLane="1" toLane="1" tl="0/2" linkIndex="1" dir="s" state="o"/>
-    <connection from="0/3to0/2" to="0/2to1/2" fromLane="1" toLane="1" tl="0/2" linkIndex="2" dir="l" state="o"/>
-    <connection from="0/3to0/2" to="0/2to0/3" fromLane="1" toLane="1" tl="0/2" linkIndex="3" dir="t" state="o"/>
-    <connection from="0/3to1/3" to="1/3to1/2" fromLane="0" toLane="0" tl="1/3" linkIndex="7" dir="r" state="o"/>
-    <connection from="0/3to1/3" to="1/3to2/3" fromLane="0" toLane="0" tl="1/3" linkIndex="8" dir="s" state="o"/>
-    <connection from="0/3to1/3" to="1/3to2/3" fromLane="1" toLane="1" tl="1/3" linkIndex="9" dir="s" state="o"/>
-    <connection from="0/3to1/3" to="1/3to0/3" fromLane="1" toLane="1" tl="1/3" linkIndex="10" dir="t" state="o"/>
-    <connection from="1/0to0/0" to="0/0to0/1" fromLane="0" toLane="0" tl="0/0" linkIndex="3" dir="r" state="o"/>
-    <connection from="1/0to0/0" to="0/0to0/1" fromLane="1" toLane="1" tl="0/0" linkIndex="4" dir="r" state="o"/>
-    <connection from="1/0to0/0" to="0/0to1/0" fromLane="1" toLane="1" tl="0/0" linkIndex="5" dir="t" state="o"/>
-    <connection from="1/0to1/1" to="1/1to2/1" fromLane="0" toLane="0" tl="1/1" linkIndex="9" dir="r" state="o"/>
-    <connection from="1/0to1/1" to="1/1to1/2" fromLane="0" toLane="0" tl="1/1" linkIndex="10" dir="s" state="o"/>
-    <connection from="1/0to1/1" to="1/1to1/2" fromLane="1" toLane="1" tl="1/1" linkIndex="11" dir="s" state="o"/>
-    <connection from="1/0to1/1" to="1/1to0/1" fromLane="1" toLane="1" tl="1/1" linkIndex="12" dir="l" state="o"/>
-    <connection from="1/0to1/1" to="1/1to1/0" fromLane="1" toLane="1" tl="1/1" linkIndex="13" dir="t" state="o"/>
-    <connection from="1/0to2/0" to="2/0to3/0" fromLane="0" toLane="0" tl="2/0" linkIndex="7" dir="s" state="o"/>
-    <connection from="1/0to2/0" to="2/0to3/0" fromLane="1" toLane="1" tl="2/0" linkIndex="8" dir="s" state="o"/>
-    <connection from="1/0to2/0" to="2/0to2/1" fromLane="1" toLane="1" tl="2/0" linkIndex="9" dir="l" state="o"/>
-    <connection from="1/0to2/0" to="2/0to1/0" fromLane="1" toLane="1" tl="2/0" linkIndex="10" dir="t" state="o"/>
-    <connection from="1/1to0/1" to="0/1to0/2" fromLane="0" toLane="0" tl="0/1" linkIndex="4" dir="r" state="o"/>
-    <connection from="1/1to0/1" to="0/1to0/0" fromLane="1" toLane="1" tl="0/1" linkIndex="5" dir="l" state="o"/>
-    <connection from="1/1to0/1" to="0/1to1/1" fromLane="1" toLane="1" tl="0/1" linkIndex="6" dir="t" state="o"/>
-    <connection from="1/1to1/0" to="1/0to0/0" fromLane="0" toLane="0" tl="1/0" linkIndex="0" dir="r" state="o"/>
-    <connection from="1/1to1/0" to="1/0to2/0" fromLane="1" toLane="1" tl="1/0" linkIndex="1" dir="l" state="o"/>
-    <connection from="1/1to1/0" to="1/0to1/1" fromLane="1" toLane="1" tl="1/0" linkIndex="2" dir="t" state="o"/>
-    <connection from="1/1to1/2" to="1/2to2/2" fromLane="0" toLane="0" tl="1/2" linkIndex="9" dir="r" state="o"/>
-    <connection from="1/1to1/2" to="1/2to1/3" fromLane="0" toLane="0" tl="1/2" linkIndex="10" dir="s" state="o"/>
-    <connection from="1/1to1/2" to="1/2to1/3" fromLane="1" toLane="1" tl="1/2" linkIndex="11" dir="s" state="o"/>
-    <connection from="1/1to1/2" to="1/2to0/2" fromLane="1" toLane="1" tl="1/2" linkIndex="12" dir="l" state="o"/>
-    <connection from="1/1to1/2" to="1/2to1/1" fromLane="1" toLane="1" tl="1/2" linkIndex="13" dir="t" state="o"/>
-    <connection from="1/1to2/1" to="2/1to2/0" fromLane="0" toLane="0" tl="2/1" linkIndex="14" dir="r" state="o"/>
-    <connection from="1/1to2/1" to="2/1to3/1" fromLane="1" toLane="1" tl="2/1" linkIndex="15" dir="s" state="o"/>
-    <connection from="1/1to2/1" to="2/1to2/2" fromLane="1" toLane="1" tl="2/1" linkIndex="16" dir="l" state="o"/>
-    <connection from="1/1to2/1" to="2/1to1/1" fromLane="1" toLane="1" tl="2/1" linkIndex="17" dir="t" state="o"/>
-    <connection from="1/2to0/2" to="0/2to0/3" fromLane="0" toLane="0" tl="0/2" linkIndex="4" dir="r" state="o"/>
-    <connection from="1/2to0/2" to="0/2to0/1" fromLane="1" toLane="1" tl="0/2" linkIndex="5" dir="l" state="o"/>
-    <connection from="1/2to0/2" to="0/2to1/2" fromLane="1" toLane="1" tl="0/2" linkIndex="6" dir="t" state="o"/>
-    <connection from="1/2to1/1" to="1/1to0/1" fromLane="0" toLane="0" tl="1/1" linkIndex="0" dir="r" state="o"/>
-    <connection from="1/2to1/1" to="1/1to1/0" fromLane="0" toLane="0" tl="1/1" linkIndex="1" dir="s" state="o"/>
-    <connection from="1/2to1/1" to="1/1to1/0" fromLane="1" toLane="1" tl="1/1" linkIndex="2" dir="s" state="o"/>
-    <connection from="1/2to1/1" to="1/1to2/1" fromLane="1" toLane="1" tl="1/1" linkIndex="3" dir="l" state="o"/>
-    <connection from="1/2to1/1" to="1/1to1/2" fromLane="1" toLane="1" tl="1/1" linkIndex="4" dir="t" state="o"/>
-    <connection from="1/2to1/3" to="1/3to2/3" fromLane="0" toLane="0" tl="1/3" linkIndex="4" dir="r" state="o"/>
-    <connection from="1/2to1/3" to="1/3to0/3" fromLane="1" toLane="1" tl="1/3" linkIndex="5" dir="l" state="o"/>
-    <connection from="1/2to1/3" to="1/3to1/2" fromLane="1" toLane="1" tl="1/3" linkIndex="6" dir="t" state="o"/>
-    <connection from="1/2to2/2" to="2/2to2/1" fromLane="0" toLane="0" tl="2/2" linkIndex="14" dir="r" state="o"/>
-    <connection from="1/2to2/2" to="2/2to3/2" fromLane="1" toLane="1" tl="2/2" linkIndex="15" dir="s" state="o"/>
-    <connection from="1/2to2/2" to="2/2to2/3" fromLane="1" toLane="1" tl="2/2" linkIndex="16" dir="l" state="o"/>
-    <connection from="1/2to2/2" to="2/2to1/2" fromLane="1" toLane="1" tl="2/2" linkIndex="17" dir="t" state="o"/>
-    <connection from="1/3to0/3" to="0/3to0/2" fromLane="0" toLane="0" tl="0/3" linkIndex="0" dir="l" state="o"/>
-    <connection from="1/3to0/3" to="0/3to0/2" fromLane="1" toLane="1" tl="0/3" linkIndex="1" dir="l" state="o"/>
-    <connection from="1/3to0/3" to="0/3to1/3" fromLane="1" toLane="1" tl="0/3" linkIndex="2" dir="t" state="o"/>
-    <connection from="1/3to1/2" to="1/2to0/2" fromLane="0" toLane="0" tl="1/2" linkIndex="0" dir="r" state="o"/>
-    <connection from="1/3to1/2" to="1/2to1/1" fromLane="0" toLane="0" tl="1/2" linkIndex="1" dir="s" state="o"/>
-    <connection from="1/3to1/2" to="1/2to1/1" fromLane="1" toLane="1" tl="1/2" linkIndex="2" dir="s" state="o"/>
-    <connection from="1/3to1/2" to="1/2to2/2" fromLane="1" toLane="1" tl="1/2" linkIndex="3" dir="l" state="o"/>
-    <connection from="1/3to1/2" to="1/2to1/3" fromLane="1" toLane="1" tl="1/2" linkIndex="4" dir="t" state="o"/>
-    <connection from="1/3to2/3" to="2/3to2/2" fromLane="0" toLane="0" tl="2/3" linkIndex="7" dir="r" state="o"/>
-    <connection from="1/3to2/3" to="2/3to3/3" fromLane="0" toLane="0" tl="2/3" linkIndex="8" dir="s" state="o"/>
-    <connection from="1/3to2/3" to="2/3to3/3" fromLane="1" toLane="1" tl="2/3" linkIndex="9" dir="s" state="o"/>
-    <connection from="1/3to2/3" to="2/3to1/3" fromLane="1" toLane="1" tl="2/3" linkIndex="10" dir="t" state="o"/>
-    <connection from="2/0to1/0" to="1/0to1/1" fromLane="0" toLane="0" tl="1/0" linkIndex="3" dir="r" state="o"/>
-    <connection from="2/0to1/0" to="1/0to0/0" fromLane="0" toLane="0" tl="1/0" linkIndex="4" dir="s" state="o"/>
-    <connection from="2/0to1/0" to="1/0to0/0" fromLane="1" toLane="1" tl="1/0" linkIndex="5" dir="s" state="o"/>
-    <connection from="2/0to1/0" to="1/0to2/0" fromLane="1" toLane="1" tl="1/0" linkIndex="6" dir="t" state="o"/>
-    <connection from="2/0to2/1" to="2/1to3/1" fromLane="0" toLane="0" tl="2/1" linkIndex="9" dir="r" state="o"/>
-    <connection from="2/0to2/1" to="2/1to2/2" fromLane="0" toLane="0" tl="2/1" linkIndex="10" dir="s" state="o"/>
-    <connection from="2/0to2/1" to="2/1to2/2" fromLane="1" toLane="1" tl="2/1" linkIndex="11" dir="s" state="o"/>
-    <connection from="2/0to2/1" to="2/1to1/1" fromLane="1" toLane="1" tl="2/1" linkIndex="12" dir="l" state="o"/>
-    <connection from="2/0to2/1" to="2/1to2/0" fromLane="1" toLane="1" tl="2/1" linkIndex="13" dir="t" state="o"/>
-    <connection from="2/0to3/0" to="3/0to3/1" fromLane="0" toLane="0" tl="3/0" linkIndex="3" dir="l" state="o"/>
-    <connection from="2/0to3/0" to="3/0to3/1" fromLane="1" toLane="1" tl="3/0" linkIndex="4" dir="l" state="o"/>
-    <connection from="2/0to3/0" to="3/0to2/0" fromLane="1" toLane="1" tl="3/0" linkIndex="5" dir="t" state="o"/>
-    <connection from="2/1to1/1" to="1/1to1/2" fromLane="0" toLane="0" tl="1/1" linkIndex="5" dir="r" state="o"/>
-    <connection from="2/1to1/1" to="1/1to0/1" fromLane="1" toLane="1" tl="1/1" linkIndex="6" dir="s" state="o"/>
-    <connection from="2/1to1/1" to="1/1to1/0" fromLane="1" toLane="1" tl="1/1" linkIndex="7" dir="l" state="o"/>
-    <connection from="2/1to1/1" to="1/1to2/1" fromLane="1" toLane="1" tl="1/1" linkIndex="8" dir="t" state="o"/>
-    <connection from="2/1to2/0" to="2/0to1/0" fromLane="0" toLane="0" tl="2/0" linkIndex="0" dir="r" state="o"/>
-    <connection from="2/1to2/0" to="2/0to3/0" fromLane="1" toLane="1" tl="2/0" linkIndex="1" dir="l" state="o"/>
-    <connection from="2/1to2/0" to="2/0to2/1" fromLane="1" toLane="1" tl="2/0" linkIndex="2" dir="t" state="o"/>
-    <connection from="2/1to2/2" to="2/2to3/2" fromLane="0" toLane="0" tl="2/2" linkIndex="9" dir="r" state="o"/>
-    <connection from="2/1to2/2" to="2/2to2/3" fromLane="0" toLane="0" tl="2/2" linkIndex="10" dir="s" state="o"/>
-    <connection from="2/1to2/2" to="2/2to2/3" fromLane="1" toLane="1" tl="2/2" linkIndex="11" dir="s" state="o"/>
-    <connection from="2/1to2/2" to="2/2to1/2" fromLane="1" toLane="1" tl="2/2" linkIndex="12" dir="l" state="o"/>
-    <connection from="2/1to2/2" to="2/2to2/1" fromLane="1" toLane="1" tl="2/2" linkIndex="13" dir="t" state="o"/>
-    <connection from="2/1to3/1" to="3/1to3/0" fromLane="0" toLane="0" tl="3/1" linkIndex="8" dir="r" state="o"/>
-    <connection from="2/1to3/1" to="3/1to3/2" fromLane="1" toLane="1" tl="3/1" linkIndex="9" dir="l" state="o"/>
-    <connection from="2/1to3/1" to="3/1to2/1" fromLane="1" toLane="1" tl="3/1" linkIndex="10" dir="t" state="o"/>
-    <connection from="2/2to1/2" to="1/2to1/3" fromLane="0" toLane="0" tl="1/2" linkIndex="5" dir="r" state="o"/>
-    <connection from="2/2to1/2" to="1/2to0/2" fromLane="1" toLane="1" tl="1/2" linkIndex="6" dir="s" state="o"/>
-    <connection from="2/2to1/2" to="1/2to1/1" fromLane="1" toLane="1" tl="1/2" linkIndex="7" dir="l" state="o"/>
-    <connection from="2/2to1/2" to="1/2to2/2" fromLane="1" toLane="1" tl="1/2" linkIndex="8" dir="t" state="o"/>
-    <connection from="2/2to2/1" to="2/1to1/1" fromLane="0" toLane="0" tl="2/1" linkIndex="0" dir="r" state="o"/>
-    <connection from="2/2to2/1" to="2/1to2/0" fromLane="0" toLane="0" tl="2/1" linkIndex="1" dir="s" state="o"/>
-    <connection from="2/2to2/1" to="2/1to2/0" fromLane="1" toLane="1" tl="2/1" linkIndex="2" dir="s" state="o"/>
-    <connection from="2/2to2/1" to="2/1to3/1" fromLane="1" toLane="1" tl="2/1" linkIndex="3" dir="l" state="o"/>
-    <connection from="2/2to2/1" to="2/1to2/2" fromLane="1" toLane="1" tl="2/1" linkIndex="4" dir="t" state="o"/>
-    <connection from="2/2to2/3" to="2/3to3/3" fromLane="0" toLane="0" tl="2/3" linkIndex="4" dir="r" state="o"/>
-    <connection from="2/2to2/3" to="2/3to1/3" fromLane="1" toLane="1" tl="2/3" linkIndex="5" dir="l" state="o"/>
-    <connection from="2/2to2/3" to="2/3to2/2" fromLane="1" toLane="1" tl="2/3" linkIndex="6" dir="t" state="o"/>
-    <connection from="2/2to3/2" to="3/2to3/1" fromLane="0" toLane="0" tl="3/2" linkIndex="8" dir="r" state="o"/>
-    <connection from="2/2to3/2" to="3/2to3/3" fromLane="1" toLane="1" tl="3/2" linkIndex="9" dir="l" state="o"/>
-    <connection from="2/2to3/2" to="3/2to2/2" fromLane="1" toLane="1" tl="3/2" linkIndex="10" dir="t" state="o"/>
-    <connection from="2/3to1/3" to="1/3to0/3" fromLane="0" toLane="0" tl="1/3" linkIndex="0" dir="s" state="o"/>
-    <connection from="2/3to1/3" to="1/3to0/3" fromLane="1" toLane="1" tl="1/3" linkIndex="1" dir="s" state="o"/>
-    <connection from="2/3to1/3" to="1/3to1/2" fromLane="1" toLane="1" tl="1/3" linkIndex="2" dir="l" state="o"/>
-    <connection from="2/3to1/3" to="1/3to2/3" fromLane="1" toLane="1" tl="1/3" linkIndex="3" dir="t" state="o"/>
-    <connection from="2/3to2/2" to="2/2to1/2" fromLane="0" toLane="0" tl="2/2" linkIndex="0" dir="r" state="o"/>
-    <connection from="2/3to2/2" to="2/2to2/1" fromLane="0" toLane="0" tl="2/2" linkIndex="1" dir="s" state="o"/>
-    <connection from="2/3to2/2" to="2/2to2/1" fromLane="1" toLane="1" tl="2/2" linkIndex="2" dir="s" state="o"/>
-    <connection from="2/3to2/2" to="2/2to3/2" fromLane="1" toLane="1" tl="2/2" linkIndex="3" dir="l" state="o"/>
-    <connection from="2/3to2/2" to="2/2to2/3" fromLane="1" toLane="1" tl="2/2" linkIndex="4" dir="t" state="o"/>
-    <connection from="2/3to3/3" to="3/3to3/2" fromLane="0" toLane="0" tl="3/3" linkIndex="3" dir="r" state="o"/>
-    <connection from="2/3to3/3" to="3/3to3/2" fromLane="1" toLane="1" tl="3/3" linkIndex="4" dir="r" state="o"/>
-    <connection from="2/3to3/3" to="3/3to2/3" fromLane="1" toLane="1" tl="3/3" linkIndex="5" dir="t" state="o"/>
-    <connection from="3/0to2/0" to="2/0to2/1" fromLane="0" toLane="0" tl="2/0" linkIndex="3" dir="r" state="o"/>
-    <connection from="3/0to2/0" to="2/0to1/0" fromLane="0" toLane="0" tl="2/0" linkIndex="4" dir="s" state="o"/>
-    <connection from="3/0to2/0" to="2/0to1/0" fromLane="1" toLane="1" tl="2/0" linkIndex="5" dir="s" state="o"/>
-    <connection from="3/0to2/0" to="2/0to3/0" fromLane="1" toLane="1" tl="2/0" linkIndex="6" dir="t" state="o"/>
-    <connection from="3/0to3/1" to="3/1to3/2" fromLane="0" toLane="0" tl="3/1" linkIndex="4" dir="s" state="o"/>
-    <connection from="3/0to3/1" to="3/1to3/2" fromLane="1" toLane="1" tl="3/1" linkIndex="5" dir="s" state="o"/>
-    <connection from="3/0to3/1" to="3/1to2/1" fromLane="1" toLane="1" tl="3/1" linkIndex="6" dir="l" state="o"/>
-    <connection from="3/0to3/1" to="3/1to3/0" fromLane="1" toLane="1" tl="3/1" linkIndex="7" dir="t" state="o"/>
-    <connection from="3/1to2/1" to="2/1to2/2" fromLane="0" toLane="0" tl="2/1" linkIndex="5" dir="r" state="o"/>
-    <connection from="3/1to2/1" to="2/1to1/1" fromLane="1" toLane="1" tl="2/1" linkIndex="6" dir="s" state="o"/>
-    <connection from="3/1to2/1" to="2/1to2/0" fromLane="1" toLane="1" tl="2/1" linkIndex="7" dir="l" state="o"/>
-    <connection from="3/1to2/1" to="2/1to3/1" fromLane="1" toLane="1" tl="2/1" linkIndex="8" dir="t" state="o"/>
-    <connection from="3/1to3/0" to="3/0to2/0" fromLane="0" toLane="0" tl="3/0" linkIndex="0" dir="r" state="o"/>
-    <connection from="3/1to3/0" to="3/0to2/0" fromLane="1" toLane="1" tl="3/0" linkIndex="1" dir="r" state="o"/>
-    <connection from="3/1to3/0" to="3/0to3/1" fromLane="1" toLane="1" tl="3/0" linkIndex="2" dir="t" state="o"/>
-    <connection from="3/1to3/2" to="3/2to3/3" fromLane="0" toLane="0" tl="3/2" linkIndex="4" dir="s" state="o"/>
-    <connection from="3/1to3/2" to="3/2to3/3" fromLane="1" toLane="1" tl="3/2" linkIndex="5" dir="s" state="o"/>
-    <connection from="3/1to3/2" to="3/2to2/2" fromLane="1" toLane="1" tl="3/2" linkIndex="6" dir="l" state="o"/>
-    <connection from="3/1to3/2" to="3/2to3/1" fromLane="1" toLane="1" tl="3/2" linkIndex="7" dir="t" state="o"/>
-    <connection from="3/2to2/2" to="2/2to2/3" fromLane="0" toLane="0" tl="2/2" linkIndex="5" dir="r" state="o"/>
-    <connection from="3/2to2/2" to="2/2to1/2" fromLane="1" toLane="1" tl="2/2" linkIndex="6" dir="s" state="o"/>
-    <connection from="3/2to2/2" to="2/2to2/1" fromLane="1" toLane="1" tl="2/2" linkIndex="7" dir="l" state="o"/>
-    <connection from="3/2to2/2" to="2/2to3/2" fromLane="1" toLane="1" tl="2/2" linkIndex="8" dir="t" state="o"/>
-    <connection from="3/2to3/1" to="3/1to2/1" fromLane="0" toLane="0" tl="3/1" linkIndex="0" dir="r" state="o"/>
-    <connection from="3/2to3/1" to="3/1to3/0" fromLane="0" toLane="0" tl="3/1" linkIndex="1" dir="s" state="o"/>
-    <connection from="3/2to3/1" to="3/1to3/0" fromLane="1" toLane="1" tl="3/1" linkIndex="2" dir="s" state="o"/>
-    <connection from="3/2to3/1" to="3/1to3/2" fromLane="1" toLane="1" tl="3/1" linkIndex="3" dir="t" state="o"/>
-    <connection from="3/2to3/3" to="3/3to2/3" fromLane="0" toLane="0" tl="3/3" linkIndex="0" dir="l" state="o"/>
-    <connection from="3/2to3/3" to="3/3to2/3" fromLane="1" toLane="1" tl="3/3" linkIndex="1" dir="l" state="o"/>
-    <connection from="3/2to3/3" to="3/3to3/2" fromLane="1" toLane="1" tl="3/3" linkIndex="2" dir="t" state="o"/>
-    <connection from="3/3to2/3" to="2/3to1/3" fromLane="0" toLane="0" tl="2/3" linkIndex="0" dir="s" state="o"/>
-    <connection from="3/3to2/3" to="2/3to1/3" fromLane="1" toLane="1" tl="2/3" linkIndex="1" dir="s" state="o"/>
-    <connection from="3/3to2/3" to="2/3to2/2" fromLane="1" toLane="1" tl="2/3" linkIndex="2" dir="l" state="o"/>
-    <connection from="3/3to2/3" to="2/3to3/3" fromLane="1" toLane="1" tl="2/3" linkIndex="3" dir="t" state="o"/>
-    <connection from="3/3to3/2" to="3/2to2/2" fromLane="0" toLane="0" tl="3/2" linkIndex="0" dir="r" state="o"/>
-    <connection from="3/3to3/2" to="3/2to3/1" fromLane="0" toLane="0" tl="3/2" linkIndex="1" dir="s" state="o"/>
-    <connection from="3/3to3/2" to="3/2to3/1" fromLane="1" toLane="1" tl="3/2" linkIndex="2" dir="s" state="o"/>
-    <connection from="3/3to3/2" to="3/2to3/3" fromLane="1" toLane="1" tl="3/2" linkIndex="3" dir="t" state="o"/>
+    <connection from="0/0to0/1" to="0/1to1/1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="0/0to0/1" to="0/1to0/2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="0/0to0/1" to="0/1to0/2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="0/0to0/1" to="0/1to0/0" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="0/0to1/0" to="1/0to2/0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="0/0to1/0" to="1/0to2/0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="0/0to1/0" to="1/0to1/1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="0/0to1/0" to="1/0to0/0" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="0/1to0/0" to="0/0to1/0" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="0/1to0/0" to="0/0to1/0" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="0/1to0/0" to="0/0to0/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="0/1to0/2" to="0/2to1/2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="0/1to0/2" to="0/2to0/3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="0/1to0/2" to="0/2to0/3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="0/1to0/2" to="0/2to0/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="0/1to1/1" to="1/1to1/0" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="0/1to1/1" to="1/1to2/1" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="0/1to1/1" to="1/1to1/2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="0/1to1/1" to="1/1to0/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="0/2to0/1" to="0/1to0/0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="0/2to0/1" to="0/1to0/0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="0/2to0/1" to="0/1to1/1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="0/2to0/1" to="0/1to0/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="0/2to0/3" to="0/3to1/3" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="0/2to0/3" to="0/3to1/3" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="0/2to0/3" to="0/3to0/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="0/2to1/2" to="1/2to1/1" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="0/2to1/2" to="1/2to2/2" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="0/2to1/2" to="1/2to1/3" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="0/2to1/2" to="1/2to0/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="0/3to0/2" to="0/2to0/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="0/3to0/2" to="0/2to0/1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="0/3to0/2" to="0/2to1/2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="0/3to0/2" to="0/2to0/3" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="0/3to1/3" to="1/3to1/2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="0/3to1/3" to="1/3to2/3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="0/3to1/3" to="1/3to2/3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="0/3to1/3" to="1/3to0/3" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/0to0/0" to="0/0to0/1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="1/0to0/0" to="0/0to0/1" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="1/0to0/0" to="0/0to1/0" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/0to1/1" to="1/1to2/1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="1/0to1/1" to="1/1to1/2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1/0to1/1" to="1/1to1/2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="1/0to1/1" to="1/1to0/1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="1/0to1/1" to="1/1to1/0" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/0to2/0" to="2/0to3/0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1/0to2/0" to="2/0to3/0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="1/0to2/0" to="2/0to2/1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="1/0to2/0" to="2/0to1/0" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/1to0/1" to="0/1to0/2" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="1/1to0/1" to="0/1to0/0" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="1/1to0/1" to="0/1to1/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/1to1/0" to="1/0to0/0" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="1/1to1/0" to="1/0to2/0" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="1/1to1/0" to="1/0to1/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/1to1/2" to="1/2to2/2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="1/1to1/2" to="1/2to1/3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1/1to1/2" to="1/2to1/3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="1/1to1/2" to="1/2to0/2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="1/1to1/2" to="1/2to1/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/1to2/1" to="2/1to2/0" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="1/1to2/1" to="2/1to3/1" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="1/1to2/1" to="2/1to2/2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="1/1to2/1" to="2/1to1/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/2to0/2" to="0/2to0/3" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="1/2to0/2" to="0/2to0/1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="1/2to0/2" to="0/2to1/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/2to1/1" to="1/1to0/1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="1/2to1/1" to="1/1to1/0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1/2to1/1" to="1/1to1/0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="1/2to1/1" to="1/1to2/1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="1/2to1/1" to="1/1to1/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/2to1/3" to="1/3to2/3" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="1/2to1/3" to="1/3to0/3" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="1/2to1/3" to="1/3to1/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/2to2/2" to="2/2to2/1" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="1/2to2/2" to="2/2to3/2" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="1/2to2/2" to="2/2to2/3" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="1/2to2/2" to="2/2to1/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/3to0/3" to="0/3to0/2" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="1/3to0/3" to="0/3to0/2" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="1/3to0/3" to="0/3to1/3" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/3to1/2" to="1/2to0/2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="1/3to1/2" to="1/2to1/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1/3to1/2" to="1/2to1/1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="1/3to1/2" to="1/2to2/2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="1/3to1/2" to="1/2to1/3" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="1/3to2/3" to="2/3to2/2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="1/3to2/3" to="2/3to3/3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1/3to2/3" to="2/3to3/3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="1/3to2/3" to="2/3to1/3" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/0to1/0" to="1/0to1/1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="2/0to1/0" to="1/0to0/0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2/0to1/0" to="1/0to0/0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="2/0to1/0" to="1/0to2/0" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/0to2/1" to="2/1to3/1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="2/0to2/1" to="2/1to2/2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2/0to2/1" to="2/1to2/2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="2/0to2/1" to="2/1to1/1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="2/0to2/1" to="2/1to2/0" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/0to3/0" to="3/0to3/1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="2/0to3/0" to="3/0to3/1" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="2/0to3/0" to="3/0to2/0" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/1to1/1" to="1/1to1/2" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="2/1to1/1" to="1/1to0/1" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="2/1to1/1" to="1/1to1/0" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="2/1to1/1" to="1/1to2/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/1to2/0" to="2/0to1/0" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="2/1to2/0" to="2/0to3/0" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="2/1to2/0" to="2/0to2/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/1to2/2" to="2/2to3/2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="2/1to2/2" to="2/2to2/3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2/1to2/2" to="2/2to2/3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="2/1to2/2" to="2/2to1/2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="2/1to2/2" to="2/2to2/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/1to3/1" to="3/1to3/0" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="2/1to3/1" to="3/1to3/2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="2/1to3/1" to="3/1to2/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/2to1/2" to="1/2to1/3" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="2/2to1/2" to="1/2to0/2" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="2/2to1/2" to="1/2to1/1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="2/2to1/2" to="1/2to2/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/2to2/1" to="2/1to1/1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="2/2to2/1" to="2/1to2/0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2/2to2/1" to="2/1to2/0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="2/2to2/1" to="2/1to3/1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="2/2to2/1" to="2/1to2/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/2to2/3" to="2/3to3/3" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="2/2to2/3" to="2/3to1/3" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="2/2to2/3" to="2/3to2/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/2to3/2" to="3/2to3/1" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="2/2to3/2" to="3/2to3/3" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="2/2to3/2" to="3/2to2/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/3to1/3" to="1/3to0/3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2/3to1/3" to="1/3to0/3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="2/3to1/3" to="1/3to1/2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="2/3to1/3" to="1/3to2/3" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/3to2/2" to="2/2to1/2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="2/3to2/2" to="2/2to2/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2/3to2/2" to="2/2to2/1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="2/3to2/2" to="2/2to3/2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="2/3to2/2" to="2/2to2/3" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="2/3to3/3" to="3/3to3/2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="2/3to3/3" to="3/3to3/2" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="2/3to3/3" to="3/3to2/3" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="3/0to2/0" to="2/0to2/1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="3/0to2/0" to="2/0to1/0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="3/0to2/0" to="2/0to1/0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="3/0to2/0" to="2/0to3/0" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="3/0to3/1" to="3/1to3/2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="3/0to3/1" to="3/1to3/2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="3/0to3/1" to="3/1to2/1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="3/0to3/1" to="3/1to3/0" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="3/1to2/1" to="2/1to2/2" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="3/1to2/1" to="2/1to1/1" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="3/1to2/1" to="2/1to2/0" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="3/1to2/1" to="2/1to3/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="3/1to3/0" to="3/0to2/0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="3/1to3/0" to="3/0to2/0" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="3/1to3/0" to="3/0to3/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="3/1to3/2" to="3/2to3/3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="3/1to3/2" to="3/2to3/3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="3/1to3/2" to="3/2to2/2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="3/1to3/2" to="3/2to3/1" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="3/2to2/2" to="2/2to2/3" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="3/2to2/2" to="2/2to1/2" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="3/2to2/2" to="2/2to2/1" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="3/2to2/2" to="2/2to3/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="3/2to3/1" to="3/1to2/1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="3/2to3/1" to="3/1to3/0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="3/2to3/1" to="3/1to3/0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="3/2to3/1" to="3/1to3/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="3/2to3/3" to="3/3to2/3" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="3/2to3/3" to="3/3to2/3" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="3/2to3/3" to="3/3to3/2" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="3/3to2/3" to="2/3to1/3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="3/3to2/3" to="2/3to1/3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="3/3to2/3" to="2/3to2/2" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="3/3to2/3" to="2/3to3/3" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="3/3to3/2" to="3/2to2/2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="3/3to3/2" to="3/2to3/1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="3/3to3/2" to="3/2to3/1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="3/3to3/2" to="3/2to3/3" fromLane="1" toLane="1" dir="t" state="m"/>
 
 </net>
