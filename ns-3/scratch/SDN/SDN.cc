@@ -31,7 +31,7 @@ VanetSim::VanetSim()
 	txp1 = 20;  // dBm SCH
 	txp2 = 20;  // CCH
 	range1 = 400.0;//SCH
-	range2 = 1100.0;//CCH
+	range2 = 1000.0;//CCH
 	//range2 = 700.0;//CCH
 	packetSize = 1000; // bytes
 	numPackets = 1;

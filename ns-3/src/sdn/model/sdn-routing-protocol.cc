@@ -692,7 +692,7 @@ if(m_roadtype==sdn::ROW)
     &&msg.GetHello ().GetPosition ().y>=m_mobility->GetPosition().y&&msg.GetHello ().GetPosition ().y<=(m_mobility->GetPosition().y+20.0) )
     {
     rev=true;
-    std::cout<<"position "<<msg.GetHello ().GetPosition ().x<<std::endl;
+    //std::cout<<"position "<<msg.GetHello ().GetPosition ().x<<std::endl;
     }
  }
  else if(m_roadtype==sdn::COLUMN)
