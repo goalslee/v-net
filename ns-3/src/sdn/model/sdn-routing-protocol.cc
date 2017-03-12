@@ -1997,6 +1997,7 @@ void  RoutingProtocol::compute_possive()
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
         while(++iter!=dis.end())
         {
+        std::cout<<"3"<<std::endl;
             std::pair<double,Ipv4Address> target=*iter;
             if(temp.first+m_signal_range>iter->first)
             {
