@@ -2111,6 +2111,7 @@ void  RoutingProtocol::compute_possive()
 
 void RoutingProtocol::compute_negative()
 {
+     std::cout<<"compute negative"<<std::endl;
        negative_valid=true;
         std::map<double,Ipv4Address> dis;
  std::vector<std::pair<double,Ipv4Address>> chose;
