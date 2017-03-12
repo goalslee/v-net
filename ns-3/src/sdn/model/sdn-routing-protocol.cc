@@ -2004,7 +2004,7 @@ void  RoutingProtocol::compute_possive()
     {
         std::cout<<"signal_range "<<m_signal_range<<"  temp+m_signal_range/2 "<<temp.first+m_signal_range/2<<std::endl;
         int t=chose.size();
-       std::cout<<"2"<<std::endl;
+       //std::cout<<"2"<<std::endl;
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
 
         
@@ -2014,12 +2014,12 @@ void  RoutingProtocol::compute_possive()
             std::pair<double,Ipv4Address> target=*(iter);
             if(temp.first+m_signal_range>iter->first)
             {
-                if((++iter)==dis.end())
+                if(iter+1)==dis.end())
                 {
                     chose.push_back(target);
                     break;
                 }
-                else if(temp.first+m_signal_range<iter->first)
+                else if(temp.first+m_signal_range<(iter+1)->first)
                 {
                     chose.push_back(target);
                     break;
