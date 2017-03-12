@@ -1846,7 +1846,7 @@ void
 RoutingProtocol::ComputeRoute ()
 {
 
-    RemoveTimeOut (); //Remove Stale Tuple
+    //RemoveTimeOut (); //Remove Stale Tuple
 
     /*
     Vector3D lcPosition = m_mobility->GetPosition ();
