@@ -468,7 +468,7 @@ RoutingProtocol::DoInitialize ()
   if(canRunSdn)
     {
       HelloTimerExpire ();
-      //RmTimerExpire ();
+      RmTimerExpire ();
       //APTimerExpire ();
       //FirstTimerExpire();
       NS_LOG_DEBUG ("SDN on node (Car) " << m_CCHmainAddress << " started");
@@ -1305,9 +1305,9 @@ RoutingProtocol::RmTimerExpire ()
   if (GetType () == LOCAL_CONTROLLER)
   {
      // ClearAllTables();//std::cout<<"1:"<<std::endl;
-     // ComputeRoute ();//std::cout<<"2:"<<std::endl;
+      ComputeRoute ();//std::cout<<"2:"<<std::endl;
       //SendRoutingMessage ();//std::cout<<"3:"<<std::endl;
-      //m_rmTimer.Schedule (m_rmInterval);//std::cout<<"4:"<<std::endl;
+      m_rmTimer.Schedule (m_rmInterval);//std::cout<<"4:"<<std::endl;
   }
 }
 
@@ -1865,8 +1865,8 @@ void  RoutingProtocol::compute_possive()
             return;
     }
     //std::cout<<"dis size "<<dis.size()<<std::endl;
-    for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
-        std::cout<<it->first<<std::endl;
+   /* for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
+        std::cout<<it->first<<std::endl;*/
     transferAddress_possitive=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
@@ -2003,7 +2003,7 @@ void  RoutingProtocol::compute_possive()
 
 void RoutingProtocol::compute_negative()
 {
-     std::cout<<"compute negative"<<std::endl;
+     //std::cout<<"compute negative"<<std::endl;
        negative_valid=true;
         std::map<double,Ipv4Address> dis;
  std::vector<std::pair<double,Ipv4Address>> chose;
