@@ -1878,6 +1878,7 @@ void  RoutingProtocol::compute_possive()
     transferAddress_possitive=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
+    /*
     while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility->GetPosition().x:m_mobility->GetPosition().y)+m_road_length/2)
     {
         
@@ -1917,6 +1918,7 @@ void  RoutingProtocol::compute_possive()
         }
         temp=*chose.rbegin();
     }//while(temp.first+m...
+    */
 
 /*for(std::vector<std::pair<double,Ipv4Address>>::iterator it=chose.begin();it!=chose.end();it++)
         std::cout<<it->first<<"->";
@@ -2029,6 +2031,7 @@ void RoutingProtocol::compute_negative()
     transferAddress_negative=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
+    /*
     while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility->GetPosition().x:m_mobility->GetPosition().y)+m_road_length/2)
     {
     int t=chose.size();
@@ -2067,6 +2070,7 @@ void RoutingProtocol::compute_negative()
         }
         temp=*chose.rbegin();
     }
+    */
     roadendAddress_negative=chose.rbegin()->second;
         Ipv4Address mask("255.255.0.0");
      double mean=0;
