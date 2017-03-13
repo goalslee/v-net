@@ -1858,6 +1858,7 @@ RoutingProtocol::ComputeRoute ()
 
 void  RoutingProtocol::compute_possive()
 {
+   std::cout<<"m_signal_range "<<m_signal_range<<" "<<"m_road_length "<<m_road_length<<std::endl;
     possive_valid=true;
     std::map<double,Ipv4Address> dis;
     std::vector<std::pair<double,Ipv4Address>> chose;
