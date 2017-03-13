@@ -1874,11 +1874,11 @@ void  RoutingProtocol::compute_possive()
             possive_valid=false;
             return;
     }
-    if(m_CCHmainAddress==Ipv4Address("192.168.1.247")){
-        std::cout<<"possitive dis size "<<dis.size()<<std::endl;
-         for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
-                std::cout<<it->first<<std::endl;
-        }
+    //if(m_CCHmainAddress==Ipv4Address("192.168.1.247")){
+       // std::cout<<"possitive dis size "<<dis.size()<<std::endl;
+        // for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
+             //   std::cout<<it->first<<std::endl;
+        //}
     transferAddress_possitive=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
@@ -1902,17 +1902,17 @@ void  RoutingProtocol::compute_possive()
                 if(++it_temp==dis.end())
                 {
                     chose.push_back(target);
-                                if(m_CCHmainAddress==Ipv4Address("192.168.1.247")){
-           std::cout<<"push "<<target.first<<std::endl;
-        }
+                               // if(m_CCHmainAddress==Ipv4Address("192.168.1.247")){
+          // std::cout<<"push "<<target.first<<std::endl;
+       // }
                     break;
                 }
                 else if(temp.first+m_signal_range<(it_temp)->first)
                 {
                     chose.push_back(target);
-                                                    if(m_CCHmainAddress==Ipv4Address("192.168.1.247")){
-           std::cout<<"push "<<target.first<<std::endl;
-        }
+                                                    //if(m_CCHmainAddress==Ipv4Address("192.168.1.247")){
+           //std::cout<<"push "<<target.first<<std::endl;
+       // }
                     break;
                 }
                 
@@ -1929,9 +1929,9 @@ void  RoutingProtocol::compute_possive()
         }
         temp=*chose.rbegin();
     }//while(temp.first+m...
-            if(m_CCHmainAddress==Ipv4Address("192.168.1.247")){
-           std::cout<<"valid"<<std::endl;
-        }
+           // if(m_CCHmainAddress==Ipv4Address("192.168.1.247")){
+           //std::cout<<"valid"<<std::endl;
+       // }
 
 /*for(std::vector<std::pair<double,Ipv4Address>>::iterator it=chose.begin();it!=chose.end();it++)
         std::cout<<it->first<<"->";
