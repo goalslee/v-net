@@ -114,7 +114,7 @@ RoutingProtocol::RoutingProtocol ()
   :
     m_packetSequenceNumber (SDN_MAX_SEQ_NUM),
     m_messageSequenceNumber (SDN_MAX_SEQ_NUM),
-    m_helloInterval (Seconds(0.5)),//hellomessage ÖÜÆÚ
+    m_helloInterval (Seconds(1)),//hellomessage ÖÜÆÚ
     m_rmInterval (Seconds (0.5)),//Ã¿¸ölcÑ¡³µµÄÖÜÆÚ
     m_minAPInterval (Seconds (1)),//Ã»ÓÃµ½
     m_ipv4 (0),
@@ -787,6 +787,9 @@ if(rev==false) return;
         if(it!=m_lc_positive_info.end()) m_lc_positive_info.erase(it);
         
     }
+
+    std::cout<<"ip "<<m_CCHmainAddress;
+    std::cout<<" m_lc_positive_info "<<m_lc_positive_info.size()<<" m_lc_negative_info"<<m_lc_negative_info.size()<<std::endl;
 }
 
 // \brief Build routing table according to Rm
