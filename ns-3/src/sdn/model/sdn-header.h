@@ -450,7 +450,7 @@ public:
 
 
 	    uint32_t routingMessageSize;
-	    void SetRoutingMessageSize(uint32_t rms) //28
+	    void SetRoutingMessageSize(uint32_t rms) //
 	    {
 	      this->routingMessageSize = rms;
 	    }
@@ -466,7 +466,7 @@ public:
 	    Ipv4Address DesId;
 	    Ipv4Mask mask;
 	    uint32_t jump_nums;
-	    uint32_t stability;
+	    float stability;
 	    Ipv4Address Originator;
 	    Position position;
 	    enum direction dir;

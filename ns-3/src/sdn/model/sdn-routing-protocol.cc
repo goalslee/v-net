@@ -1562,10 +1562,10 @@ else{
 
    if(x<x_0&&y>y_0&&in==sdn::NEGATIVE) out=sdn::POSITIVE;
    else if(x>x_0&&y>y_0&&in==sdn::NEGATIVE) out=sdn::NEGATIVE;
-   else if(x>x_0&&y==y_0&&in==sdn::NEGATIVE) out=sdn::NEGATIVE;
+   else if(x>x_0&&abs(y-y_0)<0.00001&&in==sdn::NEGATIVE) out=sdn::NEGATIVE;
    else if(x>x_0&&y<y_0&&in==sdn::POSITIVE) out=sdn::NEGATIVE;
       else if(x<x_0&&y<y_0&&in==sdn::POSITIVE) out=sdn::POSITIVE;
-    else if(x<x_0&&y==y_0&&in==sdn::POSITIVE) out=sdn::POSITIVE;
+    else if(x<x_0&&abs(y-y_0)<0.00001&&in==sdn::POSITIVE) out=sdn::POSITIVE;
       else return;
 
       std::cout<<"dir: "<<out<<std::endl;
@@ -1608,7 +1608,7 @@ if(out==sdn::POSITIVE)
 	 {//forward this packet
 
 		 m_incomeParm_possitive.jumpnums=aodvrm.jump_nums;
-		 m_incomeParm_possitive.stability=aodvrm.stability;
+		 m_incomeParm_possitive.stability=aodvrm.GetStability();
 		 m_incomeParm_possitive.m_sourceId=aodvrm.ID;
 		 m_incomeParm_possitive.m_desId=aodvrm.DesId;
                    m_incomeParm_possitive.lastdir=aodvrm.dir;//记录上一跳的方向	
@@ -1642,7 +1642,7 @@ else{
 	 if(m_incomeParm_negative.jumpnums==0||aodvrm.jump_nums<m_incomeParm_negative.jumpnums||(aodvrm.jump_nums==m_incomeParm_negative.jumpnums&& aodvrm.GetStability() < m_incomeParm_negative.stability)){//forward this packet
 
 		 m_incomeParm_negative.jumpnums=aodvrm.jump_nums;
-		 m_incomeParm_negative.stability=aodvrm.stability;
+		 m_incomeParm_negative.stability=aodvrm.GetStability();
 		 m_incomeParm_negative.m_sourceId=aodvrm.ID;
 		 m_incomeParm_negative.m_desId=aodvrm.DesId;
                    m_incomeParm_negative.lastdir=aodvrm.dir;//记录上一跳的方向
@@ -1680,12 +1680,12 @@ else{
    
 
 
-        if(aodvrm.jump_nums<m_incomeDesParm.jumpnums||(aodvrm.jump_nums==m_incomeDesParm.jumpnums&&aodvrm.stability<m_incomeDesParm.stability))
+        if(aodvrm.jump_nums<m_incomeDesParm.jumpnums||(aodvrm.jump_nums==m_incomeDesParm.jumpnums&&aodvrm.GetStability()<m_incomeDesParm.stability))
         {
            m_incomeDesParm.dir=true;
    
             m_incomeDesParm.jumpnums=aodvrm.jump_nums;
-            m_incomeDesParm.stability=aodvrm.stability;
+            m_incomeDesParm.stability=aodvrm.GetStability();
             m_incomeDesParm.m_sourceId=aodvrm.ID;
 	   m_incomeDesParm.m_desId=aodvrm.DesId;
             m_incomeDesParm.lastdir=aodvrm.dir;//记录上一跳的方向
