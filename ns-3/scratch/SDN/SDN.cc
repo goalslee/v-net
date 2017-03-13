@@ -70,7 +70,7 @@ void VanetSim::Simulate(int argc, char *argv[])
 	ConfigMobility();
 	ConfigApp();
 	ConfigTracing();
-	Run();
+	Run(); 
 	ProcessOutputs();
 	std::cout<<std::endl;
 }
