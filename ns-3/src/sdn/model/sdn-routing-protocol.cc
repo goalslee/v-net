@@ -1507,6 +1507,7 @@ RoutingProtocol::SendCRREQ (Ipv4Address const &destAddress)
   sdn::MessageHeader::CRREQ &crreq = msg.GetCRREQ ();
   crreq.sourceAddress=m_SCHmainAddress;
   crreq.destAddress=destAddress;
+  crreq.tag=++m_tag;
   QueueMessage (msg, JITTER);
 }
 
