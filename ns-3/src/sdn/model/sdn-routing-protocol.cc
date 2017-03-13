@@ -1604,7 +1604,7 @@ else{
 if(out==sdn::POSITIVE)
 {
 	 
-	 if(m_incomeParm_possitive.jumpnums==0||aodvrm.jump_nums<m_incomeParm_possitive.jumpnums||(aodvrm.jump_nums==m_incomeParm_possitive.jumpnums&& aodvrm.GetStability() < m_incomeParm_possitive.stability))
+	 if(aodvrm.jump_nums<=m_incomeParm_possitive.jumpnums||(aodvrm.jump_nums==m_incomeParm_possitive.jumpnums&& aodvrm.GetStability() < m_incomeParm_possitive.stability))
 	 {//forward this packet
 
 		 m_incomeParm_possitive.jumpnums=aodvrm.jump_nums;
@@ -1635,11 +1635,11 @@ if(out==sdn::POSITIVE)
 		 }
 	 }
 	 else{
-	        std::cout<<"m_incomeParm_possitive.jumpnums "<<m_incomeParm_possitive.jumpnums<<"  m_incomeParm_possitive.stability "<< m_incomeParm_possitive.stability<<" aodvrm.jump_nums"<<aodvrm.jump_nums<<" aodvrm.GetStability()"<<aodvrm.GetStability()<<std::endl;
+	        std::cout<<"m_incomeParm_possitive.jumpnums "<<m_incomeParm_possitive.jumpnums<<"  m_incomeParm_possitive.stability "<< m_incomeParm_possitive.stability<<" aodvrm.jump_nums "<<aodvrm.jump_nums<<" aodvrm.GetStability()"<<aodvrm.GetStability()<<std::endl;
 	 }
 }
 else{
-	 if(m_incomeParm_negative.jumpnums==0||aodvrm.jump_nums<m_incomeParm_negative.jumpnums||(aodvrm.jump_nums==m_incomeParm_negative.jumpnums&& aodvrm.GetStability() < m_incomeParm_negative.stability)){//forward this packet
+	 if(aodvrm.jump_nums<=m_incomeParm_negative.jumpnums||(aodvrm.jump_nums==m_incomeParm_negative.jumpnums&& aodvrm.GetStability() < m_incomeParm_negative.stability)){//forward this packet
 
 		 m_incomeParm_negative.jumpnums=aodvrm.jump_nums;
 		 m_incomeParm_negative.stability=aodvrm.GetStability();
@@ -1671,7 +1671,7 @@ else{
 		 }
 	 }
 	 	 else{
-	        std::cout<<"m_incomeParm_negative.jumpnums "<<m_incomeParm_negative.jumpnums<<"  m_incomeParm_negative.stability "<< m_incomeParm_negative.stability<<" aodvrm.jump_nums"<<aodvrm.jump_nums<<" aodvrm.GetStability()"<<aodvrm.GetStability()<<std::endl;
+	        std::cout<<"m_incomeParm_negative.jumpnums "<<m_incomeParm_negative.jumpnums<<"  m_incomeParm_negative.stability "<< m_incomeParm_negative.stability<<" aodvrm.jump_nums "<<aodvrm.jump_nums<<" aodvrm.GetStability()"<<aodvrm.GetStability()<<std::endl;
 	 }
 	 
 	 }
@@ -1680,7 +1680,7 @@ else{
    
 
 
-        if(aodvrm.jump_nums<m_incomeDesParm.jumpnums||(aodvrm.jump_nums==m_incomeDesParm.jumpnums&&aodvrm.GetStability()<m_incomeDesParm.stability))
+        if(aodvrm.jump_nums<=m_incomeDesParm.jumpnums||(aodvrm.jump_nums==m_incomeDesParm.jumpnums&&aodvrm.GetStability()<m_incomeDesParm.stability))
         {
            m_incomeDesParm.dir=true;
    
