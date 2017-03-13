@@ -135,6 +135,7 @@ RoutingProtocol::RoutingProtocol ()
     m_road_length (1000),//MagicNumber
     m_signal_range (900),
     m_firstRequest(1)
+    m_tag(0)
 {
   m_uniformRandomVariable = CreateObject<UniformRandomVariable> ();
 }

@@ -232,6 +232,8 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   bool possive_valid;
   bool negative_valid;
 
+  uint32_t m_tag;
+
   /// HELLO messages' emission interval.
   Time m_helloInterval;
   /// Routing messages' emission interval.

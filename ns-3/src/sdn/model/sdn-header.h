@@ -373,14 +373,15 @@ public:
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   //       |                          destAddress                          |
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //       :                                                               :
+  //       |                          tag                          |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   //       :                               :                               :
   //   ID is the car's ID 
   struct CRREQ
   {
     
     Ipv4Address sourceAddress,destAddress;
-    
+    uint32_t tag;
     void Print (std::ostream &os) const;
     uint32_t GetSerializedSize (void) const;
     void Serialize (Buffer::Iterator start) const;

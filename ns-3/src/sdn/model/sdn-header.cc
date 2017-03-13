@@ -33,7 +33,7 @@
 #define SDN_RM_HEADER_SIZE 16
 #define SDN_RM_TUPLE_SIZE 3
 #define SDN_APPOINTMENT_HEADER_SIZE 12
-#define SDN_CRREQ_HEADER_SIZE 8
+#define SDN_CRREQ_HEADER_SIZE 12
 #define SDN_CRREP_HEADER_SIZE 12
 #define SDN_AODVRM_HEADER_SIZE 44
 #define SDN_AODVRRM_HEADER_SIZE 32
@@ -589,6 +589,7 @@ MessageHeader::CRREQ::Serialize (Buffer::Iterator start) const
 
   i.WriteHtonU32 (this->sourceAddress.Get());
   i.WriteHtonU32 (this->destAddress.Get());
+  i.WriteHtonU32(this->tag);
 }
 
 uint32_t
@@ -600,6 +601,7 @@ MessageHeader::CRREQ::Deserialize (Buffer::Iterator start, uint32_t messageSize)
   this->sourceAddress.Set (ip_temp);
   ip_temp = i.ReadNtohU32();
   this->destAddress.Set (ip_temp);
+  this->tag= i.ReadNtohU32();
   return (messageSize);
 }
 // ---------------- SDN CARROUTERESPONCE Message -------------------------------
