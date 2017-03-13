@@ -1568,7 +1568,7 @@ else{
     else if(x<x_0&&y==y_0&&in==sdn::POSITIVE) out=sdn::POSITIVE;
       else return;
 
-
+      std::cout<<"dir: "<<out<<std::endl;
 
 	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
 	             std::cout<<"des get pt "<<std::endl;
@@ -1604,7 +1604,8 @@ else{
 if(out==sdn::POSITIVE)
 {
 	 
-	 if(m_incomeParm_possitive.jumpnums==0||aodvrm.jump_nums<m_incomeParm_possitive.jumpnums||(aodvrm.jump_nums==m_incomeParm_possitive.jumpnums&& aodvrm.GetStability() < m_incomeParm_possitive.stability)){//forward this packet
+	 if(m_incomeParm_possitive.jumpnums==0||aodvrm.jump_nums<m_incomeParm_possitive.jumpnums||(aodvrm.jump_nums==m_incomeParm_possitive.jumpnums&& aodvrm.GetStability() < m_incomeParm_possitive.stability))
+	 {//forward this packet
 
 		 m_incomeParm_possitive.jumpnums=aodvrm.jump_nums;
 		 m_incomeParm_possitive.stability=aodvrm.stability;
@@ -1632,6 +1633,9 @@ if(out==sdn::POSITIVE)
 		   std::cout<<"POSITIVE forwarding..."<<std::endl;
 		  QueueMessage (mesg, JITTER);
 		 }
+	 }
+	 else{
+	        std::cout<<"m_incomeParm_possitive.jumpnums "<<m_incomeParm_possitive.jumpnums<<"  m_incomeParm_possitive.stability "<< m_incomeParm_possitive.stability<<" aodvrm.jump_nums"<<aodvrm.jump_nums<<" aodvrm.GetStability()"<<aodvrm.GetStability()<<std::endl;
 	 }
 }
 else{
@@ -1665,6 +1669,9 @@ else{
 		   std::cout<<"NEGATIVE forwarding..."<<std::endl;
 		  QueueMessage (mesg, JITTER);
 		 }
+	 }
+	 	 else{
+	        std::cout<<"m_incomeParm_negative.jumpnums "<<m_incomeParm_negative.jumpnums<<"  m_incomeParm_negative.stability "<< m_incomeParm_negative.stability<<" aodvrm.jump_nums"<<aodvrm.jump_nums<<" aodvrm.GetStability()"<<aodvrm.GetStability()<<std::endl;
 	 }
 	 
 	 }
