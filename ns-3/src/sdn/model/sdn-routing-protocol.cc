@@ -1858,7 +1858,7 @@ RoutingProtocol::ComputeRoute ()
 
 void  RoutingProtocol::compute_possive()
 {
-   std::cout<<"m_signal_range "<<m_signal_range<<" "<<"m_road_length "<<m_road_length<<std::endl;
+   //std::cout<<"m_signal_range "<<m_signal_range<<" "<<"m_road_length "<<m_road_length<<std::endl;
     possive_valid=true;
     std::map<double,Ipv4Address> dis;
     std::vector<std::pair<double,Ipv4Address>> chose;
@@ -1893,6 +1893,9 @@ void  RoutingProtocol::compute_possive()
         
         while(++iter!=dis.end())
         {
+        if(m_CCHmainAddress==Ipv4Address("192.168.1.247")){
+           std::cout<<iter->first<<endl;
+        }
         //std::cout<<"4"<<std::endl;
             std::pair<double,Ipv4Address> target=*(iter);
             if(temp.first+m_signal_range>iter->first)
