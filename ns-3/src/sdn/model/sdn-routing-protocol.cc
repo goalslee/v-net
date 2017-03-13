@@ -114,8 +114,8 @@ RoutingProtocol::RoutingProtocol ()
   :
     m_packetSequenceNumber (SDN_MAX_SEQ_NUM),
     m_messageSequenceNumber (SDN_MAX_SEQ_NUM),
-    m_helloInterval (Seconds(1)),//hellomessage ÖÜÆÚ
-    m_rmInterval (Seconds (3)),//Ã¿¸ölcÑ¡³µµÄÖÜÆÚ
+    m_helloInterval (Seconds(0.5)),//hellomessage ÖÜÆÚ
+    m_rmInterval (Seconds (0.5)),//Ã¿¸ölcÑ¡³µµÄÖÜÆÚ
     m_minAPInterval (Seconds (1)),//Ã»ÓÃµ½
     m_ipv4 (0),
     m_helloTimer (Timer::CANCEL_ON_DESTROY),
@@ -132,8 +132,8 @@ RoutingProtocol::RoutingProtocol ()
     m_numArea (0),
     m_isPadding (false),
     m_numAreaVaild (false),
-    m_road_length (814),//MagicNumber
-    m_signal_range (419),
+    m_road_length (1000),//MagicNumber
+    m_signal_range (900),
     m_firstRequest(1)
 {
   m_uniformRandomVariable = CreateObject<UniformRandomVariable> ();
