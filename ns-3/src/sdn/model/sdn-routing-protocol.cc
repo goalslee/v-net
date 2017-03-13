@@ -2048,9 +2048,9 @@ void RoutingProtocol::compute_negative()
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
     
-    while(temp.first+m_signal_range/2<(m_roadtype==sdn::ROW?m_mobility->GetPosition().x:m_mobility->GetPosition().y)+m_road_length/2)
+    while(temp.first+m_signal_range/2<m_road_length)
     {
-    int t=chose.size();
+    uint32_t t=chose.size();
        //std::cout<<"2"<<std::endl;
         std::map<double,Ipv4Address>::iterator iter=dis.find(temp.first);
 
