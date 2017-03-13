@@ -1638,7 +1638,7 @@ if(out==sdn::POSITIVE)
 		 }
 	 }
 	 else{
-	        std::cout<<"m_incomeParm_possitive.jumpnums "<<m_incomeParm_possitive.jumpnums<<"  m_incomeParm_possitive.stability "<< m_incomeParm_possitive.stability<<" aodvrm.jump_nums "<<aodvrm.jump_nums<<" aodvrm.GetStability()"<<aodvrm.GetStability()<<std::endl;
+	       // std::cout<<"m_incomeParm_possitive.jumpnums "<<m_incomeParm_possitive.jumpnums<<"  m_incomeParm_possitive.stability "<< m_incomeParm_possitive.stability<<" aodvrm.jump_nums "<<aodvrm.jump_nums<<" aodvrm.GetStability()"<<aodvrm.GetStability()<<std::endl;
 	 }
 }
 else{
@@ -1674,7 +1674,7 @@ else{
 		 }
 	 }
 	 	 else{
-	        std::cout<<"m_incomeParm_negative.jumpnums "<<m_incomeParm_negative.jumpnums<<"  m_incomeParm_negative.stability "<< m_incomeParm_negative.stability<<" aodvrm.jump_nums "<<aodvrm.jump_nums<<" aodvrm.GetStability()"<<aodvrm.GetStability()<<std::endl;
+	       // std::cout<<"m_incomeParm_negative.jumpnums "<<m_incomeParm_negative.jumpnums<<"  m_incomeParm_negative.stability "<< m_incomeParm_negative.stability<<" aodvrm.jump_nums "<<aodvrm.jump_nums<<" aodvrm.GetStability()"<<aodvrm.GetStability()<<std::endl;
 	 }
 	 
 	 }
@@ -1849,7 +1849,7 @@ RoutingProtocol::ComputeRoute ()
 
     RemoveTimeOut (); //Remove Stale Tuple
 
-    //std::cout<<"in compute route"<<std::endl;
+    std::cout<<"ip "<<m_CCHmainAddress<<std::endl;
    compute_possive();
    compute_negative();
     
@@ -1872,9 +1872,9 @@ void  RoutingProtocol::compute_possive()
             possive_valid=false;
             return;
     }
-    //std::cout<<"dis size "<<dis.size()<<std::endl;
-   /* for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
-        std::cout<<it->first<<std::endl;*/
+    std::cout<<"possitive dis size "<<dis.size()<<std::endl;
+    for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
+        std::cout<<it->first<<std::endl;
     transferAddress_possitive=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
@@ -2027,7 +2027,10 @@ void RoutingProtocol::compute_negative()
             //std::cout<<"no valid negative connect"<<std::endl;
             negative_valid=false;
             return;
-    }    
+    } 
+        std::cout<<"negative dis size "<<dis.size()<<std::endl;
+    for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
+        std::cout<<it->first<<std::endl;
     transferAddress_negative=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
