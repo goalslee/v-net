@@ -1873,9 +1873,11 @@ void  RoutingProtocol::compute_possive()
             possive_valid=false;
             return;
     }
-    /*std::cout<<"possitive dis size "<<dis.size()<<std::endl;
-    for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
-        std::cout<<it->first<<std::endl;*/
+    if(m_CCHmainAddress==Ipv4Address("192.168.1.247")){
+        std::cout<<"possitive dis size "<<dis.size()<<std::endl;
+         for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
+                std::cout<<it->first<<std::endl;
+        }
     transferAddress_possitive=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
