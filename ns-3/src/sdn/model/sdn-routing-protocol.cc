@@ -828,7 +828,7 @@ RoutingProtocol::ProcessRm (const sdn::MessageHeader &msg) //车收到lc发的路由表
                  m_SCHinterface);
       }
     }
-    if(m_CCHmainAddress==Ipv4Address(192.168.2.14))
+    if(m_CCHmainAddress==Ipv4Address("192.168.2.14"))
     {
         for(std::map<Ipv4Address, RoutingTableEntry>::iterator it= m_table.begin();it!=m_table.end();++it)
         {
