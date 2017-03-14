@@ -1541,7 +1541,7 @@ RoutingProtocol::AodvTimerExpire()
 void
 RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 {
-         std::cout<<"ProcessAodvRm..."<<m_CCHmainAddress<<std::endl;
+         //std::cout<<"ProcessAodvRm..."<<m_CCHmainAddress<<std::endl;
 	 sdn::MessageHeader mesg;
 
 	 const sdn::MessageHeader::AodvRm &aodvrm = msg.GetAodvRm();
@@ -1572,8 +1572,12 @@ else{
       else if(x<x_0&&y<y_0&&in==sdn::POSITIVE) out=sdn::POSITIVE;
     else if(x<x_0&&abs(y-y_0)<0.00001&&in==sdn::POSITIVE) out=sdn::POSITIVE;
       else return;
-    if(out==sdn::POSITIVE&& !possive_valid) {std::cout<<"no valid"<<std::endl;return;}
-    if(out==sdn::NEGATIVE&& !negative_valid){std::cout<<"no valid"<<std::endl;return;}
+   if(out==sdn::POSITIVE&& !possive_valid) {
+   //std::cout<<"no valid"<<std::endl;
+   return;}
+    if(out==sdn::NEGATIVE&& !negative_valid){
+    //std::cout<<"no valid"<<std::endl;
+    return;}
       std::cout<<"dir: "<<out<<std::endl;
 
 	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
@@ -1606,7 +1610,7 @@ else{
 				
 				 }
 			 }
-
+      std::cout<<"aodvrm.tag "<<aodvrm.tag<<" m_tag "<<m_tag<<std::endl;
         if(aodvrm.tag!=m_tag){
                  m_tag=aodvrm.tag;
                  m_incomeParm_possitive.jumpnums=1000;
@@ -1646,7 +1650,7 @@ if(out==sdn::POSITIVE)
 		  Aodvrm.Originator=m_CCHmainAddress;
 		  Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 		   Aodvrm.dir=out;
-		   std::cout<<"POSITIVE forwarding..."<<std::endl;
+		   //std::cout<<"POSITIVE forwarding..."<<std::endl;
 		  QueueMessage (mesg, JITTER);
 		 }
 	 }
@@ -1684,7 +1688,7 @@ else{
 		  Aodvrm.Originator=m_CCHmainAddress;
 		  Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 		   Aodvrm.dir=out;
-		   std::cout<<"NEGATIVE forwarding..."<<std::endl;
+		   //std::cout<<"NEGATIVE forwarding..."<<std::endl;
 		  QueueMessage (mesg, JITTER);
 		 }
 	 }
