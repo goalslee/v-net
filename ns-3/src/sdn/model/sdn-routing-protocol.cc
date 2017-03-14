@@ -1607,14 +1607,17 @@ else{
 				 }
 			 }
 
-
-if(out==sdn::POSITIVE)
-{
-          if(aodvrm.tag!=m_tag){
+        if(aodvrm.tag!=m_tag){
                  m_tag=aodvrm.tag;
                  m_incomeParm_possitive.jumpnums=1000;
                  m_incomeParm_possitive.stability=1000;
+                 m_incomeParm_negative.jumpnums=1000;
+                 m_incomeParm_negative.stability=1000;
           }
+
+if(out==sdn::POSITIVE)
+{
+
 	 
 	 if(aodvrm.jump_nums<m_incomeParm_possitive.jumpnums||(aodvrm.jump_nums==m_incomeParm_possitive.jumpnums&& aodvrm.GetStability() < m_incomeParm_possitive.stability))
 	 {//forward this packet
@@ -1652,11 +1655,7 @@ if(out==sdn::POSITIVE)
 	 }
 }
 else{
-          if(aodvrm.tag!=m_tag){
-                 m_tag=aodvrm.tag;
-                 m_incomeParm_negative.jumpnums=1000;
-                 m_incomeParm_negative.stability=1000;
-          }
+
 	 if(aodvrm.jump_nums<m_incomeParm_negative.jumpnums||(aodvrm.jump_nums==m_incomeParm_negative.jumpnums&& aodvrm.GetStability() < m_incomeParm_negative.stability)){//forward this packet
 
 		 m_incomeParm_negative.jumpnums=aodvrm.jump_nums;
