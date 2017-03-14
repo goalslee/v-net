@@ -807,7 +807,7 @@ RoutingProtocol::ProcessRm (const sdn::MessageHeader &msg) //车收到lc发的路由表
       Time now = Simulator::Now();
       NS_LOG_DEBUG ("@" << now.GetSeconds() << ":Node " << m_CCHmainAddress
                     << "ProcessRm.");
-
+      std::cout<<"Node " << m_CCHmainAddress<<std::endl;
       NS_ASSERT (rm.GetRoutingMessageSize() >= 0);
 
       Clear();
