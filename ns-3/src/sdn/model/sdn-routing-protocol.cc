@@ -882,6 +882,9 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
                
                std::cout<<"handle request ,IP is "<<m_CCHmainAddress<<std::endl;
                ComputeRoute();
+               if(!haveSource) std::cout<<"source not register"<<std::endl;
+               if(m_lc_info[m_sourceAddress].dir==sdn::POSITIVE&&!possive_valid) {std::cout<<"no valid source route"<<std::endl;return;}
+               else if(m_lc_info[m_sourceAddress].dir==sdn::NEGATIVE&&!negative_valid) {std::cout<<"no valid source route"<<std::endl;return;}
                //std::cout<<"computeroute finish"<<std::endl;
 	     sdn::MessageHeader mesg;
 		 //std::cout<<"forwarding..."<<std::endl;
@@ -1909,6 +1912,10 @@ void  RoutingProtocol::compute_possive()
         // for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
              //   std::cout<<it->first<<std::endl;
         //}
+    if(dis.begin()->first>m_signal_range/2) {
+    return;
+    possive_valid=false;
+    }
     transferAddress_possitive=dis.begin()->second;
     chose.push_back(*dis.begin());
     std::pair<double,Ipv4Address> temp=*chose.rbegin();
@@ -2101,6 +2108,10 @@ void RoutingProtocol::compute_negative()
             negative_valid=false;
             return;
     } 
+    if(dis.begin()->first>m_signal_range/2) {
+    return;
+    possive_valid=false;
+    }
         /*std::cout<<"negative dis size "<<dis.size()<<std::endl;
     for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
         std::cout<<it->first<<std::endl;*/
