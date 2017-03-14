@@ -115,7 +115,7 @@ RoutingProtocol::RoutingProtocol ()
     m_packetSequenceNumber (SDN_MAX_SEQ_NUM),
     m_messageSequenceNumber (SDN_MAX_SEQ_NUM),
     m_helloInterval (Seconds(1)),//hellomessage ÖÜÆÚ
-    m_rmInterval (Seconds (0.5)),//Ã¿¸ölcÑ¡³µµÄÖÜÆÚ
+    m_rmInterval (Seconds (1)),//Ã¿¸ölcÑ¡³µµÄÖÜÆÚ
     m_minAPInterval (Seconds (1)),//Ã»ÓÃµ½
     m_ipv4 (0),
     m_helloTimer (Timer::CANCEL_ON_DESTROY),
