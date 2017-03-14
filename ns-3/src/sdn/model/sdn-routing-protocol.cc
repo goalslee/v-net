@@ -2044,6 +2044,7 @@ void  RoutingProtocol::compute_possive()
                  for(std::vector<std::pair<double,Ipv4Address>>::reverse_iterator it = chose.rbegin();it!=chose.rend();++it)
                 {
                     if(it->first<distance){
+                    std::cout<<"sink add"<<std::endl;
                         LCAddEntry (it->second,chose.rbegin()->second, mask, m_sinkAddress);
                         break;
                     }
