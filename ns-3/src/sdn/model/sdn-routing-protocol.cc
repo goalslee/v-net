@@ -1535,7 +1535,7 @@ void
 RoutingProtocol::AodvTimerExpire()
 {
 	Aodv_sendback();
-	isDes=false;
+	//isDes=false;
 }
 
 void
