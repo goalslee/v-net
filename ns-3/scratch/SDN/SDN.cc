@@ -279,7 +279,7 @@ void VanetSim::ConfigMobility()
 	{
 		duration = rt;
 	}
-	duration = 80;
+	duration = 70;
 	Time temp_now = Simulator::Now();
 	std::cout<<"Now?"<<temp_now.GetSeconds ()<<std::endl;
 	/*
