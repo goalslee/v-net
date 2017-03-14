@@ -134,7 +134,7 @@ RoutingProtocol::RoutingProtocol ()
     m_numAreaVaild (false),
     m_road_length (1000),//MagicNumber
     m_signal_range (900),
-    m_firstRequest(1)
+    m_firstRequest(1),
     m_tag(0)
 {
   m_uniformRandomVariable = CreateObject<UniformRandomVariable> ();
@@ -1610,8 +1610,8 @@ else{
 
 if(out==sdn::POSITIVE)
 {
-          if(aodvrm.tag!=tag){
-                 tag=aodvrm.tag;
+          if(aodvrm.tag!=m_tag){
+                 m_tag=aodvrm.tag;
                  m_incomeParm_possitive.jumpnums=1000;
                  m_incomeParm_possitive.stability=1000;
           }
@@ -1634,7 +1634,7 @@ if(out==sdn::POSITIVE)
 		  mesg.SetTimeToLive (1234);
 		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
-		  Aodvrm.tag=tag;
+		  Aodvrm.tag=m_tag;
 		  Aodvrm.ID=aodvrm.ID;
 		  Aodvrm.DesId=aodvrm.DesId;
 		  Aodvrm.mask=aodvrm.mask;
@@ -1652,8 +1652,8 @@ if(out==sdn::POSITIVE)
 	 }
 }
 else{
-          if(aodvrm.tag!=tag){
-                 tag=aodvrm.tag;
+          if(aodvrm.tag!=m_tag){
+                 m_tag=aodvrm.tag;
                  m_incomeParm_negative.jumpnums=1000;
                  m_incomeParm_negative.stability=1000;
           }
@@ -1676,7 +1676,7 @@ else{
 		  mesg.SetTimeToLive (1234);
 		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
-		  Aodvrm.tag=tag;
+		  Aodvrm.tag=m_tag;
 		  Aodvrm.ID=aodvrm.ID;
 		  Aodvrm.DesId=aodvrm.DesId;
 		  Aodvrm.mask=aodvrm.mask;
