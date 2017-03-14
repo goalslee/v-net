@@ -1586,13 +1586,17 @@ else{
 	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
 	             std::cout<<"des get pt "<<std::endl;
                          if(!haveSink){
-                            haveSink=true;
+                            
                             m_sinkAddress=aodvrm.DesId;
                             std::map<Ipv4Address, CarInfo>::iterator it1 = m_lc_positive_info.find (m_sinkAddress);
                             std::map<Ipv4Address, CarInfo>::iterator it2 = m_lc_negative_info.find (m_sinkAddress);
                             if(it1!=m_lc_positive_info.end()) m_lc_positive_info.erase(it1);
                             if(it2!=m_lc_negative_info.end()) m_lc_negative_info.erase(it2);
                             ComputeRoute();//将sink加入路由中
+                            if(m_lc_info[m_sinkAddress].dir==sdn::POSITIVE){
+                                if(possive_valid) haveSink=true;
+                            }
+                            else {if(negative_valid) haveSink=true;}
                          }
 	
 	                   if(m_incomeDesParm.desdir==sdn::OTHER)
@@ -1603,6 +1607,7 @@ else{
                           if(m_incomeDesParm.desdir==out) {//车流方向与目的车一致
 		                  temp_desId=aodvrm.DesId;
 			            std::cout<<"I am  "<<m_CCHmainAddress<<" ,I have des"<<std::endl;
+			            if(haveSink){
 				 isDes=true;
 				 //m_aodvTimer.SetDelay(FemtoSeconds (5));// 5s countdown
 				 m_aodvTimer.SetFunction
@@ -1610,6 +1615,10 @@ else{
 				 Time t = Seconds (0.25);
 				 m_aodvTimer.SetDelay(t);
 				 m_aodvTimer.Schedule ();
+				 }
+				 else{
+				    std::cout<<"sink no valid"
+				    }
 				
 				 }
 			 }
