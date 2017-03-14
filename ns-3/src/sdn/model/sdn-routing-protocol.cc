@@ -1600,7 +1600,7 @@ else{
 				 //m_aodvTimer.SetDelay(FemtoSeconds (5));// 5s countdown
 				 m_aodvTimer.SetFunction
 				    (&RoutingProtocol::AodvTimerExpire, this);
-				 Time t = Seconds (1.0);
+				 Time t = Seconds (0.25);
 				 m_aodvTimer.SetDelay(t);
 				 m_aodvTimer.Schedule ();
 				
