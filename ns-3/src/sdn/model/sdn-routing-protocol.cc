@@ -2028,19 +2028,23 @@ void  RoutingProtocol::compute_possive()
             if(m_roadtype==sdn::ROW)
             {
                 int distance=m_lc_info[m_sinkAddress].Position.x-(m_mobility->GetPosition().x-m_road_length/2);
+               Ipv4Address temp;
                  for(std::vector<std::pair<double,Ipv4Address>>::reverse_iterator it = chose.rbegin();it!=chose.rend();++it)
                 {
-                    if(it->first<distance){ 
-                        LCAddEntry (it->second,chose.rbegin()->second, mask, m_sinkAddress);
+                    if(it->first<distance){
+                    //std::cout<<"sink add"<<std::endl;
+                       temp=it->second;
+                        //LCAddEntry (it->second,chose.rbegin()->second, mask, m_sinkAddress);
                         break;
                     }
                     
                 }
-                for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+                 for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
                     if(it->first<distance){
                         //std::cout<<"sink add"<<std::endl;
-                        LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
+                        if(it->second==temp) LCAddEntry (it->second,m_sinkAddress,mask,m_sinkAddress);
+                        else LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
  
                     }
                     else break;
@@ -2052,12 +2056,13 @@ void  RoutingProtocol::compute_possive()
                 int distance=m_lc_info[m_sinkAddress].Position.y-(m_mobility->GetPosition().y-m_road_length/2);
               
 
-                
+               Ipv4Address temp;
                  for(std::vector<std::pair<double,Ipv4Address>>::reverse_iterator it = chose.rbegin();it!=chose.rend();++it)
                 {
                     if(it->first<distance){
                     //std::cout<<"sink add"<<std::endl;
-                        LCAddEntry (it->second,chose.rbegin()->second, mask, m_sinkAddress);
+                       temp=it->second;
+                        //LCAddEntry (it->second,chose.rbegin()->second, mask, m_sinkAddress);
                         break;
                     }
                     
@@ -2066,7 +2071,8 @@ void  RoutingProtocol::compute_possive()
                 {
                     if(it->first<distance){
                         //std::cout<<"sink add"<<std::endl;
-                        LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
+                        if(it->second==temp) LCAddEntry (it->second,m_sinkAddress,mask,m_sinkAddress);
+                        else LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
  
                     }
                     else break;
@@ -2200,11 +2206,13 @@ void RoutingProtocol::compute_negative()
             if(m_roadtype==sdn::ROW)
             {
                 int distance=m_mobility->GetPosition().x+m_road_length/2-m_lc_info[m_sinkAddress].Position.x;
+               Ipv4Address temp;
                  for(std::vector<std::pair<double,Ipv4Address>>::reverse_iterator it = chose.rbegin();it!=chose.rend();++it)
                 {
                     if(it->first<distance){
                     //std::cout<<"sink add"<<std::endl;
-                        LCAddEntry (it->second,chose.rbegin()->second, mask, m_sinkAddress);
+                       temp=it->second;
+                        //LCAddEntry (it->second,chose.rbegin()->second, mask, m_sinkAddress);
                         break;
                     }
                     
@@ -2213,7 +2221,8 @@ void RoutingProtocol::compute_negative()
                 {
                     if(it->first<distance){
                         //std::cout<<"sink add"<<std::endl;
-                        LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
+                        if(it->second==temp) LCAddEntry (it->second,m_sinkAddress,mask,m_sinkAddress);
+                        else LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
  
                     }
                     else break;
@@ -2223,11 +2232,13 @@ void RoutingProtocol::compute_negative()
             }
             else{
                 int distance=m_mobility->GetPosition().y+m_road_length/2-m_lc_info[m_sinkAddress].Position.y;
+               Ipv4Address temp;
                  for(std::vector<std::pair<double,Ipv4Address>>::reverse_iterator it = chose.rbegin();it!=chose.rend();++it)
                 {
                     if(it->first<distance){
                     //std::cout<<"sink add"<<std::endl;
-                        LCAddEntry (it->second,chose.rbegin()->second, mask, m_sinkAddress);
+                       temp=it->second;
+                        //LCAddEntry (it->second,chose.rbegin()->second, mask, m_sinkAddress);
                         break;
                     }
                     
@@ -2236,7 +2247,8 @@ void RoutingProtocol::compute_negative()
                 {
                     if(it->first<distance){
                         //std::cout<<"sink add"<<std::endl;
-                        LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
+                        if(it->second==temp) LCAddEntry (it->second,m_sinkAddress,mask,m_sinkAddress);
+                        else LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
  
                     }
                     else break;
