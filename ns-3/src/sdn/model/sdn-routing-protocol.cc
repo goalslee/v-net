@@ -891,12 +891,12 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 		  mesg.SetTimeToLive (1234);
 		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
-		  Aodvrm.routingMessageSize=24;
+		  Aodvrm.tag=crreq.tag;
 		  Aodvrm.ID=source;//
 		  Aodvrm.DesId=dest;//
 		  Aodvrm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 
-		  //todo 
+	
 		  Aodvrm.jump_nums=m_selfParm_possitive.jumpnums;
 		  Aodvrm.SetStability(m_selfParm_possitive.stability);
 		  Aodvrm.Originator=m_CCHmainAddress;
@@ -1607,8 +1607,14 @@ else{
 				 }
 			 }
 
+
 if(out==sdn::POSITIVE)
 {
+          if(aodvrm.tag!=tag){
+                 tag=aodvrm.tag;
+                 m_incomeParm_possitive.jumpnums=1000;
+                 m_incomeParm_possitive.stability=1000;
+          }
 	 
 	 if(aodvrm.jump_nums<m_incomeParm_possitive.jumpnums||(aodvrm.jump_nums==m_incomeParm_possitive.jumpnums&& aodvrm.GetStability() < m_incomeParm_possitive.stability))
 	 {//forward this packet
@@ -1628,6 +1634,7 @@ if(out==sdn::POSITIVE)
 		  mesg.SetTimeToLive (1234);
 		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
+		  Aodvrm.tag=tag;
 		  Aodvrm.ID=aodvrm.ID;
 		  Aodvrm.DesId=aodvrm.DesId;
 		  Aodvrm.mask=aodvrm.mask;
@@ -1645,6 +1652,11 @@ if(out==sdn::POSITIVE)
 	 }
 }
 else{
+          if(aodvrm.tag!=tag){
+                 tag=aodvrm.tag;
+                 m_incomeParm_negative.jumpnums=1000;
+                 m_incomeParm_negative.stability=1000;
+          }
 	 if(aodvrm.jump_nums<m_incomeParm_negative.jumpnums||(aodvrm.jump_nums==m_incomeParm_negative.jumpnums&& aodvrm.GetStability() < m_incomeParm_negative.stability)){//forward this packet
 
 		 m_incomeParm_negative.jumpnums=aodvrm.jump_nums;
@@ -1664,6 +1676,7 @@ else{
 		  mesg.SetTimeToLive (1234);
 		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
+		  Aodvrm.tag=tag;
 		  Aodvrm.ID=aodvrm.ID;
 		  Aodvrm.DesId=aodvrm.DesId;
 		  Aodvrm.mask=aodvrm.mask;
