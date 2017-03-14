@@ -1484,6 +1484,7 @@ RoutingProtocol::SendRoutingMessage (enum direction dir)
           rm.routingTables.push_back (rt);
         }
       rm.routingMessageSize = rm.routingTables.size ();
+      if(rm.routingMessageSize==0) continue;
       QueueMessage (msg, JITTER);
     }
     }
