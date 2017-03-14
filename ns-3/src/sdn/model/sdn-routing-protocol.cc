@@ -888,7 +888,7 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
 		  Time now = Simulator::Now ();
 		  mesg.SetVTime (m_helloInterval);
-		  mesg.SetTimeToLive (1234);
+		  mesg.SetTimeToLive (8);
 		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
 		  Aodvrm.tag=crreq.tag;
@@ -1546,6 +1546,8 @@ RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 
 	 const sdn::MessageHeader::AodvRm &aodvrm = msg.GetAodvRm();
 
+uint16_t TTL=msg.GetTimeToLive();
+if(--TTL==0) return;
 //判断车流方向是否指向本路
 sdn::direction in =aodvrm.dir;
 sdn::direction out;
@@ -1638,7 +1640,7 @@ if(out==sdn::POSITIVE)
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
 		  Time now = Simulator::Now ();
 		  mesg.SetVTime (m_helloInterval);
-		  mesg.SetTimeToLive (1234);
+		  mesg.SetTimeToLive (TTL);
 		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
 		  Aodvrm.tag=m_tag;
@@ -1676,7 +1678,7 @@ else{
 		 mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
 		  Time now = Simulator::Now ();
 		  mesg.SetVTime (m_helloInterval);
-		  mesg.SetTimeToLive (1234);
+		  mesg.SetTimeToLive (TTL);
 		  mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 		  sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
 		  Aodvrm.tag=m_tag;
