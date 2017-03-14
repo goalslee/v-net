@@ -807,7 +807,7 @@ RoutingProtocol::ProcessRm (const sdn::MessageHeader &msg) //车收到lc发的路由表
       Time now = Simulator::Now();
       NS_LOG_DEBUG ("@" << now.GetSeconds() << ":Node " << m_CCHmainAddress
                     << "ProcessRm.");
-      std::cout<<"Node " << m_CCHmainAddress<<std::endl;
+      //std::cout<<"Node " << m_CCHmainAddress<<std::endl;
       NS_ASSERT (rm.GetRoutingMessageSize() >= 0);
 
       Clear();
@@ -1119,11 +1119,11 @@ RoutingProtocol::RouteInput(Ptr<const Packet> p,
       //Forwardding
       Ptr<Ipv4Route> rtentry;
       RoutingTableEntry entry;
-      //std::cout<<"2RouteInput "<<m_SCHmainAddress.Get ()%256 << ",Dest:"<<header.GetDestination ().Get ()<<std::endl;
+      std::cout<<"RouteInput "<<m_SCHmainAddress.Get ()<< ",Dest:"<<header.GetDestination ().Get ()<<std::endl;
       //std::cout<<"M_TABLE SIZE "<<m_table.size ()<<std::endl;
       if (Lookup (header.GetDestination (), entry))
       {
-          //std::cout<<"found!"<<entry.nextHop.Get()%256<<std::endl;
+          std::cout<<"found!nextHop "<<entry.nextHop.Get()<<std::endl;
           uint32_t interfaceIdx = entry.interface;
           rtentry = Create<Ipv4Route> ();
           rtentry->SetDestination (header.GetDestination ());
@@ -1224,7 +1224,7 @@ RoutingProtocol::RouteOutput (Ptr<Packet> p,
       rtentry->SetGateway (entry.nextHop);
       rtentry->SetOutputDevice (m_ipv4->GetNetDevice (interfaceIdx));
       sockerr = Socket::ERROR_NOTERROR;
-      //std::cout<<"***"<<rtentry->GetDestination ().Get()<<" "<<rtentry->GetGateway ().Get()<<std::endl;
+      std::cout<<"***"<<rtentry->GetDestination ().Get()<<" "<<rtentry->GetGateway ().Get()<<std::endl;
       NS_LOG_DEBUG ("SDN node " << m_SCHmainAddress
                                  << ": RouteOutput for dest=" << header.GetDestination ()
                                  << " --> nextHop=" << entry.nextHop
