@@ -1578,7 +1578,7 @@ else{
     if(out==sdn::NEGATIVE&& !negative_valid){
     //std::cout<<"no valid"<<std::endl;
     return;}
-      std::cout<<"dir: "<<out<<std::endl;
+      //std::cout<<"dir: "<<out<<std::endl;
 
 	if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
 	             std::cout<<"des get pt "<<std::endl;
@@ -1610,8 +1610,8 @@ else{
 				
 				 }
 			 }
-      std::cout<<"aodvrm.tag "<<aodvrm.tag<<" m_tag "<<m_tag<<std::endl;
-        if(aodvrm.tag!=m_tag){
+     // std::cout<<"aodvrm.tag "<<aodvrm.tag<<" m_tag "<<m_tag<<std::endl;
+        if(aodvrm.tag>m_tag){
                  m_tag=aodvrm.tag;
                  m_incomeParm_possitive.jumpnums=1000;
                  m_incomeParm_possitive.stability=1000;
