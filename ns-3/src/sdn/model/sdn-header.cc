@@ -425,7 +425,7 @@ MessageHeader::AodvRm::Serialize (Buffer::Iterator start) const
 {
   Buffer::Iterator i = start;
 
-  i.WriteHtonU32 (this->routingMessageSize);
+  i.WriteHtonU32 (this->tag);
   i.WriteHtonU32 (this->ID.Get());
   i.WriteHtonU32 (this->DesId.Get());
   i.WriteHtonU32 (this->mask.Get());
@@ -449,7 +449,7 @@ MessageHeader::AodvRm::Deserialize (Buffer::Iterator start,
   //this->routingTables.clear ();
   NS_ASSERT (messageSize >= SDN_AODVRM_HEADER_SIZE);
 
-  this->routingMessageSize = i.ReadNtohU32 ();
+  this->tag = i.ReadNtohU32 ();
   this->ID.Set( i.ReadNtohU32 ());
   this->DesId.Set(i.ReadNtohU32());
   this->mask.Set(i.ReadNtohU32());

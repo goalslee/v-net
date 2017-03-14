@@ -421,7 +421,7 @@ public:
   //        0                   1                   2                   3
   //        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //       |                Aodv Routing Message Size                      |
+  //       |               tag                     |
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   //       |                      sourceAddress(ID)                        | //first send node id
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -450,15 +450,15 @@ public:
   {
 
 
-	    uint32_t routingMessageSize;
-	    void SetRoutingMessageSize(uint32_t rms) //
+	    uint32_t tag;
+	    /*void SetRoutingMessageSize(uint32_t rms) //
 	    {
 	      this->routingMessageSize = rms;
 	    }
 	    uint32_t GetRoutingMessageSize() const
 	    {
 	      return (this->routingMessageSize);
-	    }
+	    }*/
 	    struct Position{
                         uint32_t X, Y, Z;
             };
