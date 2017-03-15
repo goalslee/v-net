@@ -32,7 +32,7 @@
 #define SDN_HELLO_HEADER_SIZE 28
 #define SDN_RM_HEADER_SIZE 16
 #define SDN_RM_TUPLE_SIZE 3
-#define SDN_APPOINTMENT_HEADER_SIZE 12
+#define SDN_MAINTAINMENT_HEADER_SIZE 12
 #define SDN_CRREQ_HEADER_SIZE 12
 #define SDN_CRREP_HEADER_SIZE 12
 #define SDN_AODVRM_HEADER_SIZE 44
@@ -173,9 +173,9 @@ MessageHeader::GetSerializedSize (void) const
     case ROUTING_MESSAGE:
       size += m_message.rm.GetSerializedSize ();
       break;
-    /*case APPOINTMENT_MESSAGE:
-      size += m_message.appointment.GetSerializedSize ();
-      break;*/
+    case MAINTAINMENT_MESSAGE:
+      size += m_message.mt.GetSerializedSize ();
+      break;
     case AODV_ROUTING_MESSAGE:
       size +=m_message.aodvrm.GetSerializedSize();
       break;
@@ -524,7 +524,7 @@ MessageHeader::Aodv_R_Rm::Deserialize (Buffer::Iterator start,
 }
 
 
-// ---------------- SDN Appointment Message -------------------------------
+// ---------------- SDN Maintainment Message -------------------------------
 
 void
 MessageHeader::Maintainment::Print (std::ostream &os) const
@@ -535,20 +535,17 @@ MessageHeader::Maintainment::Print (std::ostream &os) const
 uint32_t
 MessageHeader::Maintainment::GetSerializedSize () const
 {
-  return SDN_APPOINTMENT_HEADER_SIZE;
+  return SDN_MAINTAINMENT_HEADER_SIZE;
 }
 
 void
 MessageHeader::Maintainment::Serialize (Buffer::Iterator start) const
 {
   Buffer::Iterator i = start;
-
-  i.WriteHtonU32 (this->ID.Get());
-  uint32_t at = 0;
-  if (ATField == FORWARDER)
-    at = 0xFFFF;
-  i.WriteHtonU32 (at);
-  i.WriteHtonU32 (this->NextForwarder.Get());
+ i.WriteHtonU32 (this->rORm);
+  i.WriteHtonU32 (this->sourceID.Get());
+  i.WriteHtonU32 (this->sinkID.Get()t);
+  i.WriteHtonU32 (this->transferID.Get());
 }
 
 uint32_t
@@ -556,15 +553,10 @@ MessageHeader::Maintainment::Deserialize (Buffer::Iterator start, uint32_t messa
 {
   Buffer::Iterator i = start;
 
-  uint32_t ip_temp = i.ReadNtohU32();
-  this->ID.Set (ip_temp);
-  uint32_t at = i.ReadNtohU32();
-  if (at)
-    this->ATField = FORWARDER;
-  else
-    this->ATField = NORMAL;
-  ip_temp = i.ReadNtohU32();
-  this->NextForwarder.Set (ip_temp);
+  this->rORm= i.ReadNtohU32();
+  this->sourceID.Set (i.ReadNtohU32());
+    this->sinkID.Set (i.ReadNtohU32());
+    this->transferID.Set (i.ReadNtohU32());
   return (messageSize);
 }
 
