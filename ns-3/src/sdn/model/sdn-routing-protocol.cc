@@ -1769,18 +1769,6 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	            Aodv_r_rm.FirstCarId=transferAddress_possitive;
 	        else    Aodv_r_rm.FirstCarId=transferAddress_negative;
 
-	/*  
-	  if(m_incomeDesParm.dir){ //POSITIVE,NEGATIVE
-	        if(m_incomeDesParm.desdir==sdn::POSITIVE)
-	            Aodv_r_rm.FirstCarId=transferAddress_possitive;
-	        else    Aodv_r_rm.FirstCarId=transferAddress_negative;
-	            }
-	   else
-	   {
-	    	 if(m_incomeDesParm.desdir==sdn::POSITIVE)
-	            Aodv_r_rm.FirstCarId=roadendAddress_possitive;
-	        else    Aodv_r_rm.FirstCarId=roadendAddress_negative;
-	   }*/
 	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 	  Aodv_r_rm.routingMessageSize=32;//SDN_AODVRRM_HEADER_SIZE;
 	  Aodv_r_rm.originator=m_CCHmainAddress;
