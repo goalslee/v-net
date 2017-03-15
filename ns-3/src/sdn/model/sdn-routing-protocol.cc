@@ -124,9 +124,9 @@ RoutingProtocol::RoutingProtocol ()
     m_SCHinterface (0),
     m_CCHinterface (0),
     m_nodetype (OTHERS),
-    m_appointmentResult (NORMAL),
+
     m_next_forwarder (uint32_t (0)),
-    m_linkEstablished (false),
+
     m_road_length (1000),//MagicNumber
     m_signal_range (900),
     m_firstRequest(1),
