@@ -1454,7 +1454,7 @@ RoutingProtocol::SendCRREQ (Ipv4Address const &destAddress)
 {
   NS_LOG_FUNCTION (this);
 
- // std::cout<<"SendCRREQ "<<std::endl;
+
   sdn::MessageHeader msg;
   Time now = Simulator::Now ();
   msg.SetVTime (m_helloInterval);
