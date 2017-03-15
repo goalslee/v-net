@@ -800,7 +800,7 @@ RoutingProtocol::ProcessRm (const sdn::MessageHeader &msg) //车收到lc发的路由表
       Time now = Simulator::Now();
       NS_LOG_DEBUG ("@" << now.GetSeconds() << ":Node " << m_CCHmainAddress
                     << "ProcessRm.");
-      std::cout<<"Node " << m_CCHmainAddress<<std::endl;
+      //std::cout<<"Node " << m_CCHmainAddress<<std::endl;
       NS_ASSERT (rm.GetRoutingMessageSize() >= 0);
 
       Clear();
@@ -820,14 +820,14 @@ RoutingProtocol::ProcessRm (const sdn::MessageHeader &msg) //车收到lc发的路由表
                  it->nextHop,
                  m_SCHinterface);
       }
-          if(m_CCHmainAddress==Ipv4Address("192.168.2.14"))
+        /*  if(m_CCHmainAddress==Ipv4Address("192.168.2.14"))
     {
         std::cout<<"match "<<m_CCHmainAddress<<std::endl;
         for(std::map<Ipv4Address, RoutingTableEntry>::iterator it= m_table.begin();it!=m_table.end();++it)
         {
             std::cout<<"route dest"<<it->second.destAddr<<" next"<<it->second.nextHop<<std::endl;
         }
-    }
+    }*/
     }
 
 }
@@ -1803,7 +1803,38 @@ RoutingProtocol::GetType () const
   return m_nodetype;
 }
 
+void
+RoutingProtocol::SendMT(enum direction dir,uint32_t n)//0 maintain,1 rechose
+{
+    	sdn::MessageHeader msg;
+	 msg.SetMessageType(sdn::MessageHeader::MAINTAINMENT_MESSAGE);
+	  Time now = Simulator::Now ();
+	  msg.SetVTime (m_helloInterval);
+	  msg.SetTimeToLive (1234);
+	  msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
+	  sdn::MessageHeader::Maintainment&MT = msg.GetMaintainment();
+	  
+	  Aodv_r_rm.ID=m_incomeDesParm.m_sourceId; 
+	  Aodv_r_rm.DesId=m_incomeDesParm.m_desId;
 
+	        if(m_incomeDesParm.desdir==sdn::POSITIVE)
+	            Aodv_r_rm.FirstCarId=transferAddress_possitive;
+	        else    Aodv_r_rm.FirstCarId=transferAddress_negative;
+
+	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
+	  Aodv_r_rm.routingMessageSize=32;//SDN_AODVRRM_HEADER_SIZE;
+	  Aodv_r_rm.originator=m_CCHmainAddress;
+	  Aodv_r_rm.next=m_incomeDesParm.lastIP;
+	  Aodv_r_rm.next_dir=m_incomeDesParm.lastdir;
+
+	  QueueMessage (msg, JITTER);
+}
+
+void
+RoutingProtocol::ProcessMT()
+{
+
+}
 
 void
 RoutingProtocol::ComputeRoute ()
@@ -1819,12 +1850,14 @@ RoutingProtocol::ComputeRoute ()
      if(!haveSink) ProcessCRREP(m_incomeParm_possitive.transfer, sdn::POSITIVE);
         if(transferAddress_possitive!=tempID){
                 //ProcessCRREP(transferAddress_possitive, sdn::POSITIVE);
+                SendMT(sdn::POSITIVE,0);
         }
    }
    else if(m_isEstablish_negative&&negative_valid){
             if(!haveSink) ProcessCRREP(m_incomeParm_negative.transfer, sdn::NEGATIVE);
            if(transferAddress_negative!=tempID){
                 //ProcessCRREP(transferAddress_negative, sdn::NEGATIVE);
+                SendMT(sdn::NEGATIVE,0);
         }     
    }
     
