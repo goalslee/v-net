@@ -1834,7 +1834,7 @@ RoutingProtocol::SendMT(enum direction dir,uint32_t n)//0 maintain,1 rechose ,di
 }
 
 void
-RoutingProtocol::ProcessMT()
+RoutingProtocol::ProcessMT(const sdn::MessageHeader &msg)
 {
 
 }
