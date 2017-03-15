@@ -2308,11 +2308,6 @@ RoutingProtocol::ClearAllTables ()
 }
 
 
-
-
-
-
-
 void
 RoutingProtocol::RemoveTimeOut()//删除3个hello时间内没再次收到hello包的车
 {
