@@ -2225,16 +2225,6 @@ void RoutingProtocol::compute_negative()
 
 
 
-void
-RoutingProtocol::CalcSetZero ()
-{
-  m_lc_shorthop.clear();
-  if (GetNumArea () > 1)
-    CalcShortHopOfArea (0,1);
-  if ((GetNumArea () == 3)&&(isPaddingExist ()))
-    CalcShortHopOfArea (0,2);
-  CalcIntraArea (0);
-}
 
 void
 RoutingProtocol::SelectNewNodeInAreaZero ()
