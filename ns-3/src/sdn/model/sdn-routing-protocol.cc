@@ -2213,63 +2213,9 @@ void RoutingProtocol::compute_negative()
 }
 
 /*
-void
-RoutingProtocol::Do_Init_Compute ()
-{
-  //std::cout<<"Partition"<<std::endl;
-  Partition ();
-  //std::cout<<"SetN_Init"<<std::endl;
-  SetN_Init ();
-  //std::cout<<"OtherSet_Init"<<std::endl;
-  OtherSet_Init ();
-  //std::cout<<"SelectNode"<<std::endl;
-  SelectNode ();
-  //std::cout<<"Do_Init_Compute DONE"<<std::endl;
-}
 
-void
-RoutingProtocol::Do_Update ()
-{
-  //std::cout<<"ShiftArea"<<std::endl;
-  ShiftArea ();
-  //std::cout<<"AddNewToZero"<<std::endl;
-  AddNewToZero ();
-  //std::cout<<"CalcSetZero"<<std::endl;
-  CalcSetZero ();
-  //std::cout<<"SelectNewNodeInAreaZero"<<std::endl;
-  SelectNewNodeInAreaZero ();
-  //std::cout<<"Do_Update DONE"<<std::endl;
-}
 
-void
-RoutingProtocol::Partition ()
-{
-  m_Sections.clear ();
-  int numArea = GetNumArea();
-  for (int i = 0; i < numArea; ++i)
-    {
-      m_Sections.push_back (std::set<Ipv4Address> ());
-    }
-  //std::cout<<"CheckPonint1"<<std::endl;
-  for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();cit != m_lc_info.end(); ++cit)
-    {
-      //std::cout<<"cit->first"<<cit->first.Get ()%256<<std::endl;
-      //std::cout<<GetArea (cit->second.Position)<<","<<numArea<<std::endl;
-      m_Sections[GetArea (cit->second.Position)].insert (cit->first);
-    }
-  //std::cout<<m_lc_info.size ()<<std::endl;
-  for (int i = 0; i < numArea; ++i)
-    {
-      //std::cout<<"Section "<<i<<": ";
-      for (std::set<Ipv4Address>::const_iterator cit = m_Sections[i].begin ();
-           cit != m_Sections[i].end (); ++cit)
-        {
-          //std::cout<<cit->Get ()%256<<",";
-        }
-      //std::cout<<std::endl;
-    }
 
-}
 
 void
 RoutingProtocol::SetN_Init ()
