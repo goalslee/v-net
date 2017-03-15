@@ -2309,46 +2309,7 @@ RoutingProtocol::ClearAllTables ()
 
 
 
-int
-RoutingProtocol::GetNumArea () const
-{
-  return m_numArea;
-}
 
-void
-RoutingProtocol::Init_NumArea ()
-{
-  int ret;
-  double road_length = m_road_length;
-  if (road_length < 0.5*m_signal_range)
-    {
-      ret = 1;
-    }
-  else
-    {
-      road_length -= 0.5*m_signal_range;
-      int numOfTrivialArea = road_length / m_signal_range;
-      double last_length = road_length - (m_signal_range * numOfTrivialArea);
-      if (last_length < 1e-10)//last_length == 0 Devied the last TrivialArea into 2
-        {
-          ret = 1 + (numOfTrivialArea - 1) + 1 + 1;//First Area + TrivialArea-1 + Padding + LastArea;
-          m_isPadding = true;
-        }
-      else
-        if (last_length > 0.5*m_signal_range)//0.5r<last_length<r
-          {
-            ret = 1 + numOfTrivialArea + 2;//First Area + TrivialArea + paddingArea +LastArea;
-            m_isPadding = true;
-          }
-        else//0<last_length<0.5r
-          {
-            ret = 1 + numOfTrivialArea + 1;//First Area + TrivialArea + LastArea;
-            m_isPadding = false;
-          }
-    }
-  m_numArea = ret;
-  m_numAreaVaild = true;
-}
 
 bool
 RoutingProtocol::isPaddingExist () const
