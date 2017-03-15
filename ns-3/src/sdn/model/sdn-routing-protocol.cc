@@ -1813,8 +1813,8 @@ RoutingProtocol::GetType () const
 
 typedef struct Edge
 {
-    int u, v;    // èµ·ç¹ï¼éç¹
-    int weight;  // è¾¹çæå¼
+    int u, v;    
+    int weight; 
 } Edge;
 
 void
