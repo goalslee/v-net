@@ -2219,46 +2219,7 @@ void RoutingProtocol::compute_negative()
 
 
 
-void
-RoutingProtocol::SortByDistance (int area)
-{
-  m_list4sort.clear ();
-  for (std::set<Ipv4Address>::const_iterator cit = m_Sections[area].begin ();
-      cit != m_Sections[area].end (); ++cit)
-    {
-      bool done = false;
-      for (std::list<Ipv4Address>::iterator it = m_list4sort.begin ();
-           it != m_list4sort.end (); ++it)
-        {
-          if (m_lc_info[*it].GetPos ().x < m_lc_info[*cit].GetPos ().x)
-            {
-              m_list4sort.insert (it, *cit);
-              done = true;
-              break;
-            }
-        }
-      if (!done)
-        {
-          m_list4sort.push_back (*cit);
-        }
-    }
-}
 
-void
-RoutingProtocol::CalcShortHopOfArea (int fromArea, int toArea)
-{
-  for (std::list<Ipv4Address>::const_iterator cit = m_list4sort.begin ();
-       cit != m_list4sort.end (); ++cit)
-    {
-      for (std::set<Ipv4Address>::const_iterator cit2 = m_Sections[toArea].begin ();
-           cit2 != m_Sections[toArea].end (); ++cit2)
-        {
-          m_lc_shorthop[*cit].push_back (GetShortHop (*cit,*cit2));
-        }
-
-      UpdateMinHop (*cit);
-    }
-}
 
 void
 RoutingProtocol::UpdateMinHop (const Ipv4Address &ID)
