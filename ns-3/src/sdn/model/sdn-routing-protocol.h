@@ -111,9 +111,9 @@ struct ShortHop//???
   };
 
   Ipv4Address nextID;
-  uint32_t hopnumber;
+
   bool isTransfer;
-  Ipv4Address IDa, IDb, proxyID;
+
   double t; //in secends
 };
 
