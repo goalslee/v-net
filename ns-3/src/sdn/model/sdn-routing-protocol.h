@@ -76,34 +76,14 @@ public:
     dir=sdn::OTHER;
   };
 
-  //Get position by this time
-  Vector3D GetPos () const  //以时间和速度计算出来，即要求匀速  ---不适用？
-  {
-    double t = Simulator::Now ().GetSeconds () - LastActive.GetSeconds ();
-    double x = this->Position.x + this->Velocity.x * t,
-           y = this->Position.y + this->Velocity.y * t,
-           z = this->Position.z + this->Velocity.z * t;
-    return Vector3D(x, y, z);
-  }
   Vector3D Position;//位置
   Vector3D Velocity;//速度
   Time LastActive;//Timeout indicator
   bool Active;
   std::vector<RoutingTableEntry> R_Table; //路由表
   direction dir;
-  
-  uint32_t minhop;
-  Ipv4Address ID_of_minhop;
-  AppointmentType appointmentResult;
-};
-
-
-
-  Ipv4Address nextID;
 
   bool isTransfer;
-
-  double t; //in secends
 };
 
 struct AodvParm //
@@ -212,11 +192,7 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   double m_road_length;
   double m_signal_range;
   std::list<Ipv4Address> m_list4sort;
-  std::map<Ipv4Address, std::list<ShortHop> > m_lc_shorthop;
-  
-  int m_numArea;
-  bool m_isPadding;
-  bool m_numAreaVaild;
+
 
   bool possive_valid;
   bool negative_valid;
