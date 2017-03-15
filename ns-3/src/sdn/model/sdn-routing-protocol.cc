@@ -116,11 +116,9 @@ RoutingProtocol::RoutingProtocol ()
     m_messageSequenceNumber (SDN_MAX_SEQ_NUM),
     m_helloInterval (Seconds(2)),//no change!
     m_rmInterval (Seconds (2)),//no change!
-    m_minAPInterval (Seconds (1)),//
     m_ipv4 (0),
     m_helloTimer (Timer::CANCEL_ON_DESTROY),
     m_rmTimer (Timer::CANCEL_ON_DESTROY),
-    m_apTimer (Timer::CANCEL_ON_DESTROY),
     m_firstsendTimer(Timer::CANCEL_ON_DESTROY),
     m_queuedMessagesTimer (Timer::CANCEL_ON_DESTROY),
     m_SCHinterface (0),
@@ -129,9 +127,6 @@ RoutingProtocol::RoutingProtocol ()
     m_appointmentResult (NORMAL),
     m_next_forwarder (uint32_t (0)),
     m_linkEstablished (false),
-    m_numArea (0),
-    m_isPadding (false),
-    m_numAreaVaild (false),
     m_road_length (1000),//MagicNumber
     m_signal_range (900),
     m_firstRequest(1),
