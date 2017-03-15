@@ -280,7 +280,7 @@ void VanetSim::ConfigMobility()
 	}
 	duration = 80;
 	Time temp_now = Simulator::Now();
-	std::cout<<"Now?"<<temp_now.GetSeconds ()<<std::endl;
+
 
     //24个lc和2个固定车节点
     Ptr<MobilityModel> Temp;
@@ -456,7 +456,7 @@ void VanetSim::ConfigApp()
 		    //std::cout<<"m_nodes.GetN () "<<i<<std::endl;
 		    Ptr<sdn::RoutingProtocol> routing =
 		        m_nodes.Get (i)->GetObject<sdn::RoutingProtocol> ();
-        routing->SetCCHInterface (m_CCHInterfaces.Get (i).second);
+                      routing->SetCCHInterface (m_CCHInterfaces.Get (i).second);
 		    routing->SetSCHInterface (m_SCHInterfaces.Get (i).second);
 		  }
 	}
@@ -573,7 +573,7 @@ VanetSim::TXTrace (Ptr<const Packet> newpacket)
 
 // Example to use ns2 traces file in ns3
 int main (int argc, char *argv[])
-{
+{      //./waf --run "SDN -mod=0"
 	VanetSim SDN_test;
 	SDN_test.Simulate(argc, argv);
 	return 0;
