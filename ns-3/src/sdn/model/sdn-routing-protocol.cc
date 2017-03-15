@@ -2224,38 +2224,6 @@ void RoutingProtocol::compute_negative()
 
 
 
-void
-RoutingProtocol::ResetAppointmentResult ()
-{
-  for (std::map<Ipv4Address, CarInfo>::iterator it = m_lc_info.begin ();
-       it != m_lc_info.end (); ++it)
-    {
-      it->second.appointmentResult = NORMAL;
-    }
-}
-
-void
-RoutingProtocol::ShiftArea ()
-{
-  for (int i = GetNumArea () - 1; i>0; --i)
-    {
-      m_Sections[i] = m_Sections[i-1];
-    }
-  m_Sections[0].clear ();
-}
-
-void
-RoutingProtocol::AddNewToZero ()
-{
-  for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
-       cit != m_lc_info.end (); ++cit)
-    {
-      if (GetArea (cit->second.Position) == 0)
-        {
-          m_Sections[0].insert(cit->first);
-        }
-    }
-}
 
 void
 RoutingProtocol::CalcSetZero ()
