@@ -210,9 +210,9 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   NodeType m_nodetype;
   RoadType m_roadtype;
   //Only node type CAR use this(below)
-  AppointmentType m_appointmentResult;
+  //AppointmentType m_appointmentResult;
   Ipv4Address m_next_forwarder;
-  bool m_linkEstablished;
+  //bool m_linkEstablished;
   std::vector< std::set<Ipv4Address> > m_Sections;
   
   Ipv4Address m_theFirstCar;//Use by Reschedule (), SelectNewNodeInAreaZero(); Assign by SelectNode ();
