@@ -629,17 +629,17 @@ public:
     return (m_message.rm);
   }
 
-  Appointment& GetAppointment ()
+  Maintainment& GetMaintainment ()
   {
     if (m_messageType == 0)
       {
-        m_messageType = APPOINTMENT_MESSAGE;
+        m_messageType = MAINTAINMENT_MESSAGE;
       }
     else
       {
-        NS_ASSERT (m_messageType == APPOINTMENT_MESSAGE);
+        NS_ASSERT (m_messageType == MAINTAINMENT_MESSAGE);
       }
-    return (m_message.appointment);
+    return (m_message.mt);
   }
 
   CRREQ& GetCRREQ ()
