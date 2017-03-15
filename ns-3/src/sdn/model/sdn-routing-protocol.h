@@ -360,7 +360,7 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   void compute_possive();
   void compute_negative();
   bool isNeighbor(const Ipv4Address &sourceAddress);
-  void SendMT(enum direction dir,uint32_t n)
+  void SendMT(enum direction dir,uint32_t n);
 
   /// Check that address is one of my interfaces
   bool IsMyOwnAddress (const Ipv4Address & a) const;//implemented
