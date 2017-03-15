@@ -2307,48 +2307,7 @@ RoutingProtocol::ClearAllTables ()
     }
 }
 
-int
-RoutingProtocol::GetArea (Vector3D position) const
-{
-  double &px = position.x;
-  double road_length = m_road_length;
-  //0.5r ~ r ~ r ~...~ r ~ r ~ last (if length_of_last<=0.5r, last={0.5r}; else last = {padding_area, 0.5r});
-  if (px < 0.5*m_signal_range)
-    {
-      //std::cout<<"RET1"<<std::endl;
-      return 0;
-    }
-  else
-    {
-      road_length -= 0.5*m_signal_range;
-      //px -= 0.5*m_signal_range;
-      int numOfTrivialArea = road_length / m_signal_range;
-      double remain = road_length - (numOfTrivialArea * m_signal_range);
-      if (!(remain>0))
-        numOfTrivialArea--;
 
-      px -= 0.5*m_signal_range;
-      if (px < numOfTrivialArea * m_signal_range)
-        {
-          return (px / m_signal_range) + 1;
-        }
-      else
-        {
-          if (road_length - px < 0.5*m_signal_range)
-            {
-              if (isPaddingExist())
-                return numOfTrivialArea + 2;
-              else
-                return numOfTrivialArea + 1;
-            }
-          else
-            {
-              return numOfTrivialArea + 1;
-            }
-        }
-    }
-
-}
 
 int
 RoutingProtocol::GetNumArea () const
