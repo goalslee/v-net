@@ -1084,18 +1084,7 @@ RoutingProtocol::RouteInput(Ptr<const Packet> p,
           return false;
         }
    }
-      /*//Broadcast forward
-      if ((iif == m_SCHinterface) && (m_nodetype == CAR) && (m_appointmentResult == FORWARDER) && (sour != m_next_forwarder))
-        {
-          NS_LOG_LOGIC ("Forward broadcast");
-          Ptr<Ipv4Route> broadcastRoute = Create<Ipv4Route> ();
-          broadcastRoute->SetDestination (dest);
-          broadcastRoute->SetGateway (dest);//broadcast
-          broadcastRoute->SetOutputDevice (m_ipv4->GetNetDevice (m_SCHinterface));
-          broadcastRoute->SetSource (sour);
-          //std::cout<<"call ucb"<<std::endl;
-          ucb (broadcastRoute, p, header);
-        }*/
+
       
       //Forwardding
       Ptr<Ipv4Route> rtentry;
