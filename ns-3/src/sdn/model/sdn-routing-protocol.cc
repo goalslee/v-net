@@ -2221,30 +2221,6 @@ void RoutingProtocol::compute_negative()
 
 
 
-void
-RoutingProtocol::UpdateMinHop (const Ipv4Address &ID)
-{
-  uint32_t theminhop = INFHOP;
-  Ipv4Address IDofminhop;
-  for (std::list<ShortHop>::const_iterator cit = m_lc_shorthop[ID].begin ();
-       cit != m_lc_shorthop[ID].end (); ++cit)
-    {
-      if (cit->hopnumber < theminhop)
-        {
-          theminhop = cit->hopnumber;
-          if (cit->isTransfer)
-            {
-              IDofminhop = cit->proxyID;
-            }
-          else
-            {
-              IDofminhop = cit->nextID;
-            }
-        }
-    }
-  m_lc_info[ID].ID_of_minhop = IDofminhop;
-  m_lc_info[ID].minhop = theminhop;
-}
 
 void
 RoutingProtocol::CalcIntraArea (int area)
