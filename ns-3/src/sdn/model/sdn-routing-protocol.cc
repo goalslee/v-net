@@ -915,6 +915,16 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 		  Aodvrm.dir=sdn::POSITIVE;
 		  Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition(). y, m_mobility->GetPosition().z);
 
+
+if(m_lc_info[m_sourceAddress].dir==sdn::POSITIVE){
+		  m_incomeParm_possitive.m_desId=dest;
+		  m_incomeParm_possitive.m_sourceId=source;
+		  }
+else if(m_lc_info[m_sourceAddress].dir==sdn::NEGATIVE){
+		  m_incomeParm_negative.m_desId=dest;
+		  m_incomeParm_negative.m_sourceId=source;
+}
+
 		  QueueMessage (mesg, JITTER);
 
   }
