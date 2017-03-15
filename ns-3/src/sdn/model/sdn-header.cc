@@ -32,7 +32,7 @@
 #define SDN_HELLO_HEADER_SIZE 28
 #define SDN_RM_HEADER_SIZE 16
 #define SDN_RM_TUPLE_SIZE 3
-#define SDN_MAINTAINMENT_HEADER_SIZE 16
+#define SDN_MAINTAINMENT_HEADER_SIZE 28
 #define SDN_CRREQ_HEADER_SIZE 12
 #define SDN_CRREP_HEADER_SIZE 12
 #define SDN_AODVRM_HEADER_SIZE 44
@@ -219,9 +219,9 @@ MessageHeader::Serialize (Buffer::Iterator start) const
     case ROUTING_MESSAGE:
       m_message.rm.Serialize (i);
       break;
-    /*case APPOINTMENT_MESSAGE:
-      m_message.appointment.Serialize (i);
-      break;*/
+    case MAINTAINMENT_MESSAGE:
+      m_message.mt.Serialize (i);
+      break;
     case AODV_ROUTING_MESSAGE:
       m_message.aodvrm.Serialize(i);
     break;
@@ -265,9 +265,9 @@ MessageHeader::Deserialize (Buffer::Iterator start)
       size += 
         m_message.rm.Deserialize (i, m_messageSize - SDN_MSG_HEADER_SIZE);
       break;
-    /*case APPOINTMENT_MESSAGE:
+    case MAINTAINMENT_MESSAGE:
       size +=
-        m_message.appointment.Deserialize (i, m_messageSize - SDN_MSG_HEADER_SIZE);
+        m_message.mt.Deserialize (i, m_messageSize - SDN_MSG_HEADER_SIZE);
       break;*/
     case AODV_ROUTING_MESSAGE:
       size +=
@@ -547,6 +547,8 @@ MessageHeader::Maintainment::Serialize (Buffer::Iterator start) const
   i.WriteHtonU32 (this->sinkID.Get());
   i.WriteHtonU32 (this->transferID.Get());
  i.WriteHtonU32 (this->dir);
+  i.WriteHtonU32 (this->desID.Get());
+   i.WriteHtonU32 (this->originator.Get());
 }
 
 uint32_t
@@ -559,6 +561,8 @@ MessageHeader::Maintainment::Deserialize (Buffer::Iterator start, uint32_t messa
     this->sinkID.Set (i.ReadNtohU32());
     this->transferID.Set (i.ReadNtohU32());
     this->dir=(enum direction)i.ReadNtohU32();
+    this->desID.Set (i.ReadNtohU32());
+    this->originator.Set (i.ReadNtohU32());
   return (messageSize);
 }
 

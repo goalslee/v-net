@@ -1804,7 +1804,7 @@ RoutingProtocol::GetType () const
 }
 
 void
-RoutingProtocol::SendMT(enum direction dir,uint32_t n)//0 maintain,1 rechose
+RoutingProtocol::SendMT(enum direction dir,uint32_t n)//0 maintain,1 rechose ,dir is 本路方向
 {
     	sdn::MessageHeader msg;
 	 msg.SetMessageType(sdn::MessageHeader::MAINTAINMENT_MESSAGE);
@@ -1815,9 +1815,21 @@ RoutingProtocol::SendMT(enum direction dir,uint32_t n)//0 maintain,1 rechose
 	  sdn::MessageHeader::Maintainment&mt = msg.GetMaintainment();
 	  
 	  mt.rORm=n; 
+	  if(!haveSink){
            mt.sourceID=dir==sdn::POSITIVE?m_incomeParm_possitive.m_sourceId:m_incomeParm_negative.m_sourceId;
            mt.sinkID=dir==sdn::POSITIVE?m_incomeParm_possitive.m_desId:m_incomeParm_negative.m_desId;
-
+           mt.transferID=dir==sdn::POSITIVE?transferAddress_possitive:transferAddress_negative;
+           mt.dir=dir==sdn::POSITIVE?m_incomeParm_possitive.lastdir:m_incomeParm_negative.lastdir;
+           mt.desID=dir==sdn::POSITIVE?m_incomeParm_possitive.lastIP:m_incomeParm_negative.lastIP;
+           }
+           else{
+           mt.sourceID=m_incomeDesParm.m_sourceId;
+           mt.sinkID=m_incomeDesParm.m_desId;
+           mt.transferID=dir==sdn::POSITIVE?transferAddress_possitive:transferAddress_negative;
+           mt.dir=m_incomeDesParm.lastdir;
+           mt.desID=m_incomeDesParm.lastIP;
+           }
+           mt.originator=m_CCHmainAddress;
 	  QueueMessage (msg, JITTER);
 }
 

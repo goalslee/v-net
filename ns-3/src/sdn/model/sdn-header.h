@@ -579,7 +579,10 @@ public:
     Ipv4Address sourceID;
     Ipv4Address sinkID;
     Ipv4Address transferID;
-    enum direction dir;
+    enum direction dir;//下一个lc的方向
+    Ipv4Address desID;
+    Ipv4Address originator;
+    
 
 
     void Print (std::ostream &os) const;
