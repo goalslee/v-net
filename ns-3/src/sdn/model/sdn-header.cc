@@ -268,7 +268,7 @@ MessageHeader::Deserialize (Buffer::Iterator start)
     case MAINTAINMENT_MESSAGE:
       size +=
         m_message.mt.Deserialize (i, m_messageSize - SDN_MSG_HEADER_SIZE);
-      break;*/
+      break;
     case AODV_ROUTING_MESSAGE:
       size +=
         m_message.aodvrm.Deserialize (i, m_messageSize - SDN_MSG_HEADER_SIZE);
