@@ -1129,9 +1129,7 @@ RoutingProtocol::RouteInput(Ptr<const Packet> p,
         
       return true;
 
-    /*}
-  //Drop
-  return true;*/
+
 }
 
 void
