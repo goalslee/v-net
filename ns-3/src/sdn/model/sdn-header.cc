@@ -544,7 +544,7 @@ MessageHeader::Maintainment::Serialize (Buffer::Iterator start) const
   Buffer::Iterator i = start;
  i.WriteHtonU32 (this->rORm);
   i.WriteHtonU32 (this->sourceID.Get());
-  i.WriteHtonU32 (this->sinkID.Get()t);
+  i.WriteHtonU32 (this->sinkID.Get());
   i.WriteHtonU32 (this->transferID.Get());
  i.WriteHtonU32 (this->dir);
 }
