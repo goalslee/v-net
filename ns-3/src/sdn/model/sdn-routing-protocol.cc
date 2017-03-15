@@ -2222,43 +2222,7 @@ void RoutingProtocol::compute_negative()
 
 
 
-void
-RoutingProtocol::CalcIntraArea (int area)
-{
-  CalcShortHopOfArea (area, area);
-}
 
-void
-RoutingProtocol::SelectNode ()
-{
-  //4-1
-  ResetAppointmentResult ();
-  uint32_t thezero = 0;
-  Ipv4Address The_Car(thezero);
-  uint32_t minhop_of_tc = INFHOP;
-
-  //First Area
-  for (std::set<Ipv4Address>::const_iterator cit = m_Sections[0].begin ();
-      cit != m_Sections[0].end (); ++cit)
-    {
-      CarInfo& temp_info = m_lc_info[*cit];
-      if (temp_info.minhop < minhop_of_tc)
-        {
-          minhop_of_tc = temp_info.minhop;
-          The_Car = *cit;
-        }
-    }
-  m_theFirstCar = The_Car;
-  Ipv4Address ZERO = Ipv4Address::GetZero ();
-  //std::cout<<"Chain ";
-  while (The_Car != ZERO)
-    {
-      std::cout<<The_Car.Get () % 256<<",";
-      m_lc_info[The_Car].appointmentResult = FORWARDER;
-      The_Car = m_lc_info[The_Car].ID_of_minhop;
-    }
-  std::cout<<std::endl;
-}
 
 void
 RoutingProtocol::ResetAppointmentResult ()
