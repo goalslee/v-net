@@ -32,7 +32,6 @@ VanetSim::VanetSim()
 	txp2 = 20;  // CCH
 	range1 = 400.0;//SCH
 	range2 = 1000.0;//CCH
-	//range2 = 700.0;//CCH
 	packetSize = 1000; // bytes
 	numPackets = 1;
 	interval = 0.1; // seconds
@@ -282,21 +281,7 @@ void VanetSim::ConfigMobility()
 	duration = 80;
 	Time temp_now = Simulator::Now();
 	std::cout<<"Now?"<<temp_now.GetSeconds ()<<std::endl;
-	/*
-	Ptr<MobilityModel> Temp = m_nodes.Get(nodeNum)->GetObject<MobilityModel>();//Controller1
-	Temp->SetPosition(Vector(0.0, 0.0, 0.0));
-	Temp = m_nodes.Get(nodeNum+1)->GetObject<MobilityModel>();//source
-	Temp->SetPosition(Vector(5.1, 0.0, 0.0));
-	Temp = m_nodes.Get(nodeNum+2)->GetObject<MobilityModel>();//Sink
-	Temp->SetPosition(Vector(2000.0, 0.0, 0.0));
-	//Temp->SetPosition(Vector(3000.0, 0.0, 0.0));
-    Temp = m_nodes.Get(nodeNum+3)->GetObject<MobilityModel>();//Controller2
-	//Temp->SetPosition(Vector(1000.0, 0.0, 0.0));
-	Temp->SetPosition(Vector(700.0, 0.0, 0.0));
-    Temp = m_nodes.Get(nodeNum+4)->GetObject<MobilityModel>();//Controller3
-    //Temp->SetPosition(Vector(2000.0, 0.0, 0.0));
-    Temp->SetPosition(Vector(1400.0, 0.0, 0.0));
-    */
+
     //24个lc和2个固定车节点
     Ptr<MobilityModel> Temp;
     Temp=m_nodes.Get(nodeNum)->GetObject<MobilityModel>();
@@ -437,12 +422,9 @@ void VanetSim::ConfigApp()
 	    {
 	      sdn.SetRoadTypeMap (m_nodes.Get (nodeNum+i), sdn::COLUMN);
 	    }  
-	      //sdn.PrintRoadTypeName();
 
-	  //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum), sdn::LOCAL_CONTROLLER);
-          //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+3), sdn::LOCAL_CONTROLLER);
-          //sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+4), sdn::LOCAL_CONTROLLER);
-	 // sdn.ExcludeInterface (m_nodes.Get (nodeNum), 0);//??
+
+
 	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+24), sdn::CAR);//Treat Source and Sink as CAR
 	  sdn.SetNodeTypeMap (m_nodes.Get (nodeNum+25), sdn::CAR);
 	  sdn.SetRLnSR (range1, range2);//double signal_range, double road_length ，后面计算用到
@@ -531,7 +513,7 @@ void VanetSim::ReceiveDataPacket(Ptr<Socket> socket)
 	{
 		Rx_Data_Bytes += packet->GetSize();
 		Rx_Data_Pkts++;
-		std::cout<<".";
+		std::cout<<"."<<std::endl;
 	}
 }
 
@@ -576,33 +558,7 @@ void VanetSim::Look_at_clock()
 	os<<"Now:  "<<Simulator::Now().GetSeconds()
   	<<"Tx_Data_Pkts:   "<<Tx_Data_Pkts
   	<<"Rx_Data_Pkts:   "<<Rx_Data_Pkts<<std::endl;
-	/*Ptr<MobilityModel> Temp = m_nodes.Get (nodeNum)->GetObject<MobilityModel>();
-  std::cout<<Temp->GetPosition().x<<","<<Temp->GetPosition().y<<","<<Temp->GetPosition().z<<std::endl;
-  std::cout<<Temp->GetVelocity().x<<","<<Temp->GetVelocity().y<<","<<Temp->GetVelocity().z<<std::endl;
-  Temp = m_nodes.Get (nodeNum+1)->GetObject<MobilityModel>();
-  std::cout<<Temp->GetPosition().x<<","<<Temp->GetPosition().y<<","<<Temp->GetPosition().z<<std::endl;
-  std::cout<<Temp->GetVelocity().x<<","<<Temp->GetVelocity().y<<","<<Temp->GetVelocity().z<<std::endl;
-  Temp = m_nodes.Get (nodeNum+2)->GetObject<MobilityModel>();
-  std::cout<<Temp->GetPosition().x<<","<<Temp->GetPosition().y<<","<<Temp->GetPosition().z<<std::endl;
-  std::cout<<Temp->GetVelocity().x<<","<<Temp->GetVelocity().y<<","<<Temp->GetVelocity().z<<std::endl;
-  */
-	/*
-	os<<"Now:"<<Simulator::Now().GetSeconds()<<std::endl;
-	Ptr<OutputStreamWrapper> osw = Create<OutputStreamWrapper> (&std::cout);
-	m_nodes.Get(nodeNum+1)->GetObject<Ipv4>()->GetRoutingProtocol()->PrintRoutingTable(osw);
-	Ptr<OutputStreamWrapper> osw2 = Create<OutputStreamWrapper> (&os);
-	m_nodes.Get(nodeNum+1)->GetObject<Ipv4>()->GetRoutingProtocol()->PrintRoutingTable(osw2);
-	*/
-	/*2  Ptr<MobilityModel> Temp;
-	Vector vt;
-	for (int i = 0;i<=nodeNum+2;++i)
-	{
-		Temp = m_nodes.Get(i)->GetObject<MobilityModel>();
-		vt = Temp->GetPosition();
-		std::cout<<i<<":"<<vt.x<<","<<vt.y<<","<<vt.z<<";"<<std::flush;
-	}
-	std::cout<<std::endl;*/
-	//ProcessOutputs();
+
 
 	Simulator::Schedule(Seconds(1.0), &VanetSim::Look_at_clock, this);
 }
@@ -612,13 +568,12 @@ VanetSim::TXTrace (Ptr<const Packet> newpacket)
 {
   Tx_Data_Pkts++;
   Tx_Data_Bytes += newpacket->GetSize ();
-  //std::cout<<"ANOTHER ONE!HAHAHA"<<std::endl;
+
 }
 
 // Example to use ns2 traces file in ns3
 int main (int argc, char *argv[])
 {
-         std::cout<<"begin";
 	VanetSim SDN_test;
 	SDN_test.Simulate(argc, argv);
 	return 0;
