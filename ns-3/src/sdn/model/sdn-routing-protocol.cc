@@ -2214,38 +2214,6 @@ void RoutingProtocol::compute_negative()
 
 
 
-void
-RoutingProtocol::Reschedule ()
-{
-  if (m_theFirstCar == Ipv4Address::GetZero ())
-    {
-      if (m_apTimer.IsRunning ())
-        {
-          m_apTimer.Remove ();
-        }
-      m_apTimer.Schedule (m_minAPInterval);
-    }
-  else
-    {
-      double vx = m_lc_info[m_theFirstCar].Velocity.x;
-      double px = m_lc_info[m_theFirstCar].GetPos ().x;
-      double t2l;
-      if (vx == 0)
-        {
-          t2l = 1;
-        }
-      else
-        {
-          t2l= (0.5 * m_signal_range - px) / vx;
-        }
-      if (m_apTimer.IsRunning ())
-        {
-          m_apTimer.Remove ();
-        }
-      m_apTimer.Schedule(Seconds(t2l));
-    }
-}
-
 
 void
 RoutingProtocol::LCAddEntry (const Ipv4Address& ID,
