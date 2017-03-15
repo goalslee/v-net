@@ -405,10 +405,6 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   void ClearAllTables ();
 
 
-
-
-  bool isPaddingExist () const;
-
   void RemoveTimeOut ();
 
 
