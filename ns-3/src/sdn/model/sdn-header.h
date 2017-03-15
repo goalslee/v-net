@@ -567,22 +567,28 @@ public:
 
 
 
-  //  Appointment Message Format
-  //    One Appointment is for one car only.
-  //    The proposed format of a appointment message is as follows:
+  //  Maintainment Message Format
+  //    The proposed format of a Maintainment message is as follows:
   //
   //        0                   1                   2                   3
   //        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //       |                             Car ID                            |
+  //       |                             rORm                         |
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //       |                       Appointment Type                        |
+    //       |                             sourceID                            |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    //       |                             sinkID                        |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+  //       |                       transferID                  |
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
-  struct Appointment
+  struct Maintainment
   {
-    Ipv4Address ID;
-    AppointmentType ATField;
+    bool rORm;
+    Ipv4Address sourceID;
+    Ipv4Address sinkID;
+    Ipv4Address transferID;
+
 
     void Print (std::ostream &os) const;
     uint32_t GetSerializedSize (void) const;
@@ -598,7 +604,7 @@ private:
     Rm rm;
     AodvRm aodvrm;
     Aodv_R_Rm aodv_r_rm;
-    Appointment appointment;
+    Maintainment mt;
     CRREQ crreq;
     CRREP crrep;
   } m_message; // union not allowed
