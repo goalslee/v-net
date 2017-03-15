@@ -1192,7 +1192,7 @@ RoutingProtocol::RouteOutput (Ptr<Packet> p,
       rtentry->SetGateway (entry.nextHop);
       rtentry->SetOutputDevice (m_ipv4->GetNetDevice (interfaceIdx));
       sockerr = Socket::ERROR_NOTERROR;
-      std::cout<<"***"<<rtentry->GetDestination ()<<" "<<rtentry->GetGateway ()<<std::endl;
+      //std::cout<<"***"<<rtentry->GetDestination ()<<" "<<rtentry->GetGateway ()<<std::endl;
       NS_LOG_DEBUG ("SDN node " << m_SCHmainAddress
                                  << ": RouteOutput for dest=" << header.GetDestination ()
                                  << " --> nextHop=" << entry.nextHop
@@ -1206,8 +1206,7 @@ RoutingProtocol::RouteOutput (Ptr<Packet> p,
                                  << " No route to host");
       sockerr = Socket::ERROR_NOROUTETOHOST;
       SendCRREQ(header.GetDestination());
-      //std::cout<<"dest "<<header.GetDestination()<<std::endl;
-      //std::cout<<"No route to host"<<std::endl;
+
     }
   return rtentry;
 }
