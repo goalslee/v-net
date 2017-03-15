@@ -130,7 +130,9 @@ RoutingProtocol::RoutingProtocol ()
     m_road_length (1000),//MagicNumber
     m_signal_range (900),
     m_firstRequest(1),
-    m_tag(0)
+    m_tag(0),
+    m_isEstablish_positive(false),
+    m_isEstablish_negative(false)
 {
   m_uniformRandomVariable = CreateObject<UniformRandomVariable> ();
 }
@@ -1761,6 +1763,9 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
 	  QueueMessage (msg, JITTER);
           
           SendRoutingMessage(m_incomeDesParm.desdir);
+           if(m_incomeDesParm.desdir==sdn::POSITIVE)
+                     isEstablish_positive=true;
+           else     isEstablish_negative=true;  
 	
 }
 

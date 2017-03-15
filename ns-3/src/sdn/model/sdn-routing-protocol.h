@@ -132,6 +132,8 @@ private:
   Ipv4Address roadendAddress_possitive;//反方向的第一辆车
   Ipv4Address roadendAddress_negative;//反方向的最后一辆车
 
+  bool m_isEstablish_positive;
+  bool m_isEstablish_negative;
   
   Ipv4Address temp_desId;
   //std::map<Ipv4Address, Ipv4Address> m_SCHaddr2IfaceAddr;
