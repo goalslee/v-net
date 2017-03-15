@@ -2226,48 +2226,7 @@ void RoutingProtocol::compute_negative()
 
 
 
-void
-RoutingProtocol::SelectNewNodeInAreaZero ()
-{
-  uint32_t thezero = 0;
-  Ipv4Address The_Car (thezero);
-  uint32_t minhop_of_tc = INFHOP;
-  for (std::set<Ipv4Address>::const_iterator cit = m_Sections[0].begin ();
-       cit != m_Sections[0].end (); ++cit)
-    {
-      CarInfo& temp_info = m_lc_info[*cit];
-      if (temp_info.minhop < minhop_of_tc)
-        {
-          minhop_of_tc = temp_info.minhop;
-          The_Car = *cit;
-        }
-      else
-        if (temp_info.minhop == minhop_of_tc)
-          {
-            if (temp_info.ID_of_minhop == m_theFirstCar)
-              {
-                minhop_of_tc = temp_info.minhop;
-                The_Car = *cit;
-              }
-          }
-    }
-
-  if (m_lc_info[The_Car].ID_of_minhop == m_theFirstCar)
-    {
-      m_theFirstCar = The_Car;
-      m_lc_info[The_Car].appointmentResult = FORWARDER;
-    }
-  else
-    {
-      ResetAppointmentResult ();
-      m_theFirstCar = The_Car;
-      while (m_lc_info.find (The_Car) != m_lc_info.end ())
-        {
-          m_lc_info[The_Car].appointmentResult = FORWARDER;
-          The_Car = m_lc_info[The_Car].ID_of_minhop;
-        }
-    }
-}*/
+*/
 
 void
 RoutingProtocol::Reschedule ()
