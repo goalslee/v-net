@@ -32,7 +32,7 @@
 #define SDN_HELLO_HEADER_SIZE 28
 #define SDN_RM_HEADER_SIZE 16
 #define SDN_RM_TUPLE_SIZE 3
-#define SDN_MAINTAINMENT_HEADER_SIZE 12
+#define SDN_MAINTAINMENT_HEADER_SIZE 16
 #define SDN_CRREQ_HEADER_SIZE 12
 #define SDN_CRREP_HEADER_SIZE 12
 #define SDN_AODVRM_HEADER_SIZE 44
@@ -546,6 +546,7 @@ MessageHeader::Maintainment::Serialize (Buffer::Iterator start) const
   i.WriteHtonU32 (this->sourceID.Get());
   i.WriteHtonU32 (this->sinkID.Get()t);
   i.WriteHtonU32 (this->transferID.Get());
+ i.WriteHtonU32 (this->dir);
 }
 
 uint32_t
@@ -557,6 +558,7 @@ MessageHeader::Maintainment::Deserialize (Buffer::Iterator start, uint32_t messa
   this->sourceID.Set (i.ReadNtohU32());
     this->sinkID.Set (i.ReadNtohU32());
     this->transferID.Set (i.ReadNtohU32());
+    this->dir=(enum direction)i.ReadNtohU32();
   return (messageSize);
 }
 

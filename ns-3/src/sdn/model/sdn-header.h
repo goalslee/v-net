@@ -451,14 +451,6 @@ public:
 
 
 	    uint32_t tag;
-	    /*void SetRoutingMessageSize(uint32_t rms) //
-	    {
-	      this->routingMessageSize = rms;
-	    }
-	    uint32_t GetRoutingMessageSize() const
-	    {
-	      return (this->routingMessageSize);
-	    }*/
 	    struct Position{
                         uint32_t X, Y, Z;
             };
@@ -471,9 +463,6 @@ public:
 	    Ipv4Address Originator;
 	    Position position;
 	    enum direction dir;
-	    //std::vector<uint32_t> forwarding_table;//first transfer ipv4 to unsigned int
-	    //std::vector<Ipv4Address> forwarding_table;
-	    //std::vector<uint32_t> temp_forwarding_table;//for save received forwarding table;
     void SetPosition(double x, double y, double z)
     {
       this->position.X = IEEE754(x);
@@ -581,6 +570,8 @@ public:
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
   //       |                       transferID                  |
   //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    //       |                       dir                |
+  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
   struct Maintainment
   {
@@ -588,6 +579,7 @@ public:
     Ipv4Address sourceID;
     Ipv4Address sinkID;
     Ipv4Address transferID;
+    enum direction dir;
 
 
     void Print (std::ostream &os) const;
