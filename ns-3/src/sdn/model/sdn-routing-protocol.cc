@@ -1915,7 +1915,7 @@ void  RoutingProtocol::compute_possive()
         std::cout<<std::endl;*/
     
     //std::cout<<"1"<<std::endl;
-    ClearAllTables();
+    //ClearAllTables();
     
     roadendAddress_possitive=chose.rbegin()->second;
     Ipv4Address mask("255.255.0.0");
@@ -2098,7 +2098,7 @@ void RoutingProtocol::compute_negative()
         }
         temp=*chose.rbegin();
     }
-        ClearAllTables();
+       // ClearAllTables();
     roadendAddress_negative=chose.rbegin()->second;
         Ipv4Address mask("255.255.0.0");
      double mean=0;
