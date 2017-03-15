@@ -1,6 +1,6 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
- * Copyright (c) 2016 Haoliang Chen
+ * Copyright (c) 2017 Goals Lee
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * Authors: Haoliang Chen <chl41993@gmail.com>
+ * Authors: Goals Lee <goals.lee@qq.com>
  */
 
 #ifndef SDN_IMPL_H
