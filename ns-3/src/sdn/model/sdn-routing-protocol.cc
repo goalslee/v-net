@@ -2311,11 +2311,7 @@ RoutingProtocol::ClearAllTables ()
 
 
 
-bool
-RoutingProtocol::isPaddingExist () const
-{
-  return m_isPadding;
-}
+
 
 void
 RoutingProtocol::RemoveTimeOut()//删除3个hello时间内没再次收到hello包的车
