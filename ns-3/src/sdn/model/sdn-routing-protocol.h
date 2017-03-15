@@ -70,9 +70,6 @@ public:
   CarInfo () :
     Active (false)
   {
-    minhop = INFINITY;
-    ID_of_minhop = Ipv4Address::GetZero ();
-    appointmentResult = AppointmentType::NORMAL;
     dir=sdn::OTHER;
   };
 
