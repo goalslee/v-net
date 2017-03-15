@@ -1905,7 +1905,8 @@ void  RoutingProtocol::compute_possive()
     double sd=0;
     for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
     {
-        LCAddEntry (it->second, chose.rbegin()->second, mask, (it+1)->second);//更新每个carinfo的R_Table
+          if((it+1)==chose.end()) LCAddEntry (it->second, chose.rbegin()->second, mask, it->second);
+        else LCAddEntry (it->second, chose.rbegin()->second, mask, (it+1)->second);//更新每个carinfo的R_Table
         mean+=it->first;
     }
     m_selfParm_possitive.jumpnums=chose.size();

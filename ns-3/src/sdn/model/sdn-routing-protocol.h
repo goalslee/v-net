@@ -352,6 +352,7 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   void ProcessCRREP (Ipv4Address transfer,enum direction dir);
   void ProcessAodvRm(const sdn::MessageHeader &msg);
   void ProcessAodvRERm(const sdn::MessageHeader &msg);
+  void ProcessMT(const sdn::MessageHeader &msg);
   void SetAodvParm(uint32_t jump,float sta);
   void GetAodvParm(uint32_t &jump,float &sta);
   void ComputeRoute ();//
