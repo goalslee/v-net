@@ -1812,20 +1812,11 @@ RoutingProtocol::SendMT(enum direction dir,uint32_t n)//0 maintain,1 rechose
 	  msg.SetVTime (m_helloInterval);
 	  msg.SetTimeToLive (1234);
 	  msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
-	  sdn::MessageHeader::Maintainment&MT = msg.GetMaintainment();
+	  sdn::MessageHeader::Maintainment&mt = msg.GetMaintainment();
 	  
-	  Aodv_r_rm.ID=m_incomeDesParm.m_sourceId; 
-	  Aodv_r_rm.DesId=m_incomeDesParm.m_desId;
-
-	        if(m_incomeDesParm.desdir==sdn::POSITIVE)
-	            Aodv_r_rm.FirstCarId=transferAddress_possitive;
-	        else    Aodv_r_rm.FirstCarId=transferAddress_negative;
-
-	  Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
-	  Aodv_r_rm.routingMessageSize=32;//SDN_AODVRRM_HEADER_SIZE;
-	  Aodv_r_rm.originator=m_CCHmainAddress;
-	  Aodv_r_rm.next=m_incomeDesParm.lastIP;
-	  Aodv_r_rm.next_dir=m_incomeDesParm.lastdir;
+	  mt.rORm=n; 
+           mt.sourceID=dir==sdn::POSITIVE?m_incomeParm_possitive.m_sourceId:m_incomeParm_negative.m_sourceId;
+           mt.sinkID=dir==sdn::POSITIVE?m_incomeParm_possitive.m_desId:m_incomeParm_negative.m_desId;
 
 	  QueueMessage (msg, JITTER);
 }
