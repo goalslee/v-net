@@ -2212,21 +2212,7 @@ void RoutingProtocol::compute_negative()
     
 }
 
-/*
 
-
-
-
-
-
-
-
-
-
-
-
-
-*/
 
 void
 RoutingProtocol::Reschedule ()
