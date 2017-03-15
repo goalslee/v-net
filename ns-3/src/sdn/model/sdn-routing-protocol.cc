@@ -1474,11 +1474,10 @@ RoutingProtocol::SendCRREP( Ipv4Address const &sourceAddress,
 {
   NS_LOG_FUNCTION (this);
 
-  //std::cout<<"SendCRREP "<<std::endl;
   sdn::MessageHeader msg;
   Time now = Simulator::Now ();
   msg.SetVTime (m_helloInterval);
-  msg.SetTimeToLive (41993);//Just MY Birthday.
+  msg.SetTimeToLive (10000);
   msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
   msg.SetMessageType (sdn::MessageHeader::CARROUTERESPONCE_MESSAGE);
   sdn::MessageHeader::CRREP &crrep = msg.GetCRREP ();
@@ -1492,7 +1491,7 @@ void
 RoutingProtocol::AodvTimerExpire()
 {
 	Aodv_sendback();
-	//isDes=false;
+	isDes=false;
 }
 
 void
