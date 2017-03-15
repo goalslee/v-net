@@ -1650,16 +1650,11 @@ else{
 		  QueueMessage (mesg, JITTER);
 		 }
 	 }
-	 	 else{
-	       // std::cout<<"m_incomeParm_negative.jumpnums "<<m_incomeParm_negative.jumpnums<<"  m_incomeParm_negative.stability "<< m_incomeParm_negative.stability<<" aodvrm.jump_nums "<<aodvrm.jump_nums<<" aodvrm.GetStability()"<<aodvrm.GetStability()<<std::endl;
-	 }
 	 
 	 }
 
 	if(isDes){//用另外的数据结构存
    
-
-
         if(aodvrm.jump_nums<m_incomeDesParm.jumpnums||(aodvrm.jump_nums==m_incomeDesParm.jumpnums&&aodvrm.GetStability()<m_incomeDesParm.stability))
         {
            m_incomeDesParm.dir=true;
@@ -1684,10 +1679,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	//std::map<Ipv4Address,Ipv4Address,> lc_Rtable;
     const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
 	if(Aodv_r.next==m_CCHmainAddress){
-		std::cout<<"ProcessAodvRERm  i am "<<m_CCHmainAddress;
-
-
-		
+		std::cout<<"ProcessAodvRERm  i am "<<m_CCHmainAddress;		
 
 	sdn::MessageHeader mesg;
 	 mesg.SetMessageType(sdn::MessageHeader::AODV_REVERSE_MESSAGE);
@@ -1802,11 +1794,7 @@ RoutingProtocol::GetType () const
   return m_nodetype;
 }
 
-typedef struct Edge
-{
-    int u, v;    
-    int weight; 
-} Edge;
+
 
 void
 RoutingProtocol::ComputeRoute ()
@@ -1814,7 +1802,6 @@ RoutingProtocol::ComputeRoute ()
 
     RemoveTimeOut (); //Remove Stale Tuple
 
-    //std::cout<<"ip "<<m_CCHmainAddress<<std::endl;
    compute_possive();
    compute_negative();
     
@@ -1822,8 +1809,7 @@ RoutingProtocol::ComputeRoute ()
 
 void  RoutingProtocol::compute_possive()
 {
-   //std::cout<<"m_signal_range "<<m_signal_range<<" "<<"m_road_length "<<m_road_length<<std::endl;
-    possive_valid=true;
+      possive_valid=true;
     std::map<double,Ipv4Address> dis;
     std::vector<std::pair<double,Ipv4Address>> chose;
 
@@ -1903,8 +1889,6 @@ void  RoutingProtocol::compute_possive()
 
 /*for(std::vector<std::pair<double,Ipv4Address>>::iterator it=chose.begin();it!=chose.end();it++)
         std::cout<<it->first<<"->";
-
-
         std::cout<<std::endl;*/
     
     //std::cout<<"1"<<std::endl;
@@ -2095,7 +2079,8 @@ void RoutingProtocol::compute_negative()
     double sd=0;
     for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
     {
-        LCAddEntry (it->second, chose.rbegin()->second, mask, (it+1)->second);
+        if((it+1)==chose.end()) LCAddEntry (it->second, chose.rbegin()->second, mask, it->second);
+        else LCAddEntry (it->second, chose.rbegin()->second, mask, (it+1)->second);//更新每个carinfo的R_Table
                 mean+=it->first;
     }
         m_selfParm_negative.jumpnums=chose.size();
