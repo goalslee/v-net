@@ -404,9 +404,7 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
                    uint32_t interface);
   void ClearAllTables ();
 
-  int GetArea (Vector3D position) const;
-  int GetNumArea () const;
-  void Init_NumArea();
+
 
 
   bool isPaddingExist () const;
