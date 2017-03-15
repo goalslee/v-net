@@ -1257,8 +1257,6 @@ RoutingProtocol::GetMessageSequenceNumber ()
 void
 RoutingProtocol::HelloTimerExpire ()
 {
-  //std::cout<<"HmTimerExpire "<<m_CCHmainAddress.Get ()%256;
-  //std::cout<<", Time:"<<Simulator::Now().GetSeconds ()<<std::endl;
   if (GetType() == CAR)
     {
       SendHello ();
@@ -1269,9 +1267,6 @@ RoutingProtocol::HelloTimerExpire ()
 void
 RoutingProtocol::RmTimerExpire ()
 {
-  //Do nothing.
- // std::cout<<"RmTimerExpire "<<m_CCHmainAddress.Get ()%256;
-  //std::cout<<", Time:"<<Simulator::Now().GetSeconds ()<<std::endl;
 
   if (GetType () == LOCAL_CONTROLLER)
   {
@@ -1426,13 +1421,7 @@ RoutingProtocol::SendRoutingMessage (enum direction dir)
       msg.SetMessageType (sdn::MessageHeader::ROUTING_MESSAGE);
       msg.SetOriginatorAddress(m_CCHmainAddress);
       sdn::MessageHeader::Rm &rm = msg.GetRm ();
-      //rm.ID = cit->first;//0..0
-      //std::cout<<"66666 "<<m_SCHaddr2CCHaddr.size()<<std::endl;
-      /*for (std::map<Ipv4Address, Ipv4Address>::const_iterator ttt = m_SCHaddr2CCHaddr.begin ();
-           ttt != m_SCHaddr2CCHaddr.end (); ++ttt)
-      {
-          std::cout<<"6666 "<<ttt->first.Get()<<" "<<ttt->second.Get()<<std::endl;
-      }*/
+
       std::map<Ipv4Address, Ipv4Address>::iterator ttt = m_SCHaddr2CCHaddr.find(cit->first);
       if (ttt != m_SCHaddr2CCHaddr.end ())
       {
