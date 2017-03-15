@@ -1816,13 +1816,13 @@ RoutingProtocol::ComputeRoute ()
    compute_possive();
    compute_negative();
    if(m_isEstablish_positive&&possive_valid){
-        ProcessCRREP(m_incomeParm_possitive.transfer, sdn::POSITIVE);
+     if(!haveSink) ProcessCRREP(m_incomeParm_possitive.transfer, sdn::POSITIVE);
         if(transferAddress_possitive!=tempID){
                 //ProcessCRREP(transferAddress_possitive, sdn::POSITIVE);
         }
    }
    else if(m_isEstablish_negative&&negative_valid){
-           ProcessCRREP(m_incomeParm_negative.transfer, sdn::NEGATIVE);
+            if(!haveSink) ProcessCRREP(m_incomeParm_negative.transfer, sdn::NEGATIVE);
            if(transferAddress_negative!=tempID){
                 //ProcessCRREP(transferAddress_negative, sdn::NEGATIVE);
         }     
