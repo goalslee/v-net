@@ -1,11 +1,11 @@
 /*
  * SDN.cc
  *
- *  Created on: Oct 9, 2015
- *      Author: chl
+ *  Created on: March 15, 2017
+ *      Author: goals.lee
  */
 /*
-  ./waf --run "SDN"
+  ./waf --run SDN
 */
 #include<stdio.h>
 #include <iostream>
