@@ -1694,6 +1694,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
     if(Aodv_r.next_dir==sdn::POSITIVE){	  
          m_isEstablish_positive=true;
 	m_incomeParm_possitive.nextIP=Aodv_r.originator;
+	m_incomeParm_possitive.transfer=Aodv_r.FirstCarId;
           if(m_lc_info.find(Aodv_r.ID)==m_lc_info.end())
          {
 	        Aodv_r_rm.ID=m_incomeParm_possitive.m_sourceId; //多个流时需判断
@@ -1715,6 +1716,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
    else{
              m_isEstablish_negative=true;
          	m_incomeParm_negative.nextIP=Aodv_r.originator;
+         	m_incomeParm_negative.transfer=Aodv_r.FirstCarId;
           if(m_lc_info.find(Aodv_r.ID)==m_lc_info.end())
          {
 	        Aodv_r_rm.ID=m_incomeParm_negative.m_sourceId; //多个流时需判断
@@ -1808,9 +1810,23 @@ RoutingProtocol::ComputeRoute ()
 {
 
     RemoveTimeOut (); //Remove Stale Tuple
-
+    Ipv4Address tempID;
+  if(m_isEstablish_positive) tempID=transferAddress_possitive;
+  else if(m_isEstablish_negative) tempID=transferAddress_negative;
    compute_possive();
    compute_negative();
+   if(m_isEstablish_positive&&possive_valid){
+        ProcessCRREP(m_incomeParm_possitive.transfer, sdn::POSITIVE);
+        if(transferAddress_possitive!=tempID){
+                //ProcessCRREP(transferAddress_possitive, sdn::POSITIVE);
+        }
+   }
+   else if(m_isEstablish_negative&&negative_valid){
+           ProcessCRREP(m_incomeParm_negative.transfer, sdn::NEGATIVE);
+           if(transferAddress_negative!=tempID){
+                //ProcessCRREP(transferAddress_negative, sdn::NEGATIVE);
+        }     
+   }
     
 }//RoutingProtocol::ComputeRoute
 
@@ -2082,7 +2098,7 @@ void RoutingProtocol::compute_negative()
         }
         temp=*chose.rbegin();
     }
-    
+        ClearAllTables();
     roadendAddress_negative=chose.rbegin()->second;
         Ipv4Address mask("255.255.0.0");
      double mean=0;

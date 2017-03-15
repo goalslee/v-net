@@ -93,6 +93,7 @@ struct AodvParm //
 	Ipv4Address m_sourceId;
           Ipv4Address m_desId;
           sdn::direction lastdir;//上一跳的方向，上一跳收到之后知道用哪个方向的链路
+           Ipv4Address transfer;
 };
 
 struct AodvDesParm //
