@@ -1806,6 +1806,7 @@ RoutingProtocol::GetType () const
 void
 RoutingProtocol::SendMT(enum direction dir,uint32_t n)//0 maintain,1 rechose ,dir is 本路方向
 {
+         std::cout<<m_CCHmainAddress<<" sendMT"<<std::endl;
     	sdn::MessageHeader msg;
 	 msg.SetMessageType(sdn::MessageHeader::MAINTAINMENT_MESSAGE);
 	  Time now = Simulator::Now ();
@@ -1836,8 +1837,10 @@ RoutingProtocol::SendMT(enum direction dir,uint32_t n)//0 maintain,1 rechose ,di
 void
 RoutingProtocol::ProcessMT(const sdn::MessageHeader &msg)
 {
+        
       const sdn::MessageHeader::Maintainment&mt = msg.GetMaintainment();
       if(mt.desID!=m_CCHmainAddress) return;
+      std::cout<<m_CCHmainAddress<<" handleMT"<<std::endl;
       if(mt.rORm==0){
                 ProcessCRREP(mt.transferID, mt.dir);
       }
