@@ -465,13 +465,11 @@ RoutingProtocol::DoInitialize ()
       canRunSdn = true;
     }
 
-  Init_NumArea();
+
   if(canRunSdn)
     {
       HelloTimerExpire ();
       RmTimerExpire ();
-      //APTimerExpire ();
-      //FirstTimerExpire();
       NS_LOG_DEBUG ("SDN on node (Car) " << m_CCHmainAddress << " started");
     }
 }
@@ -721,7 +719,7 @@ if(rev==false) return;
       it->second.LastActive = Simulator::Now ();
       it->second.Position = msg.GetHello ().GetPosition ();
       it->second.Velocity = msg.GetHello ().GetVelocity ();
-      it->second.minhop = 0;
+
       
 
       std::map<Ipv4Address, CarInfo>::iterator iter = m_lc_positive_info.find (ID);
@@ -731,16 +729,14 @@ if(rev==false) return;
       iter->second.Active = true;
       iter->second.LastActive = Simulator::Now ();
       iter->second.Position = msg.GetHello ().GetPosition ();
-      iter->second.Velocity = msg.GetHello ().GetVelocity ();
-      iter->second.minhop = 0;        
+      iter->second.Velocity = msg.GetHello ().GetVelocity ();       
       }
       else if(iter2 != m_lc_negative_info.end ())
       {
       iter2->second.Active = true;
       iter2->second.LastActive = Simulator::Now ();
       iter2->second.Position = msg.GetHello ().GetPosition ();
-      iter2->second.Velocity = msg.GetHello ().GetVelocity ();
-      iter2->second.minhop = 0;        
+      iter2->second.Velocity = msg.GetHello ().GetVelocity ();     
       }
       
     }
@@ -827,14 +823,14 @@ RoutingProtocol::ProcessRm (const sdn::MessageHeader &msg) //车收到lc发的路由表
                  it->nextHop,
                  m_SCHinterface);
       }
-          if(m_CCHmainAddress==Ipv4Address("192.168.2.14"))
+        /*  if(m_CCHmainAddress==Ipv4Address("192.168.2.14"))
     {
         std::cout<<"match "<<m_CCHmainAddress<<std::endl;
         for(std::map<Ipv4Address, RoutingTableEntry>::iterator it= m_table.begin();it!=m_table.end();++it)
         {
             std::cout<<"route dest"<<it->second.destAddr<<" next"<<it->second.nextHop<<std::endl;
         }
-    }
+    }*/
     }
 
 }
