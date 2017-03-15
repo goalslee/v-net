@@ -31,7 +31,7 @@
 namespace ns3 {
 namespace sdn {
 
-enum AppointmentType {NORMAL, FORWARDER};
+
 enum direction{POSITIVE,NEGATIVE,OTHER};
 float     rIEEE754 (uint32_t emf);
 uint32_t  IEEE754 (float dec);
@@ -584,7 +584,7 @@ public:
 
   struct Maintainment
   {
-    bool rORm;
+    uint32_t rORm;//0 maintain , 1 rechose
     Ipv4Address sourceID;
     Ipv4Address sinkID;
     Ipv4Address transferID;
