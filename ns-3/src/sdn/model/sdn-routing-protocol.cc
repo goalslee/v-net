@@ -607,14 +607,14 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
           }
           break;
 
-        /*case sdn::MessageHeader::APPOINTMENT_MESSAGE:
+        case sdn::MessageHeader::MAINTAINMENT_MESSAGE:
           NS_LOG_DEBUG (Simulator::Now ().GetSeconds ()
                         << "s SDN node " << m_CCHmainAddress
-                        << " received Appointment message of size "
+                        << " received Maintainment message of size "
                         << messageHeader.GetSerializedSize ());
-          if (GetType() == CAR)
-            ProcessAppointment (messageHeader);
-          break;*/
+          if (GetType() == LOCAL_CONTROLLER)
+            ProcessMT (messageHeader);
+          break;
         case sdn::MessageHeader::AODV_ROUTING_MESSAGE:  //add this for aodv
             NS_LOG_DEBUG (Simulator::Now ().GetSeconds ()
                           << "s SDN node " << m_CCHmainAddress
@@ -1836,7 +1836,11 @@ RoutingProtocol::SendMT(enum direction dir,uint32_t n)//0 maintain,1 rechose ,di
 void
 RoutingProtocol::ProcessMT(const sdn::MessageHeader &msg)
 {
-
+      const sdn::MessageHeader::Maintainment&mt = msg.GetMaintainment();
+      if(mt.desID!=m_CCHmainAddress) return;
+      if(mt.rORm==0){
+                ProcessCRREP(mt.transferID, mt.dir);
+      }
 }
 
 void
