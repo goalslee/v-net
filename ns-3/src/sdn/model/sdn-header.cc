@@ -526,20 +526,20 @@ MessageHeader::Aodv_R_Rm::Deserialize (Buffer::Iterator start,
 
 // ---------------- SDN Appointment Message -------------------------------
 
-/*void
-MessageHeader::Appointment::Print (std::ostream &os) const
+void
+MessageHeader::Maintainment::Print (std::ostream &os) const
 {
   //TODO
 }
 
 uint32_t
-MessageHeader::Appointment::GetSerializedSize () const
+MessageHeader::Maintainment::GetSerializedSize () const
 {
   return SDN_APPOINTMENT_HEADER_SIZE;
 }
 
 void
-MessageHeader::Appointment::Serialize (Buffer::Iterator start) const
+MessageHeader::Maintainment::Serialize (Buffer::Iterator start) const
 {
   Buffer::Iterator i = start;
 
@@ -552,7 +552,7 @@ MessageHeader::Appointment::Serialize (Buffer::Iterator start) const
 }
 
 uint32_t
-MessageHeader::Appointment::Deserialize (Buffer::Iterator start, uint32_t messageSize)
+MessageHeader::Maintainment::Deserialize (Buffer::Iterator start, uint32_t messageSize)
 {
   Buffer::Iterator i = start;
 
@@ -566,7 +566,7 @@ MessageHeader::Appointment::Deserialize (Buffer::Iterator start, uint32_t messag
   ip_temp = i.ReadNtohU32();
   this->NextForwarder.Set (ip_temp);
   return (messageSize);
-}*/
+}
 
 // ---------------- SDN CARROUTEREQUEST Message -------------------------------
 
