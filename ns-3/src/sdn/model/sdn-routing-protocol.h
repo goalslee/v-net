@@ -387,7 +387,6 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   /// Check that address is one of my interfaces
   bool IsMyOwnAddress (const Ipv4Address & a) const;//implemented
 
-  ShortHop GetShortHop (const Ipv4Address& IDa, const Ipv4Address& IDb);
   void LCAddEntry( const Ipv4Address& ID,
                    const Ipv4Address& dest,
                    const Ipv4Address& mask,
