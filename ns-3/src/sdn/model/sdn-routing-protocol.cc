@@ -839,31 +839,7 @@ RoutingProtocol::ProcessRm (const sdn::MessageHeader &msg) //车收到lc发的路由表
 
 }
  
-/*void
-RoutingProtocol::ProcessAppointment (const sdn::MessageHeader &msg)
-{
-  NS_LOG_FUNCTION (msg);
-  const sdn::MessageHeader::Appointment &appointment = msg.GetAppointment ();
-  if (IsMyOwnAddress (appointment.ID))
-    {
-      switch (appointment.ATField)
-      {
-        case NORMAL:
-          //std::cout<<" \"NORMAL\""<<std::endl;
-          break;
-        case FORWARDER:
-          m_next_forwarder = appointment.NextForwarder;
-          //std::cout<<"CAR"<<m_CCHmainAddress.Get () % 256<<"ProcessAppointment";
-          //std::cout<<" \"FORWARDER\""<<std::endl;
-          //std::cout<<"NextForwarder:"<<m_next_forwarder.Get () % 256<<std::endl;
-          break;
-        default:
-          std::cout<<" ERROR TYPE"<<std::endl;
-      }
-      m_appointmentResult = appointment.ATField;
-    }
-}
-*/
+
 void
 RoutingProtocol::ProcessCRREQ (const sdn::MessageHeader &msg)
 {
@@ -939,24 +915,10 @@ else if(m_lc_info[m_sourceAddress].dir==sdn::NEGATIVE){
 void
 RoutingProtocol::ProcessCRREP (Ipv4Address transfer,enum direction dir)
 {
-  //NS_LOG_FUNCTION (msg);
-  /*const sdn::MessageHeader::CRREP &crrep = msg.GetCRREP ();
-  Ipv4Address dest =  crrep.destAddress;
-  Ipv4Address source = crrep.sourceAddress;
-  Ipv4Address transfer = crrep.transferAddress;*/
-  //const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
-  //Ipv4Address dest = Aodv_r.CarId;
-  //Ipv4Address source =transferAddress;
-  //Ipv4Address transfer = Aodv_r.ID;
 
- //std::cout<<"ProcessCRREP"<<transfer.Get()%256<<" "<<dest.Get()%256<<std::endl;
 
   Ipv4Address mask("255.255.0.0");
-  //ComputeRoute();
-  //LCAddEntry(roadendAddress,dest,mask,transfer);
-  //std::cout<<"roadendAddress"<<roadendAddress.Get()%256<<std::endl;
- // std::cout<<"infosize"<<m_lc_info.size()<<std::endl;
-  //std::cout<<"roadendAddress"<<roadendAddress.Get()%256<<std::endl;
+
 
   for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
        cit != m_lc_info.end (); ++cit)
@@ -1091,9 +1053,7 @@ RoutingProtocol::RouteInput(Ptr<const Packet> p,
                             ErrorCallback ecb)
 {
   NS_LOG_FUNCTION (this << " " << m_ipv4->GetObject<Node> ()->GetId () << " " << header.GetDestination ());
-  //TODO
-  //std::cout<<m_mainAddress.Get ()%256<<" "<<header.GetDestination ().Get () %256<<std::endl;
-  //bool lcb_status = false;
+
   Ipv4Address dest = header.GetDestination();
   Ipv4Address sour = header.GetSource();
 
@@ -1108,8 +1068,7 @@ RoutingProtocol::RouteInput(Ptr<const Packet> p,
   uint32_t iif = m_ipv4->GetInterfaceForDevice (idev);//SCH dev!
   if (m_ipv4->IsDestinationAddress (dest, iif))
     {
-      //Duplicate Detection. TODO
-      //if (m_duplicate_detection.CheckThis ())
+
       //Local delivery
       if (!lcb.IsNull ())
         {
