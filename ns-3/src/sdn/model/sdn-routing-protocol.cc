@@ -924,8 +924,8 @@ RoutingProtocol::ProcessCRREP (Ipv4Address transfer,enum direction dir)
 	  for(std::vector<RoutingTableEntry>::iterator it=Entry.R_Table.begin();it!=Entry.R_Table.end();++it)
 	  {
 
-	      if(it->destAddr == roadendAddress_possitive)
-	      {
+	      //if(it->destAddr == roadendAddress_possitive)
+	      //{
 	          if(cit->first!=roadendAddress_possitive){
 
 	    	  LCAddEntry(cit->first,m_incomeParm_possitive.m_desId,it->mask,it->nextHop);
@@ -934,7 +934,7 @@ RoutingProtocol::ProcessCRREP (Ipv4Address transfer,enum direction dir)
 	    	  else{
 	    	     LCAddEntry(cit->first,m_incomeParm_possitive.m_desId,it->mask,transfer);
 	    	  }
-	      }
+	     // }
 	  }
 	  }
 	  }
@@ -945,8 +945,8 @@ RoutingProtocol::ProcessCRREP (Ipv4Address transfer,enum direction dir)
 	  for(std::vector<RoutingTableEntry>::iterator it=Entry.R_Table.begin();it!=Entry.R_Table.end();++it)
 	  {
 
-	      if(it->destAddr == roadendAddress_negative)
-	      {
+	     // if(it->destAddr == roadendAddress_negative)
+	     // {
 	          if(cit->first!=roadendAddress_negative){
 
 	    	  LCAddEntry(cit->first,m_incomeParm_negative.m_desId,it->mask,it->nextHop);
@@ -955,7 +955,7 @@ RoutingProtocol::ProcessCRREP (Ipv4Address transfer,enum direction dir)
 	    	  else{
 	    	     LCAddEntry(cit->first,m_incomeParm_negative.m_desId,it->mask,transfer);
 	    	  }
-	      }
+	      //}
 	  }	  
 	  }
 	  }
