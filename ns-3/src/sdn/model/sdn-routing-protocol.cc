@@ -1899,6 +1899,8 @@ void  RoutingProtocol::compute_possive()
         std::cout<<std::endl;*/
     
     //std::cout<<"1"<<std::endl;
+    ClearAllTables();
+    
     roadendAddress_possitive=chose.rbegin()->second;
     Ipv4Address mask("255.255.0.0");
     double mean=0;
@@ -2281,11 +2283,11 @@ RoutingProtocol::ClearAllTables ()
     {
       for(std::vector<RoutingTableEntry>::iterator iit = it->second.R_Table.begin (); iit!=it->second.R_Table.end(); ++iit)
     {
-        if(iit->destAddr != it->first)
-        {
+       // if(iit->destAddr != it->first)
+       // {
                 iit = it->second.R_Table.erase(iit);//iit will point to next element;
                 --iit;
-        }
+       // }
     }
       //it->second.R_Table.clear ();
     }
