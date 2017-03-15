@@ -718,10 +718,10 @@ public:
     NS_ASSERT (m_messageType == AODV_REVERSE_MESSAGE);
     return (m_message.aodv_r_rm);
   }
-  const Appointment& GetAppointment () const
+  const Maintainment& GetMaintainment () const
   {
-    NS_ASSERT (m_messageType == APPOINTMENT_MESSAGE);
-    return (m_message.appointment);
+    NS_ASSERT (m_messageType == MAINTAINMENT_MESSAGE);
+    return (m_message.mt);
   }
 
 
