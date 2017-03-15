@@ -97,18 +97,7 @@ public:
   AppointmentType appointmentResult;
 };
 
-struct ShortHop//???
-{
-  ShortHop ()
-  {
-    hopnumber = INFINITY;
-    isTransfer = false;
-    nextID = Ipv4Address::GetZero ();
-    IDa = Ipv4Address::GetZero ();
-    IDb = Ipv4Address::GetZero ();
-    proxyID = Ipv4Address::GetZero ();
-    t = 0;
-  };
+
 
   Ipv4Address nextID;
 
@@ -425,27 +414,6 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   void RemoveTimeOut ();
 
 
-  void Do_Init_Compute ();
-  void Do_Update ();
-  void Reschedule ();
-
-  void Partition ();
-  void SetN_Init ();
-  void OtherSet_Init ();
-  void SelectNode ();
-
-  void SortByDistance (int area);
-  void CalcShortHopOfArea (int fromArea, int toArea);
-  void CalcIntraArea (int area);
-  void UpdateMinHop (const Ipv4Address &ID);
-  //ResetAppointmentResult In m_lc_info;
-  void ResetAppointmentResult ();
-
-
-  void ShiftArea ();
-  void AddNewToZero ();
-  void CalcSetZero ();
-  void SelectNewNodeInAreaZero ();
 protected:
   virtual void DoInitialize (void);//implemented  首先被调用  创建socket绑定信道，设置几个定时器
 };
