@@ -2217,35 +2217,7 @@ void RoutingProtocol::compute_negative()
 
 
 
-void
-RoutingProtocol::SetN_Init ()
-{
-  int numArea = GetNumArea();
-  for (std::set<Ipv4Address>::const_iterator cit = m_Sections[numArea-1].begin ();
-      cit != m_Sections[numArea-1].end (); ++cit)
-    {
-      m_lc_info[(*cit)].minhop = 1;
-      m_lc_info[(*cit)].ID_of_minhop = Ipv4Address::GetZero ();
-    }
-}
 
-void
-RoutingProtocol::OtherSet_Init ()
-{
-  int numArea = GetNumArea();
-  m_lc_info.clear ();
-  for (int area = numArea - 2; area >= 0; --area)
-    {
-      m_lc_shorthop.clear();
-      SortByDistance (area);
-      CalcShortHopOfArea (area, area + 1);
-      if ((area == numArea - 3) && isPaddingExist ())
-        {
-          CalcShortHopOfArea (area, area + 2);
-        }
-      CalcIntraArea (area);
-    }
-}
 
 void
 RoutingProtocol::SortByDistance (int area)
