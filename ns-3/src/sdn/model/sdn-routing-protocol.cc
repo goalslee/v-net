@@ -1692,6 +1692,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 	  sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = mesg.GetAodv_R_Rm();
 
     if(Aodv_r.next_dir==sdn::POSITIVE){	  
+         m_isEstablish_positive=true;
 	m_incomeParm_possitive.nextIP=Aodv_r.originator;
           if(m_lc_info.find(Aodv_r.ID)==m_lc_info.end())
          {
@@ -1712,6 +1713,7 @@ void RoutingProtocol::ProcessAodvRERm(const sdn::MessageHeader &msg) //for each 
 
 	}
    else{
+             m_isEstablish_negative=true;
          	m_incomeParm_negative.nextIP=Aodv_r.originator;
           if(m_lc_info.find(Aodv_r.ID)==m_lc_info.end())
          {
@@ -1764,8 +1766,8 @@ void RoutingProtocol::Aodv_sendback()  //for des lc send back
           
           SendRoutingMessage(m_incomeDesParm.desdir);
            if(m_incomeDesParm.desdir==sdn::POSITIVE)
-                     isEstablish_positive=true;
-           else     isEstablish_negative=true;  
+                     m_isEstablish_positive=true;
+           else     m_isEstablish_negative=true;  
 	
 }
 
