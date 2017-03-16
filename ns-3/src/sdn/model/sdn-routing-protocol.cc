@@ -1968,6 +1968,7 @@ void  RoutingProtocol::compute_possive()
     double mean=0;
     double sd=0;
 if(m_isEstablish_positive){
+     std::cout<<"lc "<<m_CCHmainAddress<<"  ";
     for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
     {
           std::cout<<it->second<<"-->";
