@@ -527,7 +527,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                 
   //std::cout<<"self: "<<m_CCHmainAddress<<"  income: "<<senderIfaceAddr<<" "<<isNeighbor(senderIfaceAddr)<<std::endl;
   
-   bool isneighbor=isNeighbor(senderIfaceAddr);    
+   //bool isneighbor=isNeighbor(senderIfaceAddr);    
   // if(isneighbor) {std::cout<<"self: "<<m_CCHmainAddress<<"  income: "<<senderIfaceAddr<<" "<<isNeighbor(senderIfaceAddr)<<std::endl;}
   //std::cout<<"SDN node " << m_CCHmainAddress
                // << " received a SDN packet from "
@@ -620,7 +620,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                           << "s SDN node " << m_CCHmainAddress
                           << " received Aodv Routing message of size "
                           << messageHeader.GetSerializedSize ());
-          if(GetType()==LOCAL_CONTROLLER&&isneighbor)
+          if(GetType()==LOCAL_CONTROLLER)
         	  ProcessAodvRm(messageHeader);
         	  break;
         case sdn::MessageHeader::AODV_REVERSE_MESSAGE:  //add this for aodv
@@ -628,7 +628,7 @@ RoutingProtocol::RecvSDN (Ptr<Socket> socket)
                           << "s SDN node " << m_CCHmainAddress
                           << " received Aodv Routing message of size "
                           << messageHeader.GetSerializedSize ());
-            if(GetType()==LOCAL_CONTROLLER&&isneighbor)
+            if(GetType()==LOCAL_CONTROLLER)
                 //std::cout<<"case"<<std::endl;
             	ProcessAodvRERm(messageHeader);
            break;
@@ -1509,12 +1509,16 @@ if(m_roadtype==sdn::ROW) {
     aodvrm.GetPosition(x,y,z);
     x_0=m_mobility->GetPosition().x;
     y_0=m_mobility->GetPosition().y;
+
 }
 else{
    aodvrm.GetPosition(y,x,z);
    x_0=m_mobility->GetPosition().y;
    y_0=m_mobility->GetPosition().x;
+
+
 }
+   if(abs(x-x_0)<0.00001) return;//not the neighbor
 
    if(x<x_0&&y>y_0&&in==sdn::NEGATIVE) out=sdn::POSITIVE;
    else if(x>x_0&&y>y_0&&in==sdn::NEGATIVE) out=sdn::NEGATIVE;
