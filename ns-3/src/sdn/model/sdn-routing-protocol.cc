@@ -2110,7 +2110,7 @@ void RoutingProtocol::compute_negative()
             return;
     } 
     if(dis.begin()->first>m_signal_range/2) {
-      possive_valid=false;
+      negative_valid=false;
     return;
   
     }
