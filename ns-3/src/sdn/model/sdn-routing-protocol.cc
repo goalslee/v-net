@@ -1859,7 +1859,7 @@ RoutingProtocol::ProcessMT(const sdn::MessageHeader &msg)
          if(!haveSource){          
             SendMT(mt.dir,1);
             }
-         else{
+         else{//发一个空包，车辆会清空自己的路由表
 
 std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.find (m_sourceAddress);
 
