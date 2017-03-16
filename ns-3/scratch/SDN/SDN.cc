@@ -278,7 +278,7 @@ void VanetSim::ConfigMobility()
 	{
 		duration = rt;
 	}
-	duration = 80;
+	duration = 120;
 	Time temp_now = Simulator::Now();
 
 
@@ -481,8 +481,8 @@ void VanetSim::ConfigApp()
 
 	m_source = Source.Install(m_nodes.Get(nodeNum+24));//Install on Source
 	m_source.Start(Seconds(56));
-	//m_source.Stop(Seconds(duration));//Default Start time is 0.
-	m_source.Stop(Seconds(120));//Default Start time is 0.
+	m_source.Stop(Seconds(duration));//Default Start time is 0.
+	//m_source.Stop(Seconds(120));//Default Start time is 0.
 	std::string temp = "/NodeList/"+std::to_string (nodeNum+24)+"/ApplicationList/0/$ns3::OnOffApplication/Tx";
 	/*
         std::cout<<"source cch ip"<<m_CCHInterfaces.GetAddress(nodeNum+24)<<std::endl;
