@@ -848,7 +848,7 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
   //add long road lc select
   if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
          //if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;not for 84 to receive
-              // if(m_firstRequest++>1) return;
+               if(m_firstRequest++>1) return;
                haveSource=true;
                m_sourceAddress=source;
                
