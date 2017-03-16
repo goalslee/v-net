@@ -1902,8 +1902,10 @@ void  RoutingProtocol::compute_possive()
              //   std::cout<<it->first<<std::endl;
         //}
     if(dis.begin()->first>m_signal_range/2) {
-   // possive_valid=false;
-    return;
+       if(!haveSource){
+             possive_valid=false;
+            return;
+        }
     
     }
     transferAddress_possitive=dis.begin()->second;
@@ -2110,8 +2112,10 @@ void RoutingProtocol::compute_negative()
             return;
     } 
     if(dis.begin()->first>m_signal_range/2) {
-      negative_valid=false;
-    return;
+            if(!haveSource){
+                negative_valid=false;
+                return;
+            }
   
     }
         /*std::cout<<"negative dis size "<<dis.size()<<std::endl;
