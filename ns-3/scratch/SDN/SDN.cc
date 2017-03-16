@@ -278,7 +278,7 @@ void VanetSim::ConfigMobility()
 	{
 		duration = rt;
 	}
-	duration = 120;
+	duration = 400;
 	Time temp_now = Simulator::Now();
 
 
