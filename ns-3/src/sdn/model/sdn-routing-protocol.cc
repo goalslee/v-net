@@ -1901,7 +1901,7 @@ void  RoutingProtocol::compute_possive()
         // for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
              //   std::cout<<it->first<<std::endl;
         //}
-    if(dis.begin()->first>m_signal_range/2) {
+    if(dis.begin()->first>m_signal_range) {
        if(!haveSource){
              possive_valid=false;
             return;
