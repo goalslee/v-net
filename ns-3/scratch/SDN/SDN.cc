@@ -38,7 +38,7 @@ VanetSim::VanetSim()
 	verbose = false;
 	mod = 1;
 	pmod = 0;
-	duration = 200;
+	duration = 500;
 	nodeNum = 0;
 	Rx_Data_Bytes = 0;
 	Rx_Data_Pkts = 0;
@@ -356,10 +356,12 @@ void VanetSim::ConfigMobility()
     Temp->SetPosition(Vector(-10.0+1000.0*3, 2500.0,0.0));//24
 
          Temp=m_nodes.Get(nodeNum+24)->GetObject<MobilityModel>();
-    Temp->SetPosition(Vector(700.0, -10.0, 0.0));//source
+    //Temp->SetPosition(Vector(700.0, -10.0, 0.0));//source
+      Temp->SetPosition(Vector(990.0, 2950.0, 0.0));//source
 
          Temp=m_nodes.Get(nodeNum+25)->GetObject<MobilityModel>();
-    Temp->SetPosition(Vector(3010.0, 2950.0, 0.0));//sink
+    //Temp->SetPosition(Vector(3010.0, 2950.0, 0.0));//sink
+    Temp->SetPosition(Vector(1950.0, 50.0, 0.0));//sink
 }
 
 void VanetSim::ConfigApp()
@@ -479,7 +481,7 @@ void VanetSim::ConfigApp()
 
 
 	m_source = Source.Install(m_nodes.Get(nodeNum+24));//Install on Source
-	m_source.Start(Seconds(0));
+	m_source.Start(Seconds(300));
 	m_source.Stop(Seconds(duration));//Default Start time is 0.
 	//m_source.Stop(Seconds(120));//Default Start time is 0.
 	std::string temp = "/NodeList/"+std::to_string (nodeNum+24)+"/ApplicationList/0/$ns3::OnOffApplication/Tx";
