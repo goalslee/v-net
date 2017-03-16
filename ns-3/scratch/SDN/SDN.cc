@@ -38,7 +38,7 @@ VanetSim::VanetSim()
 	verbose = false;
 	mod = 1;
 	pmod = 0;
-	duration = -1;
+	duration = 200;
 	nodeNum = 0;
 	Rx_Data_Bytes = 0;
 	Rx_Data_Pkts = 0;
@@ -278,7 +278,6 @@ void VanetSim::ConfigMobility()
 	{
 		duration = rt;
 	}
-	duration = 400;
 	Time temp_now = Simulator::Now();
 
 
