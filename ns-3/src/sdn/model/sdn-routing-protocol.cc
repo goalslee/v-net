@@ -746,7 +746,7 @@ if(rev==false) return;
       CI_temp.Velocity = msg.GetHello ().GetVelocity ();
       if(m_roadtype==sdn::ROW)
       {
-            if(CI_temp.Velocity.x>=0.0)
+            if(CI_temp.Velocity.x>0.0)
             {
                 CI_temp.dir=sdn::POSITIVE;
             }
@@ -756,7 +756,7 @@ if(rev==false) return;
       }
       else if(m_roadtype==sdn::COLUMN)
       {
-        if(CI_temp.Velocity.y>=0.0) {CI_temp.dir=sdn::POSITIVE; //source && sink ¶¼possive
+        if(CI_temp.Velocity.y>0.0) {CI_temp.dir=sdn::POSITIVE; //source && sink ¶¼possive
   
         }
         else {CI_temp.dir=sdn::NEGATIVE;    
@@ -1943,13 +1943,13 @@ void  RoutingProtocol::compute_possive()
             possive_valid=false;
             return;
     }
-    if(m_CCHmainAddress==Ipv4Address("192.168.3.34")){
+    /*if(m_CCHmainAddress==Ipv4Address("192.168.3.34")){
         std::cout<<"possitive dis size "<<dis.size()<<std::endl;
          for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
                std::cout<<it->first<<"  ";
           std::cout<<std::endl;     
-        }
-    if(dis.begin()->first>m_signal_range) {
+        }*/
+    if(dis.begin()->first>m_signal_range/2) {
        if(!haveSource){
              possive_valid=false;
             return;
