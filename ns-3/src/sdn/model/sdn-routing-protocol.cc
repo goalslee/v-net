@@ -1970,7 +1970,7 @@ void  RoutingProtocol::compute_possive()
 if(m_isEstablish_positive){
     for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
     {
-          std::cout<<it->second<<"-->"
+          std::cout<<it->second<<"-->";
     }
     std::cout<<" trans: "<<m_incomeParm_possitive.transfer;
     std::cout<<std::endl;
