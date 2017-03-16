@@ -1943,11 +1943,12 @@ void  RoutingProtocol::compute_possive()
             possive_valid=false;
             return;
     }
-    //if(m_CCHmainAddress==Ipv4Address("192.168.1.247")){
-       // std::cout<<"possitive dis size "<<dis.size()<<std::endl;
-        // for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
-             //   std::cout<<it->first<<std::endl;
-        //}
+    if(m_CCHmainAddress==Ipv4Address("192.168.3.34")){
+        std::cout<<"possitive dis size "<<dis.size()<<std::endl;
+         for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
+               std::cout<<it->first<<"  ";
+          std::cout<<std::endl;     
+        }
     if(dis.begin()->first>m_signal_range) {
        if(!haveSource){
              possive_valid=false;
