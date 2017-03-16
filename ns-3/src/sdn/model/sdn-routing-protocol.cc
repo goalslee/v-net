@@ -881,7 +881,7 @@ if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 		  Aodvrm.jump_nums=m_selfParm_possitive.jumpnums;
 		  Aodvrm.SetStability(m_selfParm_possitive.stability);
 		  Aodvrm.Originator=m_CCHmainAddress;
-		  Aodvrm.dir=sdn::POSITIVE;
+		  Aodvrm.dir=m_lc_info[m_sourceAddress].dir==sdn::POSITIVE?sdn::POSITIVE:sdn::NEGATIVE;
 		  Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition(). y, m_mobility->GetPosition().z);
 
  
