@@ -1902,7 +1902,7 @@ void  RoutingProtocol::compute_possive()
              //   std::cout<<it->first<<std::endl;
         //}
     if(dis.begin()->first>m_signal_range/2) {
-    possive_valid=false;
+   // possive_valid=false;
     return;
     
     }
