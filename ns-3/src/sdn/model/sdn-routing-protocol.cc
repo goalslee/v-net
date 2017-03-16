@@ -1409,7 +1409,7 @@ RoutingProtocol::SendRoutingMessage (enum direction dir)
       sdn::MessageHeader msg;
       Time now = Simulator::Now ();
       msg.SetVTime (m_helloInterval);
-      msg.SetTimeToLive (41993);//Just MY Birthday.
+      msg.SetTimeToLive (12345);//
       msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
       msg.SetMessageType (sdn::MessageHeader::ROUTING_MESSAGE);
       msg.SetOriginatorAddress(m_CCHmainAddress);
@@ -1819,19 +1819,23 @@ RoutingProtocol::SendMT(enum direction dir,uint32_t n)//0 maintain,1 rechose ,di
 	  if(!haveSink){
            mt.sourceID=dir==sdn::POSITIVE?m_incomeParm_possitive.m_sourceId:m_incomeParm_negative.m_sourceId;
            mt.sinkID=dir==sdn::POSITIVE?m_incomeParm_possitive.m_desId:m_incomeParm_negative.m_desId;
-           mt.transferID=dir==sdn::POSITIVE?transferAddress_possitive:transferAddress_negative;
+           //mt.transferID=dir==sdn::POSITIVE?transferAddress_possitive:transferAddress_negative;
            mt.dir=dir==sdn::POSITIVE?m_incomeParm_possitive.lastdir:m_incomeParm_negative.lastdir;
            mt.desID=dir==sdn::POSITIVE?m_incomeParm_possitive.lastIP:m_incomeParm_negative.lastIP;
            }
            else{
            mt.sourceID=m_incomeDesParm.m_sourceId;
            mt.sinkID=m_incomeDesParm.m_desId;
-           mt.transferID=dir==sdn::POSITIVE?transferAddress_possitive:transferAddress_negative;
+           //mt.transferID=dir==sdn::POSITIVE?transferAddress_possitive:transferAddress_negative;
            mt.dir=m_incomeDesParm.lastdir;
            mt.desID=m_incomeDesParm.lastIP;
            }
+           if(n==0){
+                mt.transferID=dir==sdn::POSITIVE?transferAddress_possitive:transferAddress_negative;
+                std::cout<<"new transfer "<<mt.transferID<<std::endl;
+           }
            mt.originator=m_CCHmainAddress;
-           std::cout<<"new transfer "<<mt.transferID<<std::endl;
+           
 	  QueueMessage (msg, JITTER);
 }
 
@@ -1847,6 +1851,37 @@ RoutingProtocol::ProcessMT(const sdn::MessageHeader &msg)
                if( mt.dir==sdn::POSITIVE) m_incomeParm_possitive.transfer=mt.transferID;
                else m_incomeParm_negative.transfer=mt.transferID;
                 //ProcessCRREP(mt.transferID, mt.dir);
+      }
+      else{
+
+            if(mt.dir==sdn::POSITIVE) m_isEstablish_positive=false;
+            else  m_isEstablish_negative=false;
+         if(!haveSource){          
+            SendMT(mt.dir,1);
+            }
+         else{
+
+std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.find (m_sourceAddress);
+
+      sdn::MessageHeader msg;
+      Time now = Simulator::Now ();
+      msg.SetVTime (m_helloInterval);
+      msg.SetTimeToLive (12345);//
+      msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
+      msg.SetMessageType (sdn::MessageHeader::ROUTING_MESSAGE);
+      msg.SetOriginatorAddress(m_CCHmainAddress);
+      sdn::MessageHeader::Rm &rm = msg.GetRm ();
+
+      std::map<Ipv4Address, Ipv4Address>::iterator ttt = m_SCHaddr2CCHaddr.find(cit->first);
+      rm.ID = ttt->second;
+      rm.routingMessageSize = rm.routingTables.size ();
+
+      QueueMessage (msg, JITTER);
+
+
+
+            
+            }
       }
 }
 
