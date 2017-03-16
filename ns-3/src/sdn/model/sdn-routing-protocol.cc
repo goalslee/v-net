@@ -1876,6 +1876,13 @@ RoutingProtocol::ComputeRoute ()
    }
    else if(m_isEstablish_positive&&!possive_valid){
         std::cout<<m_CCHmainAddress<<" not valid"<<std::endl;
+        m_isEstablish_positive=false;
+                        SendMT(sdn::POSITIVE,1);
+   }
+   else if(m_isEstablish_negative&&!negative_valid){
+        std::cout<<m_CCHmainAddress<<" not valid"<<std::endl;
+        m_isEstablish_negative=false;   
+                        SendMT(sdn::NEGATIVE,1);
    }
     
 }//RoutingProtocol::ComputeRoute
