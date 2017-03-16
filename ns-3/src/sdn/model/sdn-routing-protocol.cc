@@ -114,8 +114,8 @@ RoutingProtocol::RoutingProtocol ()
   :
     m_packetSequenceNumber (SDN_MAX_SEQ_NUM),
     m_messageSequenceNumber (SDN_MAX_SEQ_NUM),
-    m_helloInterval (Seconds(2)),//no change!
-    m_rmInterval (Seconds (2)),//no change!
+    m_helloInterval (Seconds(2)),//no change less!
+    m_rmInterval (Seconds (2)),//no change less!
     m_ipv4 (0),
     m_helloTimer (Timer::CANCEL_ON_DESTROY),
     m_rmTimer (Timer::CANCEL_ON_DESTROY),
@@ -1873,6 +1873,9 @@ RoutingProtocol::ComputeRoute ()
                 SendMT(sdn::NEGATIVE,0);
         }     
    }
+   else if(m_isEstablish_positive&&!possive_valid){
+        std::cout<<m_CCHmainAddress<<" not valid"<<std::endl;
+   }
     
 }//RoutingProtocol::ComputeRoute
 
@@ -1899,8 +1902,9 @@ void  RoutingProtocol::compute_possive()
              //   std::cout<<it->first<<std::endl;
         //}
     if(dis.begin()->first>m_signal_range/2) {
-    return;
     possive_valid=false;
+    return;
+    
     }
     transferAddress_possitive=dis.begin()->second;
     chose.push_back(*dis.begin());
@@ -2106,8 +2110,9 @@ void RoutingProtocol::compute_negative()
             return;
     } 
     if(dis.begin()->first>m_signal_range/2) {
+      possive_valid=false;
     return;
-    possive_valid=false;
+  
     }
         /*std::cout<<"negative dis size "<<dis.size()<<std::endl;
     for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
