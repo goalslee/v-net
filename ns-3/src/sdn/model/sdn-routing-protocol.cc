@@ -1967,6 +1967,16 @@ void  RoutingProtocol::compute_possive()
     Ipv4Address mask("255.255.0.0");
     double mean=0;
     double sd=0;
+if(m_isEstablish_positive){
+    for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+    {
+          std::cout<<it->second<<"-->"
+    }
+    std::cout<<" trans: "<<m_incomeParm_possitive.transfer;
+    std::cout<<std::endl;
+    }
+
+    
     for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
     {
           if((it+1)==chose.end()) LCAddEntry (it->second, chose.rbegin()->second, mask, it->second);
@@ -2028,7 +2038,6 @@ void  RoutingProtocol::compute_possive()
                     if(it->first<distance){
                     //std::cout<<"sink add"<<std::endl;
                        temp=it->second;
-                        //LCAddEntry (it->second,chose.rbegin()->second, mask, m_sinkAddress);
                         break;
                     }
                     
