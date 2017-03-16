@@ -1840,7 +1840,8 @@ RoutingProtocol::ProcessMT(const sdn::MessageHeader &msg)
 {
         
       const sdn::MessageHeader::Maintainment&mt = msg.GetMaintainment();
-      if(mt.desID!=m_CCHmainAddress) return;
+      if(mt.desID!=m_CCHmainAddress||(mt.dir==sdn::POSITIVE&&!m_isEstablish_positive)||(mt.dir==sdn::NEGATIVE&&!m_isEstablish_negative)) return;
+      
       std::cout<<m_CCHmainAddress<<" handleMT"<<std::endl;
       if(mt.rORm==0){
                if( mt.dir==sdn::POSITIVE) m_incomeParm_possitive.transfer=mt.transferID;
