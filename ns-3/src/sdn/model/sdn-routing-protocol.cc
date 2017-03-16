@@ -2005,7 +2005,7 @@ if(m_isEstablish_positive){
                 int distance=m_lc_info[m_sourceAddress].Position.x-(m_mobility->GetPosition().x-m_road_length/2);
                 for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
-                    if(it->first>distance){
+                    if(it->first>distance&&(it->first-distance<m_signal_range)){
                         LCAddEntry (m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
                         break;
                     }
@@ -2017,7 +2017,7 @@ if(m_isEstablish_positive){
                 int distance=m_lc_info[m_sourceAddress].Position.y-(m_mobility->GetPosition().y-m_road_length/2);
                  for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
                 {
-                    if(it->first>distance){
+                    if(it->first>distance&&(it->first-distance<m_signal_range)){
                         LCAddEntry (m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
                         break;
                     }
