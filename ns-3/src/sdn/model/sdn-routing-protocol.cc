@@ -2454,7 +2454,7 @@ namespace ns3 {
 			std::map<Ipv4Address, CarInfo>::iterator it_possitive = m_lc_positive_info.begin ();
 			while (it_possitive != m_lc_positive_info.end ())
 			{
-				if (now.GetSeconds() - it_possitive->second.LastActive.GetSeconds () > 3 * m_helloInterval.GetSeconds())
+				if (now.GetSeconds() - it_possitive->second.LastActive.GetSeconds () > 1 * m_helloInterval.GetSeconds())
 				{
 					m_lc_positive_info.erase((it_possitive++));
 				}
@@ -2463,7 +2463,7 @@ namespace ns3 {
 			std::map<Ipv4Address, CarInfo>::iterator it_negative = m_lc_negative_info.begin ();
 			while (it_negative != m_lc_negative_info.end ())
 			{
-				if (now.GetSeconds() - it_negative->second.LastActive.GetSeconds () > 3 * m_helloInterval.GetSeconds())
+				if (now.GetSeconds() - it_negative->second.LastActive.GetSeconds () > 1 * m_helloInterval.GetSeconds())
 				{
 					m_lc_negative_info.erase((it_negative++));
 				}
