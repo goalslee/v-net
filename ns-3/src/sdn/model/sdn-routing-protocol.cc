@@ -1618,7 +1618,7 @@ namespace ns3 {
 						Aodvrm.Originator=m_CCHmainAddress;
 						Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 						Aodvrm.dir=out;
-						//std::cout<<"POSITIVE forwarding..."<<std::endl;
+						std::cout<<"POSITIVE forwarding..."<<std::endl;
 						QueueMessage (mesg, JITTER);
 					}
 				}
@@ -1656,7 +1656,7 @@ namespace ns3 {
 						Aodvrm.Originator=m_CCHmainAddress;
 						Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 						Aodvrm.dir=out;
-						//std::cout<<"NEGATIVE forwarding..."<<std::endl;
+						std::cout<<"NEGATIVE forwarding..."<<std::endl;
 						QueueMessage (mesg, JITTER);
 					}
 				}
