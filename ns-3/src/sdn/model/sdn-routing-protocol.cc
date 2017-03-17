@@ -862,7 +862,7 @@ namespace ns3 {
 				if(it2!=m_lc_negative_info.end()) m_lc_negative_info.erase(it2);
 
 
-				std::cout<<"handle request ,IP is "<<m_CCHmainAddress<<std::endl;
+				std::cout<<"handle request ,IP is "<<m_CCHmainAddress<<"source ip "<<source<<std::endl;
 				ComputeRoute();
 				if(!haveSource) std::cout<<"source not register"<<std::endl;
 				if(m_lc_info[m_sourceAddress].dir==sdn::POSITIVE&&!possive_valid) {std::cout<<"no valid source route"<<std::endl;return;}
