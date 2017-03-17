@@ -1862,7 +1862,7 @@ namespace ns3 {
 			if(mt.rORm==0){
 				if( mt.dir==sdn::POSITIVE) m_incomeParm_possitive.transfer=mt.transferID;
 				else m_incomeParm_negative.transfer=mt.transferID;
-				//ProcessCRREP(mt.transferID, mt.dir);
+				ProcessCRREP(mt.transferID, mt.dir);
 			}
 			else{
 
@@ -1918,7 +1918,7 @@ namespace ns3 {
 			else if(m_isEstablish_negative&&negative_valid){
 				if(!haveSink) ProcessCRREP(m_incomeParm_negative.transfer, sdn::NEGATIVE);
 				if(transferAddress_negative!=tempID){
-					//ProcessCRREP(transferAddress_negative, sdn::NEGATIVE);
+					ProcessCRREP(transferAddress_negative, sdn::NEGATIVE);
 					SendMT(sdn::NEGATIVE,0);
 				}     
 			}
