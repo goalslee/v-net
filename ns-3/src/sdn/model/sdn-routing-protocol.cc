@@ -1204,6 +1204,7 @@ namespace ns3 {
 					<< " No route to host");
 				sockerr = Socket::ERROR_NOROUTETOHOST;
 				SendCRREQ(header.GetDestination());
+				std::cout<<"send request"<<std::endl;
 
 			}
 			return rtentry;
