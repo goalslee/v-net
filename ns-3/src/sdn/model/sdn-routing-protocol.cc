@@ -773,7 +773,7 @@ namespace ns3 {
 			{
 				std::map<Ipv4Address, CarInfo>::iterator it = m_lc_positive_info.find (ID);
 				if(it!=m_lc_positive_info.end()) m_lc_positive_info.erase(it);
-				std::map<Ipv4Address, CarInfo>::iterator it = m_lc_negative_info.find (ID);
+				it = m_lc_negative_info.find (ID);
 				if(it!=m_lc_negative_info.end()) m_lc_negative_info.erase(it);
 
 			}
@@ -781,7 +781,7 @@ namespace ns3 {
 			{
 				std::map<Ipv4Address, CarInfo>::iterator it = m_lc_positive_info.find (ID);
 				if(it!=m_lc_positive_info.end()) m_lc_positive_info.erase(it);
-				std::map<Ipv4Address, CarInfo>::iterator it = m_lc_negative_info.find (ID);
+				it = m_lc_negative_info.find (ID);
 				if(it!=m_lc_negative_info.end()) m_lc_negative_info.erase(it);
 
 			}
