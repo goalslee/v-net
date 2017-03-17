@@ -1394,7 +1394,7 @@ namespace ns3 {
 			Vector pos = m_mobility->GetPosition ();
 			Vector vel = m_mobility->GetVelocity ();
 			hello.SetPosition (pos.x, pos.y, pos.z);
-			if(m_SCHmainAddress==Ipv4Address("10.1.0.225")) std::cout<<"pos x  "<<pos.x<<" y "<<pos.y<<std::endl;
+			//if(m_SCHmainAddress==Ipv4Address("10.1.0.225")) std::cout<<"pos x  "<<pos.x<<" y "<<pos.y<<std::endl;
 			hello.SetVelocity (vel.x, vel.y, vel.z);
 
 			NS_LOG_DEBUG ( "SDN HELLO_MESSAGE sent by node: " << hello.ID
