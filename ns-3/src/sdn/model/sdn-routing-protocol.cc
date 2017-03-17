@@ -1156,6 +1156,7 @@ namespace ns3 {
 			//std::cout<<"M_TABLE SIZE "<<m_table.size ()<<std::endl;
 			if (Lookup (header.GetDestination (), entry))//如果是广播，则m_table须有广播地址条目
 			{
+			         //std::cout<<"RouteOutput "<<m_SCHmainAddress.Get () << ",Dest:"<<header.GetDestination ().Get ()<<std::endl;
 				uint32_t interfaceIdx = entry.interface;
 				if (oif && m_ipv4->GetInterfaceForDevice (oif) != static_cast<int> (interfaceIdx))
 				{
@@ -1189,7 +1190,7 @@ namespace ns3 {
 				rtentry->SetGateway (entry.nextHop);
 				rtentry->SetOutputDevice (m_ipv4->GetNetDevice (interfaceIdx));
 				sockerr = Socket::ERROR_NOTERROR;
-				//std::cout<<"***"<<rtentry->GetDestination ()<<" "<<rtentry->GetGateway ()<<std::endl;
+				std::cout<<"***"<<rtentry->GetDestination ()<<" next"<<rtentry->GetGateway ()<<std::endl;
 				NS_LOG_DEBUG ("SDN node " << m_SCHmainAddress
 					<< ": RouteOutput for dest=" << header.GetDestination ()
 					<< " --> nextHop=" << entry.nextHop
