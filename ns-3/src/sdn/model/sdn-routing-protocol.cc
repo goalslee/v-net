@@ -1494,7 +1494,7 @@ namespace ns3 {
 		void
 			RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		{
-			std::cout<<"ProcessAodvRm..."<<m_CCHmainAddress;
+			
 			sdn::MessageHeader mesg;
 
 			const sdn::MessageHeader::AodvRm &aodvrm = msg.GetAodvRm();
@@ -1523,6 +1523,7 @@ namespace ns3 {
 
 			}
 			if(abs(x-x_0)<0.00001) return;//not the neighbor
+			std::cout<<"ProcessAodvRm..."<<m_CCHmainAddress;
 
 			if(x<x_0&&y>y_0&&in==sdn::NEGATIVE) out=sdn::POSITIVE;
 			else if(x>x_0&&y>y_0&&in==sdn::NEGATIVE) out=sdn::NEGATIVE;
