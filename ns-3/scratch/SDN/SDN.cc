@@ -357,11 +357,11 @@ void VanetSim::ConfigMobility()
 
          Temp=m_nodes.Get(nodeNum+24)->GetObject<MobilityModel>();
     //Temp->SetPosition(Vector(700.0, -10.0, 0.0));//source
-      Temp->SetPosition(Vector(995.0, 2950.0, 0.0));//source
+      Temp->SetPosition(Vector(991.0, 2900.0, 0.0));//source
 
          Temp=m_nodes.Get(nodeNum+25)->GetObject<MobilityModel>();
     //Temp->SetPosition(Vector(3010.0, 2950.0, 0.0));//sink
-    Temp->SetPosition(Vector(1995.0, 100.0, 0.0));//sink
+    Temp->SetPosition(Vector(1991.0, 100.0, 0.0));//sink
 }
 
 void VanetSim::ConfigApp()
