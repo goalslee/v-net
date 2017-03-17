@@ -1968,7 +1968,7 @@ namespace ns3 {
 				}
 
 			}
-			transferAddress_possitive=dis.begin()->second;
+			transferAddress_possitive=(dis.begin()+1)->second;
 			chose.push_back(*dis.begin());
 			std::pair<double,Ipv4Address> temp=*chose.rbegin();
 
