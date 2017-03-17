@@ -1950,7 +1950,7 @@ namespace ns3 {
 					dis[it->second.Position.x-(m_mobility->GetPosition().x-m_road_length/2)]=it->first;
 				else dis[it->second.Position.y-(m_mobility->GetPosition().y-m_road_length/2)]=it->first;
 			}
-			if(dis.size()==0) {
+			if(dis.size()<2) {
 				//std::cout<<"no valid possive connect"<<std::endl;
 				possive_valid=false;
 				return;
@@ -1961,15 +1961,17 @@ namespace ns3 {
 			std::cout<<it->first<<"  ";
 			std::cout<<std::endl;     
 			}*/
-			if(dis.begin()->first>m_signal_range/2) {
+			std::map<double,Ipv4Address>::iterator it =dis.begin();
+			it++;
+			/*if(it->first>m_signal_range/2) {
 				if(!haveSource){
 					possive_valid=false;
 					return;
 				}
 
-			}
-			transferAddress_possitive=(dis.begin()+1)->second;
-			chose.push_back(*dis.begin());
+			}*/
+			transferAddress_possitive=it->second;
+			chose.push_back(*it);
 			std::pair<double,Ipv4Address> temp=*chose.rbegin();
 
 			while(temp.first+m_signal_range/2<m_road_length)
@@ -2171,18 +2173,21 @@ namespace ns3 {
 				negative_valid=false;
 				return;
 			} 
-			if(dis.begin()->first>m_signal_range/2) {
+
+			std::map<double,Ipv4Address>::iterator it =dis.begin();
+			it++;
+			/*if(dis.begin()->first>m_signal_range/2) {
 				if(!haveSource){
 					negative_valid=false;
 					return;
 				}
 
-			}
+			}*/
 			/*std::cout<<"negative dis size "<<dis.size()<<std::endl;
 			for(std::map<double,Ipv4Address>::iterator it=dis.begin();it!=dis.end();++it)
 			std::cout<<it->first<<std::endl;*/
-			transferAddress_negative=dis.begin()->second;
-			chose.push_back(*dis.begin());
+			transferAddress_negative=it->second;
+			chose.push_back(*it);
 			std::pair<double,Ipv4Address> temp=*chose.rbegin();
 
 			while(temp.first+m_signal_range/2<m_road_length)
