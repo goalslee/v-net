@@ -1905,6 +1905,7 @@ namespace ns3 {
 			else if(m_isEstablish_negative) tempID=transferAddress_negative;
 			compute_possive();
 			compute_negative();
+			/*
 			if(m_isEstablish_positive&&possive_valid){
 				if(!haveSink) ProcessCRREP(m_incomeParm_possitive.transfer, sdn::POSITIVE);
 				if(transferAddress_possitive!=tempID){
@@ -1928,7 +1929,7 @@ namespace ns3 {
 				std::cout<<m_CCHmainAddress<<" not valid"<<std::endl;
 				m_isEstablish_negative=false;   
 				SendMT(sdn::NEGATIVE,1);
-			}
+			}*/
 
 		}//RoutingProtocol::ComputeRoute
 
