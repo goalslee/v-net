@@ -1494,7 +1494,7 @@ namespace ns3 {
 		void
 			RoutingProtocol::ProcessAodvRm(const MessageHeader &msg)
 		{
-			//std::cout<<"ProcessAodvRm..."<<m_CCHmainAddress<<std::endl;
+			std::cout<<"ProcessAodvRm..."<<m_CCHmainAddress;
 			sdn::MessageHeader mesg;
 
 			const sdn::MessageHeader::AodvRm &aodvrm = msg.GetAodvRm();
@@ -1532,10 +1532,10 @@ namespace ns3 {
 			else if(x<x_0&&abs(y-y_0)<0.00001&&in==sdn::POSITIVE) out=sdn::POSITIVE;
 			else return;
 			if(out==sdn::POSITIVE&& !possive_valid) {
-				//std::cout<<"no valid"<<std::endl;
+				std::cout<<"no valid possive"<<std::endl;
 				return;}
 			if(out==sdn::NEGATIVE&& !negative_valid){
-				//std::cout<<"no valid"<<std::endl;
+				std::cout<<"no valid negative"<<std::endl;
 				return;}
 			//std::cout<<"dir: "<<out<<std::endl;
 
