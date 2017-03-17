@@ -1457,7 +1457,7 @@ namespace ns3 {
 			sdn::MessageHeader msg;
 			Time now = Simulator::Now ();
 			msg.SetVTime (m_helloInterval);
-			msg.SetTimeToLive (41993);//Just MY Birthday.
+			msg.SetTimeToLive (12345);//.
 			msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 			msg.SetMessageType (sdn::MessageHeader::CARROUTEREQUEST_MESSAGE);
 			sdn::MessageHeader::CRREQ &crreq = msg.GetCRREQ ();
@@ -2439,7 +2439,7 @@ namespace ns3 {
 			//std::vector<Ipv4Address> pendding;
 			while (it != m_lc_info.end ())
 			{
-				if (now.GetSeconds() - it->second.LastActive.GetSeconds () > 3 * m_helloInterval.GetSeconds())
+				if (now.GetSeconds() - it->second.LastActive.GetSeconds () > 1 * m_helloInterval.GetSeconds())
 				{
 					//pendding.push_back (it->first);
 					m_lc_info.erase((it++));
