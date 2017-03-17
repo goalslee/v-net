@@ -756,7 +756,7 @@ namespace ns3 {
 				}
 				else if(m_roadtype==sdn::COLUMN)
 				{
-					if(CI_temp.Velocity.y>0.0) {CI_temp.dir=sdn::POSITIVE; //source && sink ¶¼possive
+					if(CI_temp.Velocity.y>0.0) {CI_temp.dir=sdn::POSITIVE; //source && sink ¶¼negative
 
 					}
 					else {CI_temp.dir=sdn::NEGATIVE;    
@@ -773,12 +773,16 @@ namespace ns3 {
 			{
 				std::map<Ipv4Address, CarInfo>::iterator it = m_lc_positive_info.find (ID);
 				if(it!=m_lc_positive_info.end()) m_lc_positive_info.erase(it);
+				std::map<Ipv4Address, CarInfo>::iterator it = m_lc_negative_info.find (ID);
+				if(it!=m_lc_negative_info.end()) m_lc_negative_info.erase(it);
 
 			}
 			if(haveSink&&m_sinkAddress==ID)
 			{
 				std::map<Ipv4Address, CarInfo>::iterator it = m_lc_positive_info.find (ID);
 				if(it!=m_lc_positive_info.end()) m_lc_positive_info.erase(it);
+				std::map<Ipv4Address, CarInfo>::iterator it = m_lc_negative_info.find (ID);
+				if(it!=m_lc_negative_info.end()) m_lc_negative_info.erase(it);
 
 			}
 
@@ -878,8 +882,8 @@ namespace ns3 {
 				Aodvrm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 
 
-				Aodvrm.jump_nums=m_selfParm_possitive.jumpnums;
-				Aodvrm.SetStability(m_selfParm_possitive.stability);
+				Aodvrm.jump_nums=m_lc_info[m_sourceAddress].dir==sdn::POSITIVE?m_selfParm_possitive.jumpnums:m_selfParm_negative.jumpnums;
+				Aodvrm.SetStability(m_lc_info[m_sourceAddress].dir==sdn::POSITIVE?m_selfParm_possitive.stability:m_selfParm_negative.stability);
 				Aodvrm.Originator=m_CCHmainAddress;
 				Aodvrm.dir=m_lc_info[m_sourceAddress].dir==sdn::POSITIVE?sdn::POSITIVE:sdn::NEGATIVE;
 				Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition(). y, m_mobility->GetPosition().z);
