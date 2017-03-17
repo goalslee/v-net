@@ -824,7 +824,7 @@ namespace ns3 {
 						it->nextHop,
 						m_SCHinterface);
 				}
-				if(m_CCHmainAddress==Ipv4Address("192.168.2.14"))
+				if(m_CCHmainAddress==Ipv4Address("192.168.0.225"))
 				{
 					//std::cout<<"match "<<m_CCHmainAddress<<std::endl;
 					for(std::map<Ipv4Address, RoutingTableEntry>::iterator it= m_table.begin();it!=m_table.end();++it)
@@ -852,7 +852,7 @@ namespace ns3 {
 			//add long road lc select
 			if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
 				//if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;not for 84 to receive
-				//if(m_firstRequest++>1) return;
+				if(m_firstRequest++>1) return;
 				haveSource=true;
 				m_sourceAddress=source;
 
