@@ -1863,6 +1863,8 @@ namespace ns3 {
 				if( mt.dir==sdn::POSITIVE) m_incomeParm_possitive.transfer=mt.transferID;
 				else m_incomeParm_negative.transfer=mt.transferID;
 				RemoveTimeOut ();
+				if(mt.dir==sdn::POSITIVE) compute_possive();
+				else compute_negative();
 				ProcessCRREP(mt.transferID, mt.dir);
 			}
 			else{
