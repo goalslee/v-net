@@ -1860,6 +1860,24 @@ namespace ns3 {
 
 			std::cout<<m_CCHmainAddress<<" handleMT"<<std::endl;
 			if(mt.rORm==0){
+			         int same=false;
+                                    if(mt.dir==sdn::POSITIVE){
+                                          if(roadendAddress_possitive==mt.transferID){
+                                                std::map<Ipv4Address,CarInfo>::iterator it=m_lc_info.find(mt.transferID);
+                                                if(it!=m_lc_info.end()) m_lc_info.erase(it);
+                                                std::map<Ipv4Address,CarInfo>::iterator iter=m_lc_positive_info.find(mt.transferID);
+                                                 if(iter!=m_lc_positive_info.end()) m_lc_positive_info.erase(iter);                                               
+                                          }
+                                    }
+                                    else if(mt.dir==sdn::NEGATIVE){
+                                          if(roadendAddress_negative==mt.transferID){
+                                                 std::map<Ipv4Address,CarInfo>::iterator it=m_lc_info.find(mt.transferID);
+                                                if(it!=m_lc_info.end()) m_lc_info.erase(it);
+                                                std::map<Ipv4Address,CarInfo>::iterator iter=m_lc_negative_info.find(mt.transferID);
+                                                 if(iter!=m_lc_negative_info.end()) m_lc_negative_info.erase(iter);                                           
+                                          }
+                                    }
+			
 				if( mt.dir==sdn::POSITIVE) m_incomeParm_possitive.transfer=mt.transferID;
 				else m_incomeParm_negative.transfer=mt.transferID;
 				RemoveTimeOut ();
@@ -1962,7 +1980,7 @@ namespace ns3 {
 			std::cout<<std::endl;     
 			}*/
 			std::map<double,Ipv4Address>::iterator it =dis.begin();
-			it++;
+			//it++;
 			/*if(it->first>m_signal_range/2) {
 				if(!haveSource){
 					possive_valid=false;
@@ -2168,14 +2186,14 @@ namespace ns3 {
 					dis[m_mobility->GetPosition().x+m_road_length/2-it->second.Position.x]=it->first;
 				else dis[m_mobility->GetPosition().y+m_road_length/2-it->second.Position.y]=it->first;
 			}
-			if(dis.size()==0) {
+			if(dis.size()<2) {
 				//std::cout<<"no valid negative connect"<<std::endl;
 				negative_valid=false;
 				return;
 			} 
 
 			std::map<double,Ipv4Address>::iterator it =dis.begin();
-			it++;
+			//it++;
 			/*if(dis.begin()->first>m_signal_range/2) {
 				if(!haveSource){
 					negative_valid=false;
