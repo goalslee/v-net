@@ -1932,14 +1932,14 @@ namespace ns3 {
 			if(m_isEstablish_positive&&possive_valid){
 				if(!haveSink) ProcessCRREP(m_incomeParm_possitive.transfer, sdn::POSITIVE);
 				if(transferAddress_possitive!=tempID){
-					//ProcessCRREP(transferAddress_possitive, sdn::POSITIVE);
+					
 					SendMT(sdn::POSITIVE,0);
 				}
 			}
 			else if(m_isEstablish_negative&&negative_valid){
 				if(!haveSink) ProcessCRREP(m_incomeParm_negative.transfer, sdn::NEGATIVE);
 				if(transferAddress_negative!=tempID){
-					ProcessCRREP(transferAddress_negative, sdn::NEGATIVE);
+					
 					SendMT(sdn::NEGATIVE,0);
 				}     
 			}
