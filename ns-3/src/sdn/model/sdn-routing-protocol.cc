@@ -2251,6 +2251,17 @@ namespace ns3 {
 			Ipv4Address mask("255.255.0.0");
 			double mean=0;
 			double sd=0;
+
+			if(m_isEstablish_negative){
+				std::cout<<"lc "<<m_CCHmainAddress<<"  ";
+				for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
+				{
+					std::cout<<it->second<<"-->";
+				}
+				std::cout<<" trans: "<<m_incomeParm_negative.transfer;
+				std::cout<<std::endl;
+			}
+			
 			for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
 			{
 				if((it+1)==chose.end()) LCAddEntry (it->second, chose.rbegin()->second, mask, it->second);
