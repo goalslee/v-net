@@ -684,8 +684,8 @@ namespace ns3 {
 			if(m_roadtype==sdn::ROW)
 			{
 				//std::cout<<"row"<<std::endl;
-				if(msg.GetHello ().GetPosition ().x>=(m_mobility->GetPosition().x-500.0)&&msg.GetHello ().GetPosition ().x<=(m_mobility->GetPosition().x+500.0)
-					&&msg.GetHello ().GetPosition ().y>=m_mobility->GetPosition().y&&msg.GetHello ().GetPosition ().y<=(m_mobility->GetPosition().y+20.0) )
+				if(msg.GetHello ().GetPosition ().x>=(m_mobility->GetPosition().x-490.0)&&msg.GetHello ().GetPosition ().x<=(m_mobility->GetPosition().x+490.0)
+					&&msg.GetHello ().GetPosition ().y>=(m_mobility->GetPosition().y+3)&&msg.GetHello ().GetPosition ().y<=(m_mobility->GetPosition().y+17.0) )
 				{
 					rev=true;
 					//std::cout<<"position "<<msg.GetHello ().GetPosition ().x<<std::endl;
@@ -694,8 +694,8 @@ namespace ns3 {
 			else if(m_roadtype==sdn::COLUMN)
 			{
 				//std::cout<<"column"<<std::endl;
-				if(msg.GetHello ().GetPosition ().y>=(m_mobility->GetPosition().y-500.0)&&msg.GetHello ().GetPosition ().y<=(m_mobility->GetPosition().y+500.0)
-					&&msg.GetHello ().GetPosition ().x>=m_mobility->GetPosition().x&&msg.GetHello ().GetPosition ().x<=(m_mobility->GetPosition().x+20.0) )
+				if(msg.GetHello ().GetPosition ().y>=(m_mobility->GetPosition().y-490.0)&&msg.GetHello ().GetPosition ().y<=(m_mobility->GetPosition().y+490.0)
+					&&msg.GetHello ().GetPosition ().x>=(m_mobility->GetPosition().x+3)&&msg.GetHello ().GetPosition ().x<=(m_mobility->GetPosition().x+17.0) )
 					rev=true;
 			}
 
