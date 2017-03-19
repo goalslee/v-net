@@ -2060,6 +2060,7 @@ namespace ns3 {
 					std::cout<<it->second<<"-->";
 				}
 				std::cout<<" trans: "<<m_incomeParm_possitive.transfer;
+				if(haveSource)  std::cout<<"  have source";
 				std::cout<<std::endl;
 			}
 
@@ -2259,6 +2260,7 @@ namespace ns3 {
 					std::cout<<it->second<<"-->";
 				}
 				std::cout<<" trans: "<<m_incomeParm_negative.transfer;
+				if(haveSource)  std::cout<<"  have source";
 				std::cout<<std::endl;
 			}
 			
