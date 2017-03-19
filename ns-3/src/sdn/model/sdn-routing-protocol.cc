@@ -824,14 +824,14 @@ namespace ns3 {
 						it->nextHop,
 						m_SCHinterface);
 				}
-				if(m_CCHmainAddress==Ipv4Address("192.168.0.225"))
+				/*if(m_CCHmainAddress==Ipv4Address("192.168.0.225"))
 				{
 					//std::cout<<"match "<<m_CCHmainAddress<<std::endl;
 					for(std::map<Ipv4Address, RoutingTableEntry>::iterator it= m_table.begin();it!=m_table.end();++it)
 					{
 						std::cout<<"route dest"<<it->second.destAddr<<" next"<<it->second.nextHop<<std::endl;
 					}
-				}
+				}*/
 			}
 
 		}
@@ -1412,7 +1412,7 @@ namespace ns3 {
 			for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
 				cit != m_lc_info.end (); ++cit)
 			{
-			if(cit->first==Ipv4Address("10.1.0.225")) std::cout<<"ready send to soure"<<"source dir "<<cit->second.dir<<" need dir "<<dir<<std::endl;
+			//if(cit->first==Ipv4Address("10.1.0.225")) std::cout<<"ready send to soure"<<"source dir "<<cit->second.dir<<" need dir "<<dir<<std::endl;
 				if(cit->second.dir==dir){
 					sdn::MessageHeader msg;
 					Time now = Simulator::Now ();
@@ -1431,7 +1431,7 @@ namespace ns3 {
 					}
 					//rm.ID = m_SCHaddr2CCHaddr[cit->first];
 					//std::cout<<"666666 "<<rm.ID.Get()<<" "<<cit->first.Get()<<std::endl;
-					if(rm.ID==Ipv4Address("192.168.0.225")) std::cout<<"send to soure"<<std::endl;
+					//if(rm.ID==Ipv4Address("192.168.0.225")) std::cout<<"send to soure"<<std::endl;
 					sdn::MessageHeader::Rm::Routing_Tuple rt;
 					for (std::vector<RoutingTableEntry>::const_iterator cit2 = cit->second.R_Table.begin ();
 						cit2 != cit->second.R_Table.end (); ++cit2)
@@ -1444,8 +1444,8 @@ namespace ns3 {
 					rm.routingMessageSize = rm.routingTables.size ();
 					if(rm.routingMessageSize==0) continue;
 					QueueMessage (msg, JITTER);
-					if(rm.ID==Ipv4Address("192.168.0.225"))
-					                                std::cout<<"send ok"<<std::endl;
+					//if(rm.ID==Ipv4Address("192.168.0.225"))
+					     //                           std::cout<<"send ok"<<std::endl;
 				}
 			}
 		}
