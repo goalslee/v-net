@@ -2487,7 +2487,7 @@ namespace ns3 {
 				if (now.GetSeconds() - it->second.LastActive.GetSeconds () > 1 * m_helloInterval.GetSeconds())
 				{
 					//pendding.push_back (it->first);
-					if(it->first==Ipv4Address("10.0.0.225")) std::cout<<"source remove"<<std::endl;
+					if(it->first==Ipv4Address("10.1.0.225")) std::cout<<"source remove"<<std::endl;
 					m_lc_info.erase((it++));
 				}
 				else ++it;
