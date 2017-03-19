@@ -1430,6 +1430,7 @@ namespace ns3 {
 					}
 					//rm.ID = m_SCHaddr2CCHaddr[cit->first];
 					//std::cout<<"666666 "<<rm.ID.Get()<<" "<<cit->first.Get()<<std::endl;
+					if(rm.ID==Ipv4Address("192.168.0.225")) std::cout<<"send to soure"<<std::endl;
 					sdn::MessageHeader::Rm::Routing_Tuple rt;
 					for (std::vector<RoutingTableEntry>::const_iterator cit2 = cit->second.R_Table.begin ();
 						cit2 != cit->second.R_Table.end (); ++cit2)
@@ -1442,6 +1443,8 @@ namespace ns3 {
 					rm.routingMessageSize = rm.routingTables.size ();
 					if(rm.routingMessageSize==0) continue;
 					QueueMessage (msg, JITTER);
+					if(rm.ID==Ipv4Address("192.168.0.225"))
+					                                std::cout<<"send ok"<<std::endl;
 				}
 			}
 		}
