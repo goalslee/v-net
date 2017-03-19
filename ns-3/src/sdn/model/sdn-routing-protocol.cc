@@ -1412,6 +1412,7 @@ namespace ns3 {
 			for (std::map<Ipv4Address, CarInfo>::const_iterator cit = m_lc_info.begin ();
 				cit != m_lc_info.end (); ++cit)
 			{
+			if(cit->first==Ipv4Address("10.1.0.225")) std::cout<<"ready send to soure"<<std::endl;
 				if(cit->second.dir==dir){
 					sdn::MessageHeader msg;
 					Time now = Simulator::Now ();
