@@ -2484,7 +2484,7 @@ namespace ns3 {
 			//std::vector<Ipv4Address> pendding;
 			while (it != m_lc_info.end ())
 			{
-				if (now.GetSeconds() - it->second.LastActive.GetSeconds () > 1 * m_helloInterval.GetSeconds())
+				if (now.GetSeconds() - it->second.LastActive.GetSeconds () > 2 * m_helloInterval.GetSeconds())
 				{
 					//pendding.push_back (it->first);
 					if(it->first==Ipv4Address("10.1.0.225")) std::cout<<"source remove"<<std::endl;
@@ -2500,7 +2500,7 @@ namespace ns3 {
 			std::map<Ipv4Address, CarInfo>::iterator it_possitive = m_lc_positive_info.begin ();
 			while (it_possitive != m_lc_positive_info.end ())
 			{
-				if (now.GetSeconds() - it_possitive->second.LastActive.GetSeconds () > 1 * m_helloInterval.GetSeconds())
+				if (now.GetSeconds() - it_possitive->second.LastActive.GetSeconds () > 2* m_helloInterval.GetSeconds())
 				{
 					m_lc_positive_info.erase((it_possitive++));
 				}
@@ -2509,7 +2509,7 @@ namespace ns3 {
 			std::map<Ipv4Address, CarInfo>::iterator it_negative = m_lc_negative_info.begin ();
 			while (it_negative != m_lc_negative_info.end ())
 			{
-				if (now.GetSeconds() - it_negative->second.LastActive.GetSeconds () > 1 * m_helloInterval.GetSeconds())
+				if (now.GetSeconds() - it_negative->second.LastActive.GetSeconds () > 2 * m_helloInterval.GetSeconds())
 				{
 					m_lc_negative_info.erase((it_negative++));
 				}
