@@ -486,9 +486,9 @@ void VanetSim::ConfigApp()
 	//m_source.Stop(Seconds(120));//Default Start time is 0.
 	std::string temp = "/NodeList/"+std::to_string (nodeNum+24)+"/ApplicationList/0/$ns3::OnOffApplication/Tx";
 	
-        std::cout<<"source cch ip"<<m_CCHInterfaces.GetAddress(nodeNum+24)<<std::endl;
+        //std::cout<<"source cch ip"<<m_CCHInterfaces.GetAddress(nodeNum+24)<<std::endl;
        // std::cout<<"source sch ip"<<m_SCHInterfaces.GetAddress(nodeNum+24)<<std::endl;
-        std::cout<<"des cch ip"<<m_CCHInterfaces.GetAddress(nodeNum+25)<<std::endl;
+        //std::cout<<"des cch ip"<<m_CCHInterfaces.GetAddress(nodeNum+25)<<std::endl;
         //std::cout<<"des sch ip"<<m_SCHInterfaces.GetAddress(nodeNum+25)<<std::endl;        
         
 	Config::ConnectWithoutContext (
