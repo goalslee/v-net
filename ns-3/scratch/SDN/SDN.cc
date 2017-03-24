@@ -478,6 +478,26 @@ void VanetSim::ConfigApp()
 	//Source.SetConstantRate(x,512);//1pk/s
 	Source.SetConstantRate(x,1024);//2s for 1pk
 	//Source.SetConstantRate(x,128);
+/*
+
+  Address realTo = InetSocketAddress (Ipv4Address (to.c_str ()), 0);
+  socket->SetAttribute ("IpHeaderInclude", BooleanValue (true));
+  Ptr<Packet> p = Create<Packet> (123);
+  Ipv4Header ipHeader;
+  ipHeader.SetSource (Ipv4Address ("10.0.0.2"));
+  ipHeader.SetDestination (Ipv4Address (to.c_str ()));
+  ipHeader.SetProtocol (0);
+  ipHeader.SetPayloadSize (p->GetSize ());
+  ipHeader.SetTtl (255);
+  ipHeader.SetDscp (dscp);
+  ipHeader.SetEcn (ecn);
+  p->AddHeader (ipHeader);
+
+  NS_TEST_EXPECT_MSG_EQ (socket->SendTo (p, 0, realTo),
+                         143, to);
+  socket->SetAttribute ("IpHeaderInclude", BooleanValue (false));
+  */
+
 
 
 	m_source = Source.Install(m_nodes.Get(nodeNum+24));//Install on Source
@@ -516,6 +536,9 @@ void VanetSim::ReceiveDataPacket(Ptr<Socket> socket)
 		Rx_Data_Bytes += packet->GetSize();
 		Rx_Data_Pkts++;
 		std::cout<<"."<<std::endl;
+		Ipv4Header Ipv4;
+		packet->PeekHeader(Ipv4);
+		std::cout<<"received TTL "<<Ipv4->GetTtl()<<std::endl;
 	}
 }
 

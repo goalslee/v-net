@@ -974,6 +974,8 @@ namespace ns3 {
 			NS_LOG_FUNCTION (this << " " << m_ipv4->GetObject<Node> ()->GetId () << " " << header.GetDestination () << " " << oif);
 			Ptr<Ipv4Route> rtentry;
 			RoutingTableEntry entry;
+
+			std::cout<<"TTL "<<header.GetTtl()<<std::endl;
 			//std::cout<<"RouteOutput "<<m_SCHmainAddress.Get () << ",Dest:"<<header.GetDestination ().Get ()<<std::endl;
 			//std::cout<<"M_TABLE SIZE "<<m_table.size ()<<std::endl;
 			if (Lookup (header.GetDestination (), entry))//如果是广播，则m_table须有广播地址条目
