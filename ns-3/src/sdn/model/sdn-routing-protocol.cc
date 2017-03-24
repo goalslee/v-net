@@ -875,7 +875,7 @@ namespace ns3 {
 
 			Ipv4Address dest = header.GetDestination();
 			Ipv4Address sour = header.GetSource();
-                           std::cout<<"input ttl "<<header.GetTtl()<<std::endl;
+                           std::cout<<"input ttl "<<(uint8_t)header.GetTtl()<<std::endl;
 			// Consume self-originated packets
 			if (IsMyOwnAddress (sour) == true)
 			{
