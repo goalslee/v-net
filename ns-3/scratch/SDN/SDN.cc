@@ -538,7 +538,7 @@ void VanetSim::ReceiveDataPacket(Ptr<Socket> socket)
 		std::cout<<"."<<std::endl;
 		Ipv4Header Ipv4;
 		packet->PeekHeader(Ipv4);
-		std::cout<<"received TTL "<<Ipv4->GetTtl()<<std::endl;
+		std::cout<<"received TTL "<<Ipv4.GetTtl()<<std::endl;
 	}
 }
 
