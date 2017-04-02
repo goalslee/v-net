@@ -345,19 +345,7 @@ public:
     uint32_t Deserialize (Buffer::Iterator start, uint32_t messageSize);
   };
 
-  //  Appointment Message Format
-  //    One Appointment is for one car only.
-  //    The proposed format of a appointment message is as follows:
-  //
-  //        0                   1                   2                   3
-  //        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //       |                             Car ID                            |
-  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //       |                       Appointment Type                        |
-  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-  //       |                 IpAddress of Next Forwarder                   |
-  //       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
 
 
 
