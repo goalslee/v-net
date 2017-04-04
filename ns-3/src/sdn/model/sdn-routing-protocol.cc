@@ -908,11 +908,11 @@ namespace ns3 {
 			//Forwardding
 			Ptr<Ipv4Route> rtentry;
 			RoutingTableEntry entry;
-			std::cout<<"RouteInput "<<m_SCHmainAddress<< ",Dest:"<<header.GetDestination ()<<std::endl;
+			//std::cout<<"RouteInput "<<m_SCHmainAddress<< ",Dest:"<<header.GetDestination ()<<std::endl;
 			//std::cout<<"M_TABLE SIZE "<<m_table.size ()<<std::endl;
 			if (Lookup (header.GetDestination (), entry))
 			{
-				std::cout<<"found!nextHop "<<entry.nextHop<<std::endl;
+				//std::cout<<"found!nextHop "<<entry.nextHop<<std::endl;
 				uint32_t interfaceIdx = entry.interface;
 				rtentry = Create<Ipv4Route> ();
 				rtentry->SetDestination (header.GetDestination ());
