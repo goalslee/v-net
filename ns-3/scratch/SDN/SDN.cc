@@ -539,6 +539,16 @@ void VanetSim::ReceiveDataPacket(Ptr<Socket> socket)
 		//Ipv4Header Ipv4;
 		//packet->PeekHeader(Ipv4);
 		//std::cout<<"received TTL "<<Ipv4.GetTtl()<<std::endl;
+	        uint64_t uid = packet->GetUid ();
+	        if (dup_det.find (uid) == dup_det.end ())
+	        {
+	        	//Unique_RX_Pkts++;
+	       		 dup_det.insert (uid);
+
+	       		 Time now = Simulator::Now ();
+	        	          int64_t temp = now.GetMicroSeconds () - delay[uid].GetMicroSeconds ();
+	       		 delay_vector.push_back (temp);
+	        }
 	}
 }
 

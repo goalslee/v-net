@@ -96,6 +96,7 @@ private:
 
 	std::unordered_map<uint64_t, Time> delay;
 	std::vector<int64_t> delay_vector;
+	std::unordered_set<uint64_t> dup_det;
 	
 	std::string m_todo;
   	std::string m_ds;//DataSet
