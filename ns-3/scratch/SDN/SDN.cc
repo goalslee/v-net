@@ -564,6 +564,38 @@ void VanetSim::ProcessOutputs()
   	os<<"Tx_Data_Pkts:   "<<Tx_Data_Pkts<<std::endl;
         os<<"Rx_Data_Pkts3:   "<<Rx_Data_Pkts<<std::endl;
 
+               if (!delay_vector.empty ())
+	{
+              int64_t best = delay_vector[0],
+              worst = delay_vector[0];
+              double avg = 0;
+              for (std::vector<int64_t>::const_iterator cit = delay_vector.begin ();
+              cit != delay_vector.end ();++cit)
+              {
+                if (*cit<best)
+                {
+                  best = *cit;
+                }
+
+                if (*cit>worst)
+                {
+                  worst = *cit;
+                }
+                avg += *cit;
+              }
+
+              avg /= delay_vector.size();
+              std::cout<<"Best delay:   "<<best<<"us"<<std::endl;
+              std::cout<<"Worst delay:   "<<worst<<"us"<<std::endl;
+              std::cout<<"Avg delay: "<<avg<<"us"<<std::endl;
+              os<<"Best delay:   "<<best<<"us"<<std::endl;
+              os<<"Worst delay:   "<<worst<<"us"<<std::endl;
+              os<<"Avg delay: "<<avg<<"us"<<std::endl;
+	}
+    std::cout<<"Average Fowarding Times: "<<m_avg_forwardtimes<<std::endl;
+    std::cout<<"Maintain Routing Overhead: "<<m_sum_messages<<std::endl;
+    os<<"Average Fowarding Times: "<<m_avg_forwardtimes<<std::endl;
+    os<<"Maintain Routing Overhead: "<<m_sum_messages<<std::endl;
 }
 
 void VanetSim::Run()
@@ -593,6 +625,8 @@ VanetSim::TXTrace (Ptr<const Packet> newpacket)
 {
   Tx_Data_Pkts++;
   Tx_Data_Bytes += newpacket->GetSize ();
+   Time now = Simulator::Now ();
+  delay[newpacket->GetUid ()] = now;
 
 }
 
