@@ -30,6 +30,9 @@
 
 #include "ns3/vanetmobility-helper.h"
 
+#include <unordered_set>
+#include <unordered_map>
+#include <vector>
 
 using namespace ns3;
 
@@ -96,6 +99,8 @@ private:
 	
 	std::string m_todo;
   	std::string m_ds;//DataSet
+  	int m_avg_forwardtimes;
+  	int m_sum_messages;
 };
 
 
