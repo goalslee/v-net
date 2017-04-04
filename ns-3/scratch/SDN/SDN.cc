@@ -602,10 +602,10 @@ void VanetSim::ProcessOutputs()
               os<<"Worst delay:   "<<worst<<"us"<<std::endl;
               os<<"Avg delay: "<<avg<<"us"<<std::endl;
 	}
-    std::cout<<"Average Fowarding Times: "<<m_avg_forwardtimes<<std::endl;
-    std::cout<<"Maintain Routing Overhead: "<<m_sum_messages<<std::endl;
-    os<<"Average Fowarding Times: "<<m_avg_forwardtimes<<std::endl;
-    os<<"Maintain Routing Overhead: "<<m_sum_messages<<std::endl;
+    //std::cout<<"Average Fowarding Times: "<<m_avg_forwardtimes<<std::endl;
+   // std::cout<<"Maintain Routing Overhead: "<<m_sum_messages<<std::endl;
+    //os<<"Average Fowarding Times: "<<m_avg_forwardtimes<<std::endl;
+    //os<<"Maintain Routing Overhead: "<<m_sum_messages<<std::endl;
 }
 
 void VanetSim::Run()
