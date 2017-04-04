@@ -38,7 +38,7 @@ VanetSim::VanetSim()
 	verbose = false;
 	mod = 1;
 	pmod = 0;
-	duration = 400;
+	duration = 300;
 	nodeNum = 0;
 	Rx_Data_Bytes = 0;
 	Rx_Data_Pkts = 0;
