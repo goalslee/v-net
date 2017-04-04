@@ -91,6 +91,9 @@ private:
 	void SendDataPacket ();
 	void TXTrace (Ptr<const Packet> newpacket);
 
+	std::unordered_map<uint64_t, Time> delay;
+	std::vector<int64_t> delay_vector;
+	
 	std::string m_todo;
   	std::string m_ds;//DataSet
 };
