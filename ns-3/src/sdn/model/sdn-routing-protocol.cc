@@ -115,7 +115,7 @@ namespace ns3 {
 		m_packetSequenceNumber (SDN_MAX_SEQ_NUM),
 			m_messageSequenceNumber (SDN_MAX_SEQ_NUM),
 			m_helloInterval (Seconds(2)),//no change less!
-			m_rmInterval (Seconds (12)),//no change less!
+			m_rmInterval (Seconds (14)),//no change less!
 			m_ipv4 (0),
 			m_helloTimer (Timer::CANCEL_ON_DESTROY),
 			m_rmTimer (Timer::CANCEL_ON_DESTROY),
