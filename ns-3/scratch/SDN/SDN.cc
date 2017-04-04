@@ -30,7 +30,7 @@ VanetSim::VanetSim()
 	freq2 = 5.890e9;  //802.11p CCH CH178
 	txp1 = 20;  // dBm SCH
 	txp2 = 20;  // CCH
-	range1 = 200.0;//SCH
+	range1 = 300.0;//SCH
 	range2 = 1000.0;//CCH
 	packetSize = 1000; // bytes
 	numPackets = 1;
@@ -38,7 +38,7 @@ VanetSim::VanetSim()
 	verbose = false;
 	mod = 1;
 	pmod = 0;
-	duration = 300;
+	duration = 400;
 	nodeNum = 0;
 	Rx_Data_Bytes = 0;
 	Rx_Data_Pkts = 0;
