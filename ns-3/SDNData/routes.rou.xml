@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/19/17 20:39:36 by SUMO duarouter Version 0.24.0
+<!-- generated on 04/05/17 12:22:16 by SUMO duarouter Version 0.24.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -11,1211 +11,1211 @@
     </input>
 
     <output>
-        <output-file value="D:\Documents\Desktop\experiment\400car_8flow\input.rou.xml"/>
+        <output-file value="D:\Documents\Desktop\experiment\400car_8flow\rou.xml"/>
     </output>
 
 </configuration>
 -->
-
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="0" depart="0.00">
+    <vType id="myType" maxSpeed="10.00"/>
+    <vehicle id="0" type="myType" depart="0.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="50" depart="0.00">
+    <vehicle id="50" type="myType" depart="0.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="100" depart="0.00">
+    <vehicle id="100" type="myType" depart="0.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="150" depart="0.00">
+    <vehicle id="150" type="myType" depart="0.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="200" depart="0.00">
+    <vehicle id="200" type="myType" depart="0.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="250" depart="0.00">
+    <vehicle id="250" type="myType" depart="0.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="300" depart="0.00">
+    <vehicle id="300" type="myType" depart="0.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="350" depart="0.00">
+    <vehicle id="350" type="myType" depart="0.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="1" depart="10.00">
+    <vehicle id="1" type="myType" depart="10.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="51" depart="10.00">
+    <vehicle id="51" type="myType" depart="10.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="101" depart="10.00">
+    <vehicle id="101" type="myType" depart="10.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="151" depart="10.00">
+    <vehicle id="151" type="myType" depart="10.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="201" depart="10.00">
+    <vehicle id="201" type="myType" depart="10.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="251" depart="10.00">
+    <vehicle id="251" type="myType" depart="10.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="301" depart="10.00">
+    <vehicle id="301" type="myType" depart="10.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="351" depart="10.00">
+    <vehicle id="351" type="myType" depart="10.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="2" depart="20.00">
+    <vehicle id="2" type="myType" depart="20.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="52" depart="20.00">
+    <vehicle id="52" type="myType" depart="20.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="102" depart="20.00">
+    <vehicle id="102" type="myType" depart="20.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="152" depart="20.00">
+    <vehicle id="152" type="myType" depart="20.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="202" depart="20.00">
+    <vehicle id="202" type="myType" depart="20.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="252" depart="20.00">
+    <vehicle id="252" type="myType" depart="20.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="302" depart="20.00">
+    <vehicle id="302" type="myType" depart="20.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="352" depart="20.00">
+    <vehicle id="352" type="myType" depart="20.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="3" depart="30.00">
+    <vehicle id="3" type="myType" depart="30.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="53" depart="30.00">
+    <vehicle id="53" type="myType" depart="30.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="103" depart="30.00">
+    <vehicle id="103" type="myType" depart="30.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="153" depart="30.00">
+    <vehicle id="153" type="myType" depart="30.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="203" depart="30.00">
+    <vehicle id="203" type="myType" depart="30.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="253" depart="30.00">
+    <vehicle id="253" type="myType" depart="30.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="303" depart="30.00">
+    <vehicle id="303" type="myType" depart="30.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="353" depart="30.00">
+    <vehicle id="353" type="myType" depart="30.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="4" depart="40.00">
+    <vehicle id="4" type="myType" depart="40.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="54" depart="40.00">
+    <vehicle id="54" type="myType" depart="40.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="104" depart="40.00">
+    <vehicle id="104" type="myType" depart="40.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="154" depart="40.00">
+    <vehicle id="154" type="myType" depart="40.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="204" depart="40.00">
+    <vehicle id="204" type="myType" depart="40.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="254" depart="40.00">
+    <vehicle id="254" type="myType" depart="40.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="304" depart="40.00">
+    <vehicle id="304" type="myType" depart="40.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="354" depart="40.00">
+    <vehicle id="354" type="myType" depart="40.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="5" depart="50.00">
+    <vehicle id="5" type="myType" depart="50.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="55" depart="50.00">
+    <vehicle id="55" type="myType" depart="50.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="105" depart="50.00">
+    <vehicle id="105" type="myType" depart="50.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="155" depart="50.00">
+    <vehicle id="155" type="myType" depart="50.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="205" depart="50.00">
+    <vehicle id="205" type="myType" depart="50.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="255" depart="50.00">
+    <vehicle id="255" type="myType" depart="50.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="305" depart="50.00">
+    <vehicle id="305" type="myType" depart="50.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="355" depart="50.00">
+    <vehicle id="355" type="myType" depart="50.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="6" depart="60.00">
+    <vehicle id="6" type="myType" depart="60.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="56" depart="60.00">
+    <vehicle id="56" type="myType" depart="60.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="106" depart="60.00">
+    <vehicle id="106" type="myType" depart="60.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="156" depart="60.00">
+    <vehicle id="156" type="myType" depart="60.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="206" depart="60.00">
+    <vehicle id="206" type="myType" depart="60.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="256" depart="60.00">
+    <vehicle id="256" type="myType" depart="60.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="306" depart="60.00">
+    <vehicle id="306" type="myType" depart="60.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="356" depart="60.00">
+    <vehicle id="356" type="myType" depart="60.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="7" depart="70.00">
+    <vehicle id="7" type="myType" depart="70.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="57" depart="70.00">
+    <vehicle id="57" type="myType" depart="70.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="107" depart="70.00">
+    <vehicle id="107" type="myType" depart="70.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="157" depart="70.00">
+    <vehicle id="157" type="myType" depart="70.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="207" depart="70.00">
+    <vehicle id="207" type="myType" depart="70.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="257" depart="70.00">
+    <vehicle id="257" type="myType" depart="70.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="307" depart="70.00">
+    <vehicle id="307" type="myType" depart="70.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="357" depart="70.00">
+    <vehicle id="357" type="myType" depart="70.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="8" depart="80.00">
+    <vehicle id="8" type="myType" depart="80.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="58" depart="80.00">
+    <vehicle id="58" type="myType" depart="80.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="108" depart="80.00">
+    <vehicle id="108" type="myType" depart="80.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="158" depart="80.00">
+    <vehicle id="158" type="myType" depart="80.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="208" depart="80.00">
+    <vehicle id="208" type="myType" depart="80.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="258" depart="80.00">
+    <vehicle id="258" type="myType" depart="80.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="308" depart="80.00">
+    <vehicle id="308" type="myType" depart="80.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="358" depart="80.00">
+    <vehicle id="358" type="myType" depart="80.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="9" depart="90.00">
+    <vehicle id="9" type="myType" depart="90.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="59" depart="90.00">
+    <vehicle id="59" type="myType" depart="90.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="109" depart="90.00">
+    <vehicle id="109" type="myType" depart="90.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="159" depart="90.00">
+    <vehicle id="159" type="myType" depart="90.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="209" depart="90.00">
+    <vehicle id="209" type="myType" depart="90.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="259" depart="90.00">
+    <vehicle id="259" type="myType" depart="90.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="309" depart="90.00">
+    <vehicle id="309" type="myType" depart="90.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="359" depart="90.00">
+    <vehicle id="359" type="myType" depart="90.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="10" depart="100.00">
+    <vehicle id="10" type="myType" depart="100.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="60" depart="100.00">
+    <vehicle id="60" type="myType" depart="100.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="110" depart="100.00">
+    <vehicle id="110" type="myType" depart="100.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="160" depart="100.00">
+    <vehicle id="160" type="myType" depart="100.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="210" depart="100.00">
+    <vehicle id="210" type="myType" depart="100.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="260" depart="100.00">
+    <vehicle id="260" type="myType" depart="100.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="310" depart="100.00">
+    <vehicle id="310" type="myType" depart="100.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="360" depart="100.00">
+    <vehicle id="360" type="myType" depart="100.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="11" depart="110.00">
+    <vehicle id="11" type="myType" depart="110.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="61" depart="110.00">
+    <vehicle id="61" type="myType" depart="110.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="111" depart="110.00">
+    <vehicle id="111" type="myType" depart="110.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="161" depart="110.00">
+    <vehicle id="161" type="myType" depart="110.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="211" depart="110.00">
+    <vehicle id="211" type="myType" depart="110.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="261" depart="110.00">
+    <vehicle id="261" type="myType" depart="110.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="311" depart="110.00">
+    <vehicle id="311" type="myType" depart="110.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="361" depart="110.00">
+    <vehicle id="361" type="myType" depart="110.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="12" depart="120.00">
+    <vehicle id="12" type="myType" depart="120.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="62" depart="120.00">
+    <vehicle id="62" type="myType" depart="120.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="112" depart="120.00">
+    <vehicle id="112" type="myType" depart="120.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="162" depart="120.00">
+    <vehicle id="162" type="myType" depart="120.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="212" depart="120.00">
+    <vehicle id="212" type="myType" depart="120.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="262" depart="120.00">
+    <vehicle id="262" type="myType" depart="120.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="312" depart="120.00">
+    <vehicle id="312" type="myType" depart="120.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="362" depart="120.00">
+    <vehicle id="362" type="myType" depart="120.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="13" depart="130.00">
+    <vehicle id="13" type="myType" depart="130.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="63" depart="130.00">
+    <vehicle id="63" type="myType" depart="130.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="113" depart="130.00">
+    <vehicle id="113" type="myType" depart="130.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="163" depart="130.00">
+    <vehicle id="163" type="myType" depart="130.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="213" depart="130.00">
+    <vehicle id="213" type="myType" depart="130.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="263" depart="130.00">
+    <vehicle id="263" type="myType" depart="130.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="313" depart="130.00">
+    <vehicle id="313" type="myType" depart="130.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="363" depart="130.00">
+    <vehicle id="363" type="myType" depart="130.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="14" depart="140.00">
+    <vehicle id="14" type="myType" depart="140.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="64" depart="140.00">
+    <vehicle id="64" type="myType" depart="140.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="114" depart="140.00">
+    <vehicle id="114" type="myType" depart="140.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="164" depart="140.00">
+    <vehicle id="164" type="myType" depart="140.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="214" depart="140.00">
+    <vehicle id="214" type="myType" depart="140.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="264" depart="140.00">
+    <vehicle id="264" type="myType" depart="140.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="314" depart="140.00">
+    <vehicle id="314" type="myType" depart="140.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="364" depart="140.00">
+    <vehicle id="364" type="myType" depart="140.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="15" depart="150.00">
+    <vehicle id="15" type="myType" depart="150.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="65" depart="150.00">
+    <vehicle id="65" type="myType" depart="150.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="115" depart="150.00">
+    <vehicle id="115" type="myType" depart="150.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="165" depart="150.00">
+    <vehicle id="165" type="myType" depart="150.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="215" depart="150.00">
+    <vehicle id="215" type="myType" depart="150.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="265" depart="150.00">
+    <vehicle id="265" type="myType" depart="150.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="315" depart="150.00">
+    <vehicle id="315" type="myType" depart="150.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="365" depart="150.00">
+    <vehicle id="365" type="myType" depart="150.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="16" depart="160.00">
+    <vehicle id="16" type="myType" depart="160.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="66" depart="160.00">
+    <vehicle id="66" type="myType" depart="160.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="116" depart="160.00">
+    <vehicle id="116" type="myType" depart="160.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="166" depart="160.00">
+    <vehicle id="166" type="myType" depart="160.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="216" depart="160.00">
+    <vehicle id="216" type="myType" depart="160.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="266" depart="160.00">
+    <vehicle id="266" type="myType" depart="160.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="316" depart="160.00">
+    <vehicle id="316" type="myType" depart="160.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="366" depart="160.00">
+    <vehicle id="366" type="myType" depart="160.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="17" depart="170.00">
+    <vehicle id="17" type="myType" depart="170.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="67" depart="170.00">
+    <vehicle id="67" type="myType" depart="170.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="117" depart="170.00">
+    <vehicle id="117" type="myType" depart="170.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="167" depart="170.00">
+    <vehicle id="167" type="myType" depart="170.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="217" depart="170.00">
+    <vehicle id="217" type="myType" depart="170.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="267" depart="170.00">
+    <vehicle id="267" type="myType" depart="170.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="317" depart="170.00">
+    <vehicle id="317" type="myType" depart="170.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="367" depart="170.00">
+    <vehicle id="367" type="myType" depart="170.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="18" depart="180.00">
+    <vehicle id="18" type="myType" depart="180.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="68" depart="180.00">
+    <vehicle id="68" type="myType" depart="180.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="118" depart="180.00">
+    <vehicle id="118" type="myType" depart="180.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="168" depart="180.00">
+    <vehicle id="168" type="myType" depart="180.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="218" depart="180.00">
+    <vehicle id="218" type="myType" depart="180.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="268" depart="180.00">
+    <vehicle id="268" type="myType" depart="180.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="318" depart="180.00">
+    <vehicle id="318" type="myType" depart="180.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="368" depart="180.00">
+    <vehicle id="368" type="myType" depart="180.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="19" depart="190.00">
+    <vehicle id="19" type="myType" depart="190.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="69" depart="190.00">
+    <vehicle id="69" type="myType" depart="190.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="119" depart="190.00">
+    <vehicle id="119" type="myType" depart="190.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="169" depart="190.00">
+    <vehicle id="169" type="myType" depart="190.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="219" depart="190.00">
+    <vehicle id="219" type="myType" depart="190.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="269" depart="190.00">
+    <vehicle id="269" type="myType" depart="190.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="319" depart="190.00">
+    <vehicle id="319" type="myType" depart="190.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="369" depart="190.00">
+    <vehicle id="369" type="myType" depart="190.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="20" depart="200.00">
+    <vehicle id="20" type="myType" depart="200.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="70" depart="200.00">
+    <vehicle id="70" type="myType" depart="200.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="120" depart="200.00">
+    <vehicle id="120" type="myType" depart="200.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="170" depart="200.00">
+    <vehicle id="170" type="myType" depart="200.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="220" depart="200.00">
+    <vehicle id="220" type="myType" depart="200.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="270" depart="200.00">
+    <vehicle id="270" type="myType" depart="200.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="320" depart="200.00">
+    <vehicle id="320" type="myType" depart="200.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="370" depart="200.00">
+    <vehicle id="370" type="myType" depart="200.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="21" depart="210.00">
+    <vehicle id="21" type="myType" depart="210.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="71" depart="210.00">
+    <vehicle id="71" type="myType" depart="210.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="121" depart="210.00">
+    <vehicle id="121" type="myType" depart="210.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="171" depart="210.00">
+    <vehicle id="171" type="myType" depart="210.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="221" depart="210.00">
+    <vehicle id="221" type="myType" depart="210.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="271" depart="210.00">
+    <vehicle id="271" type="myType" depart="210.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="321" depart="210.00">
+    <vehicle id="321" type="myType" depart="210.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="371" depart="210.00">
+    <vehicle id="371" type="myType" depart="210.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="22" depart="220.00">
+    <vehicle id="22" type="myType" depart="220.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="72" depart="220.00">
+    <vehicle id="72" type="myType" depart="220.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="122" depart="220.00">
+    <vehicle id="122" type="myType" depart="220.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="172" depart="220.00">
+    <vehicle id="172" type="myType" depart="220.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="222" depart="220.00">
+    <vehicle id="222" type="myType" depart="220.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="272" depart="220.00">
+    <vehicle id="272" type="myType" depart="220.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="322" depart="220.00">
+    <vehicle id="322" type="myType" depart="220.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="372" depart="220.00">
+    <vehicle id="372" type="myType" depart="220.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="23" depart="230.00">
+    <vehicle id="23" type="myType" depart="230.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="73" depart="230.00">
+    <vehicle id="73" type="myType" depart="230.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="123" depart="230.00">
+    <vehicle id="123" type="myType" depart="230.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="173" depart="230.00">
+    <vehicle id="173" type="myType" depart="230.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="223" depart="230.00">
+    <vehicle id="223" type="myType" depart="230.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="273" depart="230.00">
+    <vehicle id="273" type="myType" depart="230.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="323" depart="230.00">
+    <vehicle id="323" type="myType" depart="230.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="373" depart="230.00">
+    <vehicle id="373" type="myType" depart="230.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="24" depart="240.00">
+    <vehicle id="24" type="myType" depart="240.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="74" depart="240.00">
+    <vehicle id="74" type="myType" depart="240.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="124" depart="240.00">
+    <vehicle id="124" type="myType" depart="240.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="174" depart="240.00">
+    <vehicle id="174" type="myType" depart="240.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="224" depart="240.00">
+    <vehicle id="224" type="myType" depart="240.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="274" depart="240.00">
+    <vehicle id="274" type="myType" depart="240.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="324" depart="240.00">
+    <vehicle id="324" type="myType" depart="240.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="374" depart="240.00">
+    <vehicle id="374" type="myType" depart="240.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="25" depart="250.00">
+    <vehicle id="25" type="myType" depart="250.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="75" depart="250.00">
+    <vehicle id="75" type="myType" depart="250.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="125" depart="250.00">
+    <vehicle id="125" type="myType" depart="250.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="175" depart="250.00">
+    <vehicle id="175" type="myType" depart="250.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="225" depart="250.00">
+    <vehicle id="225" type="myType" depart="250.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="275" depart="250.00">
+    <vehicle id="275" type="myType" depart="250.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="325" depart="250.00">
+    <vehicle id="325" type="myType" depart="250.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="375" depart="250.00">
+    <vehicle id="375" type="myType" depart="250.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="26" depart="260.00">
+    <vehicle id="26" type="myType" depart="260.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="76" depart="260.00">
+    <vehicle id="76" type="myType" depart="260.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="126" depart="260.00">
+    <vehicle id="126" type="myType" depart="260.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="176" depart="260.00">
+    <vehicle id="176" type="myType" depart="260.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="226" depart="260.00">
+    <vehicle id="226" type="myType" depart="260.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="276" depart="260.00">
+    <vehicle id="276" type="myType" depart="260.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="326" depart="260.00">
+    <vehicle id="326" type="myType" depart="260.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="376" depart="260.00">
+    <vehicle id="376" type="myType" depart="260.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="27" depart="270.00">
+    <vehicle id="27" type="myType" depart="270.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="77" depart="270.00">
+    <vehicle id="77" type="myType" depart="270.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="127" depart="270.00">
+    <vehicle id="127" type="myType" depart="270.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="177" depart="270.00">
+    <vehicle id="177" type="myType" depart="270.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="227" depart="270.00">
+    <vehicle id="227" type="myType" depart="270.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="277" depart="270.00">
+    <vehicle id="277" type="myType" depart="270.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="327" depart="270.00">
+    <vehicle id="327" type="myType" depart="270.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="377" depart="270.00">
+    <vehicle id="377" type="myType" depart="270.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="28" depart="280.00">
+    <vehicle id="28" type="myType" depart="280.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="78" depart="280.00">
+    <vehicle id="78" type="myType" depart="280.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="128" depart="280.00">
+    <vehicle id="128" type="myType" depart="280.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="178" depart="280.00">
+    <vehicle id="178" type="myType" depart="280.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="228" depart="280.00">
+    <vehicle id="228" type="myType" depart="280.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="278" depart="280.00">
+    <vehicle id="278" type="myType" depart="280.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="328" depart="280.00">
+    <vehicle id="328" type="myType" depart="280.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="378" depart="280.00">
+    <vehicle id="378" type="myType" depart="280.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="29" depart="290.00">
+    <vehicle id="29" type="myType" depart="290.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="79" depart="290.00">
+    <vehicle id="79" type="myType" depart="290.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="129" depart="290.00">
+    <vehicle id="129" type="myType" depart="290.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="179" depart="290.00">
+    <vehicle id="179" type="myType" depart="290.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="229" depart="290.00">
+    <vehicle id="229" type="myType" depart="290.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="279" depart="290.00">
+    <vehicle id="279" type="myType" depart="290.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="329" depart="290.00">
+    <vehicle id="329" type="myType" depart="290.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="379" depart="290.00">
+    <vehicle id="379" type="myType" depart="290.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="30" depart="300.00">
+    <vehicle id="30" type="myType" depart="300.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="80" depart="300.00">
+    <vehicle id="80" type="myType" depart="300.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="130" depart="300.00">
+    <vehicle id="130" type="myType" depart="300.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="180" depart="300.00">
+    <vehicle id="180" type="myType" depart="300.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="230" depart="300.00">
+    <vehicle id="230" type="myType" depart="300.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="280" depart="300.00">
+    <vehicle id="280" type="myType" depart="300.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="330" depart="300.00">
+    <vehicle id="330" type="myType" depart="300.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="380" depart="300.00">
+    <vehicle id="380" type="myType" depart="300.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="31" depart="310.00">
+    <vehicle id="31" type="myType" depart="310.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="81" depart="310.00">
+    <vehicle id="81" type="myType" depart="310.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="131" depart="310.00">
+    <vehicle id="131" type="myType" depart="310.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="181" depart="310.00">
+    <vehicle id="181" type="myType" depart="310.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="231" depart="310.00">
+    <vehicle id="231" type="myType" depart="310.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="281" depart="310.00">
+    <vehicle id="281" type="myType" depart="310.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="331" depart="310.00">
+    <vehicle id="331" type="myType" depart="310.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="381" depart="310.00">
+    <vehicle id="381" type="myType" depart="310.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="32" depart="320.00">
+    <vehicle id="32" type="myType" depart="320.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="82" depart="320.00">
+    <vehicle id="82" type="myType" depart="320.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="132" depart="320.00">
+    <vehicle id="132" type="myType" depart="320.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="182" depart="320.00">
+    <vehicle id="182" type="myType" depart="320.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="232" depart="320.00">
+    <vehicle id="232" type="myType" depart="320.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="282" depart="320.00">
+    <vehicle id="282" type="myType" depart="320.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="332" depart="320.00">
+    <vehicle id="332" type="myType" depart="320.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="382" depart="320.00">
+    <vehicle id="382" type="myType" depart="320.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="33" depart="330.00">
+    <vehicle id="33" type="myType" depart="330.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="83" depart="330.00">
+    <vehicle id="83" type="myType" depart="330.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="133" depart="330.00">
+    <vehicle id="133" type="myType" depart="330.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="183" depart="330.00">
+    <vehicle id="183" type="myType" depart="330.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="233" depart="330.00">
+    <vehicle id="233" type="myType" depart="330.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="283" depart="330.00">
+    <vehicle id="283" type="myType" depart="330.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="333" depart="330.00">
+    <vehicle id="333" type="myType" depart="330.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="383" depart="330.00">
+    <vehicle id="383" type="myType" depart="330.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="34" depart="340.00">
+    <vehicle id="34" type="myType" depart="340.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="84" depart="340.00">
+    <vehicle id="84" type="myType" depart="340.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="134" depart="340.00">
+    <vehicle id="134" type="myType" depart="340.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="184" depart="340.00">
+    <vehicle id="184" type="myType" depart="340.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="234" depart="340.00">
+    <vehicle id="234" type="myType" depart="340.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="284" depart="340.00">
+    <vehicle id="284" type="myType" depart="340.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="334" depart="340.00">
+    <vehicle id="334" type="myType" depart="340.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="384" depart="340.00">
+    <vehicle id="384" type="myType" depart="340.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="35" depart="350.00">
+    <vehicle id="35" type="myType" depart="350.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="85" depart="350.00">
+    <vehicle id="85" type="myType" depart="350.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="135" depart="350.00">
+    <vehicle id="135" type="myType" depart="350.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="185" depart="350.00">
+    <vehicle id="185" type="myType" depart="350.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="235" depart="350.00">
+    <vehicle id="235" type="myType" depart="350.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="285" depart="350.00">
+    <vehicle id="285" type="myType" depart="350.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="335" depart="350.00">
+    <vehicle id="335" type="myType" depart="350.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="385" depart="350.00">
+    <vehicle id="385" type="myType" depart="350.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="36" depart="360.00">
+    <vehicle id="36" type="myType" depart="360.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="86" depart="360.00">
+    <vehicle id="86" type="myType" depart="360.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="136" depart="360.00">
+    <vehicle id="136" type="myType" depart="360.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="186" depart="360.00">
+    <vehicle id="186" type="myType" depart="360.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="236" depart="360.00">
+    <vehicle id="236" type="myType" depart="360.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="286" depart="360.00">
+    <vehicle id="286" type="myType" depart="360.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="336" depart="360.00">
+    <vehicle id="336" type="myType" depart="360.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="386" depart="360.00">
+    <vehicle id="386" type="myType" depart="360.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="37" depart="370.00">
+    <vehicle id="37" type="myType" depart="370.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="87" depart="370.00">
+    <vehicle id="87" type="myType" depart="370.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="137" depart="370.00">
+    <vehicle id="137" type="myType" depart="370.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="187" depart="370.00">
+    <vehicle id="187" type="myType" depart="370.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="237" depart="370.00">
+    <vehicle id="237" type="myType" depart="370.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="287" depart="370.00">
+    <vehicle id="287" type="myType" depart="370.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="337" depart="370.00">
+    <vehicle id="337" type="myType" depart="370.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="387" depart="370.00">
+    <vehicle id="387" type="myType" depart="370.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="38" depart="380.00">
+    <vehicle id="38" type="myType" depart="380.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="88" depart="380.00">
+    <vehicle id="88" type="myType" depart="380.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="138" depart="380.00">
+    <vehicle id="138" type="myType" depart="380.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="188" depart="380.00">
+    <vehicle id="188" type="myType" depart="380.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="238" depart="380.00">
+    <vehicle id="238" type="myType" depart="380.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="288" depart="380.00">
+    <vehicle id="288" type="myType" depart="380.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="338" depart="380.00">
+    <vehicle id="338" type="myType" depart="380.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="388" depart="380.00">
+    <vehicle id="388" type="myType" depart="380.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="39" depart="390.00">
+    <vehicle id="39" type="myType" depart="390.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="89" depart="390.00">
+    <vehicle id="89" type="myType" depart="390.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="139" depart="390.00">
+    <vehicle id="139" type="myType" depart="390.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="189" depart="390.00">
+    <vehicle id="189" type="myType" depart="390.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="239" depart="390.00">
+    <vehicle id="239" type="myType" depart="390.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="289" depart="390.00">
+    <vehicle id="289" type="myType" depart="390.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="339" depart="390.00">
+    <vehicle id="339" type="myType" depart="390.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="389" depart="390.00">
+    <vehicle id="389" type="myType" depart="390.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="40" depart="400.00">
+    <vehicle id="40" type="myType" depart="400.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="90" depart="400.00">
+    <vehicle id="90" type="myType" depart="400.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="140" depart="400.00">
+    <vehicle id="140" type="myType" depart="400.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="190" depart="400.00">
+    <vehicle id="190" type="myType" depart="400.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="240" depart="400.00">
+    <vehicle id="240" type="myType" depart="400.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="290" depart="400.00">
+    <vehicle id="290" type="myType" depart="400.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="340" depart="400.00">
+    <vehicle id="340" type="myType" depart="400.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="390" depart="400.00">
+    <vehicle id="390" type="myType" depart="400.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="41" depart="410.00">
+    <vehicle id="41" type="myType" depart="410.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="91" depart="410.00">
+    <vehicle id="91" type="myType" depart="410.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="141" depart="410.00">
+    <vehicle id="141" type="myType" depart="410.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="191" depart="410.00">
+    <vehicle id="191" type="myType" depart="410.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="241" depart="410.00">
+    <vehicle id="241" type="myType" depart="410.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="291" depart="410.00">
+    <vehicle id="291" type="myType" depart="410.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="341" depart="410.00">
+    <vehicle id="341" type="myType" depart="410.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="391" depart="410.00">
+    <vehicle id="391" type="myType" depart="410.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="42" depart="420.00">
+    <vehicle id="42" type="myType" depart="420.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="92" depart="420.00">
+    <vehicle id="92" type="myType" depart="420.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="142" depart="420.00">
+    <vehicle id="142" type="myType" depart="420.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="192" depart="420.00">
+    <vehicle id="192" type="myType" depart="420.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="242" depart="420.00">
+    <vehicle id="242" type="myType" depart="420.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="292" depart="420.00">
+    <vehicle id="292" type="myType" depart="420.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="342" depart="420.00">
+    <vehicle id="342" type="myType" depart="420.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="392" depart="420.00">
+    <vehicle id="392" type="myType" depart="420.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="43" depart="430.00">
+    <vehicle id="43" type="myType" depart="430.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="93" depart="430.00">
+    <vehicle id="93" type="myType" depart="430.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="143" depart="430.00">
+    <vehicle id="143" type="myType" depart="430.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="193" depart="430.00">
+    <vehicle id="193" type="myType" depart="430.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="243" depart="430.00">
+    <vehicle id="243" type="myType" depart="430.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="293" depart="430.00">
+    <vehicle id="293" type="myType" depart="430.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="343" depart="430.00">
+    <vehicle id="343" type="myType" depart="430.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="393" depart="430.00">
+    <vehicle id="393" type="myType" depart="430.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="44" depart="440.00">
+    <vehicle id="44" type="myType" depart="440.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="94" depart="440.00">
+    <vehicle id="94" type="myType" depart="440.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="144" depart="440.00">
+    <vehicle id="144" type="myType" depart="440.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="194" depart="440.00">
+    <vehicle id="194" type="myType" depart="440.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="244" depart="440.00">
+    <vehicle id="244" type="myType" depart="440.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="294" depart="440.00">
+    <vehicle id="294" type="myType" depart="440.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="344" depart="440.00">
+    <vehicle id="344" type="myType" depart="440.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="394" depart="440.00">
+    <vehicle id="394" type="myType" depart="440.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="45" depart="450.00">
+    <vehicle id="45" type="myType" depart="450.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="95" depart="450.00">
+    <vehicle id="95" type="myType" depart="450.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="145" depart="450.00">
+    <vehicle id="145" type="myType" depart="450.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="195" depart="450.00">
+    <vehicle id="195" type="myType" depart="450.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="245" depart="450.00">
+    <vehicle id="245" type="myType" depart="450.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="295" depart="450.00">
+    <vehicle id="295" type="myType" depart="450.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="345" depart="450.00">
+    <vehicle id="345" type="myType" depart="450.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="395" depart="450.00">
+    <vehicle id="395" type="myType" depart="450.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="46" depart="460.00">
+    <vehicle id="46" type="myType" depart="460.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="96" depart="460.00">
+    <vehicle id="96" type="myType" depart="460.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="146" depart="460.00">
+    <vehicle id="146" type="myType" depart="460.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="196" depart="460.00">
+    <vehicle id="196" type="myType" depart="460.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="246" depart="460.00">
+    <vehicle id="246" type="myType" depart="460.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="296" depart="460.00">
+    <vehicle id="296" type="myType" depart="460.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="346" depart="460.00">
+    <vehicle id="346" type="myType" depart="460.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="396" depart="460.00">
+    <vehicle id="396" type="myType" depart="460.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="47" depart="470.00">
+    <vehicle id="47" type="myType" depart="470.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="97" depart="470.00">
+    <vehicle id="97" type="myType" depart="470.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="147" depart="470.00">
+    <vehicle id="147" type="myType" depart="470.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="197" depart="470.00">
+    <vehicle id="197" type="myType" depart="470.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="247" depart="470.00">
+    <vehicle id="247" type="myType" depart="470.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="297" depart="470.00">
+    <vehicle id="297" type="myType" depart="470.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="347" depart="470.00">
+    <vehicle id="347" type="myType" depart="470.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="397" depart="470.00">
+    <vehicle id="397" type="myType" depart="470.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="48" depart="480.00">
+    <vehicle id="48" type="myType" depart="480.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="98" depart="480.00">
+    <vehicle id="98" type="myType" depart="480.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="148" depart="480.00">
+    <vehicle id="148" type="myType" depart="480.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="198" depart="480.00">
+    <vehicle id="198" type="myType" depart="480.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="248" depart="480.00">
+    <vehicle id="248" type="myType" depart="480.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="298" depart="480.00">
+    <vehicle id="298" type="myType" depart="480.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="348" depart="480.00">
+    <vehicle id="348" type="myType" depart="480.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="398" depart="480.00">
+    <vehicle id="398" type="myType" depart="480.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
-    <vehicle id="49" depart="490.00">
+    <vehicle id="49" type="myType" depart="490.00">
         <route edges="edge-11-8 edge-8-4 edge-4-5 edge-5-2"/>
     </vehicle>
-    <vehicle id="99" depart="490.00">
+    <vehicle id="99" type="myType" depart="490.00">
         <route edges="edge-2-5 edge-5-9 edge-9-8 edge-8-11"/>
     </vehicle>
-    <vehicle id="149" depart="490.00">
+    <vehicle id="149" type="myType" depart="490.00">
         <route edges="edge-12-9 edge-9-5 edge-5-4 edge-4-1"/>
     </vehicle>
-    <vehicle id="199" depart="490.00">
+    <vehicle id="199" type="myType" depart="490.00">
         <route edges="edge-1-4 edge-4-8 edge-8-9 edge-9-12"/>
     </vehicle>
-    <vehicle id="249" depart="490.00">
+    <vehicle id="249" type="myType" depart="490.00">
         <route edges="edge-10-9 edge-9-8 edge-8-4 edge-4-3"/>
     </vehicle>
-    <vehicle id="299" depart="490.00">
+    <vehicle id="299" type="myType" depart="490.00">
         <route edges="edge-3-4 edge-4-5 edge-5-9 edge-9-10"/>
     </vehicle>
-    <vehicle id="349" depart="490.00">
+    <vehicle id="349" type="myType" depart="490.00">
         <route edges="edge-6-5 edge-5-4 edge-4-8 edge-8-7"/>
     </vehicle>
-    <vehicle id="399" depart="490.00">
+    <vehicle id="399" type="myType" depart="490.00">
         <route edges="edge-7-8 edge-8-9 edge-9-5 edge-5-6"/>
     </vehicle>
 </routes>
