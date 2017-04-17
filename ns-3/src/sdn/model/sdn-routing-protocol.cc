@@ -154,21 +154,14 @@ namespace ns3 {
 				(&RoutingProtocol::RmTimerExpire, this);
 			m_apTimer.SetFunction
 				(&RoutingProtocol::APTimerExpire, this);
-			/*m_firstsendTimer.SetFunction
-			(&RoutingProtocol::FirstTimerExpire, this);
-			*/
-
 			m_packetSequenceNumber = SDN_MAX_SEQ_NUM;
 			m_messageSequenceNumber = SDN_MAX_SEQ_NUM;
-
-
 			m_ipv4 = ipv4;
 		}
 
 		void RoutingProtocol::DoDispose ()
 		{
 			m_ipv4 = 0;
-			//m_socketAddresses 明天看看
 			for (std::map< Ptr<Socket>, Ipv4InterfaceAddress >::iterator iter = 
 				m_socketAddresses.begin ();
 				iter != m_socketAddresses.end (); ++iter)

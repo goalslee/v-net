@@ -218,6 +218,15 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   Ipv4Address m_theFirstCar;//Use by Reschedule (), SelectNewNodeInAreaZero(); Assign by SelectNode ();
   //Duplicate_Detection m_duplicate_detection;
 
+typedef struct source_sink{
+bool haveSource=false;
+ Ipv4Address m_sourceAddress;
+bool haveSink=false;
+ Ipv4Address m_sinkAddress;
+ bool isDes=false;
+ 
+}ss_pair;
+
    public:
   static TypeId GetTypeId (void);//implemented
 
