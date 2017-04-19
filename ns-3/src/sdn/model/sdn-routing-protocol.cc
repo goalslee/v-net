@@ -666,7 +666,7 @@ namespace ns3 {
 			if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
 				//if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;not for 84 to receive
 				//if(m_firstRequest++>1) return;
-
+/*
 	std::string str,str1,str2;
          char string1[20],string2[20];
 	  sprintf(string1,"%d",source.Get());
@@ -685,6 +685,7 @@ namespace ns3 {
 	    token[str]=newpair;
 
 	  }
+	  */
 				
 				haveSource=true;
 				m_sourceAddress=source;
