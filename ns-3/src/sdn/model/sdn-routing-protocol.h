@@ -219,14 +219,19 @@ std::map<Ipv4Address, CarInfo> m_lc_negative_info;///for negative direction
   //Duplicate_Detection m_duplicate_detection;
 
 typedef struct source_sink{
+std::string source_sink; 
 bool haveSource=false;
  Ipv4Address m_sourceAddress;
 bool haveSink=false;
  Ipv4Address m_sinkAddress;
  bool isDes=false;
- 
+  AodvParm m_incomeParm_possitive{1000,1000};// received parameter
+  AodvParm m_incomeParm_negative{1000,1000};
+  AodvDesParm m_incomeDesParm{1000,1000,sdn::OTHER,true};
+  uint32_t m_tag;
 }ss_pair;
 
+std::map<std::string,ss_pair> token; 
    public:
   static TypeId GetTypeId (void);//implemented
 
