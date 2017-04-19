@@ -665,7 +665,27 @@ namespace ns3 {
 			//add long road lc select
 			if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
 				//if(m_CCHmainAddress.Get()%256 == 84) return;//the last lc not have des,so just return;not for 84 to receive
-				if(m_firstRequest++>1) return;
+				//if(m_firstRequest++>1) return;
+
+	std::string str,str1,str2;
+         char string1[20],string2[20];
+	  sprintf(string1,"%d",source.Get());
+	  sprintf(string2,"%d",dest.Get());
+	  str1=string1;
+	  str2=string2;
+	  str=str1+"_"+str2;
+
+	  std::map<std::string,ss_pair>::iterator it=token.find(str);
+	  if(it==token.end())
+	  {
+	    ss_pair newpair;
+	    newpair.haveSource=true;
+	    newpair.m_sourceAddress=source;
+	    
+	    token[str]=newpair;
+
+	  }
+				
 				haveSource=true;
 				m_sourceAddress=source;
 
