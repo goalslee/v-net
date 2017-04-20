@@ -716,10 +716,10 @@ namespace ns3 {
 				Aodvrm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 
 
-				Aodvrm.jump_nums=m_lc_info[m_sourceAddress].dir==sdn::POSITIVE?m_selfParm_possitive.jumpnums:m_selfParm_negative.jumpnums;
-				Aodvrm.SetStability(m_lc_info[m_sourceAddress].dir==sdn::POSITIVE?m_selfParm_possitive.stability:m_selfParm_negative.stability);
+				Aodvrm.jump_nums=m_lc_info[(it->second).m_sourceAddress].dir==sdn::POSITIVE?m_selfParm_possitive.jumpnums:m_selfParm_negative.jumpnums;
+				Aodvrm.SetStability(m_lc_info[(it->second).m_sourceAddress].dir==sdn::POSITIVE?m_selfParm_possitive.stability:m_selfParm_negative.stability);
 				Aodvrm.Originator=m_CCHmainAddress;
-				Aodvrm.dir=m_lc_info[(it->second)m_sourceAddress].dir==sdn::POSITIVE?sdn::POSITIVE:sdn::NEGATIVE;
+				Aodvrm.dir=m_lc_info[(it->second).m_sourceAddress].dir==sdn::POSITIVE?sdn::POSITIVE:sdn::NEGATIVE;
 				Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition(). y, m_mobility->GetPosition().z);
 
 
