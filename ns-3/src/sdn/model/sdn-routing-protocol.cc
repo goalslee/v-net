@@ -1332,8 +1332,8 @@ namespace ns3 {
 		void
 			RoutingProtocol::AodvTimerExpire()
 		{
-			Aodv_sendback();
-			isDes=false;
+			//Aodv_sendback();
+			//isDes=false;
 		}
 
 		void
@@ -1643,6 +1643,8 @@ namespace ns3 {
 			if((it->second).m_incomeDesParm.desdir==sdn::POSITIVE)
 				m_isEstablish_positive=true;
 			else     m_isEstablish_negative=true;  
+
+			(it->second).isDes=false;
 
 		}
 
