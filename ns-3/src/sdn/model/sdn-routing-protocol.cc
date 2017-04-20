@@ -723,13 +723,13 @@ namespace ns3 {
 				Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition(). y, m_mobility->GetPosition().z);
 
 
-				if(m_lc_info[m_sourceAddress].dir==sdn::POSITIVE){
-					m_incomeParm_possitive.m_desId=dest;
-					m_incomeParm_possitive.m_sourceId=source;
+				if(m_lc_info[(it->second).m_sourceAddress].dir==sdn::POSITIVE){
+					(it->second).m_incomeParm_possitive.m_desId=dest;
+					(it->second).m_incomeParm_possitive.m_sourceId=source;
 				}
-				else if(m_lc_info[m_sourceAddress].dir==sdn::NEGATIVE){
-					m_incomeParm_negative.m_desId=dest;
-					m_incomeParm_negative.m_sourceId=source;
+				else if(m_lc_info[(it->second).m_sourceAddress].dir==sdn::NEGATIVE){
+					(it->second).m_incomeParm_negative.m_desId=dest;
+					(it->second).m_incomeParm_negative.m_sourceId=source;
 				}
 
 				QueueMessage (mesg, JITTER);
