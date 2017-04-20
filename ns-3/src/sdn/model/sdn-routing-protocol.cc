@@ -1384,39 +1384,58 @@ namespace ns3 {
 				std::cout<<"no valid negative"<<std::endl;
 				return;}
 			//std::cout<<"dir: "<<out<<std::endl;
+                          	std::string str,str1,str2;
+                          char string1[20],string2[20];
+	                sprintf(string1,"%d",aodvrm.ID.Get());
+	                sprintf(string2,"%d",aodvrm.DesId.Get());
+	                str1=string1;
+	                str2=string2;
+	                str=str1+"_"+str2;
 
-			if(!isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
+	  std::map<std::string,ss_pair>::iterator it=token.find(str);
+	  if(it==token.end())
+	  {
+	    ss_pair newpair;
+
+	    newpair.source_sink=str;
+	    token[str]=newpair;
+             it=token.find(str);
+	  }
+	                
+	                
+			if(!(it->second).isDes&&m_lc_info.find(aodvrm.DesId)!=m_lc_info.end()){
 				std::cout<<"des get pt "<<std::endl;
-				if(!haveSink){
-					haveSink=true;
-					m_sinkAddress=aodvrm.DesId;
-					std::map<Ipv4Address, CarInfo>::iterator it1 = m_lc_positive_info.find (m_sinkAddress);
-					std::map<Ipv4Address, CarInfo>::iterator it2 = m_lc_negative_info.find (m_sinkAddress);
+				if(!(it->second).haveSink){
+					(it->second).haveSink=true;
+					(it->second).m_sinkAddress=aodvrm.DesId;
+					std::map<Ipv4Address, CarInfo>::iterator it1 = m_lc_positive_info.find ((it->second).m_sinkAddress);
+					std::map<Ipv4Address, CarInfo>::iterator it2 = m_lc_negative_info.find ((it->second).m_sinkAddress);
 					if(it1!=m_lc_positive_info.end()) m_lc_positive_info.erase(it1);
 					if(it2!=m_lc_negative_info.end()) m_lc_negative_info.erase(it2);
 					ComputeRoute();//将sink加入路由中
-					if(m_lc_info[m_sinkAddress].dir==sdn::POSITIVE){
-						if(!possive_valid) haveSink=false;
+					if(m_lc_info[(it->second).m_sinkAddress].dir==sdn::POSITIVE){
+						if(!possive_valid) (it->second).haveSink=false;
 					}
-					else {if(!negative_valid) haveSink=false;}
+					else {if(!negative_valid) (it->second).haveSink=false;}
 				}
 
-				if(m_incomeDesParm.desdir==sdn::OTHER)
+				if((it->second).m_incomeDesParm.desdir==sdn::OTHER)
 				{
-					m_incomeDesParm.desdir=m_lc_info[aodvrm.DesId].dir;
+					(it->second).m_incomeDesParm.desdir=m_lc_info[aodvrm.DesId].dir;
 
 				}
-				if(m_incomeDesParm.desdir==out) {//车流方向与目的车一致
+				if((it->second).m_incomeDesParm.desdir==out) {//车流方向与目的车一致
 					temp_desId=aodvrm.DesId;
 					std::cout<<"I am  "<<m_CCHmainAddress<<" ,I have des"<<std::endl;
-					if(haveSink){
-						isDes=true;
+					if((it->second).haveSink){
+						(it->second).isDes=true;
 						//m_aodvTimer.SetDelay(FemtoSeconds (5));// 5s countdown
-						m_aodvTimer.SetFunction
+						/*m_aodvTimer.SetFunction
 							(&RoutingProtocol::AodvTimerExpire, this);
 						Time t = Seconds (0.25);
 						m_aodvTimer.SetDelay(t);
-						m_aodvTimer.Schedule ();
+						m_aodvTimer.Schedule ();*/
+						Aodv_sendback(it);
 					}
 					else{
 						std::cout<<"sink no valid"<<std::endl;
@@ -1425,29 +1444,29 @@ namespace ns3 {
 				}
 			}
 			// std::cout<<"aodvrm.tag "<<aodvrm.tag<<" m_tag "<<m_tag<<std::endl;
-			if(aodvrm.tag>m_tag){
-				m_tag=aodvrm.tag;
-				m_incomeParm_possitive.jumpnums=1000;
-				m_incomeParm_possitive.stability=1000;
-				m_incomeParm_negative.jumpnums=1000;
-				m_incomeParm_negative.stability=1000;
+			if(aodvrm.tag>(it->second).m_tag){
+				(it->second).m_tag=aodvrm.tag;
+				(it->second).m_incomeParm_possitive.jumpnums=1000;
+				(it->second).m_incomeParm_possitive.stability=1000;
+				(it->second).m_incomeParm_negative.jumpnums=1000;
+				(it->second).m_incomeParm_negative.stability=1000;
 			}
 
 			if(out==sdn::POSITIVE)
 			{
 
 
-				if(aodvrm.jump_nums<m_incomeParm_possitive.jumpnums||(aodvrm.jump_nums==m_incomeParm_possitive.jumpnums&& aodvrm.GetStability() < m_incomeParm_possitive.stability))
+				if(aodvrm.jump_nums<(it->second).m_incomeParm_possitive.jumpnums||(aodvrm.jump_nums==(it->second).m_incomeParm_possitive.jumpnums&& aodvrm.GetStability() < (it->second).m_incomeParm_possitive.stability))
 				{//forward this packet
 
-					m_incomeParm_possitive.jumpnums=aodvrm.jump_nums;
-					m_incomeParm_possitive.stability=aodvrm.GetStability();
-					m_incomeParm_possitive.m_sourceId=aodvrm.ID;
-					m_incomeParm_possitive.m_desId=aodvrm.DesId;
-					m_incomeParm_possitive.lastdir=aodvrm.dir;//记录上一跳的方向	
-					m_incomeParm_possitive.lastIP=aodvrm.Originator;//记录上一跳地址
+					(it->second).m_incomeParm_possitive.jumpnums=aodvrm.jump_nums;
+					(it->second).m_incomeParm_possitive.stability=aodvrm.GetStability();
+					(it->second).m_incomeParm_possitive.m_sourceId=aodvrm.ID;
+					(it->second).m_incomeParm_possitive.m_desId=aodvrm.DesId;
+					(it->second).m_incomeParm_possitive.lastdir=aodvrm.dir;//记录上一跳的方向	
+					(it->second).m_incomeParm_possitive.lastIP=aodvrm.Originator;//记录上一跳地址
 
-					if(!isDes){
+					if(!(it->second).isDes){
 						//std::cout<<"forwarding..."<<std::endl;
 						mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
 						Time now = Simulator::Now ();
@@ -1455,12 +1474,12 @@ namespace ns3 {
 						mesg.SetTimeToLive (TTL);
 						mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 						sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
-						Aodvrm.tag=m_tag;
+						Aodvrm.tag=(it->second).m_tag;
 						Aodvrm.ID=aodvrm.ID;
 						Aodvrm.DesId=aodvrm.DesId;
 						Aodvrm.mask=aodvrm.mask;
-						Aodvrm.jump_nums=m_incomeParm_possitive.jumpnums+m_selfParm_possitive.jumpnums;
-						Aodvrm.SetStability(m_incomeParm_possitive.stability>m_selfParm_possitive.stability?m_incomeParm_possitive.stability:m_selfParm_possitive.stability);
+						Aodvrm.jump_nums=(it->second).m_incomeParm_possitive.jumpnums+m_selfParm_possitive.jumpnums;
+						Aodvrm.SetStability((it->second).m_incomeParm_possitive.stability>m_selfParm_possitive.stability?(it->second).m_incomeParm_possitive.stability:m_selfParm_possitive.stability);
 						Aodvrm.Originator=m_CCHmainAddress;
 						Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 						Aodvrm.dir=out;
@@ -1474,18 +1493,18 @@ namespace ns3 {
 			}
 			else{
 
-				if(aodvrm.jump_nums<m_incomeParm_negative.jumpnums||(aodvrm.jump_nums==m_incomeParm_negative.jumpnums&& aodvrm.GetStability() < m_incomeParm_negative.stability)){//forward this packet
+				if(aodvrm.jump_nums<(it->second).m_incomeParm_negative.jumpnums||(aodvrm.jump_nums==(it->second).m_incomeParm_negative.jumpnums&& aodvrm.GetStability() < (it->second).m_incomeParm_negative.stability)){//forward this packet
 
-					m_incomeParm_negative.jumpnums=aodvrm.jump_nums;
-					m_incomeParm_negative.stability=aodvrm.GetStability();
-					m_incomeParm_negative.m_sourceId=aodvrm.ID;
-					m_incomeParm_negative.m_desId=aodvrm.DesId;
-					m_incomeParm_negative.lastdir=aodvrm.dir;//记录上一跳的方向
+					(it->second).m_incomeParm_negative.jumpnums=aodvrm.jump_nums;
+					(it->second).m_incomeParm_negative.stability=aodvrm.GetStability();
+					(it->second).m_incomeParm_negative.m_sourceId=aodvrm.ID;
+					(it->second).m_incomeParm_negative.m_desId=aodvrm.DesId;
+					(it->second).m_incomeParm_negative.lastdir=aodvrm.dir;//记录上一跳的方向
 
 					//记录上一跳地址
-					m_incomeParm_negative.lastIP=aodvrm.Originator;
+					(it->second).m_incomeParm_negative.lastIP=aodvrm.Originator;
 
-					if(!isDes){
+					if(!(it->second).isDes){
 						//std::cout<<"forwarding..."<<std::endl;
 						mesg.SetMessageType(sdn::MessageHeader::AODV_ROUTING_MESSAGE);
 						Time now = Simulator::Now ();
@@ -1493,12 +1512,12 @@ namespace ns3 {
 						mesg.SetTimeToLive (TTL);
 						mesg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 						sdn::MessageHeader::AodvRm &Aodvrm = mesg.GetAodvRm();
-						Aodvrm.tag=m_tag;
+						Aodvrm.tag=(it->second).m_tag;
 						Aodvrm.ID=aodvrm.ID;
 						Aodvrm.DesId=aodvrm.DesId;
 						Aodvrm.mask=aodvrm.mask;
-						Aodvrm.jump_nums=m_incomeParm_negative.jumpnums+m_selfParm_negative.jumpnums;
-						Aodvrm.SetStability(m_incomeParm_negative.stability>m_selfParm_negative.stability?m_incomeParm_negative.stability:m_selfParm_negative.stability);
+						Aodvrm.jump_nums=(it->second).m_incomeParm_negative.jumpnums+m_selfParm_negative.jumpnums;
+						Aodvrm.SetStability((it->second).m_incomeParm_negative.stability>m_selfParm_negative.stability?(it->second).m_incomeParm_negative.stability:m_selfParm_negative.stability);
 						Aodvrm.Originator=m_CCHmainAddress;
 						Aodvrm.SetPosition(m_mobility->GetPosition().x, m_mobility->GetPosition().y,m_mobility->GetPosition().z);
 						Aodvrm.dir=out;
@@ -1509,18 +1528,18 @@ namespace ns3 {
 
 			}
 
-			if(isDes){//用另外的数据结构存
+			if((it->second).isDes){//用另外的数据结构存
 
-				if(aodvrm.jump_nums<m_incomeDesParm.jumpnums||(aodvrm.jump_nums==m_incomeDesParm.jumpnums&&aodvrm.GetStability()<m_incomeDesParm.stability))
+				if(aodvrm.jump_nums<(it->second).m_incomeDesParm.jumpnums||(aodvrm.jump_nums==(it->second).m_incomeDesParm.jumpnums&&aodvrm.GetStability()<(it->second).m_incomeDesParm.stability))
 				{
-					m_incomeDesParm.dir=true;
+					(it->second).m_incomeDesParm.dir=true;
 
-					m_incomeDesParm.jumpnums=aodvrm.jump_nums;
-					m_incomeDesParm.stability=aodvrm.GetStability();
-					m_incomeDesParm.m_sourceId=aodvrm.ID;
-					m_incomeDesParm.m_desId=aodvrm.DesId;
-					m_incomeDesParm.lastdir=aodvrm.dir;//记录上一跳的方向
-					m_incomeDesParm.lastIP=aodvrm.Originator;
+					(it->second).m_incomeDesParm.jumpnums=aodvrm.jump_nums;
+					(it->second).m_incomeDesParm.stability=aodvrm.GetStability();
+					(it->second).m_incomeDesParm.m_sourceId=aodvrm.ID;
+					(it->second).m_incomeDesParm.m_desId=aodvrm.DesId;
+					(it->second).m_incomeDesParm.lastdir=aodvrm.dir;//记录上一跳的方向
+					(it->second).m_incomeDesParm.lastIP=aodvrm.Originator;
 				}
 
 			}
@@ -1594,7 +1613,7 @@ namespace ns3 {
 		}
 
 
-		void RoutingProtocol::Aodv_sendback()  //for des lc send back
+		void RoutingProtocol::Aodv_sendback(std::map<std::string,ss_pair>::iterator it)  //for des lc send back
 		{
 			std::cout<<"send back"<<std::endl;
 			sdn::MessageHeader msg;
@@ -1605,23 +1624,23 @@ namespace ns3 {
 			msg.SetMessageSequenceNumber (GetMessageSequenceNumber ());
 			sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = msg.GetAodv_R_Rm();
 
-			Aodv_r_rm.ID=m_incomeDesParm.m_sourceId; 
-			Aodv_r_rm.DesId=m_incomeDesParm.m_desId;
+			Aodv_r_rm.ID=(it->second).m_incomeDesParm.m_sourceId; 
+			Aodv_r_rm.DesId=(it->second).m_incomeDesParm.m_desId;
 
-			if(m_incomeDesParm.desdir==sdn::POSITIVE)
+			if((it->second).m_incomeDesParm.desdir==sdn::POSITIVE)
 				Aodv_r_rm.FirstCarId=transferAddress_possitive;
 			else    Aodv_r_rm.FirstCarId=transferAddress_negative;
 
 			Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 			Aodv_r_rm.routingMessageSize=32;//SDN_AODVRRM_HEADER_SIZE;
 			Aodv_r_rm.originator=m_CCHmainAddress;
-			Aodv_r_rm.next=m_incomeDesParm.lastIP;
-			Aodv_r_rm.next_dir=m_incomeDesParm.lastdir;
+			Aodv_r_rm.next=(it->second).m_incomeDesParm.lastIP;
+			Aodv_r_rm.next_dir=(it->second).m_incomeDesParm.lastdir;
 
 			QueueMessage (msg, JITTER);
 
-			SendRoutingMessage(m_incomeDesParm.desdir);
-			if(m_incomeDesParm.desdir==sdn::POSITIVE)
+			SendRoutingMessage((it->second).m_incomeDesParm.desdir);
+			if((it->second).m_incomeDesParm.desdir==sdn::POSITIVE)
 				m_isEstablish_positive=true;
 			else     m_isEstablish_negative=true;  
 
