@@ -674,33 +674,33 @@ namespace ns3 {
 	  str1=string1;
 	  str2=string2;
 	  str=str1+"_"+str2;
-          std::cout<<str<<std::endl;
+          //std::cout<<str<<std::endl;
 	  std::map<std::string,ss_pair>::iterator it=token.find(str);
 	  if(it==token.end())
 	  {
 	    ss_pair newpair;
 	    newpair.haveSource=true;
 	    newpair.m_sourceAddress=source;
-	    
+	    newpair.source_sink=str;
 	    token[str]=newpair;
-
+             it=token.find(str);
 	  }
 	  
 				
-				haveSource=true;
-				m_sourceAddress=source;
+				//haveSource=true;
+				//m_sourceAddress=source;
 
-				std::map<Ipv4Address, CarInfo>::iterator it1 = m_lc_positive_info.find (m_sourceAddress);
-				std::map<Ipv4Address, CarInfo>::iterator it2 = m_lc_negative_info.find (m_sourceAddress);
+				std::map<Ipv4Address, CarInfo>::iterator it1 = m_lc_positive_info.find (source);
+				std::map<Ipv4Address, CarInfo>::iterator it2 = m_lc_negative_info.find (source);
 				if(it1!=m_lc_positive_info.end()) m_lc_positive_info.erase(it1);
 				if(it2!=m_lc_negative_info.end()) m_lc_negative_info.erase(it2);
 
 
 				std::cout<<"handle request ,IP is "<<m_CCHmainAddress<<"source ip "<<source<<std::endl;
-				ComputeRoute();
-				if(!haveSource) std::cout<<"source not register"<<std::endl;
-				if(m_lc_info[m_sourceAddress].dir==sdn::POSITIVE&&!possive_valid) {std::cout<<"no valid source route"<<std::endl;return;}
-				else if(m_lc_info[m_sourceAddress].dir==sdn::NEGATIVE&&!negative_valid) {std::cout<<"no valid source route"<<std::endl;return;}
+				ComputeRoute();// to do
+				//if(!haveSource) std::cout<<"source not register"<<std::endl;
+				if(m_lc_info[(it->second).m_sourceAddress].dir==sdn::POSITIVE&&!possive_valid) {std::cout<<"no valid source route"<<std::endl;return;}
+				else if(m_lc_info[(it->second).m_sourceAddress].dir==sdn::NEGATIVE&&!negative_valid) {std::cout<<"no valid source route"<<std::endl;return;}
 				//std::cout<<"computeroute finish"<<std::endl;
 				sdn::MessageHeader mesg;
 				//std::cout<<"forwarding..."<<std::endl;
