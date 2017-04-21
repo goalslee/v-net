@@ -1558,8 +1558,8 @@ namespace ns3 {
 
                           std::string str,str1,str2;
                           char string1[20],string2[20];
-	                sprintf(string1,"%d",aodvrm.ID.Get());
-	                sprintf(string2,"%d",aodvrm.DesId.Get());
+	                sprintf(string1,"%d",Aodv_r.ID.Get());
+	                sprintf(string2,"%d",Aodv_r.DesId.Get());
 	                str1=string1;
 	                str2=string2;
 	                str=str1+"_"+str2;
