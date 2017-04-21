@@ -1542,6 +1542,7 @@ namespace ns3 {
 					(it->second).m_incomeDesParm.lastIP=aodvrm.Originator;
 					Aodv_sendback(it);
 				}
+				(it->second).isDes=false;
 
 			}
 
@@ -1658,7 +1659,7 @@ namespace ns3 {
 				(it->second).m_isEstablish_positive=true;
 			else     (it->second).m_isEstablish_negative=true;  
 
-			(it->second).isDes=false;
+			
 
 		}
 
