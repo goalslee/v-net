@@ -229,6 +229,8 @@ bool haveSink=false;
   AodvParm m_incomeParm_negative{1000,1000};
   AodvDesParm m_incomeDesParm{1000,1000,sdn::OTHER,true};
   uint32_t m_tag;
+  bool m_isEstablish_negative=false;
+  bool m_isEstablish_positive=false;
 }ss_pair;
 
 std::map<std::string,ss_pair> token; 

@@ -1556,6 +1556,19 @@ namespace ns3 {
 			if(Aodv_r.next==m_CCHmainAddress){
 				std::cout<<"ProcessAodvRERm  i am "<<m_CCHmainAddress;		
 
+                          std::string str,str1,str2;
+                          char string1[20],string2[20];
+	                sprintf(string1,"%d",aodvrm.ID.Get());
+	                sprintf(string2,"%d",aodvrm.DesId.Get());
+	                str1=string1;
+	                str2=string2;
+	                str=str1+"_"+str2;
+	                std::map<std::string,ss_pair>::iterator it=token.find(str);            
+                         if(it==token.end()) {
+                            std::cout<<"Rm no source_sink"<<std::endl;
+                            return;
+                            }
+                      
 				sdn::MessageHeader mesg;
 				mesg.SetMessageType(sdn::MessageHeader::AODV_REVERSE_MESSAGE);
 				Time now = Simulator::Now ();
@@ -1565,19 +1578,19 @@ namespace ns3 {
 				sdn::MessageHeader::Aodv_R_Rm &Aodv_r_rm = mesg.GetAodv_R_Rm();
 
 				if(Aodv_r.next_dir==sdn::POSITIVE){	  
-					m_isEstablish_positive=true;
-					m_incomeParm_possitive.nextIP=Aodv_r.originator;
-					m_incomeParm_possitive.transfer=Aodv_r.FirstCarId;
+					(it->second).m_isEstablish_positive=true;
+					(it->second).m_incomeParm_possitive.nextIP=Aodv_r.originator;
+					(it->second).m_incomeParm_possitive.transfer=Aodv_r.FirstCarId;
 					if(m_lc_info.find(Aodv_r.ID)==m_lc_info.end())
 					{
-						Aodv_r_rm.ID=m_incomeParm_possitive.m_sourceId; //多个流时需判断
-						Aodv_r_rm.DesId=m_incomeParm_possitive.m_desId;
+						Aodv_r_rm.ID=(it->second).m_incomeParm_possitive.m_sourceId; //多个流时需判断
+						Aodv_r_rm.DesId=(it->second).m_incomeParm_possitive.m_desId;
 						Aodv_r_rm.FirstCarId=transferAddress_possitive;
 						Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 						Aodv_r_rm.routingMessageSize=28;
 						Aodv_r_rm.originator=m_CCHmainAddress;
-						Aodv_r_rm.next=m_incomeParm_possitive.lastIP;
-						Aodv_r_rm.next_dir=m_incomeParm_possitive.lastdir;
+						Aodv_r_rm.next=(it->second).m_incomeParm_possitive.lastIP;
+						Aodv_r_rm.next_dir=(it->second).m_incomeParm_possitive.lastdir;
 						std::cout<<" send to "<<Aodv_r_rm.next<<std::endl;
 						QueueMessage (mesg, JITTER);
 						//ProcessCRREP(Aodv_r.FirstCarId,sdn::POSITIVE);
@@ -1587,19 +1600,19 @@ namespace ns3 {
 
 				}
 				else{
-					m_isEstablish_negative=true;
-					m_incomeParm_negative.nextIP=Aodv_r.originator;
-					m_incomeParm_negative.transfer=Aodv_r.FirstCarId;
+					(it->second).m_isEstablish_negative=true;
+					(it->second).m_incomeParm_negative.nextIP=Aodv_r.originator;
+					(it->second).m_incomeParm_negative.transfer=Aodv_r.FirstCarId;
 					if(m_lc_info.find(Aodv_r.ID)==m_lc_info.end())
 					{
-						Aodv_r_rm.ID=m_incomeParm_negative.m_sourceId; //多个流时需判断
-						Aodv_r_rm.DesId=m_incomeParm_negative.m_desId;
+						Aodv_r_rm.ID=(it->second).m_incomeParm_negative.m_sourceId; //多个流时需判断
+						Aodv_r_rm.DesId=(it->second).m_incomeParm_negative.m_desId;
 						Aodv_r_rm.FirstCarId=transferAddress_negative;
 						Aodv_r_rm.mask=m_ipv4->GetAddress(0, 0).GetMask();
 						Aodv_r_rm.routingMessageSize=28;
 						Aodv_r_rm.originator=m_CCHmainAddress;
-						Aodv_r_rm.next=m_incomeParm_negative.lastIP;
-						Aodv_r_rm.next_dir=m_incomeParm_negative.lastdir;
+						Aodv_r_rm.next=(it->second).m_incomeParm_negative.lastIP;
+						Aodv_r_rm.next_dir=(it->second).m_incomeParm_negative.lastdir;
 						std::cout<<" send to "<<Aodv_r_rm.next<<std::endl;
 						QueueMessage (mesg, JITTER);
 
@@ -1641,8 +1654,8 @@ namespace ns3 {
 
 			SendRoutingMessage((it->second).m_incomeDesParm.desdir);
 			if((it->second).m_incomeDesParm.desdir==sdn::POSITIVE)
-				m_isEstablish_positive=true;
-			else     m_isEstablish_negative=true;  
+				(it->second).m_isEstablish_positive=true;
+			else     (it->second).m_isEstablish_negative=true;  
 
 			(it->second).isDes=false;
 
