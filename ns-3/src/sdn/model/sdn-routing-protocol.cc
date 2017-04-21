@@ -1368,7 +1368,7 @@ namespace ns3 {
 
 			}
 			if(abs(x-x_0)<0.00001) return;//not the neighbor
-			std::cout<<"ProcessAodvRm..."<<m_CCHmainAddress;
+			std::cout<<"ProcessAodvRm..."<<m_CCHmainAddress<<std::endl;
 
 			if(x<x_0&&y>y_0&&in==sdn::NEGATIVE) out=sdn::POSITIVE;
 			else if(x>x_0&&y>y_0&&in==sdn::NEGATIVE) out=sdn::NEGATIVE;
@@ -1556,7 +1556,7 @@ namespace ns3 {
 			//std::map<Ipv4Address,Ipv4Address,> lc_Rtable;
 			const sdn::MessageHeader::Aodv_R_Rm &Aodv_r = msg.GetAodv_R_Rm();
 			if(Aodv_r.next==m_CCHmainAddress){
-				std::cout<<"ProcessAodvRERm  i am "<<m_CCHmainAddress;		
+				std::cout<<"ProcessAodvRERm  i am "<<m_CCHmainAddress<<std::endl;		
 
                           std::string str,str1,str2;
                           char string1[20],string2[20];
