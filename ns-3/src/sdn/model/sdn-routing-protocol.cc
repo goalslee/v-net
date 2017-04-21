@@ -1435,7 +1435,7 @@ namespace ns3 {
 						Time t = Seconds (0.25);
 						m_aodvTimer.SetDelay(t);
 						m_aodvTimer.Schedule ();*/
-						Aodv_sendback(it);
+					
 					}
 					else{
 						std::cout<<"sink no valid"<<std::endl;
@@ -1540,6 +1540,7 @@ namespace ns3 {
 					(it->second).m_incomeDesParm.m_desId=aodvrm.DesId;
 					(it->second).m_incomeDesParm.lastdir=aodvrm.dir;//记录上一跳的方向
 					(it->second).m_incomeDesParm.lastIP=aodvrm.Originator;
+					Aodv_sendback(it);
 				}
 
 			}
