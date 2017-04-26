@@ -1811,7 +1811,7 @@ namespace ns3 {
 			if(m_isEstablish_positive&&possive_valid){
 				if(!haveSink) ProcessCRREP(m_incomeParm_possitive.transfer, sdn::POSITIVE);
 				else SendRoutingMessage(sdn::POSITIVE);
-				if(transferAddress_possitive!=tempID){
+				if(transferAddress_possitive!=tempID_p){
 					
 					SendMT(sdn::POSITIVE,0);
 				}
@@ -1819,7 +1819,7 @@ namespace ns3 {
 			else if(m_isEstablish_negative&&negative_valid){
 				if(!haveSink) ProcessCRREP(m_incomeParm_negative.transfer, sdn::NEGATIVE);
 				else SendRoutingMessage(sdn::NEGATIVE);
-				if(transferAddress_negative!=tempID){
+				if(transferAddress_negative!=tempID_n){
 					
 					SendMT(sdn::NEGATIVE,0);
 				}     
