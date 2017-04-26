@@ -1801,9 +1801,10 @@ namespace ns3 {
 		{
 
 			RemoveTimeOut (); //Remove Stale Tuple
-			Ipv4Address tempID;
-			if(m_isEstablish_positive) tempID=transferAddress_possitive;
-			else if(m_isEstablish_negative) tempID=transferAddress_negative;
+			Ipv4Address tempID_p=transferAddress_possitive;;
+			Ipv4Address tempID_n=transferAddress_negative;;
+			//if(m_isEstablish_positive) tempID=transferAddress_possitive;
+			//else if(m_isEstablish_negative) tempID=transferAddress_negative;
 			compute_possive();
 			compute_negative();
 			
