@@ -1828,7 +1828,7 @@ namespace ns3 {
 				SendRoutingMessage(sdn::POSITIVE);
 				if(transferAddress_possitive!=tempID_p){
 					
-					SendMT(sdn::POSITIVE,0);
+					//SendMT(sdn::POSITIVE,0);
 				}
 			}
                           else
@@ -1855,7 +1855,7 @@ namespace ns3 {
 			       SendRoutingMessage(sdn::NEGATIVE);
 				if(transferAddress_negative!=tempID_n){
 					
-					SendMT(sdn::NEGATIVE,0);
+					//SendMT(sdn::NEGATIVE,0);
 				}     
 			}
 
