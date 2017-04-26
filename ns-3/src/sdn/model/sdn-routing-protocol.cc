@@ -1967,10 +1967,10 @@ namespace ns3 {
 			m_selfParm_possitive.stability=sd/mean;
 
                       std::map<std::string,ss_pair>::iterator it_token;
-                      for(it=token.begin();it!=token.end();++it){
+                      for(it_token=token.begin();it_token!=token.end();++it_token){
                            
 
-			if((it->second).haveSource)
+			if((it_token->second).haveSource)
 			{
 				if(m_lc_info[(it_token->second).m_sourceAddress].dir==sdn::POSITIVE)
 				{
