@@ -802,7 +802,7 @@ namespace ns3 {
 
 			}
 
-			SendRoutingMessage(dir);
+			//SendRoutingMessage(dir);
 		}
 
 		void
@@ -1697,6 +1697,13 @@ namespace ns3 {
 			RoutingProtocol::SendMT(enum direction dir,uint32_t n)//0 maintain,1 rechose ,dir is 本路方向
 		{
 			std::cout<<m_CCHmainAddress<<" sendMT"<<std::endl;
+
+                      if(n==0){
+
+ 			 std::map<std::string,ss_pair>::iterator it_token;
+                            for(it_token=token.begin();it_token!=token.end();++it_token){
+                              if( ((it_token->second).m_isEstablish_positive&&dir==POSITIVE)||((it_token->second).m_isEstablish_negative&&dir==NEGATIVE)){
+			
 			sdn::MessageHeader msg;
 			msg.SetMessageType(sdn::MessageHeader::MAINTAINMENT_MESSAGE);
 			Time now = Simulator::Now ();
@@ -1706,19 +1713,19 @@ namespace ns3 {
 			sdn::MessageHeader::Maintainment&mt = msg.GetMaintainment();
 
 			mt.rORm=n; 
-			if(!haveSink){
-				mt.sourceID=dir==sdn::POSITIVE?m_incomeParm_possitive.m_sourceId:m_incomeParm_negative.m_sourceId;
-				mt.sinkID=dir==sdn::POSITIVE?m_incomeParm_possitive.m_desId:m_incomeParm_negative.m_desId;
+			if(!(it_token->second).haveSink){
+				mt.sourceID=dir==sdn::POSITIVE?(it_token->second).m_incomeParm_possitive.m_sourceId:(it_token->second).m_incomeParm_negative.m_sourceId;
+				mt.sinkID=dir==sdn::POSITIVE?(it_token->second).m_incomeParm_possitive.m_desId:(it_token->second).m_incomeParm_negative.m_desId;
 				//mt.transferID=dir==sdn::POSITIVE?transferAddress_possitive:transferAddress_negative;
-				mt.dir=dir==sdn::POSITIVE?m_incomeParm_possitive.lastdir:m_incomeParm_negative.lastdir;
-				mt.desID=dir==sdn::POSITIVE?m_incomeParm_possitive.lastIP:m_incomeParm_negative.lastIP;
+				mt.dir=dir==sdn::POSITIVE?(it_token->second).m_incomeParm_possitive.lastdir:(it_token->second).m_incomeParm_negative.lastdir;
+				mt.desID=dir==sdn::POSITIVE?(it_token->second).m_incomeParm_possitive.lastIP:(it_token->second).m_incomeParm_negative.lastIP;
 			}
 			else{
-				mt.sourceID=m_incomeDesParm.m_sourceId;
-				mt.sinkID=m_incomeDesParm.m_desId;
+				mt.sourceID=(it_token->second).m_incomeDesParm.m_sourceId;
+				mt.sinkID=(it_token->second).m_incomeDesParm.m_desId;
 				//mt.transferID=dir==sdn::POSITIVE?transferAddress_possitive:transferAddress_negative;
-				mt.dir=m_incomeDesParm.lastdir;
-				mt.desID=m_incomeDesParm.lastIP;
+				mt.dir=(it_token->second).m_incomeDesParm.lastdir;
+				mt.desID=(it_token->second).m_incomeDesParm.lastIP;
 			}
 			if(n==0){
 				mt.transferID=dir==sdn::POSITIVE?transferAddress_possitive:transferAddress_negative;
@@ -1727,6 +1734,9 @@ namespace ns3 {
 			mt.originator=m_CCHmainAddress;
 
 			QueueMessage (msg, JITTER);
+			}
+			}
+			}//if(n==0)
 		}
 
 		void
@@ -1808,31 +1818,66 @@ namespace ns3 {
 			compute_possive();
 			compute_negative();
 			
-			if(m_isEstablish_positive&&possive_valid){
-				if(!haveSink) ProcessCRREP(m_incomeParm_possitive.transfer, sdn::POSITIVE);
-				else SendRoutingMessage(sdn::POSITIVE);
+			if(possive_valid){
+			                  std::map<std::string,ss_pair>::iterator it_token;
+                                             for(it_token=token.begin();it_token!=token.end();++it_token)
+                                             {
+                                                     if((it_token->second).m_isEstablish_positive&&!(it_token->second).haveSink) ProcessCRREP((it_token->second).m_incomeParm_possitive.transfer, sdn::POSITIVE);       
+                                             }
+				//if(!haveSink) ProcessCRREP(m_incomeParm_possitive.transfer, sdn::POSITIVE);
+				SendRoutingMessage(sdn::POSITIVE);
 				if(transferAddress_possitive!=tempID_p){
 					
 					SendMT(sdn::POSITIVE,0);
 				}
 			}
-			else if(m_isEstablish_negative&&negative_valid){
-				if(!haveSink) ProcessCRREP(m_incomeParm_negative.transfer, sdn::NEGATIVE);
-				else SendRoutingMessage(sdn::NEGATIVE);
+                          else
+                          {
+ 			                  std::map<std::string,ss_pair>::iterator it_token;
+                                             for(it_token=token.begin();it_token!=token.end();++it_token)
+                                             {
+                                                     if((it_token->second).m_isEstablish_positive) 
+                                                     {
+                                                        (it_token->second).m_isEstablish_positive=false;
+                                                        //todo sendmt
+                                                     }   
+                                             }                           
+                          }
+			
+			if(negative_valid){
+
+				std::map<std::string,ss_pair>::iterator it_token;
+                                    for(it_token=token.begin();it_token!=token.end();++it_token)
+                                    {
+                                        if((it_token->second).m_isEstablish_negative&&!(it_token->second).haveSink) ProcessCRREP((it_token->second).m_incomeParm_negative.transfer, sdn::NEGATIVE);
+                                    }
+				
+			       SendRoutingMessage(sdn::NEGATIVE);
 				if(transferAddress_negative!=tempID_n){
 					
 					SendMT(sdn::NEGATIVE,0);
 				}     
 			}
+
+			/*
 			else if(m_isEstablish_positive&&!possive_valid){
 				std::cout<<m_CCHmainAddress<<" not valid"<<std::endl;
 				m_isEstablish_positive=false;
 				SendMT(sdn::POSITIVE,1);
 			}
-			else if(m_isEstablish_negative&&!negative_valid){
-				std::cout<<m_CCHmainAddress<<" not valid"<<std::endl;
-				m_isEstablish_negative=false;   
-				SendMT(sdn::NEGATIVE,1);
+			*/
+			else
+			{ 
+				        std::map<std::string,ss_pair>::iterator it_token;
+                                             for(it_token=token.begin();it_token!=token.end();++it_token)
+                                             {
+                                                     if((it_token->second).m_isEstablish_negative) 
+                                                     {
+                                                        (it_token->second).m_isEstablish_negative=false;
+                                                        //todo sendmt
+                                                     }   
+                                             }   
+				//SendMT(sdn::NEGATIVE,1);
 			}
 
 		}//RoutingProtocol::ComputeRoute
@@ -2141,7 +2186,7 @@ namespace ns3 {
 			Ipv4Address mask("255.255.0.0");
 			double mean=0;
 			double sd=0;
-
+/*
 			if(m_isEstablish_negative){
 				std::cout<<"lc "<<m_CCHmainAddress<<"  ";
 				for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
@@ -2152,6 +2197,7 @@ namespace ns3 {
 				if(haveSource&&m_lc_info.find(m_sourceAddress)!=m_lc_info.end())  std::cout<<"  have source";
 				std::cout<<std::endl;
 			}
+*/
 			
 			for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
 			{
@@ -2170,19 +2216,20 @@ namespace ns3 {
 			sd=sqrt(sd);//求速度的标准差
 			m_selfParm_negative.stability=sd/(-1*mean);
 
+                      std::map<std::string,ss_pair>::iterator it_token;
+                      for(it_token=token.begin();it_token!=token.end();++it_token){
 
-
-			if(haveSource)
+			if((it_token->second).haveSource)
 			{
-				if(m_lc_info[m_sourceAddress].dir==sdn::NEGATIVE)
+				if(m_lc_info[(it_token->second).m_sourceAddress].dir==sdn::NEGATIVE)
 				{
 					if(m_roadtype==sdn::ROW)
 					{
-						int distance=m_mobility->GetPosition().x+m_road_length/2-m_lc_info[m_sourceAddress].Position.x;
+						int distance=m_mobility->GetPosition().x+m_road_length/2-m_lc_info[(it_token->second).m_sourceAddress].Position.x;
 						for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
 						{
 							if(it->first>distance){
-								LCAddEntry (m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
+								LCAddEntry ((it_token->second).m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
 								break;
 							}
 
@@ -2190,11 +2237,11 @@ namespace ns3 {
 
 					}
 					else{
-						int distance=m_mobility->GetPosition().y+m_road_length/2-m_lc_info[m_sourceAddress].Position.y;
+						int distance=m_mobility->GetPosition().y+m_road_length/2-m_lc_info[(it_token->second).m_sourceAddress].Position.y;
 						for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
 						{
 							if(it->first>distance){
-								LCAddEntry (m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
+								LCAddEntry ((it_token->second).m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
 								break;
 							}
 
@@ -2202,13 +2249,13 @@ namespace ns3 {
 					}
 				}
 			}
-			if(haveSink)
+			if((it_token->second).haveSink)
 			{
-				if(m_lc_info[m_sinkAddress].dir==sdn::NEGATIVE)
+				if(m_lc_info[(it_token->second).m_sinkAddress].dir==sdn::NEGATIVE)
 				{
 					if(m_roadtype==sdn::ROW)
 					{
-						int distance=m_mobility->GetPosition().x+m_road_length/2-m_lc_info[m_sinkAddress].Position.x;
+						int distance=m_mobility->GetPosition().x+m_road_length/2-m_lc_info[(it_token->second).m_sinkAddress].Position.x;
 						Ipv4Address temp;
 						for(std::vector<std::pair<double,Ipv4Address>>::reverse_iterator it = chose.rbegin();it!=chose.rend();++it)
 						{
@@ -2224,8 +2271,8 @@ namespace ns3 {
 						{
 							if(it->first<distance){
 								//std::cout<<"sink add"<<std::endl;
-								if(it->second==temp) LCAddEntry (it->second,m_sinkAddress,mask,m_sinkAddress);
-								else LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
+								if(it->second==temp) LCAddEntry (it->second,(it_token->second).m_sinkAddress,mask,(it_token->second).m_sinkAddress);
+								else LCAddEntry (it->second,(it_token->second).m_sinkAddress,mask,(it+1)->second);
 
 							}
 							else break;
@@ -2234,7 +2281,7 @@ namespace ns3 {
 
 					}
 					else{
-						int distance=m_mobility->GetPosition().y+m_road_length/2-m_lc_info[m_sinkAddress].Position.y;
+						int distance=m_mobility->GetPosition().y+m_road_length/2-m_lc_info[(it_token->second).m_sinkAddress].Position.y;
 						Ipv4Address temp;
 						for(std::vector<std::pair<double,Ipv4Address>>::reverse_iterator it = chose.rbegin();it!=chose.rend();++it)
 						{
@@ -2250,8 +2297,8 @@ namespace ns3 {
 						{
 							if(it->first<distance){
 								//std::cout<<"sink add"<<std::endl;
-								if(it->second==temp) LCAddEntry (it->second,m_sinkAddress,mask,m_sinkAddress);
-								else LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
+								if(it->second==temp) LCAddEntry (it->second,(it_token->second).m_sinkAddress,mask,(it_token->second).m_sinkAddress);
+								else LCAddEntry (it->second,(it_token->second).m_sinkAddress,mask,(it+1)->second);
 
 							}
 							else break;
@@ -2260,7 +2307,7 @@ namespace ns3 {
 					}            
 				}        
 			}
-
+                    }
 
 		}
 
