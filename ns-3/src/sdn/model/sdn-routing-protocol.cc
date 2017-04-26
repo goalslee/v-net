@@ -1934,6 +1934,7 @@ namespace ns3 {
 			Ipv4Address mask("255.255.0.0");
 			double mean=0;
 			double sd=0;
+			/*
 			if(m_isEstablish_positive){
 				std::cout<<"lc "<<m_CCHmainAddress<<"  ";
 				for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
@@ -1945,6 +1946,7 @@ namespace ns3 {
 				
 				std::cout<<std::endl;
 			}
+			*/
 
 
 			for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
@@ -1964,18 +1966,21 @@ namespace ns3 {
 			sd=sqrt(sd);//求速度的标准差
 			m_selfParm_possitive.stability=sd/mean;
 
+                      std::map<std::string,ss_pair>::iterator it_token;
+                      for(it=token.begin();it!=token.end();++it){
+                           
 
-			if(haveSource)
+			if((it->second).haveSource)
 			{
-				if(m_lc_info[m_sourceAddress].dir==sdn::POSITIVE)
+				if(m_lc_info[(it_token->second).m_sourceAddress].dir==sdn::POSITIVE)
 				{
 					if(m_roadtype==sdn::ROW)
 					{
-						int distance=m_lc_info[m_sourceAddress].Position.x-(m_mobility->GetPosition().x-m_road_length/2);
+						int distance=m_lc_info[(it_token->second).m_sourceAddress].Position.x-(m_mobility->GetPosition().x-m_road_length/2);
 						for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
 						{
 							if(it->first>distance&&(it->first-distance<m_signal_range)){
-								LCAddEntry (m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
+								LCAddEntry ((it_token->second).m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
 								break;
 							}
 
@@ -1983,25 +1988,25 @@ namespace ns3 {
 
 					}
 					else{
-						int distance=m_lc_info[m_sourceAddress].Position.y-(m_mobility->GetPosition().y-m_road_length/2);
+						int distance=m_lc_info[(it_token->second).m_sourceAddress].Position.y-(m_mobility->GetPosition().y-m_road_length/2);
 						for(std::vector<std::pair<double,Ipv4Address>>::iterator it = chose.begin();it!=chose.end();++it)
 						{
 							if(it->first>distance&&(it->first-distance<m_signal_range)){
-								LCAddEntry (m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
+								LCAddEntry ((it_token->second).m_sourceAddress,chose.rbegin()->second, mask, (it)->second);
 								break;
 							}
 
 						}
 					}
 				}
-			}
-			if(haveSink)
+			}//if(havesource)
+			if((it_token->second).haveSink)
 			{
-				if(m_lc_info[m_sinkAddress].dir==sdn::POSITIVE)
+				if(m_lc_info[(it_token->second).m_sinkAddress].dir==sdn::POSITIVE)
 				{
 					if(m_roadtype==sdn::ROW)
 					{
-						int distance=m_lc_info[m_sinkAddress].Position.x-(m_mobility->GetPosition().x-m_road_length/2);
+						int distance=m_lc_info[(it_token->second).m_sinkAddress].Position.x-(m_mobility->GetPosition().x-m_road_length/2);
 						Ipv4Address temp;
 						for(std::vector<std::pair<double,Ipv4Address>>::reverse_iterator it = chose.rbegin();it!=chose.rend();++it)
 						{
@@ -2016,8 +2021,8 @@ namespace ns3 {
 						{
 							if(it->first<distance){
 								//std::cout<<"sink add"<<std::endl;
-								if(it->second==temp) LCAddEntry (it->second,m_sinkAddress,mask,m_sinkAddress);
-								else LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
+								if(it->second==temp) LCAddEntry (it->second,(it_token->second).m_sinkAddress,mask,(it_token->second).m_sinkAddress);
+								else LCAddEntry (it->second,(it_token->second).m_sinkAddress,mask,(it+1)->second);
 
 							}
 							else break;
@@ -2026,7 +2031,7 @@ namespace ns3 {
 
 					}
 					else{
-						int distance=m_lc_info[m_sinkAddress].Position.y-(m_mobility->GetPosition().y-m_road_length/2);
+						int distance=m_lc_info[(it_token->second).m_sinkAddress].Position.y-(m_mobility->GetPosition().y-m_road_length/2);
 
 
 						Ipv4Address temp;
@@ -2044,8 +2049,8 @@ namespace ns3 {
 						{
 							if(it->first<distance){
 								//std::cout<<"sink add"<<std::endl;
-								if(it->second==temp) LCAddEntry (it->second,m_sinkAddress,mask,m_sinkAddress);
-								else LCAddEntry (it->second,m_sinkAddress,mask,(it+1)->second);
+								if(it->second==temp) LCAddEntry (it->second,(it_token->second).m_sinkAddress,mask,(it_token->second).m_sinkAddress);
+								else LCAddEntry (it->second,(it_token->second).m_sinkAddress,mask,(it+1)->second);
 
 							}
 							else break;
@@ -2053,7 +2058,9 @@ namespace ns3 {
 						}
 					}            
 				}        
+			}//if(havesink)
 			}
+			
 
 		}
 
