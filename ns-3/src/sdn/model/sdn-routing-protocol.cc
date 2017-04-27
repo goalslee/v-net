@@ -1598,7 +1598,8 @@ namespace ns3 {
 						//ProcessCRREP(Aodv_r.FirstCarId,sdn::POSITIVE);
 					}
 					else std::cout<<"finish"<<std::endl;
-					ProcessCRREP(Aodv_r.FirstCarId,sdn::POSITIVE);//todo
+					ProcessCRREP(Aodv_r.FirstCarId,sdn::POSITIVE);
+					SendRoutingMessage(sdn::POSITIVE);
 
 				}
 				else{
@@ -1620,7 +1621,8 @@ namespace ns3 {
 
 					}
 					else std::cout<<"finish"<<std::endl;
-					ProcessCRREP(Aodv_r.FirstCarId,sdn::NEGATIVE);//todo
+					ProcessCRREP(Aodv_r.FirstCarId,sdn::NEGATIVE);
+					SendRoutingMessage(sdn::NEGATIVE);
 
 				}
 			}
