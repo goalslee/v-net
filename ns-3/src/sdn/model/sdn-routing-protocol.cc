@@ -665,7 +665,7 @@ namespace ns3 {
 			//add long road lc select
 			if(m_lc_info.find(dest)==m_lc_info.end()){//forward to another LC ,connect to AODV routing
 				
-				//if(m_firstRequest++>1) return;
+				if(m_firstRequest++>1) return;
 
 	std::string str,str1,str2;
          char string1[20],string2[20];
