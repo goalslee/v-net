@@ -1871,7 +1871,7 @@ namespace ns3 {
 				std::map<std::string,ss_pair>::iterator it_token;
                                     for(it_token=token.begin();it_token!=token.end();++it_token)
                                     {
-                                        if((it_token->second).m_isEstablish_negative&&!(it_token->second).haveSink) ProcessCRREP((it_token->second).m_incomeParm_negative.transfer, sdn::NEGATIVE);
+                                        if((it_token->second).m_isEstablish_negative&&!(it_token->second).haveSink) ProcessCRREP(it_token,(it_token->second).m_incomeParm_negative.transfer, sdn::NEGATIVE);
                                     }
 				
 			       SendRoutingMessage(sdn::NEGATIVE);
