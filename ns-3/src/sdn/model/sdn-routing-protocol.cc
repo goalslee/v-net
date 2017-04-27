@@ -678,7 +678,7 @@ namespace ns3 {
 			Ipv4Address dest =  crreq.destAddress;
 			Ipv4Address source = crreq.sourceAddress;//the car's sch ip address
 
-
+                           std::cout<<dest<<std::endl;
 			if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 			//std::cout<<"the wrong lc get the packet."<<std::endl;
 
