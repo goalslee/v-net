@@ -366,7 +366,7 @@ std::map<std::string,ss_pair> token;
   void ProcessRm (const sdn::MessageHeader &msg);//implemented
   void ProcessHM (const sdn::MessageHeader &msg,const Ipv4Address &senderIface); //implemented
   void ProcessCRREQ (const sdn::MessageHeader &msg);
-  void ProcessCRREP (Ipv4Address transfer,enum direction dir);
+  void ProcessCRREP (std::map<std::string,ss_pair>::iterator itor,Ipv4Address transfer,enum direction dir);
   void ProcessAodvRm(const sdn::MessageHeader &msg);
   void ProcessAodvRERm(const sdn::MessageHeader &msg);
   void ProcessMT(const sdn::MessageHeader &msg);

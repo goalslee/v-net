@@ -678,7 +678,7 @@ namespace ns3 {
 			Ipv4Address dest =  crreq.destAddress;
 			Ipv4Address source = crreq.sourceAddress;//the car's sch ip address
 
-                           std::cout<<dest<<std::endl;
+
 			if(m_lc_info.find(source)==m_lc_info.end()) return;//the wrong lc get the packet
 			//std::cout<<"the wrong lc get the packet."<<std::endl;
 
@@ -766,7 +766,7 @@ namespace ns3 {
 		}
 
 		void
-			RoutingProtocol::ProcessCRREP (Ipv4Address transfer,enum direction dir)
+			RoutingProtocol::ProcessCRREP (std::map<std::string,ss_pair>::iterator itor,Ipv4Address transfer,enum direction dir)
 		{
 
 
@@ -788,11 +788,11 @@ namespace ns3 {
 							//{
 							if(cit->first!=roadendAddress_possitive){
 
-								LCAddEntry(cit->first,m_incomeParm_possitive.m_desId,it->mask,it->nextHop);
+								LCAddEntry(cit->first,itor->second.m_incomeParm_possitive.m_desId,it->mask,it->nextHop);
 
 							}
 							else{
-								LCAddEntry(cit->first,m_incomeParm_possitive.m_desId,it->mask,transfer);
+								LCAddEntry(cit->first,itor->second.m_incomeParm_possitive.m_desId,it->mask,transfer);
 							}
 							// }
 						}
@@ -809,11 +809,11 @@ namespace ns3 {
 							// {
 							if(cit->first!=roadendAddress_negative){
 
-								LCAddEntry(cit->first,m_incomeParm_negative.m_desId,it->mask,it->nextHop);
+								LCAddEntry(cit->first,itor->second.m_incomeParm_negative.m_desId,it->mask,it->nextHop);
 
 							}
 							else{
-								LCAddEntry(cit->first,m_incomeParm_negative.m_desId,it->mask,transfer);
+								LCAddEntry(cit->first,itor->second.m_incomeParm_negative.m_desId,it->mask,transfer);
 							}
 							//}
 						}	  
@@ -1618,7 +1618,7 @@ namespace ns3 {
 						//ProcessCRREP(Aodv_r.FirstCarId,sdn::POSITIVE);
 					}
 					else std::cout<<"finish"<<std::endl;
-					ProcessCRREP(Aodv_r.FirstCarId,sdn::POSITIVE);
+					ProcessCRREP(it,Aodv_r.FirstCarId,sdn::POSITIVE);
 					SendRoutingMessage(sdn::POSITIVE);
 
 				}
@@ -1641,7 +1641,7 @@ namespace ns3 {
 
 					}
 					else std::cout<<"finish"<<std::endl;
-					ProcessCRREP(Aodv_r.FirstCarId,sdn::NEGATIVE);
+					ProcessCRREP(it,Aodv_r.FirstCarId,sdn::NEGATIVE);
 					SendRoutingMessage(sdn::NEGATIVE);
 
 				}
@@ -1844,7 +1844,7 @@ namespace ns3 {
 			                  std::map<std::string,ss_pair>::iterator it_token;
                                              for(it_token=token.begin();it_token!=token.end();++it_token)
                                              {
-                                                     if((it_token->second).m_isEstablish_positive&&!(it_token->second).haveSink) ProcessCRREP((it_token->second).m_incomeParm_possitive.transfer, sdn::POSITIVE);       
+                                                     if((it_token->second).m_isEstablish_positive&&!(it_token->second).haveSink) ProcessCRREP(it_token,(it_token->second).m_incomeParm_possitive.transfer, sdn::POSITIVE);       
                                              }
 				//if(!haveSink) ProcessCRREP(m_incomeParm_possitive.transfer, sdn::POSITIVE);
 				SendRoutingMessage(sdn::POSITIVE);
