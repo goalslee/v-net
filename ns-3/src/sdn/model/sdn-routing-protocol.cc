@@ -582,6 +582,25 @@ namespace ns3 {
 				else m_lc_negative_info[ID]=CI_temp;
 			}
 
+			std::map<std::string,ss_pair>::iterator it_token;
+                           for(it_token=token.begin();it_token!=token.end();++it_token)
+                           {
+                             if(it_token->second.haveSource&&it_token->second.m_sourceAddress==ID)
+                                {
+                                   	std::map<Ipv4Address, CarInfo>::iterator it = m_lc_positive_info.find (ID);
+				if(it!=m_lc_positive_info.end()) m_lc_positive_info.erase(it);
+				it = m_lc_negative_info.find (ID);
+				if(it!=m_lc_negative_info.end()) m_lc_negative_info.erase(it); 
+                                }
+                               if(it_token->second.haveSink&&it_token->second.m_sinkAddress==ID) 
+                               {
+                                	std::map<Ipv4Address, CarInfo>::iterator it = m_lc_positive_info.find (ID);
+				if(it!=m_lc_positive_info.end()) m_lc_positive_info.erase(it);
+				it = m_lc_negative_info.find (ID);
+				if(it!=m_lc_negative_info.end()) m_lc_negative_info.erase(it);
+                               }
+                           }
+/*
 			if(haveSource&&m_sourceAddress==ID)
 			{
 				std::map<Ipv4Address, CarInfo>::iterator it = m_lc_positive_info.find (ID);
@@ -598,6 +617,7 @@ namespace ns3 {
 				if(it!=m_lc_negative_info.end()) m_lc_negative_info.erase(it);
 
 			}
+			*/
 
 			//std::cout<<"ip "<<m_CCHmainAddress;
 			//std::cout<<" m_lc_positive_info "<<m_lc_positive_info.size()<<" m_lc_negative_info"<<m_lc_negative_info.size()<<std::endl;
