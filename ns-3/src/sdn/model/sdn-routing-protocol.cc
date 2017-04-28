@@ -1766,11 +1766,13 @@ namespace ns3 {
 		{
 
 			const sdn::MessageHeader::Maintainment&mt = msg.GetMaintainment();
-			if(mt.desID!=m_CCHmainAddress||(mt.dir==sdn::POSITIVE&&!m_isEstablish_positive)||(mt.dir==sdn::NEGATIVE&&!m_isEstablish_negative)) return;
+			if(mt.desID!=m_CCHmainAddress) return;
+
+			||(mt.dir==sdn::POSITIVE&&!m_isEstablish_positive)||(mt.dir==sdn::NEGATIVE&&!m_isEstablish_negative)
 
 			std::cout<<m_CCHmainAddress<<" handleMT"<<std::endl;
 			if(mt.rORm==0){
-			         int same=false;
+			
                                     if(mt.dir==sdn::POSITIVE){
                                           if(roadendAddress_possitive==mt.transferID){
                                                 std::map<Ipv4Address,CarInfo>::iterator it=m_lc_info.find(mt.transferID);
@@ -1787,12 +1789,21 @@ namespace ns3 {
                                                  if(iter!=m_lc_negative_info.end()) m_lc_negative_info.erase(iter);                                           
                                           }
                                     }
+
+
+		                  std::map<std::string,ss_pair>::iterator it_token;
+                                    for(it_token=token.begin();it_token!=token.end();++it_token)
+                                    {
+                                        if(mt.dir==sdn::POSITIVE && it_token->second.m_isEstablish_positive) it_token->second.m_incomeParm_possitive.transfer=mt.transferID;
+                                        else if(mt.dir==sdn::NEGATIVE && it_token->second.m_isEstablish_negative) it_token->second.m_incomeParm_negative.transfer=mt.transferID;
+                                    }
+                                    
 			
-				if( mt.dir==sdn::POSITIVE) m_incomeParm_possitive.transfer=mt.transferID;
-				else m_incomeParm_negative.transfer=mt.transferID;
-				RemoveTimeOut ();
+				//if( mt.dir==sdn::POSITIVE) m_incomeParm_possitive.transfer=mt.transferID;
+				//else m_incomeParm_negative.transfer=mt.transferID;
+				/*RemoveTimeOut ();
 				if(mt.dir==sdn::POSITIVE) compute_possive();
-				else compute_negative();
+				else compute_negative();*/
 				//ProcessCRREP(mt.transferID, mt.dir);
 			}
 			else{
@@ -1839,18 +1850,21 @@ namespace ns3 {
 			//else if(m_isEstablish_negative) tempID=transferAddress_negative;
 			compute_possive();
 			compute_negative();
+			bool posmt=false;
+			bool negmt=false;
 			
 			if(possive_valid){
 			                  std::map<std::string,ss_pair>::iterator it_token;
                                              for(it_token=token.begin();it_token!=token.end();++it_token)
                                              {
+                                                    if((it_token->second).m_isEstablish_positive) posmt=true;
                                                      if((it_token->second).m_isEstablish_positive&&!(it_token->second).haveSink) ProcessCRREP(it_token,(it_token->second).m_incomeParm_possitive.transfer, sdn::POSITIVE);       
                                              }
 				//if(!haveSink) ProcessCRREP(m_incomeParm_possitive.transfer, sdn::POSITIVE);
 				SendRoutingMessage(sdn::POSITIVE);
-				if(transferAddress_possitive!=tempID_p){
+				if(posmt&&transferAddress_possitive!=tempID_p){
 					
-					//SendMT(sdn::POSITIVE,0);
+					SendMT(sdn::POSITIVE,0);
 				}
 			}
                           else
@@ -1860,10 +1874,12 @@ namespace ns3 {
                                              {
                                                      if((it_token->second).m_isEstablish_positive) 
                                                      {
+                                                        posmt=true;
                                                         (it_token->second).m_isEstablish_positive=false;
                                                         //todo sendmt
                                                      }   
-                                             }                           
+                                             }
+                                             if(posmt)  SendMT(sdn::POSITIVE,1);
                           }
 			
 			if(negative_valid){
@@ -1871,13 +1887,14 @@ namespace ns3 {
 				std::map<std::string,ss_pair>::iterator it_token;
                                     for(it_token=token.begin();it_token!=token.end();++it_token)
                                     {
+                                        if((it_token->second).m_isEstablish_negative) negmt=true;
                                         if((it_token->second).m_isEstablish_negative&&!(it_token->second).haveSink) ProcessCRREP(it_token,(it_token->second).m_incomeParm_negative.transfer, sdn::NEGATIVE);
                                     }
 				
 			       SendRoutingMessage(sdn::NEGATIVE);
-				if(transferAddress_negative!=tempID_n){
+				if(negmt&&transferAddress_negative!=tempID_n){
 					
-					//SendMT(sdn::NEGATIVE,0);
+					SendMT(sdn::NEGATIVE,0);
 				}     
 			}
 
@@ -1895,11 +1912,12 @@ namespace ns3 {
                                              {
                                                      if((it_token->second).m_isEstablish_negative) 
                                                      {
+                                                        negmt=true;
                                                         (it_token->second).m_isEstablish_negative=false;
                                                         //todo sendmt
                                                      }   
                                              }   
-				//SendMT(sdn::NEGATIVE,1);
+				if(negmt) SendMT(sdn::NEGATIVE,1);
 			}
 
 		}//RoutingProtocol::ComputeRoute
