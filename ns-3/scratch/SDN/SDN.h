@@ -85,14 +85,16 @@ private:
 	//////////TongJi////////////
 	uint32_t Rx_Routing_Bytes, Tx_Routing_Bytes;
 	uint32_t RX_Routing_Pkts, TX_Routing_Pkts;
-	uint32_t Rx_Data_Bytes, Tx_Data_Bytes;
-	uint32_t Rx_Data_Pkts, Tx_Data_Pkts;
+	uint32_t Rx1_Data_Bytes, Tx1_Data_Bytes,Rx2_Data_Bytes, Tx2_Data_Bytes;
+	uint32_t Rx1_Data_Pkts, Tx1_Data_Pkts,Rx2_Data_Pkts, Tx2_Data_Pkts;
 	uint32_t m_port;
-	ApplicationContainer m_source, m_sink, m_cars, m_controller;
+	ApplicationContainer m_source1, m_sink1, m_cars, m_controller,m_source2, m_sink2;
 	Ptr<ns3::vanetmobility::VANETmobility> VMo;
-	void ReceiveDataPacket (Ptr<Socket> socket);
+	void ReceiveDataPacket1 (Ptr<Socket> socket);
+	void ReceiveDataPacket2 (Ptr<Socket> socket);
 	void SendDataPacket ();
-	void TXTrace (Ptr<const Packet> newpacket);
+	void TXTrace1 (Ptr<const Packet> newpacket);
+	void TXTrace2 (Ptr<const Packet> newpacket);
 
 	std::unordered_map<uint64_t, Time> delay;
 	std::vector<int64_t> delay_vector;
