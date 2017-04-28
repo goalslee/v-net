@@ -674,8 +674,8 @@ void VanetSim::Look_at_clock()
 {
 	std::cout<<"Now:"<<Simulator::Now().GetSeconds()<<std::endl;
 	os<<"Now:  "<<Simulator::Now().GetSeconds()
-  	<<"Tx_Data_Pkts:   "<<Tx_Data_Pkts
-  	<<"Rx_Data_Pkts:   "<<Rx_Data_Pkts<<std::endl;
+  	<<"Tx_Data_Pkts:   "<<Tx1_Data_Pkts
+  	<<"Rx_Data_Pkts:   "<<Rx1_Data_Pkts<<std::endl;
 
 
 	Simulator::Schedule(Seconds(1.0), &VanetSim::Look_at_clock, this);
