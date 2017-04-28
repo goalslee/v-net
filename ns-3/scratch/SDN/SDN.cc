@@ -40,12 +40,16 @@ VanetSim::VanetSim()
 	pmod = 0;
 	duration = 400;
 	nodeNum = 0;
-	Rx_Data_Bytes = 0;
-	Rx_Data_Pkts = 0;
+	Rx1_Data_Bytes = 0;
+	Rx1_Data_Pkts = 0;
+	Rx2_Data_Bytes = 0;
+	Rx2_Data_Pkts = 0;
 	Rx_Routing_Bytes = 0;
 	RX_Routing_Pkts = 0;
-	Tx_Data_Bytes = 0;
-	Tx_Data_Pkts = 0;
+	Tx1_Data_Bytes = 0;
+	Tx1_Data_Pkts = 0;
+	Tx2_Data_Bytes = 0;
+	Tx2_Data_Pkts = 0;
 	Tx_Routing_Bytes = 0;
 	TX_Routing_Pkts = 0;
 	m_port = 65419;
@@ -483,17 +487,17 @@ void VanetSim::ConfigApp()
 	Address remote1 (InetSocketAddress(m_SCHInterfaces.GetAddress(nodeNum+25), m_port));
 	OnOffHelper Source1("ns3::UdpSocketFactory",remote1);//SendToSink
 	Source1.SetAttribute("OffTime",StringValue ("ns3::ConstantRandomVariable[Constant=0.0]"));
-	DataRate x("4096bps");//512*8
+	DataRate x1("4096bps");//512*8
 	//Source.SetConstantRate(x,512);//1pk/s
-	Source1.SetConstantRate(x,1024);//2s for 1pk
+	Source1.SetConstantRate(x1,1024);//2s for 1pk
 	//Source.SetConstantRate(x,128);
 
 	Address remote2 (InetSocketAddress(m_SCHInterfaces.GetAddress(nodeNum+27), m_port));
 	OnOffHelper Source2("ns3::UdpSocketFactory",remote2);//SendToSink
 	Source2.SetAttribute("OffTime",StringValue ("ns3::ConstantRandomVariable[Constant=0.0]"));
-	DataRate x("4096bps");//512*8
+	DataRate x2("4096bps");//512*8
 	//Source.SetConstantRate(x,512);//1pk/s
-	Source2.SetConstantRate(x,1024);//2s for 1pk
+	Source2.SetConstantRate(x2,1024);//2s for 1pk
 /*
 
   Address realTo = InetSocketAddress (Ipv4Address (to.c_str ()), 0);
@@ -545,8 +549,8 @@ void VanetSim::ConfigApp()
 	Ptr<Socket> sink1 = Socket::CreateSocket (m_nodes.Get(nodeNum+25), tid1);//The Sink
   //HearALL;
 	//InetSocketAddress local = InetSocketAddress(m_CCHInterfaces.GetAddress(nodeNum+2),m_port);
-	InetSocketAddress local = InetSocketAddress(Ipv4Address::GetZero (),m_port);
-	sink1->Bind(local);
+	InetSocketAddress local1 = InetSocketAddress(Ipv4Address::GetZero (),m_port);
+	sink1->Bind(local1);
 	sink1->BindToNetDevice(m_SCHDevices.Get(nodeNum+25));//仅sch收
 	sink1->SetRecvCallback(MakeCallback(&VanetSim::ReceiveDataPacket1, this));
 
@@ -555,8 +559,8 @@ void VanetSim::ConfigApp()
 	Ptr<Socket> sink2 = Socket::CreateSocket (m_nodes.Get(nodeNum+27), tid2);//The Sink
   //HearALL;
 	//InetSocketAddress local = InetSocketAddress(m_CCHInterfaces.GetAddress(nodeNum+2),m_port);
-	InetSocketAddress local = InetSocketAddress(Ipv4Address::GetZero (),m_port);
-	sink2->Bind(local);
+	InetSocketAddress local2 = InetSocketAddress(Ipv4Address::GetZero (),m_port);
+	sink2->Bind(local2);
 	sink2->BindToNetDevice(m_SCHDevices.Get(nodeNum+27));//仅sch收
 	sink2->SetRecvCallback(MakeCallback(&VanetSim::ReceiveDataPacket2, this));
 	
@@ -612,12 +616,14 @@ void VanetSim::ConfigTracing()
 
 void VanetSim::ProcessOutputs()
 {
-	std::cout<<"send:"<<Tx_Data_Pkts<<std::endl;
-	std::cout<<"recv:"<<Rx_Data_Pkts<<std::endl;
+	std::cout<<"1 send:"<<Tx1_Data_Pkts<<std::endl;
+	std::cout<<"1 recv:"<<Rx1_Data_Pkts<<std::endl;
 
-	os<<"Result:"<<std::endl;
+	std::cout<<"2 send:"<<Tx2_Data_Pkts<<std::endl;
+	std::cout<<"2 recv:"<<Rx2_Data_Pkts<<std::endl;
+	/*os<<"Result:"<<std::endl;
   	os<<"Tx_Data_Pkts:   "<<Tx_Data_Pkts<<std::endl;
-        os<<"Rx_Data_Pkts3:   "<<Rx_Data_Pkts<<std::endl;
+        os<<"Rx_Data_Pkts3:   "<<Rx_Data_Pkts<<std::endl;*/
 
                if (!delay_vector.empty ())
 	{
