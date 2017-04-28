@@ -521,7 +521,7 @@ void VanetSim::ConfigApp()
 
 
 	m_source1 = Source1.Install(m_nodes.Get(nodeNum+24));//Install on Source
-	m_source1.Start(Seconds(300));
+	m_source1.Start(Seconds(duration));
 	m_source1.Stop(Seconds(duration));//Default Start time is 0.
 	std::string temp1 = "/NodeList/"+std::to_string (nodeNum+24)+"/ApplicationList/0/$ns3::OnOffApplication/Tx";
 		Config::ConnectWithoutContext (
