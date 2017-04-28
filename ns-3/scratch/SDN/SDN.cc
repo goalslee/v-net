@@ -168,7 +168,7 @@ void VanetSim::LoadTraffic()
 void VanetSim::ConfigNode()
 {
 	//m_nodes.Create(nodeNum+4);//Cars + 2Controller + Source + Sink
-	m_nodes.Create(nodeNum+26);//Cars + 24Controller + Source + Sink 
+	m_nodes.Create(nodeNum+28);//Cars + 24Controller + Source + Sink 
 	//std::cout<<nodeNum<<std::endl;
 	/*Only Apps Are Different Between Different kind of Nodes*/
 	// Name nodes
