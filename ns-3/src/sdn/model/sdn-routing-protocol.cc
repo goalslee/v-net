@@ -1768,7 +1768,7 @@ namespace ns3 {
 			const sdn::MessageHeader::Maintainment&mt = msg.GetMaintainment();
 			if(mt.desID!=m_CCHmainAddress) return;
 
-			||(mt.dir==sdn::POSITIVE&&!m_isEstablish_positive)||(mt.dir==sdn::NEGATIVE&&!m_isEstablish_negative)
+	
 
 			std::cout<<m_CCHmainAddress<<" handleMT"<<std::endl;
 			if(mt.rORm==0){
